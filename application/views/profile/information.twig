@@ -1,0 +1,146 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/profile.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    {#<script type="text/javascript" src="{{ Url.media('media/js/profile.js') }}"></script>#}
+    {% include 'profile/profilejs.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="cabinet-left">
+            <div class="div100"><h1>{{ "Personal data"|i18n }}</h1></div>
+            <div class="div100">
+                <form method="post">
+                    <div class="inputLabel m-top-10">{{ "What is your name?"|i18n }}
+                       <!-- {% if errors.username is defined %}
+                            <div class="div100"><span class="alert">
+                            {% if errors.username =='Поле "Имя пользователя" не может быть пустым' %}
+                                {{ "This field should be filled"|i18n }}
+                            {% elseif errors.username =='"Имя пользователя" должно быть не менее "3" символов' %}
+                                {{ "Your name must contain at least 3 characters"|i18n }}
+                            {% elseif errors.username =='Такой "Имя пользователя" уже существует' %}
+                                {{ "The user with the same name already exists"|i18n }}
+                            {% else %}
+                                {{ "Your name must contain no more than 64 characters"|i18n }}
+                            {% endif %}
+                                </span></div>
+                        {% endif %}-->
+                    </div>
+                    <div class="inputText">
+                        <input type="text" name="first_name" id="name" maxlength="64" value="{{ item.name|raw|striptags|default(_user.profile.first_name|raw|striptags) }}"/>
+                    </div>
+                    <div class="inputLabel m-top-10">{{ "What is your surname?"|i18n }}
+                    </div>
+                    <div class="inputText">
+                        <input type="text" name="last_name" id="name" maxlength="64" value="{{ item.name|raw|striptags|default(_user.profile.last_name|raw|striptags) }}"/>
+                    </div>
+
+                    <div class="inputLabel">{{ "Your specialization"|i18n }}
+                    </div>
+                    {% if errors.about is defined %}
+                        <div class="div100">
+                            <span class="alert">{{ "The information in this field should contain no more than 250 characters"|i18n }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="inputText">
+                        <input type="text" name="specialization" maxlength="250" id="specialization" value="{{ item.specialization|raw|striptags|default(_user.profile.specialization|raw|striptags) }}"/>
+                    </div>
+
+                    <div class="inputLabel">{{ "About Me"|i18n }}</div>
+                    {% if errors.about is defined %}
+                        <div class="div100">
+                            <span class="alert">{{ "The information in this field should contain no more than 500 characters"|i18n }}</span>
+                        </div>
+                    {% endif %}
+                    <div class="inputTextarea">
+                        <textarea name="about" maxlength="500" id="about">{{ item.about|raw|striptags|default(_user.profile.about|raw|striptags) }}</textarea>
+                    </div>
+
+                    <div class="inputLabel">{{ "Links to social networks"|i18n }}</div>
+                    {% if social_errors is defined %}
+                        <div class="div100">
+                            <span class="alert">{{ "Please verify your links to social networks"|i18n }}</span></div>
+                    {% endif %}
+                    <div id="material-files">
+
+                        {% set key=1 %}
+                        {% for item in socials %}
+                            <div class="inputText">
+                                <div id="soc-{{ key }}" class="socials-links-block">
+                                    <div class="socials-links-icons">
+                                        <ul>
+                                            {% if key ==1 %}
+                                                <li class="li-facebook" title="Facebook">
+                                                    <img src="{{ Url.media('media/images/v1/icons/facebook.png') }}" alt="facebook"/>
+                                                </li>
+                                                <li class="li-vk" title="ВКонтакте">
+                                                    <img src="{{ Url.media('media/images/v1/icons/vk.png') }}" alt="vk"/>
+                                                </li>
+                                                <li class="li-twitter" title="Twitter">
+                                                    <img src="{{ Url.media('media/images/v1/icons/twitter.png') }}" alt="twitter"/>
+                                                </li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+
+                                    <div class="socials-selected-icon"></div>
+                                </div>
+
+                                <input id="soc-{{ key }}-value" type="hidden" name="soc_link_{{ key }}_type" value="{{ item.social|raw|striptags|default("fb") }}"/>
+                                <input type="text" name="soc_link_{{ key }}" value="{{ item.link|raw|striptags|default("") }}"/>
+                            </div>
+                            {% set key=key+1 %}
+                        {% endfor %}
+                        {% set k=key %}
+                        {% if key<6 %}
+                            {% for item in key..5 %}
+                                <div class="inputText{% if key >3 %} not-visible{% endif %}">
+                                    <div id="soc-{{ key }}" class="socials-links-block">
+                                        <div class="socials-links-icons">
+                                            <ul>
+                                                {% if key ==1 %}
+                                                    <li class="li-facebook" title="Facebook">
+                                                        <img src="{{ Url.media('media/images/v1/icons/facebook.png') }}" alt="facebook"/>
+                                                    </li>
+                                                    <li class="li-vk" title="ВКонтакте">
+                                                        <img src="{{ Url.media('media/images/v1/icons/vk.png') }}" alt="vk"/>
+                                                    </li>
+                                                    <li class="li-twitter" title="Twitter">
+                                                        <img src="{{ Url.media('media/images/v1/icons/twitter.png') }}" alt="twitter"/>
+                                                    </li>
+                                                {% endif %}
+                                            </ul>
+                                        </div>
+
+                                        <div class="socials-selected-icon"></div>
+                                    </div>
+
+                                    <input id="soc-{{ key }}-value" type="hidden" name="soc_link_{{ key }}_type" value="facebook"/>
+                                    <input type="text" name="soc_link_{{ key }}" value=""/>
+                                </div>
+                                {% set key=key+1 %}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    {% if k<6 %}
+                        <div id="add-more-files">
+                            <a href="javascript:addMoreSocials()"><span>{{ "Another link"|i18n }}</span></a>
+                        </div>
+                    {% endif %}
+                    <div class="subscribe-button-block">
+                        <input type="submit" class="button" value="{{ "Save Changes"|i18n }}"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="cabinet-right">
+            {% include "profile/navigation.twig" %}
+        </div>
+
+        <div id="profile-clear"></div>
+    </div>
+{% endblock content %}

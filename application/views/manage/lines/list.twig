@@ -1,0 +1,42 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/lines/edit?period='~period.id) }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="Поиск"/>
+        </form>
+
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/lines/show/' ~item.id) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/lines/edit/' ~item.id~'?period='~period.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/lines/published/'~item.id) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/lines/published/'~item.id) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/lines/delete/'~item.id ) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                    </div>
+                    <div class="pull-left">
+                        <a class="link" href="{{ Url.media('manage/lines/show/' ~item.id) }}">{{ item.title }}</a>
+                    </div>
+                        <div class="clear"></div>
+                    <div>
+                        {{ item.description }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {{ paginate|raw }}
+{% endblock content %}

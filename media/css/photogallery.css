@@ -1,0 +1,244 @@
+#gallery-thumbs, .photo-block-description, .photo-block-image, #gallery-nav, #gallery-articles, .gallery-clear, .g-clear-div {
+    position: relative;
+    width: 100%;
+    float: left;
+}
+
+.p-thumb, #gallery-years, .gallery-article, #photogallery-list article, .photo-item-block, #photogallery-list aside {
+    position: relative;
+    float: left;
+}
+
+#photogallery-list article {
+    display: block;
+    width: 620px;
+}
+
+#photogallery-list aside {
+    display: block;
+    width: 220px;
+    left: 100px;
+}
+
+#photogallery-list aside ul {
+    margin: 0;
+    padding: 0;
+    font-size: 18px;
+    line-height: 22px;
+    list-style-type: none;
+}
+
+#photogallery-list aside ul li {
+    margin-top: 7px;
+}
+
+.m-top-5 {
+    margin-top: 5px !important;
+}
+
+#photogallery-list aside ul a {
+    text-decoration: underline;
+}
+
+#photogallery-list aside ul a:hover {
+    text-decoration: none;
+}
+
+.photo-item-block {
+    width: 300px;
+}
+
+.photo-block-2 {
+    left: 20px;
+}
+
+.photo-block-image {
+    margin-top: 10px;
+    font-size: 0;
+    line-height: 0;
+}
+
+.photo-block-description {
+    margin-top: 15px;
+    line-height: 22px !important;
+}
+
+#gallery-style {
+    position: relative;
+    float: right;
+}
+
+#photogallery-content {
+    position: relative;
+    width: 936px;
+    margin: 0 auto;
+}
+
+#gallery-thumbs {
+    margin-top: 15px;
+}
+
+.p-thumb {
+    width: 188px;
+    margin-top: 4px;
+}
+
+.p-thumb a {
+    display: none;
+    position: absolute;
+    width: 184px;
+    height: 184px;
+    left: 0;
+    top: 0;
+    background: url(../images/v1/photogallery/pixel.png);
+}
+
+.p-thumb a span {
+    float: left;
+    width: 164px;
+    margin-left: 10px;
+    text-align: center;
+    color: #fff;
+    text-decoration: underline;
+    margin-top: 0;
+}
+
+#gallery-nav {
+    height: 23px;
+    margin-top: 32px;
+}
+
+#gallery-years {
+    margin-left: -10px;
+}
+
+#gallery-years a, #gallery-style a {
+    display: block;
+    float: left;
+    height: 23px;
+    line-height: 22px;
+    padding: 0 10px;
+    margin-right: 5px;
+    text-decoration: underline;
+}
+
+#gallery-style {
+    float: right !important;
+    margin-right: -10px;
+}
+
+#gallery-years a:hover, #gallery-style a:hover {
+    text-decoration: none;
+}
+
+.selected-g-nav {
+    font-weight: bold;
+    background: #e8d7bf;
+    color: #333333 !important;
+    text-decoration: none !important;
+}
+
+.gallery-article {
+    width: 320px;
+    line-height: 21px;
+    margin-top: 32px;
+}
+
+.w-300 {
+    width: 300px !important;
+}
+
+.w-300 p {
+    margin-right: 0 !important;
+}
+
+.gallery-article img {
+    margin-bottom: 15px;
+}
+
+.g-a-title {
+    font-weight: bold;
+}
+
+.g-a-title a {
+    text-decoration: underline;
+}
+
+.g-a-title a:hover {
+    text-decoration: none;
+}
+
+.g-a-date {
+    font-style: italic;
+    font-size: 13px;
+    color: #999999;
+    margin-bottom: 2px;
+}
+
+.fancybox-close {
+    width: 28px !important;
+    height: 27px !important;
+    right: -50px !important;
+    top: 0 !important;
+    background: url(../images/v1/photogallery/lightbox-ico-close.png) no-repeat !important;
+}
+
+.fancybox-skin {
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.fancybox-title-float-wrap {
+    position: relative !important;
+    margin-bottom: 0 !important;
+}
+
+.fancybox-title-float-wrap .child {
+    background: none !important;
+    display: block !important;
+    text-shadow: none !important;
+    font-family:  'PT Serif', Times, "Times New Roman", sans-serif !important;
+    font-size: 16px !important;
+    color: #333 !important;
+    font-weight: normal !important;
+    padding: 0 !important;
+    white-space: normal !important;
+    margin: 10px 0 0 0 !important;
+}
+
+.fancybox-title-float-wrap {
+    position: relative !important;
+    right: 0 !important;
+    text-align: left !important;
+}
+
+.fancybox-nav span {
+    width: 15px !important;
+    height: 37px !important;
+    background: url(../images/v1/photogallery/fancy-arrows.png) no-repeat !important;
+}
+
+.fancybox-prev {
+    left: -60px !important;
+}
+
+.fancybox-next {
+    right: -60px !important;
+}
+
+.fancybox-next span {
+    background-position: -15px 0 !important;
+}
+
+.fancybox-title-float-wrap .child span {
+    color: #999999 !important;
+}
+
+.gallery-clear {
+    height: 30px;
+}
+
+.g-clear-div {
+    height: 30px;
+    font-size: 0;
+}

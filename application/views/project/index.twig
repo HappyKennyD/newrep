@@ -1,0 +1,568 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru-RU" lang="ru-RU">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>{{ _metadata.title }}</title>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="{{ _metadata.description }}"/>
+    <meta property="og:description" content="{{ _metadata.description }}"/>
+    {% if  _language == 'ru'  %}
+        <meta name="Keywords" content="история казахстана, исторические факты, тесты по истории казахстана, казахи, казахстан" />
+        <meta name="News_keywords" content="история казахстана, исторические факты, тесты по истории казахстана, казахи, казахстан" />
+    {% endif %}
+    {%if _language == 'kz'%}
+        <meta name="News_keywords" content="қазақстан тарихы, тарих, тест қазақстан тарихы, қазақтар, қазақстан" />
+        <meta name="Keywords" content="қазақстан тарихы, тарих, тест қазақстан тарихы, қазақтар, қазақстан"/>
+    {% endif %}
+    {%if _language == 'en'%}
+        <meta name="Keywords" content="history of kazakhstan, kazakhs, kazakhstan, republic of kazakhstan, nomads" />
+        <meta name="News_keywords" content="history of kazakhstan, kazakhs, kazakhstan, republic of kazakhstan, nomads" />
+    {% endif %}
+    <link rel="shortcut icon" href="{{ Url.media('/favicon.png') }}"/>
+    <link rel="icon" href="{{ Url.media('/favicon.png') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/fonts.css') }}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/reset.css') }}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/form.css') }}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/style.css') }}" media="all"/>
+    <script type="text/javascript" src="{{ Url.media('media/js/project/jquery-1.11.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/project/jquery.formstyler.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/project/bjqs-1.3.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/project/script.js') }}"></script>
+</head>
+<body>
+
+<!--[if lt IE 8]>
+<p class="b-browsehappy">Вы используете <strong>устаревший</strong> браузер. Пожалуйста <a href="http://browsehappy.com/" target="_blank">обновите браузер</a> для лучшего отображения сайта.</p>
+<![endif]-->
+
+<div class="b-page">
+<div class="b-wrapper">
+<div class="b-two-col">
+<div class="b-two-col__left">
+    <div class="b-headre__top">
+        <div class="b-header__lang">
+            <div class="b-lang">
+                <ul>
+                    <li class="b-lang__item" >
+                        <a href="{{ Url.media('kz/'~ _return) }}" {% if _language == 'kz' %}class="active" rel="nofollow"{% endif %}>Қаз</a>
+                    </li>
+                    <li class="b-lang__item">
+                        <a href="{{ Url.media('ru/'~ _return) }}" {% if _language == 'ru' %}class="active" rel="nofollow"{% endif %}>Рус</a>
+                    </li>
+                    <li class="b-lang__item">
+                        <a href="{{ Url.media('en/'~ _return) }}" {% if _language == 'en' %}class="active" rel="nofollow"{% endif %}>Eng</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="b-left-sidebar">
+        <div class="b-left-sidebar__logo">
+            <div class="b-logo">
+                <a href="http://e-history.kz" ><img src="{{ Url.media('media/images/project/logo_project.png') }}" alt="logo"/></a>
+            </div>
+        </div>
+        <div class="b-left-sidebar__menu">
+            <div class="b-left-menu">
+                <ul>
+		<li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project) }}" class="b-left-menu-item b-left-menu-item_0">{{ "Main"|i18n }}</a></li>
+                    {% if 'biography' in types %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=biography') }}" class="b-left-menu-item">{{ "Personalia"|i18n }}</a></li>
+                    {% endif %}
+                    {% if ('contents' in types) or ('publications' in types) or ('publicationproject' in types) %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=contents') }}" class="b-left-menu-item b-left-menu-item_2">{{ "Publications"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'photosets' in types %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=photo') }}" class="b-left-menu-item b-left-menu-item_3">{{ "Photogallery"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'video' in types %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=video') }}" class="b-left-menu-item b-left-menu-item_4">{{ "Video"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'infographics' in types %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=infographics') }}" class="b-left-menu-item b-left-menu-item_5">{{ "Infographics"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'books' in types %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=books') }}" class="b-left-menu-item b-left-menu-item_6">{{ "Library project"|i18n }}</a></li>
+                    {% endif %}
+   		    {% if id_project == 4 %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('tests/') }}" class="b-left-menu-item b-left-menu-item_7">{{ "Игра «Правда или ложь»"|i18n }}</a></li>
+                    {% endif %}
+			{% if id_project == 9 %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('game/') }}" class="b-left-menu-item b-left-menu-item_7">{{ "Игра «Правда или ложь»"|i18n }}</a></li>
+                    {% endif %}
+		    {% if (id_project == 11) %}
+                    {% if _language != 'en'%}<li class="b-left-menu__item"><a href="http://quest.e-history.kz" target="_blank" class="b-left-menu-item b-left-menu-item_7">{{ "Астана сити-квест"|i18n }}</a></li>
+                    <li class="b-left-menu__item"><a href="{{ Url.site('day/') }}" target="_blank" class="b-left-menu-item b-left-menu-item_7">{{ "Хронология Астаны"|i18n }}</a></li>{%endif%}
+                    {% endif %}
+<!--dont fogget to add exc in view.twig-->
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="b-two-col__right">
+<!-- HEADER-->
+<div class="b-header">
+    {% if project.image != '0' %}
+    <img style="position: absolute;" width="1050px" height="300px" src="{{ Url.media(project.picture.file_path) }}" alt=""/>
+    {% endif %}
+
+    <div class="b-header__middle">
+        <div class="b-header__info-block">
+            <div class="b-white-block">
+                <div class="b-white-block__left">
+                    <h1 class="b-white-title">{{ project.name }}</h1>
+                </div>
+                <!--<div class="b-white-block__right">{{ project.desc }}</div>-->
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- END HEADER-->
+<!-- CONTENT-->
+<div class="b-content">
+<div class="b-article-list">
+<ul>
+{% if  c=='biography' %}
+    <h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Personalia"|i18n }}</h2>
+{% for item in list %}
+
+    <li class="b-article-list__item">
+        <div class="b-article">
+            <div class="b-article__img-wrapper">
+                {% if item.picture.file_path is defined %}
+<div class="b-article__noimg"><a href="#">
+                        
+                            <div class="bio-photo">
+                                <img height="149px" src="{{ Url.media('/images/w140-h187-cct-si/'~item.picture.file_path, TRUE) }}" alt="{{ item.name }}" title="{{ item.name }}"/>
+                            </div>
+                        
+                    </a></div>{% else %}
+<div class="b-article__img"></div>
+{% endif %}
+                <div class="b-article__corner"></div>
+            </div>
+            <div class="b-article__info">
+                <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=biography&material_id='~item.id) }}">{{ item.name }}</a></h2>
+                <div class="b-article__text">{{ item.desc }}</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </li>
+
+{% endfor %}
+{% endif %}
+
+{% if  c=='video' %}
+    <h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Video"|i18n }}</h2>
+        {% for item in list %}
+
+            <li class="b-article-list__item">
+            <div class="b-article">
+                <div class="b-article__img-wrapper">
+                    <div class="b-article__img">
+                        <a href="{{ Url.site('project/view/'~id_project~'?type=video&material_id='~item.id~'#scontent') }}">
+                            <img height="149px" src="http://img.youtube.com/vi/{{item.link}}/1.jpg" alt=""/>
+                        </a>
+                    </div>
+                    <div class="b-article__corner"></div>
+                </div>
+                <div class="b-article__info">
+                    <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=video&material_id='~item.id~'#scontent') }}">{{ item.title }}</a></h2>
+                    <div class="b-article__text">{{ item.desc}}</div>
+                    <div class="b-article__text">
+                        {{ Date.ru_date(item.date, 'd.m.Y') }} {% if item.category.lvl==3 %}<a href="{{ Url.site('video/'~item.category.parent.id~'#scontent') }}">{{ item.category.parent.name }}</a>{% else %}<a href="{{ Url.site('video/'~item.category.id~'#scontent') }}">{{ item.category.name }}</a>{% endif %}
+                    </div>
+                    <div class="b-article__text">
+                        {{count_comments.comment_count('video',item.id)}} {{ CorrectDeclension.give(count_comments.comment_count('video',item.id))|i18n }}
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+
+            </li>
+
+        {% endfor %}
+    {% endif %}
+
+{% if  c=='photo' %}
+        <h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Photogallery"|i18n }}</h2>
+        {% for item in list %}
+
+            <li class="b-article-list__item">
+                <div class="b-article">
+                    <div class="b-article__img-wrapper">
+                        <div class="b-article__img">
+                            <a href="{{ Url.site('project/view/'~id_project~'?type=photo&material_id='~item.id~'#scontent') }}">
+                                <img  height="149px" src="{% if item.isCover() %}{{ Url.media('images/w300-h225-ccc-si/'~item.pathCover()) }}{% else %}{{ Url.media('images/w300-h225-ccc-si/media/images/nocover.jpg') }}{% endif %}" alt="{{ item.name }}" title="{{ item.name }}"  oncontextmenu="return false"/>
+                            </a>
+                        </div>
+                        <div class="b-article__corner"></div>
+                    </div>
+                    <div class="b-article__info">
+                        <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=photo&material_id='~item.id~'#scontent') }}">{{ item.name() }}</a></h2>
+                        <div class="b-article__text">{{ Date.ru_date(item.date, 'd.m.Y') }} {{ item.category.name }}</div>
+                        <div class="b-article__text">{{ item.countphoto() }} {{ CorrectDeclension.give(item.countphoto(), '1фотография', '2фотографии', '5фотографий', '21фотография')|i18n }}</div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+        {% endfor %}
+{% endif %}
+
+{% if  c=='infographics' %}
+        <h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Infographics"|i18n }}</h2>
+        {% for item in list %}
+
+            <li class="b-article-list__item">
+                <div class="b-article">
+                    <div class="b-article__img-wrapper">
+                        <div class="b-article__noimg">
+                            <a href="{{ Url.site('project/view/'~id_project~'?type=infographics&material_id='~item.id) }}">
+                                {% if (item.picture.file_path) %}
+                                <img height="149px" src="{{ Url.media('/images/w427-h300/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="b-article__corner"></div>
+                    </div>
+                    <div class="b-article__info">
+                        <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=infographics&material_id='~item.id) }}">{{ item.title }}</a></h2>
+                        <div class="b-article__text">{{ Date.ru_date(item.date, 'd.m.Y') }}</div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+
+        {% endfor %}
+    {% endif %}
+
+{% if  c=='contents' %}
+        <h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Publications"|i18n }}</h2>
+        {% for item in list %}
+
+            <li class="b-article-list__item">
+                <div class="b-article">
+                    <div class="b-article__img-wrapper">
+                        {% if (item.picture.file_path) %} <div class="b-article__noimg">
+                            <a href="{{ Url.site('project/view/'~id_project~'?type=contents&material_id='~item.id) }}">
+                               
+                                    <img height="149px" src="{{ Url.media('/images/w427-h300/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                                
+                             </a>
+                        </div>
+{% else %}
+<div class="b-article__img">
+                            <a href="{{ Url.site('project/view/'~id_project~'?type=contents&material_id='~item.id) }}">
+                               </a>
+                        </div>
+{% endif %}
+                        <div class="b-article__corner"></div>
+                    </div>
+                    <div class="b-article__info">
+                        <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=contents&material_id='~item.id) }}">{{ item.title }}</a></h2>
+                        <div class="b-article__text">{{ item.description }}</div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+
+        {% endfor %}
+
+    {% for item in list2 %}
+
+        <li class="b-article-list__item">
+            <div class="b-article">
+                <div class="b-article__img-wrapper">
+                     {% if (item.picture.file_path) %}
+			<div class="b-article__noimg">
+                        <a href="{{ Url.site('project/view/'~id_project~'?type=publications&material_id='~item.id) }}">
+                         
+                            <img height="149px" src="{{ Url.media('/images/w427-h300/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                         
+                        </a>
+                    </div>
+
+{% else %} 
+<div class="b-article__img">
+                        <a href="{{ Url.site('project/view/'~id_project~'?type=publications&material_id='~item.id) }}">
+                         
+                           
+                         
+                        </a>
+                    </div>
+{% endif %}
+                    <div class="b-article__corner"></div>
+                </div>
+                <div class="b-article__info">
+                    <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=publications&material_id='~item.id) }}">{{ item.title }}</a></h2>
+                    <div class="b-article__text">{{ item.description }}</div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </li>
+
+    {% endfor %}
+
+
+    {% for item in list3 %}
+
+        <li class="b-article-list__item">
+            <div class="b-article">
+                <div class="b-article__img-wrapper">
+                     {% if (item.picture.file_path) %}<div class="b-article__noimg">
+                        <a href="{{ Url.site('project/view/'~id_project~'?type=public&material_id='~item.id) }}">
+                            
+                                <img height="149px" src="{{ Url.media('/images/w427-h300/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                            
+                              </a>
+                    </div>
+{% else %}
+<div class="b-article__img">
+                        <a href="{{ Url.site('project/view/'~id_project~'?type=public&material_id='~item.id) }}">
+                            
+                            
+                              </a>
+                    </div>
+{% endif %}
+                    <div class="b-article__corner"></div>
+                </div>
+                <div class="b-article__info">
+                    <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=public&material_id='~item.id) }}">{{ item.title }}</a></h2>
+                    <div class="b-article__text">{{ item.description }}</div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </li>
+
+    {% endfor %}
+    {% endif %}
+
+{% if  c=='books' %}
+        <h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Library project"|i18n }}</h2>
+        {% for item in list %}
+
+            <li class="b-article-list__item">
+                <div class="b-article">
+                    <div class="b-article__img-wrapper">
+                         {% if item.cover.file_path is defined %} <div class="b-article__noimg">
+                          
+
+                                    <img height="149px" src="{{ Url.media('/images/w140/'~item.cover.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+
+
+                            
+                        </div>{% else %}
+				<div class="b-article__img"></div>
+				{% endif %}
+                        <div class="b-article__corner"></div>
+                    </div>
+                    <div class="b-article__info">
+                        <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=books&material_id='~item.id~'#scontent') }}">{{ item.title }}</a></h2>
+                        <div class="b-article__text">{{ item.author }}</div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+        {% endfor %}
+
+    {% endif %}
+
+<!--
+    {%  if c== 0 %}
+
+        <h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Publications"|i18n }}</h2>
+        {% if list != ''%}
+        {% for item in list %}
+
+            <li class="b-article-list__item">
+                <div class="b-article">
+                    <div class="b-article__img-wrapper">
+                        <div class="b-article__img">
+                            <a href="{{ Url.site('project/view/'~id_project~'?type=contents&material_id='~item.id) }}">
+                                <img src="{{ Url.media('/images/w427-h300/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                            </a>
+                        </div>
+                        <div class="b-article__corner"></div>
+                    </div>
+                    <div class="b-article__info">
+                        <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=contents&material_id='~item.id) }}">{{ item.title }}</a></h2>
+                        <div class="b-article__text">{{ item.description }}</div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+
+        {% endfor %}
+            {% endif %}
+            {% if list3 !='' %}
+        {% for item in list3 %}
+
+            <li class="b-article-list__item">
+                <div class="b-article">
+                    <div class="b-article__img-wrapper">
+                        <div class="b-article__img">
+                            <a href="{{ Url.site('project/view/'~id_project~'?type=public&material_id='~item.id) }}">
+                                <img src="{{ Url.media('/images/w427-h300/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                            </a>
+                        </div>
+                        <div class="b-article__corner"></div>
+                    </div>
+                    <div class="b-article__info">
+                        <h2 class="b-article__title"><a href="{{ Url.site('project/view/'~id_project~'?type=public&material_id='~item.id) }}">{{ item.title }}</a></h2>
+                        <div class="b-article__text">{{ item.description }}</div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </li>
+
+        {% endfor %}
+            {% endif %}
+
+        {% if list == '' and list3 == '' %}
+            <p>В данном проекте нет материалов.</p>
+        {% endif %}
+
+            {% endif %}-->
+
+</ul>
+</div>
+</div>
+<!-- END CONTENT-->
+</div>
+<div class="clear"></div>
+</div>
+{% if files_test.id != "" %}
+<div class="b-push"></div>
+</div>
+<!-- FOOTER-->
+
+
+
+
+<div class="b-footer">
+    <div class="b-footer__left"><a href="#" class="b-pdf">&nbsp;</a></div>
+    <div class="b-footer__right">
+        <div class="b-footer__slider">
+
+            <div class="b-image-slider js-image-slider">
+                <ul class="b-slides">
+                    <li>
+                        <div class="b-slide-item">
+                            <div class="b-news-list">
+                                <div class="b-news-list__col">
+                                    <ul>
+
+                    {% for file in files %}
+                                        <li class="b-news-list__item"><a target="_blanc" href="{{ Url.media(file.storage.file_path) }}">{{ file.storage.name }}
+                                ({{ FileData.size(file.filesize) }})</a></li>
+                    {% endfor %}
+
+
+                                           </ul>
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('.js-image-slider').bjqs({
+                        // width and height need to be provided to enforce consistency
+                        // if responsive is set to true, these values act as maximum dimensions
+                        width : 920,
+                        height : 85,
+
+                        // animation values
+                        animtype : 'slide', // accepts 'fade' or 'slide'
+                        animduration : 450, // how fast the animation are
+                        animspeed : 6000, // the delay between each slide
+                        automatic : true, // automatic
+
+                        // control and marker configuration
+                        showcontrols : true, // show next and prev controls
+                        centercontrols : false, // center controls verically
+                        nexttext : 'Next', // Text for 'next' button (can use HTML)
+                        prevtext : 'Prev', // Text for 'previous' button (can use HTML)
+                        showmarkers : false, // Show individual slide markers
+                        centermarkers : true, // Center markers horizontally
+
+                        // interaction values
+                        keyboardnav : true, // enable keyboard navigation
+                        hoverpause : true, // pause the slider on hover
+
+                        // presentational options
+                        usecaptions : true, // show captions for images using the image title tag
+                        randomstart : true, // start slider at random slide
+                        responsive : false
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+{% endif %}
+<div class="footer">
+    <div class="containerContent">
+        <a href="//e-history.kz/kz" target="_blank">
+            {% if _language == 'ru' %}
+                <p class="logoFooter">ИСТОРИЯ <br> КАЗАХСТАНА
+
+                </p>
+            {% endif %}
+
+            {% if _language == 'kz' %}
+                <p class="logoFooter">ҚАЗАҚСТАН <br>ТАРИХЫ
+
+                </p>
+            {% endif %}
+
+            {% if _language == 'en' %}
+                <p class="logoFooter">HISTORY OF <br> KAZAKHSTAN
+
+                </p>
+            {% endif %}
+        </a>
+        <div class="social-block">
+            <a target="_blank" href="https://www.facebook.com/kazhistory" class="social-icon"></a>
+            <a target="_blank" href="http://vk.com/historykaz" class="social-icon"></a>
+            <a target="_blank" href="https://twitter.com/history_kaz" class="social-icon"></a>
+            <a target="_blank" href="http://my.mail.ru/mail/kaz-ehistory" title="Мой мир" class="social-icon"></a>
+            <a target="_blank" href="http://el.kz/ehistory" class="social-icon" class="social-icon"></a>
+            <a target="_blank" href="http://www.youtube.com/channel/UCyAimvIRIbuoYsXvaWdzD5w" class="social-icon"></a>
+            <a target="_blank" href="http://kaztube.kz/ru/channel/71420" class="social-icon"></a>
+            <a target="_blank" href="http://ehistory.yvision.kz/" title="Yvision" class="social-icon"></a>
+            <a target="_blank" href="http://e-history.kz/kz/rss"class="social-icon"></a>
+            <a target="_blank" href="https://itunes.apple.com/us/app/e-history/id816071342" class="social-icon"></a>
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=kz.ehistory.android" class="social-icon"></a>
+        </div>
+    </div>
+</div>
+
+<!-- END FOOTER-->
+</div>
+</body>
+</html>

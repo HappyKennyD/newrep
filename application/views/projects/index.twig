@@ -1,0 +1,124 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/v1.15.01.15.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/projects.css') }}" />
+    <link href="{{ Url.media('media/css/dist/vis.css') }}" rel="stylesheet" type="text/css" />
+{% endblock %}
+{% block extrascripts %}
+    <script src="{{ Url.media('media/js/dist/vis.js') }}"></script>
+{% endblock %}
+{% block content %}
+
+<div class="projects">
+<div class="div100">
+	<div class="bread-block">{% if _language == 'kz'%}<a class="b-item" href="/kz">{{"Басты бет"|i18n}}</a>
+{% elseif _language == 'ru'%}<a class="b-item" href="/ru">{{"Главная"|i18n}}</a>
+{% else %}<a class="b-item" href="/en">{{"Home"|i18n}}</a>
+{% endif%} »
+		<span class="b-item">{{"Our projects"|i18n}}</span>	
+	</div>
+</div>
+<div><h1>{{"Our projects"|i18n}}</h1></div>
+<table style=" ">
+	<tr>
+		<td>
+			{% if _language == 'kz'%}
+			<a title="«{{ "N. Nazarbayev. Biography in documents"|i18n }}»" href="{{ Url.site('contents/list/378') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/pr_kz.jpg') }}" alt="Н. Назарбаев. Құжаттардағы өмірбаян" width="240" height="120"></a>
+			{% elseif _language == 'ru'%}
+			<a title="«{{ "N. Nazarbayev. Biography in documents"|i18n }}»" href="{{ Url.site('contents/list/378') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/pr_ru.jpg') }}" alt="Н. Назарбаев. Биография в документах" width="240" height="120"></a>
+			{% else %}
+			<a title="«{{ "N. Nazarbayev. Biography in documents"|i18n }}»" target="_blank" href="{{ Url.site('contents/list/378') }}">
+				<img src="{{ Url.media('media/theme/v1/pr_en.jpg') }}" alt="N. Nazarbayev. Biography in documents" width="240" height="120">
+			</a>
+			{% endif%}
+		</td>
+		<td>
+			{% if _language == 'kz'%}
+			<a title="«{{ "Eurasian Economic Union"|i18n }}»" href="{{ Url.site('contents/list/377') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/eeeu_kz.jpg') }}" alt="Еуразиялық экономикалық одақ" width="240" height="120"></a>
+			{% elseif _language == 'ru'%}
+			<a title="«{{ "Eurasian Economic Union"|i18n }}»" target="_blank" href="{{ Url.site('contents/list/377') }}">
+					<img src="{{ Url.media('media/theme/v1/eeeu_ru.jpg') }}" alt="Eurasian Economic Union" width="240" height="120"></a>
+			{% else %}
+			<a title="«{{ "Eurasian Economic Union"|i18n }}»" href="{{ Url.site('contents/list/377') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/eeeu_en.jpg') }}" alt="Евразийский экономический союз" width="240" height="120"></a>
+			{% endif%}
+		</td>
+		<td>
+			{% if _language == 'kz'%}
+			<a title="«{{ "Nuclear-free world is our mission"|i18n }}»" href="{{ Url.site('contents/list/382') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/nuc_kz.jpg') }}" alt="Ядролық қарусыз әлем – біздің ортақ мақсатымыз" width="240" height="120"></a>
+			{% elseif _language == 'ru'%}
+			<a title="«{{ "Nuclear-free world is our mission"|i18n }}»" target="_blank" href="{{ Url.site('contents/list/382') }}">
+					<img src="{{ Url.media('media/theme/v1/nuc_ru.jpg') }}" alt="Nuclear-free world is our mission" width="240" height="120"></a>
+			{% else %}
+			<a title="«{{ "Nuclear-free world is our mission"|i18n }}»" href="{{ Url.site('contents/list/382') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/nuc_en.jpg') }}" alt="Безъядерный мир — наша общая цель" width="240" height="120"></a>
+			{% endif%}	
+		</td>
+	</tr>
+	<tr>
+		<td>
+			{% if _language == 'kz'%}
+			<a title="«{{ "Ulytau — witness of Kazakh history"|i18n }}»" href="{{ Url.site('contents/list/389') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/ulytau_kz.jpg') }}" alt="Ұлытау — тарих куәгері" width="240" height="120"></a>
+			{% elseif _language == 'ru'%}
+			<a title="«{{ "Ulytau — witness of Kazakh history"|i18n }}»" target="_blank" href="{{ Url.site('contents/list/389') }}">
+					<img src="{{ Url.media('media/theme/v1/ulytau_ru.jpg') }}" alt="Ulytau — witness of Kazakh history" width="240" height="120"></a>
+			{% else %}
+			<a title="«{{ "Ulytau — witness of Kazakh history"|i18n }}»" href="{{ Url.site('contents/list/389') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/ulytau_en.jpg') }}" alt="Улытау — свидетель казахской истории" width="240" height="120"></a>
+			{% endif%}
+		</td>
+		<td>
+			{% if _language == 'kz'%}
+			<a title="«{{ "Astana in the stream of history"|i18n }}»" href="http://e-history.kz/{{ _language }}/project/index/11" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/astana_kz.jpg') }}" alt="«{{ "Astana in the stream of history"|i18n }}»" width="240" height="120"></a>
+			{% elseif _language == 'ru'%}
+			<a title="«{{ "Astana in the stream of history"|i18n }}»" href="http://e-history.kz/{{ _language }}/project/index/11" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/astana_ru.jpg') }}" alt="«{{ "Astana in the stream of history"|i18n }}»" width="240" height="120"></a>
+			{% else %}
+			<a title="«{{ "Astana in the stream of history"|i18n }}»" href="http://e-history.kz/{{ _language }}/project/index/11" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/astana_en.jpg') }}" alt="«{{ "Astana in the stream of history"|i18n }}»" width="240" height="120"></a>
+			{% endif%}
+		</td>
+		<td>
+			{% if _language == 'kz'%}
+			<a href="http://zhenis70.e-history.kz/kz" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/selfi_kz.jpg') }}" alt="«БІЗ – ЖЕҢІСТІҢ ҰРПАҒЫМЫЗ!» СЕЛФИ-БАЙҚАУЫ" width="240" height="120"></a>
+			{% elseif _language == 'ru' %}
+			<a href="http://zhenis70.e-history.kz/ru" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/selfi_ru.jpg') }}" alt="СЕЛФИ-КОНКУРС «МЫ - НАСЛЕДНИКИ ПОБЕДЫ»" width="240" height="120"></a>
+			{% else %}			
+			{% endif%}				
+		</td>
+		
+	</tr>
+	<tr>
+		<td>
+			{% if _language == 'kz'%}
+			<a href="{{ Url.site('project/index/4') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/vov.jpg') }}" alt="" width="240" height="120"></a>
+			{% elseif _language == 'ru' %}
+			<a href="{{ Url.site('project/index/4') }}" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/vov.jpg') }}" alt="" width="240" height="120"></a>
+			{% else %}				
+			{% endif%}				
+		</td>
+		<td>
+			{% if _language == 'kz'%}
+			<a title="«{{ ""|i18n }}»" href="http://quest.e-history.kz/kz" target="_blank">
+				<img src="{{ Url.media('media/theme/v1/quest-astana.jpg') }}" alt="" width="240" height="120"></a>
+			{% elseif _language == 'ru'%}
+			<a title="«{{ ""|i18n }}»" target="_blank" href="http://quest.e-history.kz/ru">
+					<img src="{{ Url.media('media/theme/v1/quest-astana.jpg') }}" alt="" width="240" height="120"></a>
+			{% else %}
+			{% endif%}
+		</td>
+
+	</tr>
+</table>
+   </div>
+{% endblock content %}

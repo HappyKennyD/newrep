@@ -1,0 +1,119 @@
+/* Comments CSS */
+
+.comments-count-title, .one-comment, .debate-bottom-space {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.c-user-avatar, .c-user-comment, .add-comment-block {
+    position: relative;
+    /*float: left;*/
+}
+
+.comments-count-title {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    margin-top: 40px;
+}
+
+.one-comment {
+    margin-top: 23px;
+}
+
+.c-user-avatar {
+    width: 80px;
+}
+
+.c-user-avatar img {
+    margin-top: 7px;
+}
+
+.c-user-comment {
+    width: 540px;
+}
+
+.comment-information {
+    line-height: 24px;
+}
+
+.comment-information strong {
+    /*font-size: 18px;*/
+    /*margin-right: 10px;*/
+}
+
+.comment-information span {
+    color: #999999;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.comment-text {
+    line-height: 24px;
+    margin-left: 37px;
+    word-wrap: break-word;
+}
+
+.add-comment-block {
+    width: 371px;
+    margin: 30px auto 20px;
+}
+
+.add-comment-block textarea {
+    width: 357px;
+    height: 240px;
+    color: #999999;
+    font-size: 18px;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    padding: 10px 6px !important;
+    margin-bottom: 0;
+}
+
+.add-comment-block span {
+    display: block;
+    float: right;
+    line-height: 44px;
+
+    clear: both;
+    margin-top: 33px;
+
+    font-family: MuseoSansCyrl-500;
+    color:  #484848;
+    font-size: 14px;
+    text-align: center;
+}
+.comment-button {
+    cursor: pointer;
+    color: #484848;
+
+    border-width: 1px;
+    border-color:  #31c2ca;
+    border-style: solid;
+    background-color:  #ffffff;
+    width: 177px;
+    height: 44px;
+    border-radius: 50px;
+}
+
+.comment-text::before{
+   /*background: url("uchebnik/left.png") no-repeat;*/
+    content: url("uchebnik/left.png");
+    margin-right: 17px;
+}
+
+.comment-text::after{
+    /*background: url("uchebnik/right.png") no-repeat;*/
+    content: url("uchebnik/right.png");
+    margin-left: 17px;
+}
+
+.block-title-text{
+    width: 350px;
+    font-family: MuseoSansCyrl-700;
+    font-size: 18px;
+    text-align: center;
+    color: #d8283b;
+    margin: 50px auto;
+    line-height: 1.4;
+}

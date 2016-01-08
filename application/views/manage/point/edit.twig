@@ -1,0 +1,76 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="POST">
+        <div style="padding: 20px;">
+            <div>
+                <h4>{{ "Edit point"|i18n }}</h4>
+            </div>
+            <div>
+                <input type="hidden" name="district_id" value="{{ point.district_id }}" />
+
+                <label for="name">{{ "Name"|i18n }}</label>
+                <input type="text" name="name" id="name" class="input-block-level" value="{{ point.name }}" />
+
+                <label for="marker">{{ "Marker"|i18n }}</label>
+                <input type="radio" name="marker" id="marker" value="0" {% if point.marker==0 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/0.png") }} /> {{ "City"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="1" {% if point.marker==1 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/1.png") }} /> {{ "Big city"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="2" {% if point.marker==2 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/2.png") }} /> {{ "Showplace"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="3" {% if point.marker==3 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/3.png") }} /> {{ "Locality"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="4" {% if point.marker==4 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/4.png") }} /> {{ "Mausoleum"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="5" {% if point.marker==5 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/5.png") }} /> {{ "Mosque"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="6" {% if point.marker==6 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/6.png") }} /> {{ "Church"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="7" {% if point.marker==7 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/7.png") }} /> {{ "Relig"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="8" {% if point.marker==8 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/8.png") }} /> {{ "Museum"|i18n }}<br />
+
+                <input type="radio" name="marker" id="marker" value="9" {% if point.marker==9 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/9.png") }} /> {{ "Arch"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="10" {% if point.marker==10 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/10.png") }} /> {{ "Gorodishe"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="11" {% if point.marker==11 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/11.png") }} /> {{ "Zapovednik"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="12" {% if point.marker==12 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/12.png") }} /> {{ "Culture"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="13" {% if point.marker==13 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/13.png") }} /> {{ "Kurgan"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="14" {% if point.marker==14 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/14.png") }} /> {{ "Nature"|i18n }}<br />
+
+                <input type="radio" name="marker" id="marker" value="15" {% if point.marker==15 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/15.png") }} /> {{ "Zanyatost"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="16" {% if point.marker==16 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/16.png") }} /> {{ "Zdorov"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="17" {% if point.marker==17 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/17.png") }} /> {{ "Invest"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="18" {% if point.marker==18 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/18.png") }} /> {{ "Cult"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="19" {% if point.marker==19 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/19.png") }} /> {{ "Edu"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="20" {% if point.marker==20 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/20.png") }} /> {{ "Sport"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="21" {% if point.marker==21 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/21.png") }} /> {{ "Build"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="22" {% if point.marker==22 %}checked="checked"{% endif %} /> <img src={{ Url.media("media/theme/markers/22.png") }} /> {{ "Econom"|i18n }}<br />
+
+                <label for="image">{{ "Image"|i18n }}</label>
+                {{ uploader|raw }}
+                {% if point.image is defined and point.image  %}
+                    <div style="margin-bottom: 10px">
+                        <img src="{{ Url.media(point.picture.file_path, TRUE) }}" alt="" id="photo" />
+                        <input type="hidden" id="image" name="image" value="{{ point.image }}">
+                    </div>
+                    {% set confirm = 'Image deleting confirmation'|i18n %}
+                    <a class="btn btn-info" onclick="return confirm('{{ 'Image deleting confirmation'|i18n }}')" href="{{ Url.site('manage/point/clearimage/'~point.id) }}">{{ "Delete image"| i18n }} &times;</a>
+                {% else %}
+                    <img alt="" id="photo" style="display: none;"/>
+                    <input type="hidden" id="image" name="image" value="0" />
+                {% endif %}
+
+                <label for="desc">{{ "Description"|i18n }}</label>
+                <textarea name="desc" id="desc" maxlength="200" rows="3" class="input-block-level">{{ point.desc }}</textarea>
+
+                <label for="text">{{ "Text"|i18n }}</label>
+                <textarea class="redactor" name="text" id="text" class="input-block-level">{{ point.text }}</textarea>
+
+                <div>
+
+                    <input type="hidden" name="published" value="0" />
+                    <input type="checkbox" name="published" value="1" id="published" {% if point.published %}checked="checked"{% endif %} />
+                    <label for="published" style="display: inline;">{{ "Publish"|i18n }}</label>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/maps/view/'~point.district_id) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,40 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <h4 style="padding-left: 20px;">{{ "Жузы"|i18n }}</h4>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        <table class="table table-striped">
+            {% for item in cats %}
+                <tr>
+                    <td>
+                        <div style="padding-left: {{ item.level }}em">
+                            {% if item.lvl==2 %}<b>{{ item.name }}</b>{% else %}{{ item.name }}{% endif %}
+                        </div>
+                    </td>
+                    <td>
+                        <div class="btn-group pull-right">
+
+                            {% if item.id_publication==0 %}
+                                <a class="btn btn-success btn-mini" href="{{ Url.media('manage/specprojects/'~type~'edit'~'?zhuzid='~item.id) }}"><i class="icon-plus"></i> {{ "Добавить описание"|i18n }}</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-danger btn-mini" href="{{ Url.media('manage/specprojects/'~type~'delete/'~item.id_publication~'?zhuzid='~item.id) }}"><i class="icon-remove"></i>  Удалить описание</a>
+                                <a class="btn btn-warning btn-mini" href="{{ Url.media('manage/specprojects/'~type~'edit/'~item.id_publication~'?zhuzid='~item.id) }}"><i class="icon-edit"></i> {{ "Изменить описание"|i18n }}</a>
+                            {% endif %}
+
+                            {% if item.parent_id != 0 %}
+                                <a class="btn btn-info btn-mini" href="{{ Url.media('manage/specprojects/upcategory/'~item.id) }}"><i class="icon-arrow-up"></i></a>
+                                <a class="btn btn-info btn-mini" href="{{ Url.media('manage/specprojects/downcategory/'~item.id) }}"><i class="icon-arrow-down"></i></a>
+                            {% endif %}
+
+                            <a class="btn btn-mini" href="{{ Url.media('manage/specprojects/newcategory/'~item.id) }}"><i class="icon-plus"></i> {{ "Subcategory"|i18n }}</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/specprojects/editcategory/'~item.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+                            {% if (item.lvl!=2) and (item.lvl!=1) %} <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/specprojects/deletecategory/'~item.id) }}"><i class="icon-remove icon-white"></i></a> {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

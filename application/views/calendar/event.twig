@@ -1,0 +1,108 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/calendar.css') }}" />
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript">
+        document.BASE_URL = '{{ Url.site('/') }}';
+        var id = {{ id }};
+    </script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.calendar-widget.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/calendar.js') }}"></script>
+{% endblock extrascripts %}
+{% block content %}
+    <div class="wrap">
+        {% include 'layout/bread-crumbs.twig' %}
+
+        <div id="calendar-title">
+            <h1>{{ "Календарь событий"|i18n }}</h1>
+        </div>
+        
+        <div id="calendar-left">
+            <div id="event-list-title">{% if "now"|date('j')==day and "now"|date('m')==month %}{{ "Сегодня"|i18n }} {% endif %}{{ Date.ru_date('2013-'~ month~'-'~day, 'j F') }}</div>
+            
+            <div id="event-list">
+                <table>
+                    <colgroup>
+                        <col width="90" />
+                        <col />
+                    </colgroup>
+                    {% for item in list %}
+                        <tr>
+                            <td style="padding-bottom: 0;"><span class="event-year">{{ item.year }}</span></td>
+                            <td style="padding-bottom: 0;"><a href="javascript:showEvent({{ item.id }})" {% if id %}{% if id==item.id %}class="selected-event"{% endif %}{% elseif loop.first %}class="selected-event"{% endif %}>{{ item.title }}</a></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="padding-top: 0;">{{ item.desc }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+            </div>
+            
+            <div class="event-line"></div>
+
+            {% for item in list %}
+                <div id="event-{{ item.id }}" class="event-content">
+                    <div class="event-info">
+                        <p class="event-date">{{ Date.ru_date('2013-'~ month~'-'~day, 'j F') }} {{ item.year }}</p>
+                        <h3 class="event-title">{{ item.title }}</h3>
+                        <p class="event-preview">
+                            {% if item.picture.file_path is defined %}
+                                <img src="{{ Url.media('/images/w541-cct-si/'~item.picture.file_path, TRUE) }}" alt="" />
+                            {% endif %}
+                        </p>
+                    </div>
+
+                    <div class="event-announce">
+                        <div></div>
+                        <p>
+                            {{ item.description }}
+                        </p>
+                    </div>
+                    <div class="event-text">
+                        {{ item.text|raw }}
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="bottom-line"></div>
+
+            <div class="div100">
+                <div class="likes">
+                    <script type="text/javascript">(function () {
+                            if (window.pluso) if (typeof window.pluso.start == "function") return;
+                            var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                            s.type = 'text/javascript';
+                            s.charset = 'UTF-8';
+                            s.async = true;
+                            s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                            var h = d[g]('head')[0] || d[g]('body')[0];
+                            h.appendChild(s);
+                        })();</script>
+                    <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="calendar-right">
+            <div id="tomorrow-events">
+                <ul>
+                    <li class="e-title">{{ "Завтра"|i18n }} {{ Date.ru_date(tomorrow, 'j F') }}</li>
+                    {% for item in list_tomorrow %}
+                        <li><a href="{{Url.site('calendar/event/'~item.id)}}">{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="event-line"></div>
+            
+            <div id="calendar-block">
+                <span id="selectedDay">{{ day }}</span>
+                <span id="selectedMonth">{{ month|i18n }}</span>
+            </div>
+            <input type="hidden" id="_language" value="{{ _language }}" />
+        </div>
+    </div>
+{% endblock content %}

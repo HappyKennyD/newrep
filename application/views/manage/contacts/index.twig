@@ -1,0 +1,40 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn" href="{{ Url.media('manage/contacts/edit') }}"><i class="icon-plus"> {{ "Add"|i18n }}</i></a>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in contacts %}
+            <div class="list-row">
+                <span style="padding: 10px;"><strong>{{ item.name }}</strong></span>
+                <div class="pull-right btn-group">
+                    <a class="btn btn-success btn-mini" href="{{ Url.media('manage/contacts/up/' ~item.id) }}"><i class="icon-arrow-up"></i></a>
+                    <a class="btn btn-danger btn-mini" href="{{ Url.media('manage/contacts/down/' ~item.id) }}"><i class="icon-arrow-down"></i></a>
+                    <a class="btn btn-mini" href="{{ Url.media('manage/contacts/editPost?c_id='~item.id) }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+                    <a class="btn btn-mini" href="{{ Url.media('manage/contacts/view/'~item.id) }}"><i class="icon-eye-open"></i> {{ "Show"|i18n }}</a>
+                    <a class="btn btn-mini" href="{{ Url.media('manage/contacts/edit/'~item.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+                    <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/contacts/delete/'~item.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+                </div>
+                <div class="clear"></div>
+                {% for attach in item.attach.find_all() %}
+                    <div style="padding-left: 10px;">
+                        <span style="padding: 10px;">{{ attach.post }}</span>
+                        <div class="pull-right btn-group">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/contacts/editPost/'~attach.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/contacts/deletePost/'~attach.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                {% endfor %}
+                <div class="clear"></div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<form action="" style="margin:0" method="post">
+    <div class="modal-header">
+        <h4>{{ "Add new category"|i18n }}</h4>
+    </div>
+    <div class="modal-body">
+        <label for="name">{{ "Name"|i18n }}</label>
+        <input type="text" name="name" class="input-block-level" id="name" />
+
+        {% if newroot is defined %}
+            <label for="key">{{ "Key"|i18n }}</label>
+            <input type="text" name="key" id="key" class="input-block-level" value="{{ category.key }}" id="name" />
+        {% endif %}
+    </div>
+    <div class="modal-footer">
+        <a href="{{ cancel_url }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+        <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+    </div>
+</form>
+{% endblock content %}

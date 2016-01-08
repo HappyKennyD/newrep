@@ -1,0 +1,86 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/questions.css') }}" />
+{% endblock %}
+
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/questions.js') }}"></script>
+{% endblock %}
+
+{% block overlay %}
+    <div id="faq-hideshow" class="hideshow">
+        <div class="fade-overlay"></div>
+        <div id="faq-content">
+            <div id="overlay-background">
+                <div id="in-faq-content">
+                    <a id="close-overlay" href="javascript:overlayClose()"></a>
+                    
+                    <div class="overlay-title">{{ "Ask a Question"|i18n }}</div>
+                    <div class="overlay-label">{{ "Message text"|i18n }}</div>
+                    <div class="overlay-input">
+                        <textarea id="question-text"></textarea>
+                        
+                        <input type="hidden" id="message" value="{{ "Your question has been sent, thank you."|i18n }}" />
+                    </div>
+                    <div class="overlay-error">* {{ "The question must contain a minimum of 30 characters"|i18n }}</div>
+                    <div class="overlay-success">{{ "The question has been successfully sent"|i18n }}!</div>
+                    <div class="div100 m-top-17">
+                        <a href="javascript:sendFaqMessage()" class="button w-160">{{ "Send"|i18n }}</a>
+                    </div>
+                </div>
+                <div id="overlay-clear"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="questions-left">
+            <div class="div100"><h1>{{ "Question-answer"|i18n }}</h1></div>
+            
+            <div id="search-form-block">
+                <form action="" method="post">
+                    <input type="text" name="search" id="search" class="search-input" value="{{ search|raw|striptags|default("Search by section"|i18n) }}" alt="{{ "Search by section"|i18n }}" />
+                    <input type="submit" class="button w-139" value="{{ "Find"|i18n }}" />
+                </form>
+            </div>
+            {% for item in list %}
+            <div class="faq-block is-question">
+                <div class="faq-photo">
+                    <img src="{% if item.user.profile.photo!=0 %} {{ Url.media('/images/w65-h65-ccc-si/'~item.user.profile.img.file_path) }}{% else %}{{ Url.media('/images/w65-h65-ccc-si/media/images/no_user.jpg') }}{% endif %}" width="65" height="65" alt="" />
+                </div>
+                
+                <div class="faq-text">
+                    <div class="faq-author">{{ item.user.username|raw|striptags }} <span>{{ Date.translate(item.date, 'd.m.Y, H:i') }}</span></div>
+                    <div class="faq-txt">{{ item.question|raw|striptags }}</div>
+                </div>
+            </div>
+            <div class="faq-block is-answer">
+                <div class="faq-photo">
+                    <img src="{% if item.qalist.user.profile.photo!=0 %} {{ Url.media('/images/w65-h65-ccc-si/'~item.qalist.user.profile.img.file_path) }}{% else %}{{ Url.media('/images/w65-h65-ccc-si/media/images/no_user.jpg') }}{% endif %}" width="65" height="65" alt="" />
+                </div>
+                
+                <div class="faq-text">
+                    <div class="faq-author">{{ item.qalist.user.username|raw|striptags }}<span>{{ Date.translate(item.qalist.date, 'd.m.Y, H:i') }}</span></div>
+                    <div class="faq-txt">{{ item.qalist.answer|raw|striptags }}</div>
+                </div>
+            </div>
+            
+            <div class="faq-clear-line"></div>
+           {% endfor %}
+        </div>
+        {% if _user %}
+        <div id="questions-right">
+            <div id="questions-help">
+                <p>{{ "On this page you can ask any question to the experts of the portal. If you are interested in topics not on the list of questions, please contact us and we will answer you with pleasure."|i18n }}</p>
+            </div>
+            <div id="questions-button">
+                <a href="javascript:showFaqOverlay()" class="button w-189">{{ "Ask a Question"|i18n }}</a>
+            </div>
+        </div>
+        {% endif %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

@@ -1,0 +1,104 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#cats-toggler').click(function(e){
+            e.preventDefault();
+            $('#cats-container').toggle();
+        });
+    });
+</script>
+
+<div class="page-header">
+    <h4>{{ "Audio"|i18n }}</h4>
+    <a id="cats-toggler" href="#" style="border-bottom: 1px dotted;">{{ "select category"|i18n }}</a>
+
+    <div id="cats-container" style="display: none; background: #d3d3d3; padding: 10px;">
+        {% for item in cats %}
+            {% if item.mama() %}
+                <div style="padding-left: {{ item.level }}em">
+                    <span>{{ item.name }}</span>
+                </div>
+            {% else %}
+                <div style="padding-left: {{ item.level }}em">
+                    <a href="{{ Url.media('manage/audio?category='~item.id) }}">{{ item.name }}</a>
+                </div>
+            {% endif %}
+
+        {% endfor %}
+    </div>
+
+    <div class="pull-right">
+        <a class="btn" href="{{ Url.media('manage/audio/category') }}"><i class="icon-list"></i> {{ "Categories list"|i18n }}</i></a>
+        <a class="btn" href="{{ Url.media('manage/audio/edit') }}"><i class="icon-plus"> {{ "Add"|i18n }}</i></a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="page">
+    <div style="padding-left: 10px;">
+        {% if cat is defined %}
+            {{ "Category"|i18n }}: <span class="label label-success">{{ cat.name }}</span>
+        {% endif %}
+    </div>
+
+    {% for item in audio %}
+        <div class="well well-small">
+            <div class="text">
+                <div class="date">
+                    <div class="pull-left btn-group">
+                        {% if item.show_ru %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/audio/show_ru/'~item.id) }}">RU</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/audio/show_ru/'~item.id) }}">RU</a>
+                        {% endif %}
+                        {% if item.show_kz %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/audio/show_kz/'~item.id) }}">KZ</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/audio/show_kz/'~item.id) }}">KZ</a>
+                        {% endif %}
+                        {% if item.show_en %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/audio/show_en/'~item.id) }}">EN</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/audio/show_en/'~item.id) }}">EN</a>
+                        {% endif %}
+                    </div>
+
+                    <span class="pull-right btn-group">
+                        {% if cat is defined %}
+                            <a class="btn btn-info btn-mini" href="{{ Url.media('manage/audio/up/' ~item.id) }}"><i class="icon-arrow-up"></i></a>
+                            <a class="btn btn-info btn-mini" href="{{ Url.media('manage/audio/down/' ~item.id) }}"><i class="icon-arrow-down"></i></a>
+                        {% endif %}
+                        {% if item.is_important %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/audio/important/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Remove from main"|i18n }}</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/audio/important/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "On main"|i18n }}</a>
+                        {% endif %}
+                        <a class="btn btn-mini" href="{{ Url.media('manage/audio/edit/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                        {% if item.published %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/audio/published/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Hide"|i18n }}</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/audio/published/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "Unhide"|i18n }}</a>
+                        {% endif %}
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/audio/delete/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                    </span>
+
+                    <br /><br />
+
+                    {% for t in item.category.tree() %}
+                        <span class="label label-info">{{ t }}</span>
+                    {% endfor %}
+                    <div>
+                        <a href="{{ Url.media(item.mp3.file_path) }}" class="jouele">
+                            {{ item.title }} ({{ item.rubric }})
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {{ paginate|raw }}
+
+</div>
+{% endblock content %}

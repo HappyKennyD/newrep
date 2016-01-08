@@ -1,0 +1,21 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="post">
+    <div class="modal-header">
+        <h4>Новый лист</h4>
+    </div>
+    <div class="page" style="margin: 0 15px 0 15px">
+        <label for="name">{{ "Название"|i18n }}</label>
+        <input type="text" name="name" class="input-xxlarge" id="name" style="width: 98%">
+        Граничные точки(года либо века):
+        <label for="start">{{ "Начало"|i18n }}</label>
+        <input type="text" name="start" class="input-xxlarge" value="{{page.start}}" id="start" style="width: 98%">
+        <label for="finish">{{ "Конец"|i18n }}</label>
+        <input type="text" name="finish" class="input-xxlarge" value="{{page.finish}}" id="finish" style="width: 98%">
+    </div>
+    <div class="modal-footer">
+        <a href="{{ cancel_url }}" class="btn btn-link">Отмена</a>
+        <button class="btn btn-success"><i class="icon-ok"></i> Сохранить</button>
+    </div>
+</form>
+{% endblock content %}

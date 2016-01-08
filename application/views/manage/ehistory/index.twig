@@ -1,0 +1,33 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+    <div class="titul" style="margin: 10px;">
+        <a href="{{ URL.site('manage/ehistory') }}?sort=work" {% if sort=="work" %}class="active"{% endif %}>{{ "On the job"|i18n }}</a>
+        <a href="{{ URL.site('manage/ehistory') }}?sort=accept" {% if sort=="accept" %}class="active"{% endif %}>{{ "Approved Materials"|i18n }}</a>
+        <a href="{{ URL.site('manage/ehistory') }}?sort=reject" {% if sort=="reject" %}class="active"{% endif %}>{{ "Rejected materials"|i18n }}</a>
+        <a href="{{ URL.site('manage/ehistory') }}?sort=all" {% if sort=="all" %}class="active"{% endif %}>{{ "All material"|i18n }}</a>
+    </div>
+    <div class="graybox news" style="margin-top: 10px;">
+        {% for item in materials %}
+            {{ item.detect_exist() }}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+        <span class="btn-group">
+    <a class="btn btn-mini" href="{{ Url.site('manage/ehistory/view/'~item.id) }}">
+        <i class="icon-edit">{{ "See"|i18n }}</i></a>
+                    </div>
+                    {{ item.user.username }}<br>{{ Date.translate(item.date, 'd F Y G:i:s') }}
+                    <br>{{ Text.limit_chars(item.theme|raw|striptags,100) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="text">{{ "No materials"|i18n }}</div>
+        {% endfor %}
+        <br>
+        <div style="padding: 0 30px 30px 30px;">
+            {{ paginate|raw }}
+        </div>
+
+    </div>
+{% endblock content %}

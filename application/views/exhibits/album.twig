@@ -1,0 +1,52 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/exhibits.css') }}" />
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div id="album-left">
+            <div class="div100"><h1>{{ exhibit.title }}</h1></div>
+            
+            <div id="album-description" class="text">
+                {{ exhibit.description|raw }}
+            </div>
+            <div id="album-exhibits">
+                {% for item in exhibit.albums.find_all() %}
+                    <div class="exhibit-item">
+                        {% if item.image|length > 0 %}
+                            <div class="exhibit-item-photo">
+                                <a href="{{ Url.site('exhibits/view/'~item.id)}}">
+                                    <img src="{{ Url.media('images/w187-h140-ccc-si/'~item.image.file_path) }}" width="187" height="140" alt="{{ item.title }}" />
+                                </a>
+                            </div>
+                        {% endif %}
+                        <div class="exhibit-item-text{% if not item.image|length > 0 %} ex-full-width{% endif %}">
+                            <div class="ex-title"><a href="{{ Url.site('exhibits/view/'~item.id)}}">{{ item.title }}</a></div>
+                            <div class="ex-announce">
+                                {{ item.description|striptags }}
+                            </div>
+                        </div>
+                    </div>
+                    {% if loop.last %}
+                        <div class="ex-last-clear"></div>
+                    {% else %}
+                        <div class="ex-item-clear"></div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            
+            {{ paginate|raw }}
+        </div>
+        
+        <div id="album-right">
+            <div id="album-category">
+                <ul>
+                    {% for album in albums %}
+                        <li {% if album.id == exhibit.id %} class="selected-album" {% endif %}><a href="{{ Url.site('exhibits/album/'~album.id)}}">{{ album.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

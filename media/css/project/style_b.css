@@ -1,0 +1,586 @@
+* {
+    outline: none;
+}
+
+html {
+    height: 100%;
+}
+
+header, nav, section, article, aside, footer {
+    display: block;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    font-size: 16px;
+    color: #333333;
+    line-height: 22px;
+    background: #fff;
+}
+
+a {
+    color: #006699;
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+img {
+    border: none;
+}
+
+input {
+    vertical-align: middle;
+}
+
+#wrapper, header, #breadcrumbs, .article-preview, #page-socials, #page-text, #page-content, .zhuz-clear, .zhuz-item, #page-title, #zhuz-table, .clear50, .shezhire-title, #shezhire-slider, #shezhire-nav, #slider-block, #shezhire-block, .article-image, .article-title, .article-announce, .index-clear, .article-date, #content, #padd, footer, #breadcrumbs, .div100, #nav-block-bg, #nav-waves {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+nav, #shezhire-nav div, .zhuz-item-a, .zhuz-item-list, #index-content, #index-left, #index-right, #shezhire-content, .shezhire-item, .shezhire-slide-block {
+    position: relative;
+    float: left;
+}
+
+.center-content, #center-footer {
+    position: relative;
+    width: 950px;
+    margin: 0 auto;
+}
+
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+.m-top-10 { margin-top: 10px !important; }
+
+/* Header
+-----------------------------------------------------------------------------*/
+header {
+    height: 152px;
+    background: #5a402f;
+    z-index: 10;
+}
+
+#logo {
+    display: block;
+    position: absolute;
+    width: 157px;
+    height: 157px;
+    left: 23px;
+    top: 15px;
+    background: url(../../images/project/logo.png) no-repeat;
+}
+
+.olketanu-logo {
+    background: url(../../images/project/olketanu-logo.png) no-repeat !important;
+}
+
+.tarih-logo {
+    background: url(../../images/project/tarih-logo.png) no-repeat !important;
+}
+
+.ornek-logo {
+    background: url(../../images/project/ornek-logo.png) no-repeat !important;
+}
+
+#site-name {
+    position: absolute;
+    width: 380px;
+    left: 206px;
+    top: 19px;
+    color: #fff;
+}
+
+.olketanu-site-name {
+    width: 485px !important;
+}
+
+.tarih-site-name {
+    width: 490px !important;
+}
+
+.big-site-name {
+    font-size: 32px;
+    line-height: 36px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.small-site-name {
+    color: #ebc186;
+    font-style: italic;
+    line-height: 18px;
+    margin-top: 6px;
+}
+
+#lang-bar {
+    position: absolute;
+    width: 113px;
+    right: 0;
+    top: 46px;
+    height: 18px;
+    line-height: 16px;
+    font-size: 14px;
+}
+
+#lang-bar a {
+    display: block;
+    float: left;
+    height: 18px;
+    color: #fff;
+    text-decoration: none;
+    padding: 0 5px;
+}
+
+.selected-lang {
+    background: #4e2f23;
+}
+
+#search-block {
+    position: absolute;
+    width: 220px;
+    right: 22px;
+    height: 18px;
+    top: 89px;
+    border-bottom: solid 1px #91673d;
+}
+
+#search-input {
+    display: block;
+    position: absolute;
+    background: none;
+    border: none;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    width: 200px;
+    font-style: italic;
+    color: #ebc186;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    font-size: 16px;
+    -webkit-appearance: none;
+}
+
+#search-submit {
+    display: block;
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    right: 0;
+    top: 1px;
+    border: none;
+    cursor: pointer;
+    font-size: 0;
+    -webkit-appearance: none;
+    background: url(../../images/project/search.png) no-repeat;
+}
+
+/* Nav
+-----------------------------------------------------------------------------*/
+#nav-block-bg {
+    background: url(../../images/project/bg.jpg) top center repeat-x;
+}
+
+#nav-waves {
+    background: url(../../images/project/top.png) top left repeat-x;
+}
+
+nav {
+    width: 768px;
+    left: 182px;
+    height: 44px;
+    font-weight: bold;
+}
+
+nav a {
+    display: block;
+    float: left;
+    height: 44px;
+    color: #fff;
+    text-decoration: none;
+    padding: 0 24px;
+    line-height: 40px;
+}
+
+nav a:hover, .selected-nav {
+    background: #5a402f;
+}
+
+/* Middle
+-----------------------------------------------------------------------------*/
+#slider-block {
+    height: 334px;
+    overflow: hidden;
+}
+
+.slider-image, #slider-cover {
+    position: absolute;
+    width: 100%;
+    height: 334px;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+#slider-cover {
+    z-index: 20;
+}
+
+.slider-text {
+    display: none;
+}
+
+#slider-nav-bg {
+    position: absolute;
+    width: 100%;
+    height: 42px;
+    left: 0;
+    bottom: 0;
+    background: url(../../images/project/pixel.png);
+}
+
+#slider-nav-bg div {
+    position: absolute;
+    width: 920px;
+    left: 15px;
+    top: 10px;
+    color: #fff;
+}
+
+#slider-nav {
+    position: absolute;
+    z-index: 10;
+    width: 150px;
+    right: 15px;
+    height: 7px;
+    font-size: 0;
+    line-height: 0;
+    bottom: 18px;
+}
+
+#slider-nav a {
+    display: block;
+    float: right;
+    width: 7px;
+    height: 7px;
+    margin-left: 9px;
+    background: url(../../images/project/slider-nav.png) no-repeat;
+}
+
+#slider-nav a:hover, .selected-slider {
+    background-position: -7px 0 !important;
+}
+
+#content {
+    margin-top: 20px;
+}
+
+#index-content {
+    margin-top: 20px;
+    width: 920px;
+    left: 15px;
+    background: url(../../images/project/index-bg.png) repeat-y;
+}
+
+#index-left {
+    width: 280px;
+}
+
+#index-left .article-title {
+    margin-top: 10px;
+}
+
+.article-title {
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 24px;
+}
+
+.article-announce {
+    margin-top: 7px;
+}
+
+.article-date {
+    color: #999999;
+    font-style: italic;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.article-date span {
+    margin-right: 15px;
+}
+
+#index-right {
+    width: 570px;
+    left: 65px;
+}
+
+.index-clear {
+    height: 30px;
+}
+
+.clear50 {
+    height: 50px;
+}
+
+#shezhire-block {
+    background: #faf1dc;
+}
+
+#shezhire-content {
+    width: 920px;
+    left: 15px;
+}
+
+.shezhire-title {
+    margin-top: 20px;
+}
+
+.shezhire-title a {
+    font-size: 30px;
+    color: #beb8a9;
+    font-weight: bold;
+    line-height: 32px;
+}
+
+.shezhire-title a span {
+    color: #333;
+}
+
+.article-preview {
+    margin-top: 10px;
+    font-size: 0;
+    line-height: 0;
+}
+
+.article-preview-title {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+}
+
+.article-preview-title a {
+    display: block;
+    float: left;
+    font-size: 22px;
+    font-weight: bold;
+    color: #7f7f7f;
+    line-height: 24px;
+    width: 260px;
+    padding: 9px 10px 11px 10px;
+    background: url(../../images/project/pixel.png);
+}
+
+.article-preview-title a span {
+    color: #fff !important;
+}
+
+#shezhire-slider {
+    margin-top: 20px;
+    height: 1px;
+    overflow: hidden;
+}
+
+#shezhire-slider-content {
+    position: absolute;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+}
+
+.shezhire-slide-block {
+    width: 920px;
+}
+
+.shezhire-item {
+    width: 280px;
+}
+
+.s-item-2 {
+    left: 40px;
+}
+
+.s-item-3 {
+    left: 80px;
+}
+
+#shezhire-nav {
+    margin-top: 35px;
+    height: 31px;
+    background: url(../../images/project/s-nav-bg.png) no-repeat;
+}
+
+#shezhire-nav div {
+    background: #faf1dc;
+    padding: 0 6px;
+}
+
+#shezhire-nav a {
+    display: block;
+    float: left;
+    margin: 0 11px;
+    height: 31px;
+    width: 31px;
+    background: url(../../images/project/s-nav.png) no-repeat;
+}
+
+.selected-s-nav {
+    background-position: -31px 0 !important;
+}
+
+.wrap {
+    position: relative;
+    width: 930px;
+    margin: 0 auto;
+}
+
+#breadcrumbs {
+    font-size: 14px;
+    color: #999999;
+}
+
+#breadcrumbs a {
+    color: #999999;
+}
+
+#page-title {
+    margin-top: 15px;
+}
+
+#page-title h1 {
+    color: #333335;
+    font-size: 38px;
+    line-height: 40px;
+}
+
+#zhuz-table table {
+    width: 100%;
+}
+
+#zhuz-table {
+    margin-top: 25px;
+}
+
+#zhuz-table td {
+    vertical-align: top;
+}
+
+.zhuz-td {
+    width: 200px;
+}
+
+.zhuz-item-a {
+    width: 24px;
+    text-align: right;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 24px;
+}
+
+.zhuz-item-list {
+    width: 165px;
+    left: 10px;
+    line-height: 24px;
+    border-left: solid 1px #999999;
+}
+
+.zhuz-item-list li {
+    font-size: 20px;
+    margin: 1px 0 7px 15px;
+}
+
+.zhuz-clear {
+    height: 35px;
+}
+
+#page-content {
+    margin-top: 25px;
+    font-size: 18px;
+}
+
+#page-announce {
+    position: relative;
+    float: left;
+    margin-left: -22px;
+    border-left: solid 2px #f5e0c1;
+    padding-left: 20px;
+    width: 930px;
+    font-weight: bold;
+    margin-bottom: 17px;
+}
+
+#page-content img {
+    margin-top: 3px;
+}
+
+#page-content p {
+    margin-bottom: 17px;
+}
+
+#page-content ul {
+    list-style-type: circle;
+    margin-left: 20px;
+    margin-bottom: 17px;
+}
+
+#page-content ol {
+    list-style-type: decimal;
+    margin-left: 20px;
+    margin-bottom: 17px;
+}
+
+#page-content li {
+    margin-top: 7px;
+}
+
+#page-socials {
+    margin-top: 20px;
+    height: 27px;
+    overflow: hidden;
+}
+
+#padd {
+    height: 50px;
+    padding: 0 0 112px;
+}
+
+/* Footer
+-----------------------------------------------------------------------------*/
+footer {
+    margin: -112px auto 0;
+    height: 112px;
+    background: #5a402f;
+}
+
+#center-footer {
+    height: 112px;
+}
+
+#copyright {
+    position: absolute;
+    width: 500px;
+    left: 0;
+    top: 45px;
+    color: #ebc186;
+}
+
+#knm-logo {
+    display: block;
+    position: absolute;
+    width: 35px;
+    height: 44px;
+    right: 0;
+    top: 36px;
+    background: url(../../images/project/knm.png);
+}

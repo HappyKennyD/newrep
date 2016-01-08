@@ -1,0 +1,34 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ "Forum"|i18n }}</h1></div>
+        {% if moderator %}<a class="btn btn-success" href="{{ Url.site('forum/new') }}" style="float: right">Добавить раздел</a>{% endif %}
+        {% for item in forum %}
+            <table border="1" cellspacing="0" cellpadding="4" style="width: 940px;">
+                <tr>
+                    <td colspan="2" style="width: 30%"><a href="{{ Url.site('forum/list/'~item.id) }}">{{ item.name }}</a></td>
+                    <td width="150px">{{ 'Themes'|i18n }} {{ item.count_themes }} / {{ 'Messages'|i18n }} {{ item.count_messages }}</td>
+                    <td width="350px">
+                        {% if item.last_message is defined %}
+                            {% if item.last_message.user.profile.img.file_path %}
+                                <img src="{{ Url.media(item.last_message.user.profile.img.file_path) }}" alt="{{ item.last_message.user.show_name() }}" title="{{ item.last_message.user.show_name }}" />
+                            {% endif %}
+                            <br />
+                            {{ item.last_message.user.show_name }}
+                            <br />
+                            {% if item.last_message.date is defined %}
+                                ({{ Date.ru_date(item.last_message.date, 'd.m.Y H:i:s') }})
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    {% if moderator %}
+                        <td>
+                            <a class="btn btn-mini" href="{{ Url.site('forum/edit/'~item.id) }}">Редактировать</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            </table>
+        {% endfor %}
+    </div>
+{% endblock content %}

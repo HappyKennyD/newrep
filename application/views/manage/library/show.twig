@@ -1,0 +1,12 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+{% if book.type=='pdf' %}
+    <div style="padding: 20px;">
+        <iframe src="{{ Url.media(book.pdf.file_path) }}" width="700px" height="400px" ></iframe>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/library/book/'~book.id) }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock content %}

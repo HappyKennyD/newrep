@@ -1,0 +1,69 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/profile.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    {#<script type="text/javascript" src="{{ Url.media('media/js/profile.js') }}"></script>#}
+    {% include 'profile/profilejs.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="cabinet-left">
+            <div class="div100"><h1>{{ "Account Settings"|i18n }}</h1></div>
+            <div class="div100">
+                <form method="post">
+                    <div class="inputLabel m-top-10">{{ "E-mail"|i18n }}
+                        {% if errors.email is defined %}
+                            {% if errors.email=='Такой "Электронная почта" уже существует' %}
+                        <div class="div100"><span class="alert">{{ "This email already exists"|i18n }}</span></div>
+                                {% else %}
+                            <div class="div100"><span class="alert">{{ "Invalid email"|i18n }}</span></div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="inputText">
+                        <input type="text" name="email" value="{{ post.email|default(user.profile.email) }}"/>
+                    </div>
+                    {% if user.network_reg==0 %}
+                        <div id="password-label" class="inputLabel">
+                            <span>{{ "Current password"|i18n }}</span>
+                            {% if error.other_pass is defined %}
+                            <div class="div100"><span class="alert">{{ "The passwords do not match"|i18n }}</span></div>
+                            {% endif %}
+                            {% if error.false_pass is defined %}
+                                <div class="div100"><span class="alert">{{ "Current password vvdene not true"|i18n }}</span></div>
+                            {% endif %}
+                            <a href="javascript:changePassword()"><span>{{ "Change Password"|i18n }}</span></a>
+                        </div>
+                        <div class="inputText">
+                            <input id="password-field" type="password" name="password"/>
+                        </div>
+
+                        <div id="change-password-block" class="div100{# Add is-visible class to show block #}">
+                            <div class="inputLabel">{{ "New Password"|i18n }}</div>
+                            <div class="inputText">
+                                <input id="new-password" type="password" name="new_password"/>
+                            </div>
+
+                            <div class="inputLabel">{{ "Confirm Password"|i18n }}</div>
+                            <div class="inputText">
+                                <input id="confirmation-password" type="password" name="confirmation_password"/>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="subscribe-button-block">
+                        <input type="submit" class="button" value="{{ "Save Changes"|i18n }}"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="cabinet-right">
+            {% include "profile/navigation.twig" %}
+        </div>
+
+        <div id="profile-clear"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <strong>{{ "Category list for personalities"|i18n }}</strong>
+        <div class="pull-right">
+            <a class="btn" href="{{ Url.media('manage/biography/editcategory') }}"><i class="icon-plus"> {{ "Add"|i18n }}</i></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        <strong><a href="{{ Url.media('manage/pages/edit/158') }}">{{ "The History Man"|i18n }}</a></strong>
+        {% for item in history %}
+            <div style="margin-left: 20px" class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        {{ item.title }}
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/biography/editcategory/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/biography/deletecategory/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <strong><a href="{{ Url.media('manage/pages/edit/159') }}">{{ "Contemporary"|i18n }}</a></strong>
+        {% for item in contemporary %}
+            <div style="margin-left: 20px" class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        {{ item.title }}
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/biography/editcategory/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/biography/deletecategory/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,61 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/biography/category') }}"><i class="icon-list"></i> {{ "All categories"|i18n }}</a>
+            <a class="btn btn-success" href="{{ Url.media('manage/biography/edit/page-'~page) }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        <form action="" method="POST" style="margin: 0">
+            <select id="category" name="category" onchange="submit();">
+                <option value="0" {% if category == 0 %}selected{% endif %}>{{ "All categories"|i18n }}</option>
+                {% for cat in categories %}
+                    <option value={{ cat.id }} {% if category == cat.id %}selected{% endif %}>{{ cat.title }}{% if cat.era == 1 %}(Ист.Л.){% else %}(Совр.){% endif %}</option>
+                {% endfor %}
+            </select>
+        </form>
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-success btn-mini" href="{% if category != 0 %}{{ Url.media('manage/biography/up/' ~item.id~'/'~category~ '/page-' ~ page) }}{% else %}{{ Url.media('manage/biography/up/' ~item.id~ '/page-'~page) }}{% endif %}"><i class="icon-arrow-up"></i></a>
+                            <a class="btn btn-danger btn-mini" href="{% if category != 0 %}{{ Url.media('manage/biography/down/' ~item.id~'/'~category) }}{% else %}{{ Url.media('manage/biography/down/' ~item.id~ '/page-'~page) }}{% endif %}"><i class="icon-arrow-down"></i></a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/biography/view/'~item.id~ '/page-'~page) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/biography/edit/'~item.id~ '/page-'~page) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/biography/published/'~item.id ~ '/page-'~page) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/biography/published/'~item.id ~ '/page-'~page ~ '/page-'~page) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+                            {% if item.is_important %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/biography/important/'~item.id ~ '/page-'~page) }}"><i class="icon-eye-close"> </i> Убрать с главной</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/biography/important/'~item.id ~ '/page-'~page) }}"><i class="icon-eye-open"> </i> На главную</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/biography/delete/'~item.id ~ '/page-'~page) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left">({{ item.getYear('date_start') }}{% if item.getYear('date_finish') %} — {{ item.getYear('date_finish') }}{% endif %})
+                        <a class="link" href="{{ Url.media('manage/biography/view/'~item.id) }}">{{ item.name }}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        {{ item.desc }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if category == 0 %}
+            {{ paginate|raw }}
+        {% endif %}
+
+    </div>
+
+
+{% endblock content %}

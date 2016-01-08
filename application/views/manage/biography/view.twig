@@ -1,0 +1,31 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/biography/attachments/'~item.id~ '/page-'~page) }}"><i class="icon-list"></i> {{ "Links"|i18n }}</a>
+            <a class="btn btn-mini" href="{{ Url.media('manage/biography/edit/'~item.id~ '/page-'~page) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/biography/delete/'~item.id~ '/page-'~page) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+            <strong>{{ "Birthday"|i18n }}:</strong> {{ item.date_start }} <br>
+            <strong>{{ "Birthplace"|i18n }}:</strong> {{ item.birthplace }} <br>
+            {% if item.date_finish %}<strong>{{ "Deathday"|i18n }}:</strong> {{ item.date_finish }} <br>{% endif %}
+            {% if item.deathplace %}<strong>{{ "Deathplace"|i18n }}:</strong> {{ item.deathplace }} <br>{% endif %}
+            <h4>{{ item.name }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if item.picture.file_path is defined %}
+                <img src="{{ Url.site(item.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+        </div>
+        <div>
+            <strong>{{ item.desc }}</strong>
+        </div><br>
+        <div>
+            {{ item.text|raw }}
+        </div>
+        <div class="clear"></div>
+        <a href="{{ Url.media('manage/biography/page-'~page) }}">Вернуться к списку</a>
+    </div>
+{% endblock content %}

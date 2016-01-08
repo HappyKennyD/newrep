@@ -1,0 +1,44 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ Url.media('media/css/redactor/redactor.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/js/redactor/plugins/smiles/smiles.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/redactor.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/plugins/smiles/smiles.js') }}"></script>
+    <script type="text/javascript" src="/media/js/redactor/redactor.ru.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".redactor").redactor({
+                plugins: ['smiles'],
+                lang: 'ru',
+                imageUpload:'{{ Url.media("filemanager/rimages") }}',
+                buttons: ['formatting', '|', 'bold', 'italic', 'underline', 'deleted', 'unorderedlist', 'orderedlist', '|','image', '|', 'horizontalrule', '|', 'alignleft', 'aligncenter', 'alignright', 'justify']
+            });
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ "New theme"|i18n }}</h1></div>
+        <form method="post" action="">
+            <label for="name">{{ "Title"|i18n }}</label>
+            {% if errors.title is defined %}
+                {{ errors.title|i18n }}<br />
+            {% endif %}
+            <input type="text" name="title" id="name" value="{{ data.title|default('') }}">
+
+            <label for="message">{{ "Message text"|i18n }}</label>
+
+            {% if errors.message is defined %}
+                {{ errors.message|i18n }}<br />
+            {% endif %}
+            {#<textarea name="message" id="message" style="width: 98%;">{{ data.message|default('') }}</textarea>#}
+            <textarea class="redactor" name="message" id="message" maxlength="10000" style="width: 98%;">{{ data.message|default('') }}</textarea>
+            <br>
+            <button type="submit" class="btn btn-success">{{ "Save"|i18n }}</button>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,0 +1,307 @@
+{% extends "layout/tarih.twig" %}
+{% block slider %}
+    <div id="slider-block">
+        {#
+            #slider-1, #slider-2, #slider-3, ... , #slider-n - цифра на конце не id картинки, а loop от 1 до n
+        #}
+
+        {% for item in sliders1 %}
+            <div id="slider-{{ loop.index }}" class="slider-image">
+                <a href="{{ Url.site('tarih/page/'~item.id, true) }}"><img src="{{ Url.media('/images/w950-h334-cct-si/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" /></a>
+                <div class="slider-text">{{ item.title }}</div>
+                <div class="text"> {{ item.picture.file_path }}</div>
+            </div>
+        {% endfor %}
+
+        {#<div id="slider-1" class="slider-image">
+            <a href="#"><img src="{{ Url.media('media/images/project/slide-tarih.jpg') }}" width="950" height="334" alt="" /></a>
+            <div class="slider-text">Экспедиции Института археологии им. А.Х. Маргулана</div>
+        </div>
+
+        <div id="slider-2" class="slider-image">
+            <a href="#"><img src="{{ Url.media('media/images/project/slide-olketanu.jpg') }}" width="950" height="334" alt="" /></a>
+            <div class="slider-text">?лкетану</div>
+        </div>
+
+        <div id="slider-3" class="slider-image">
+            <a href="#"><img src="{{ Url.media('media/images/project/slide-shezhire.jpg') }}" width="950" height="334" alt="" /></a>
+            <div class="slider-text">?аза?ты? т?р шежiресi</div>
+        </div>
+
+        <div id="slider-4" class="slider-image">
+            <a href="#"><img src="{{ Url.media('media/images/project/slide-ornek.jpg') }}" width="950" height="334" alt="" /></a>
+            <div class="slider-text">?аза? ою-?рнектеріні? сыры</div>
+        </div>#}
+        
+        <div id="slider-nav-bg"><div></div></div>
+        <div id="slider-nav"></div>
+        
+        <div id="slider-cover"></div>
+    </div>
+{% endblock slider %}
+
+{% block content %}
+    <div id="index-content">
+        <div id="index-left">
+            {% for item in middles %}
+                {% if loop.index==1 %}
+                    <div class="article-image">
+                        <a href="{{ Url.site('tarih/page/'~item.id, true) }}">
+                            <img src="{{ Url.media('/images/w280-cct-si/'~item.picture.file_path, TRUE) }}"  alt="" />
+                        </a>
+                    </div>
+                    <div class="article-title">
+                        <a href="{{ Url.site('tarih/page/'~item.id, true) }}">{{ item.title }}</a>
+                    </div>
+                    <div class="article-announce">{{ item.desc }}</div>
+                    <div class="article-date">
+                        <span>{{ Date.ru_date(item.date, 'd F Y') }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div id="index-right">
+            {% for item in middles %}
+                {% if loop.index!=1 %}
+                    <div class="article-title">
+                        <a href="{{ Url.site('tarih/page/'~item.id, true) }}">{{ item.title }}</a>
+                    </div>
+                    <div class="article-announce"> {{ item.desc }}</div>
+                    <div class="article-date">
+                        <span>{{ Date.ru_date(item.date, 'd F Y') }}</span>
+                        <span>{{ CommentsCount.getcount('publications',item.id)}} {{ CorrectDeclension.give(CommentsCount.getcount('publications',item.id))|i18n }}</span>
+                    </div>
+
+                    <div class="index-clear"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="clear50"></div>
+    </div>
+{% endblock content %}
+
+{#{% block content %}
+    <div id="index-content">
+        <div id="index-left">
+            <div class="article-image">
+                <a href="#">
+                    <img src="{{ Url.media('media/images/project/article-tarih.jpg') }}" width="280" alt="" />
+                </a>
+            </div>
+            <div class="article-title">
+                <a href="#">Ауызша тарих немесе Алаштың Ақселеуі</a>
+            </div>
+            <div class="article-announce">Қазақ халқының тарихына қатысты тарихи деректердің кешенінде ауызша тарихтың алатын орны аса маңызды. Көшпелі өркениеттің негізгі тарихын аңыз-әпсаналар құрайтынын да жақсы білеміз. Бірақ соны мойындағысы келмейтіндер өте көп.</div>
+            <div class="article-date">26.06.2013</div>
+        </div>
+        
+        <div id="index-right">
+            <div class="article-title">
+                <a href="#">Ауызша тарихтың бесаспап зергері</a>
+            </div>
+            <div class="article-announce">Қазақтың қолы тәуелсіздікке жеткелі дәстүрлі тарихпен әуестенушілер көкмайса көктемде көкті көмкерген бәйшешектей кең өріс жайды. Кеңестік тоталитарлық жүйе тұсында «аузынан ауыздығы» алынбай, тежеулі өмір кешкен қазақ тарихшылары ойланып-толғанып, өздеріне-өздері келіп, өзіндік мүмкіндіктерін танытқанша әдебиет пен өнерге жақын қазақ зиялылары дәстүрлі тарихымыздың кейбір маңызды бағыттарында айтарлықтай аршынды қадамдар жасап үлгерді.</div>
+            <div class="article-date">
+                <span>15.06.2013</span>
+                <span>43 комментария</span>
+            </div>
+            
+            <div class="index-clear"></div>
+            
+            <div class="article-title">
+                <a href="#">«Қазақтың ауызша тарихының» бүгінгі қазақ үшін қадірі хақында</a>
+            </div>
+            <div class="article-announce">Қазіргі қазақ қоғамында адамдар арасында байырғы дәстүрлі қарым-қатынас іздерінің жойылып бара жатқан кезеңінде оқырман қолына тиген Ақселеу Сейдімбектің «Қазақтың ауызша тарихы» атты кітабы – ұлттық құндылықтарымызды сақтауға бағытталған аса зәрулі еңбек.</div>
+            <div class="article-date">
+                <span>02.06.2013</span>
+                <span>129 комментариев</span>
+            </div>
+        </div>
+
+        <div class="clear50"></div>
+    </div>
+{% endblock content %}#}
+
+{% block shezhire %}
+    <div id="shezhire-block">
+        <div class="center-content">
+            <div id="shezhire-content">
+                <div class="shezhire-title">
+                    <a href="#"><span>Ауызша тарих</span></a>
+                </div>
+
+                <div id="shezhire-slider">
+                    <div id="shezhire-slider-content">
+                        {#
+                            ----------------------------------------------------
+                            В .shezhire-slide-block максимум по 3 .shezhire-item
+                            Блоков .shezhire-slide-block может быть хоть сколько
+                            ----------------------------------------------------
+                        #}
+
+                        {# Блок прокрутки 1 #}
+
+                        {% for item in bottoms %}
+                        {% if loop.index==loop.first %}
+                            <div class="shezhire-slide-block">
+                        {% endif %}
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('/images/w280-h186-cct-si/'~item.picture.file_path, TRUE) }}"  alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="{{ Url.site('tarih/page/'~item.id, true) }}">{{ item.title }}</a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">{{ item.desc }} </div>
+                                <div class="article-date">{{ Date.ru_date(item.date, 'd F Y') }}</div>
+                            </div>
+
+                        {% if (Subtool.multiple(loop.index,3)==1)%}
+                            </div>
+                                {% if loop.index!=loop.last %}<div class="shezhire-slide-block"> {% endif %}
+                        {%  else %}
+                                {% if loop.index==loop.last %}</div>{% endif %}
+                        {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="shezhire-nav">
+                    <div></div>
+                </div>
+            </div>
+            <div id="padd"></div>
+        </div>
+    </div>
+{% endblock shezhire %}
+
+{# {% block shezhire %}
+    <div id="shezhire-block">
+        <div class="center-content">
+            <div id="shezhire-content">
+                <div class="shezhire-title">
+                    <a href="#"><span>Ауызша тарих</span></a>
+                </div>
+                
+                <div id="shezhire-slider">
+                    <div id="shezhire-slider-content">
+                        
+                        <div class="shezhire-slide-block">
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t1.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>Ауызша тарихтың бесаспап зергері</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазақтың қолы тәуелсіздікке жеткелі дәстүрлі тарихпен әуестенушілер көкмайса көктемде көкті көмкерген бәйшешектей кең өріс жайды.</div>
+                                <div class="article-date">26.06.2013</div>
+                            </div>
+                            
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t2.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>«Қазақтың ауызша тарихының» бүгінгі қазақ үшін қадірі хақында</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазіргі қазақ қоғамында адамдар арасында байырғы дәстүрлі қарым-қатынас іздерінің жойылып бара жатқан кезеңінде оқырман қолына тиген Ақселеу Сейдімбектің «Қазақтың ауызша тарихы» атты кітабы – ұлттық құндылықтарымызды сақтауға бағытталған аса зәрулі еңбек.</div>
+                                <div class="article-date">15.06.2013</div>
+                            </div>
+                            
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t3.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>Шешендік сөздер</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазақ фольклорында жасалып, сөйлеу тілінде көбірек қолданылатын мақал-мәтел, жұмбақ, жаңылтпаш түрінде айтылатын ғибратқа толы нақыл үлгілерін шешендік сөздер деп атаймыз.</div>
+                                <div class="article-date">02.06.2013</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="shezhire-slide-block">
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t2.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>«Қазақтың ауызша тарихының» бүгінгі қазақ үшін қадірі хақында</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазіргі қазақ қоғамында адамдар арасында байырғы дәстүрлі қарым-қатынас іздерінің жойылып бара жатқан кезеңінде оқырман қолына тиген Ақселеу Сейдімбектің «Қазақтың ауызша тарихы» атты кітабы – ұлттық құндылықтарымызды сақтауға бағытталған аса зәрулі еңбек.</div>
+                                <div class="article-date">15.06.2013</div>
+                            </div>
+                            
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t1.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>Ауызша тарихтың бесаспап зергері</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазақтың қолы тәуелсіздікке жеткелі дәстүрлі тарихпен әуестенушілер көкмайса көктемде көкті көмкерген бәйшешектей кең өріс жайды.</div>
+                                <div class="article-date">26.06.2013</div>
+                            </div>
+                            
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t3.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>Шешендік сөздер</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазақ фольклорында жасалып, сөйлеу тілінде көбірек қолданылатын мақал-мәтел, жұмбақ, жаңылтпаш түрінде айтылатын ғибратқа толы нақыл үлгілерін шешендік сөздер деп атаймыз.</div>
+                                <div class="article-date">02.06.2013</div>
+                            </div>
+                        </div>
+
+                        
+                        <div class="shezhire-slide-block">
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t1.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>Ауызша тарихтың бесаспап зергері</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазақтың қолы тәуелсіздікке жеткелі дәстүрлі тарихпен әуестенушілер көкмайса көктемде көкті көмкерген бәйшешектей кең өріс жайды.</div>
+                                <div class="article-date">26.06.2013</div>
+                            </div>
+                            
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t3.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>Шешендік сөздер</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазақ фольклорында жасалып, сөйлеу тілінде көбірек қолданылатын мақал-мәтел, жұмбақ, жаңылтпаш түрінде айтылатын ғибратқа толы нақыл үлгілерін шешендік сөздер деп атаймыз.</div>
+                                <div class="article-date">02.06.2013</div>
+                            </div>
+                            
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('media/images/project/t2.jpg') }}" width="280" height="186" alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="#"><span>«Қазақтың ауызша тарихының» бүгінгі қазақ үшін қадірі хақында</span></a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">Қазіргі қазақ қоғамында адамдар арасында байырғы дәстүрлі қарым-қатынас іздерінің жойылып бара жатқан кезеңінде оқырман қолына тиген Ақселеу Сейдімбектің «Қазақтың ауызша тарихы» атты кітабы – ұлттық құндылықтарымызды сақтауға бағытталған аса зәрулі еңбек.</div>
+                                <div class="article-date">15.06.2013</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="shezhire-nav">
+                    <div></div>
+                </div>
+            </div>
+            <div id="padd"></div>
+        </div>
+    </div>
+{% endblock shezhire %}#}

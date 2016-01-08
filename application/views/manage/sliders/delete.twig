@@ -1,0 +1,17 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="post">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <a type="button" href="{{ r }}" class="close">&times;</a>
+            <h4>Удаление</h4>
+        </div>
+        <div class="modal-body">
+            <p>Вы уверены, что хотите удалить?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ r }}" class="btn">Отмена</a>
+            <button class="btn btn-danger">Да, удалить</button>
+        </div>
+    </form>
+{% endblock content %}

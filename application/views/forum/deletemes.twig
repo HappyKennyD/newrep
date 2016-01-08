@@ -1,0 +1,16 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ "Delete"|i18n }}</h1></div>
+        <form action="" method="post">
+            <input type="hidden" value="{{ token }}" name="token">
+            <div class="modal-body">
+                <p>Вы уверены, что хотите удалить?</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger"><i class="icon-remove"></i> Да, удалить</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

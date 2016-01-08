@@ -1,0 +1,23 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="post">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <a type="button" href="{{ return }}" class="close">&times;</a>
+            <h4>{{ "Deviation materials"|i18n}}</h4>
+        </div>
+
+        <div class="modal-body">
+            {{ material.theme|raw|striptags }}
+
+            <h5>{{ "Reply to the user"|i18n }}</h5>
+                {% if errors is defined %}
+                    <span class="alert">{{ "The answer can not be empty"|i18n }}</span>{% endif %}
+                <textarea name="message" maxlength="500" style="width: 98%;">{{ message|striptags|raw|default("") }}</textarea>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ return }}" class="btn">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-danger"><i class="icon-remove"></i> {{ "Reject"|i18n }}</button>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn" href="{% if category %}{{ Url.media('manage/video/edit?category='~category.id) }}{% else %}{{ Url.media('manage/video/edit') }}{% endif %}"><i class="icon-plus"> {{ "Add"|i18n }}</i></a>
+        </div>
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in video %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/video/view/'~item.id) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/video/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/video/published/'~item.id) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/video/published/'~item.id) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+
+			    {% if item.is_important %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/video/important/'~item.id) }}"><i class="icon-eye-close"> </i> Убрать с главной</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/video/important/'~item.id) }}"><i class="icon-eye-open"> </i> На главную</a>
+                            {% endif %}
+
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/video/delete/'~item.id) }}"><i class="icon-remove"> </i> Удалить</a>
+                        </span>
+                        <br>&nbsp;<span class="label label-info">{{ item.language }}</span>({{ Date.ru_date(item.date, 'd F Y H:i:s') }}, {% if item.category is defined %}{% if item.category.parent.id is defined %}{{ item.category.parent.name }}->{% endif %}{{ item.category.name }})&nbsp;{% endif %}<br>
+                        <a class="link" href="{{ Url.media('manage/video/view/'~item.id) }}">{{ item.title }}</a>
+                    </div>
+                    <div>
+                        {{ item.description }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

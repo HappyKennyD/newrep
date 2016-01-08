@@ -1,0 +1,262 @@
+{% extends "layout/shezhire.twig" %}
+{% block content %}
+    <div class="wrap">
+        <div id="breadcrumbs">
+            {% include 'layout/bread-crumbs.twig' %}
+        </div>
+        
+        <div id="page-title">
+            <h1>{% if zhuz=='old' %}{{ "Старший жуз"|i18n }}{% endif %}
+                {% if zhuz=='mid' %}{{ "Средний жуз"|i18n }}{% endif %}
+                {% if zhuz=='jr'  %}{{ "Младший жуз"|i18n }}{% endif %}</h1>
+        </div>
+
+        <div id="zhuz-table">
+        <table>
+        <tr>
+            {% for worditem in words %}
+               {% if loop.first or nomer==0 %}
+               <td class="zhuz-td">
+               {% endif %}
+                {% for item in worditem %}
+                    {% if loop.first %}
+                    <div class="zhuz-item">
+                        <div class="zhuz-item-a">{{ item.letter }}</div>
+                        <div class="zhuz-item-list">
+                            <ul>
+                    {% endif %}
+                                <li>{% if item.id!=0 %}<a href="{{ Url.site('shezhire/read/'~item.id~'?zhuzes=1', true) }}">{% else %}<a href="#">{% endif %}{{ item.word }}</a></li>
+                                {% set nomer=nomer+1 %}
+                    {% if loop.last %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="zhuz-clear"></div>
+                    {% endif %}
+                {% endfor %}
+                   {% set nomer=nomer+1 %}
+            {% if (loop.last) or (nomer>15) %}
+                   </td>
+                <td></td>
+                {% if not loop.last %} {% set nomer=0 %}{% endif %}
+            {% endif %}
+            {% endfor %}
+
+        </tr>
+        </table>
+        </div>
+
+
+
+    {# <div id="zhuz-table">
+            <table>
+                <tr>
+                    <td class="zhuz-td">
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">А</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Айдарлы</a></li>
+                                    <li><a href="#">Акарыс</a></li>
+                                    <li><a href="#">Аксакал</a></li>
+                                    <li><a href="#">Албан</a></li>
+                                    <li><a href="#">Алыбай</a></li>
+                                    <li><a href="#">Асан</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">Б</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Байдибек</a></li>
+                                    <li><a href="#">Байдолла</a></li>
+                                    <li><a href="#">Байтерек</a></li>
+                                    <li><a href="#">Бактияр</a></li>
+                                    <li><a href="#">Беимбет</a></li>
+                                    <li><a href="#">Бирманак</a></li>
+                                    <li><a href="#">Ботбай</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">Д</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Дулат</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">Е</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Ескельды</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td class="zhuz-td">
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">Ж</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Жалайыр</a></li>
+                                    <li><a href="#">Жалманбет</a></li>
+                                    <li><a href="#">Жансакал</a></li>
+                                    <li><a href="#">Жаныс</a></li>
+                                    <li><a href="#">Жаримбет</a></li>
+                                    <li><a href="#">Жарыкшак</a></li>
+                                    <li><a href="#">Жолдаболды</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">И</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Ибраиым</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">І</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Іле</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">К</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Калыбай</a></li>
+                                    <li><a href="#">Канлы</a></li>
+                                    <li><a href="#">Караш</a></li>
+                                    <li><a href="#">Кейкі би</a></li>
+                                    <li><a href="#">Когам</a></li>
+                                    <li><a href="#">Куйылдар</a></li>
+                                    <li><a href="#">Курті</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td class="zhuz-td">
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">М</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Меайкы</a></li>
+                                    <li><a href="#">Мекрейіл</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">О</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Ойсыл</a></li>
+                                    <li><a href="#">Ошакты</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">С</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Сакалды</a></li>
+                                    <li><a href="#">Сары</a></li>
+                                    <li><a href="#">Сарыуйсін</a></li>
+                                    <li><a href="#">Сіргелі</a></li>
+                                    <li><a href="#">Суан</a></li>
+                                    <li><a href="#">Сыйкым</a></li>
+                                    <li><a href="#">Сырманак</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">Т</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Толыбай</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">У</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Узынсакал</a></li>
+                                    <li><a href="#">Уйсіл</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                    <td></td>
+                    <td class="zhuz-td">
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">Ш</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Шанышкылы</a></li>
+                                    <li><a href="#">Шапырашты</a></li>
+                                    <li><a href="#">Шегир</a></li>
+                                    <li><a href="#">Шуманак</a></li>
+                                    <li><a href="#">Шыбыл</a></li>
+                                    <li><a href="#">Шымыр</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="zhuz-clear"></div>
+
+                        <div class="zhuz-item">
+                            <div class="zhuz-item-a">Ы</div>
+                            <div class="zhuz-item-list">
+                                <ul>
+                                    <li><a href="#">Ысты</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>#}
+    </div>
+    
+    <div id="padd"></div>
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="POST">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <h4>Добавление нового пользователя</h4>
+        </div>
+        <div class="modal-body">
+            <div class="page" style="margin-left: 10px;">
+                {% if errors.username is defined %}
+                    <p class="text-error">{{ errors.username }}</p>
+                {% endif %}
+                <label for="username" style="display: inline-block; width: 120px;">Имя:</label>
+                <input type="text" name="username" id="username" class="input-xxlarge" value="{{user.username}}" style="margin: 0;"/><br /><br />
+
+                {% if errors.email is defined %}
+                    <p class="text-error">{{ errors.email }}</p>
+                {% endif %}
+                <label for="email" style="display: inline-block; width: 120px;">E-mail:</label>
+                <input type="text" name="email" id="email" class="input-xxlarge" value="{{user.email}}" style="margin: 0;"/><br /><br />
+
+                    <label for="password" for="username" style="display: inline-block; width: 120px;">Новый пароль:</label>
+                    <input type="password" id="password" name="password" class="input-xxlarge"style="margin: 0;"/><br /><br />
+                    <label for="password_confirm"for="username" style="display: inline-block; width: 120px;">Повторите пароль:</label>
+                    <input type="password" id="password_confirm" name="password_confirm" class="input-xxlarge"style="margin: 0;"/><br /><br />
+                {% if errors.password is defined %}
+                    <p class="text-error">{{ errors.password }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ r }}" class="btn btn-link">Отмена</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> Сохранить</button>
+        </div>
+    </form>
+{% endblock content %}

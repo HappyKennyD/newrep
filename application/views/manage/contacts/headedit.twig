@@ -1,0 +1,39 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/contacts/head') }}" class="close">&times;</a>
+            <h4>Редактирование заголовка</h4>
+        </div>
+        <div>
+            <label for="post">Адрес:</label>
+            <input type="text" name="post" id="post" class="input-xxlarge" value="{{ item.post }}" />
+
+            <label for="phone">Тел. приемной:</label>
+            <input type="text" name="phone" id="phone" class="input-xxlarge" value="{{ item.phone }}" />
+
+            <label for="fax">Тел. канцелярии:</label>
+            <input type="text" name="fax" id="fax" class="input-xxlarge" value="{{ item.fax }}" />
+
+            <label for="name">Тел. доверия:</label>
+            <input type="text" name="name" id="name" class="input-xxlarge" value="{{ item.name }}" />
+
+            <label for="cabinet">e-mail:</label>
+            <input type="text" name="cabinet" id="cabinet" class="input-xxlarge" value="{{ item.cabinet }}" />
+
+            <label for="phone_smi">Тел. Управления связи со СМИ:</label>
+            <input type="text" name="phone_smi" id="phone_smi" class="input-xxlarge" value="{{ item.phone_smi }}" />
+
+            <label for="email_smi">e-mail Управления связи со СМИ:</label>
+            <input type="text" name="email_smi" id="email_smi" class="input-xxlarge" value="{{ item.email_smi }}" />
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/contacts/head') }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

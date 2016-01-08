@@ -1,0 +1,32 @@
+{% extends "layout/html.twig" %}
+
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/exhibits.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div id="scontent"></div>
+            <div class="item-list wrap">
+
+                <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+                <div class="div100"><h1>{{ "Хроника деятельности Первого Президента"|i18n }}</h1></div>
+                    <div id="album-exhibits">
+                        {% for item in list %}
+                            <div class="exhibit-item{% if loop.first %} m-top-15{% endif %}">
+                                <div class="exhibit-item-text">
+                                    <div class="ex-title">
+                                        <a class="s-item" href="{{ Url.site('first/view/'~item.id~'#scontent') }}">{{ item.title }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if loop.last %}
+                                <div class="ex-last-clear"></div>
+                            {% else %}
+                                <div class="ex-item-clear"></div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    {{ paginate|raw }}
+                </div>
+        </div>
+{% endblock content %}

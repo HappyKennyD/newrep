@@ -1,0 +1,68 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/publicationprojects/'~type~'/edit') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            {% if type=='publication' %}
+                                <a class="btn btn-info btn-mini" href="{{ Url.media('manage/publicationprojects/'~type~'/up/' ~item.id) }}"><i class="icon-arrow-up"></i></a>
+                                <a class="btn btn-info btn-mini" href="{{ Url.media('manage/publicationprojects/'~type~'/down/' ~item.id) }}"><i class="icon-arrow-down"></i></a>
+                            {% endif %}
+                            <a class="btn btn-mini" href="{{ Url.media('manage/publicationprojects/'~type~'/view/'~item.id) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/publicationprojects/'~type~'/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/publicationprojects/'~type~'/published/'~item.id) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/publicationprojects/'~type~'/published/'~item.id) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+
+                            {% if item.is_slider and type=='publication' %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/publicationprojects/'~type~'/slider/'~item.id) }}"><i class="icon-eye-close"> </i> Удалить со слайдера</a>
+                            {% elseif type=='publication' %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/publicationprojects/'~type~'/slider/'~item.id) }}"><i class="icon-eye-open"> </i> Добавить в слайдер</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/publicationprojects/'~type~'/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                        </span>
+
+
+            {% if  _language == 'en' and  item.date_en!='0000-00-00 00:00:00' %}
+                <div class="pull-left">{{ Date.ru_date(item.date_en, 'd F Y, H:i') }} —
+                    <a class="link" href="{{ Url.media('manage/publicationprojects/'~type~'/view/'~item.id) }}">{{ item.title }}</a>
+                </div>
+            {% elseif  _language == 'kz' and  item.date_kz!='0000-00-00 00:00:00' %}
+                <div class="pull-left">{{ Date.ru_date(item.date_kz, 'd F Y, H:i') }} —
+                    <a class="link" href="{{ Url.media('manage/publicationprojects/'~type~'/view/'~item.id) }}">{{ item.title }}</a>
+                </div>
+            {% elseif _language == 'ru' and  item.date_ru!='0000-00-00 00:00:00' %}
+                <div class="pull-left">{{ Date.ru_date(item.date_ru, 'd F Y, H:i') }} —
+                    <a class="link" href="{{ Url.media('manage/publicationprojects/'~type~'/view/'~item.id) }}">{{ item.title }}</a>
+                </div>
+                {% else %}
+                <div class="pull-left">{{ Date.ru_date(item.date, 'd F Y, H:i') }} —
+                    <a class="link" href="{{ Url.media('manage/publicationprojects/'~type~'/view/'~item.id) }}">{{ item.title }}</a>
+                </div>
+            {% endif %}
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        {{ item.desc }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

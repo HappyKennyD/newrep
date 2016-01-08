@@ -1,0 +1,31 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="titul" style="margin: 10px;">{{ URL.site('manage/expertquestions') }}
+        <a href="{{ Url.media('manage/expertquestions') }}?sort=noreply" {% if sort=="noreply" %}class="active"{% endif %}>{{ "Noreply Questions"|i18n }}</a>
+        <a href="{{ Url.media('manage/expertquestions') }}?sort=reply" {% if sort=="reply" %}class="active"{% endif %}>{{ "Reply Questions"|i18n }}</a>
+        <a href="{{ Url.media('manage/expertquestions') }}?sort=spam" {% if sort=="spam" %}class="active"{% endif %}>{{ "Spam"|i18n }}</a>
+        <a href="{{ Url.media('manage/expertquestions') }}?sort=all" {% if sort=="all" %}class="active"{% endif %}>{{ "All Questions"|i18n }}</a>
+    </div>
+    <div class="graybox news" style="margin-top: 10px;">
+        {% for item in questions %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+        <span class="btn-group">
+    <a class="btn btn-mini" href="{{ Url.site('manage/expertquestions/reply/'~item.id~'/page-'~page) }}?sort={{ sort }}">
+        <i class="icon-edit">{% if item.is_answered == 0 %}{{ "Reply"|i18n }} {% else %}{{ "See the question"|i18n }}{% endif %}</i></a>
+                    </div>
+                    {{ item.user.username|raw|striptags }}<br>{{ Date.translate(item.date, 'd F Y G:i:s') }}
+                    <br>{{ Text.limit_chars(item.question,100)|raw|striptags }}
+                </div>
+            </div>
+        {% else %}
+            <div class="text">{{ "No questions"|i18n }}</div>
+        {% endfor %}
+        <br>
+        <div style="padding: 0 30px 30px 30px;">
+            {{ paginate|raw }}
+        </div>
+
+    </div>
+{% endblock content %}

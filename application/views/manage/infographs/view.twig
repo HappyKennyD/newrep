@@ -1,0 +1,34 @@
+{% extends "manage/layout/manage.twig" %}
+
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/infographs/edit/'~infograph.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/infographs/delete/'~infograph.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+            ({{ Date.ru_date(infograph.date, 'd F Y') }})<br>
+            <h4>{{ infograph.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if infograph.picture.file_path is defined %}
+                <a href="{{ Url.site(infograph.picture.file_path, TRUE) }}" class="zoom">
+                    <img id='to_zoom' src="{{ Url.site(infograph.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" width="700" height="600" title="{{ "Click to zoom"|i18n }}" />
+                </a>
+            {% endif %}
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <script type="text/javascript">
+        jQuery(function(){
+            var text = $("#to_zoom").attr('title');
+            jQuery(".zoom").zoomy({
+            zoomText: text
+        });;
+        });
+    </script>
+
+
+{% endblock content %}

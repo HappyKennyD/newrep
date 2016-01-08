@@ -1,0 +1,56 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/ent.css') }}" />
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/ent.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <div class="div100"><h1>{{ ent.title }}</h1></div>
+        
+        <div id="begin-test-block" class="div100">
+            <a href="javascript:beginTest()" class="button">{{ "Begin test"|i18n }}</a>
+        </div>
+        
+        <div id="ent-questions-list">
+
+            {% for item in q %}
+                <div id="ent-{{ loop.index }}" class="ent-question-block">
+                    <div alt="{{ item.quest.id }}" class="ent-question-title" id="question-{{ item.quest.id }}">
+                        <div class="ent-question-number">{{ loop.index }})</div>
+                        <div class="ent-question-text">{{ item.quest.text }}</div>
+                    </div>
+                    {% for var in item.variants %}
+                        <div class="ent-answer-variant"><div>{{ var.id }}</div><span><strong>{{ range[loop.index0] }})</strong> {{ var.text }}</span></div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            
+            <div id="status-panel">
+                <div id="status-timer"></div>
+                
+                <div id="status-numbers">
+                    {% for question in q %}
+                        <span id="digit-{{ question.quest.id }}">{{ loop.index }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div id="status-result"><a href="#">{{ "Result"|i18n }}</a></div>
+            </div>
+            
+            <div id="test-cover"></div>
+        </div>
+        
+        <div id="end-question">
+            <a href="javascript:endTest()" class="button">{{ "End test"|i18n }}</a>
+        </div>
+        
+        <div class="ent-clear"></div>
+    </div>
+
+    <input type="hidden" id="ajaxurl" name="ajaxurl" value="{{ Url.site('ajax/ent') }}" />
+    <input type="hidden" id="notallquestions" name="notallquestions" value="{{ "Not all questions"|i18n }}" />
+{% endblock content %}

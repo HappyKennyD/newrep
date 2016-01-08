@@ -1,0 +1,56 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/exhibits.css') }}" />
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div class="main-menu-title"><h3>{{ "Мультимедиа"|i18n }}</h3></div>
+
+        <div class="ln1"></div>
+
+        <div class="album-exhibits">
+
+            <div class="exhibit-item m-top-15">
+                <div class="exhibit-item-text">
+                    <div class="ex-title">
+                        <a href="{{ Url.site('photosets') }}" class="s-item">{{"Photosets"|i18n}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exhibit-item m-top-15">
+                <div class="exhibit-item-text">
+                    <div class="ex-title">
+                        <a href="{{ Url.site('video') }}" class="s-item">{{"Video"|i18n}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exhibit-item m-top-15">
+                <div class="exhibit-item-text">
+                    <div class="ex-title">
+                        <a href="{{ Url.site('audio') }}" class="s-item">{{"Audio"|i18n}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exhibit-item m-top-15">
+                <div class="exhibit-item-text">
+                    <div class="ex-title">
+                        <a href="{{ Url.site('infographs') }}" class="s-item">{{"Infographics"|i18n}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="exhibit-item m-top-15">
+                <div class="exhibit-item-text">
+                    <div class="ex-title">
+                        <a href="{{ Url.site('books/library') }}" class="s-item">{{"Library"|i18n}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

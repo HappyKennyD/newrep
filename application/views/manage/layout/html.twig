@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="{{ _language }}">
+<head>
+    <title>{{ _metadata.title }}</title>
+    <meta charset="{{ _metadata.charset }}"/>
+    <meta http-equiv="X-UA-Compatible" value="IE=Edge,chrome=1" />
+    <link rel="shortcut icon" href="{{ Url.media('/favicon.png') }}" />
+    <link rel="icon" href="{{ Url.media('/favicon.png') }}" />
+    <link rel="stylesheet" href="{{ Url.media('media/css/manage/bootstrap.min.css') }}"/>
+    <!--[if IE]><![if !IE]><![endif]--><link rel="stylesheet" href="{{ Url.media('media/css/font-awesome-embedded.css') }}"/><!--[if IE]><![endif]><![endif]-->
+    <!--[if IE]><link rel="stylesheet" href="{{ Url.media('media/css/font-awesome-embedded-ie.css') }}"/><![endif]-->
+    <link rel="stylesheet" href="{{ Url.media('media/css/font-awesome.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/redactor/redactor.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/manage.css') }}"/>
+</head>
+<body>
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

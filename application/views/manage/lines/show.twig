@@ -1,0 +1,26 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-small" href="{{ Url.media('manage/lines/list/'~item.period_id) }}"><i class="icon-share"></i> {{ "К списку событий"|i18n }}</a>
+            <a class="btn btn-small" href="{{ Url.media('manage/lines/edit/'~item.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+        </div>
+        <div>
+            {{ item.date }}<br>
+            <h4>{{ item.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if item.picture.file_path is defined %}
+                <img src="{{ Url.site(item.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+        </div>
+        <div>
+            <strong>{{ item.description }}</strong>
+        </div><br>
+        <div>
+            {{ item.text|raw }}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,18 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+    <form action="" method="POST">
+        <div class="page-header">
+
+        </div>
+        <div class="page">
+            {%  if slogans %}
+                {% for item in slogans %}
+                    <input name="{{ item.id }}" class="manage_slogan" type="text" value="{{ item.text }}">
+                {% endfor %}
+            {% endif %}
+
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+        </div>
+    </form>
+{% endblock content %}

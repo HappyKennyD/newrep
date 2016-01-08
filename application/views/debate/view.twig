@@ -1,0 +1,149 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/debate.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.autosize-min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/debate.js') }}"></script>
+{% endblock extrascripts %}
+{% block content %}
+    <div class="wrap">
+        {% include 'layout/bread-crumbs.twig' %}
+        {% set author_name=debate.author.username %}
+        {% if debate.opponent.username %}{% set opponent_name=debate.opponent.username %}{% else %}{% set opponent_name=debate.opponent_email %}{% endif %}
+        {% if debate.author.profile.photo!=0 %} {% set author_avatar=Url.media('/images/w140-h140-ccc-si/'~debate.author.profile.img.file_path) %}{% else %}{% set author_avatar=Url.media('/images/w140-h140-ccc-si/media/images/no_user.jpg') %}{% endif %}
+        {% if debate.opponent.profile.photo!=0 %} {% set opponent_avatar=Url.media('/images/w140-h140-ccc-si/'~debate.opponent.profile.img.file_path) %}{% else %}{% set opponent_avatar=Url.media('/images/w140-h140-ccc-si/media/images/no_user.jpg') %}{% endif %}
+
+        <div class="debate-inner-title">
+            <h1>{{ debate.title }}</h1>
+        </div>
+        <div class="debate-inner-info">
+            {% if Date.translate(debate.end_time, 'U') > Date.translate(nowdate, 'U') and debate.is_public==1 %}{{ "Before the end of the debate"|i18n }}
+                <strong>{% set ost_time=TimeDifference.give(debate.end_time) %}{% if ost_time.day>0 %}{{ ost_time.day~" "~CorrectDeclension.give(ost_time.day, "1день", "2дня", "5дней", "21день")|i18n }}{% endif %} {% if ost_time.hour>0 %}{{ ost_time.hour~" "~CorrectDeclension.give(ost_time.hour, "1час", "2часа", "5часов", "21час")|i18n }}{% endif %} {% if ost_time.minute>0 %}{{ ost_time.minute~" "~CorrectDeclension.give(ost_time.minute, "1минуту", "2минуты", "5минут", "21минуту")|i18n }}{% endif %}</strong>.
+            {% elseif debate.is_public==0 %}{{ "An opponent has not yet accepted the challenge. Deactivating the debate over"|i18n }}
+                <strong>{% set ost_time=TimeDifference.give(debate.date,36) %}{% if ost_time.day>0 %}{{ ost_time.day~" "~CorrectDeclension.give(ost_time.day, "1день", "2дня", "5дней", "21день")|i18n }}{% endif %} {% if ost_time.hour>0 %}{{ ost_time.hour~" "~CorrectDeclension.give(ost_time.hour, "1час", "2часа", "5часов", "21час")|i18n }}{% endif %} {% if ost_time.minute>0 %}{{ ost_time.minute~" "~CorrectDeclension.give(ost_time.minute, "1минуту", "2минуты", "5минут", "21минуту")|i18n }}{% endif %}</strong>.
+                {% if debate.author_id==_user.id and debate.is_closed==0 and debate.is_public==0 %}
+                    <a href="{{ Url.site('debate/close/'~debate.id) }}">{{ "Close debate"|i18n }}</a>{% endif %}
+                {% if debate.opponent_email==_user.email and debate.is_closed==0 and debate.is_public==0 %}
+                    <a class="name" href="{{ Url.site('debate/agree/'~debate.id) }}">
+                        {{ "To agree"|i18n }}</a>
+                <a class="name" href="{{ Url.site('debate/disagree/'~debate.id) }}">
+                    {{ "To Unsubscribe"|i18n }}</a>{% endif %}
+            {% else %}{{ "Debate completed"|i18n }} <strong>{{ Date.translate(debate.end_time, 'd.m.Y, H:i') }}</strong>
+            {% endif %}
+            {% if (_user.has_access('am')) %}<a href="{{ Url.media('manage/debate/hide/'~debate.id~'?r=debate/view/'~debate.id) }}" style="font-style:normal ;float: right; text-decoration: none; color: #FF0000;"><i class="icon-exclamation-sign"></i> {% if debate.is_closed == 1%}{{ "Display debate"|i18n }}{% else %}{{ "Hide debate"|i18n }}{% endif %}</a>{% endif %}
+        </div>
+
+        <div class="versus">
+            <table>
+                <tr>
+                    <td class="first-contestant"><p class="contestant-name">{{ author_name }}</p></td>
+                    <td class="contestant-avatar"><img src="{{ author_avatar }}" alt=""/></td>
+                    <td>
+                        <div class="vs"></div>
+                    </td>
+                    <td class="contestant-avatar">
+
+                        {% if debate.is_public==0 %}
+                        <div class="div100"> {% endif %}
+                            <img src="{{ opponent_avatar }}" alt=""{% if debate.is_public==0 %} class="not-active-image" {% endif %}/>
+                            {% if debate.author_id==_user.id and debate.is_closed==0 and debate.is_public==0 %}
+                            <a class="change-oponent" href="{{ Url.site('debate/edit/'~debate.id) }}">{{ "Change the opponent"|i18n }}</a>
+                        </div>{% endif %}
+
+
+                    </td>
+                    <td class="second-contestant">
+                        <p class="contestant-name{% if debate.is_public==0 %} not-active-color{% endif %}">{{ opponent_name }}</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="debate-page-announce">
+            <div></div>
+            <p>
+                {{ debate.description|striptags }}
+            </p>
+        </div>
+        <div class="debate-answers-list">
+            {% set i=0 %}
+            {% for item in opinions %}
+                <div class="answer-block{% if i%2==1 %} is-yellow{% endif %}">
+                    <div class="ab-arrow"></div>
+                    <div class="answer-content">
+                        <div class="answer-text">{{ item.moderator_text|raw|striptags|default(item.opinion|raw|striptags) }}</div>
+                        <div class="answer-info">
+                            <div class="answer-date">
+                                <p>{% if i%2==0 %}{{ author_name }}{% else %}{{ opponent_name }}{% endif %}
+                                    <span>{{ Date.translate(item.date, 'd.m.Y, H:i') }}
+                                        {% if (_user.has_access('am')) %}<a href="{{ Url.media('manage/debate/opinionhide/'~item.id~'?r=debate/view/'~debate.id) }}" style="font-style:normal ;float: right; text-decoration: none; color: #FF0000;"><i class="icon-exclamation-sign"></i> {{ "Edit opinion"|i18n }}</a>{% endif %}</span>
+                                </p></div>
+                            <div class="answer-raiting">
+                                <div class="vote-bad">
+                                    <a href="{{ Url.site('debate/minus/'~item.id) }}"></a><span>{{ item.minus }}</span>
+                                </div>
+                                <div class="vote-good">
+                                    <a href="{{ Url.site('debate/plus/'~item.id) }}"></a><span>{{ item.plus }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% set i=i+1 %}
+            {% endfor %}
+
+        </div>
+        {% if debate.replier_id==_user.id and debate.is_public==1 and Date.translate(debate.end_time, 'U') > Date.translate(nowdate, 'U') %}
+            <div class="add-comment-block">
+                {% if errors.opinion is defined %}
+                    <span class="alert">{{ "Your position should contain no less than 30 characters"|i18n }}</span>
+                {% endif %}
+                <form action="" method="POST">
+                    <textarea alt="{{ "Express its position"|i18n }}" name="opinion" id="opinion">{{ opinion.opinion|striptags|raw|default("Express its position"|i18n) }}</textarea>
+                </form>
+
+                <span>{{ "Send with Enter"|i18n }}</span>
+            </div>
+        {% endif %}
+        <div class="debate-border-bottom"></div>
+
+        <div class="debate-likes">
+            <script type="text/javascript">(function () {
+                    if (window.pluso) if (typeof window.pluso.start == "function") return;
+                    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                    s.type = 'text/javascript';
+                    s.charset = 'UTF-8';
+                    s.async = true;
+                    s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                    var h = d[g]('head')[0] || d[g]('body')[0];
+                    h.appendChild(s);
+                })();</script>
+            <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+        </div>
+        {% if comments_count!=0 %}<div class="comments-count-title">{{ comments_count }} {{ CorrectDeclension.give(comments_count)|i18n }}</div>{% else %}<div class="comments-count-title">{{ "Нет комментариев"|i18n }}</div> {% endif %}
+        {% for comment in comments %}
+            <div class="one-comment">
+                <div class="c-user-avatar">
+                    <img src="{% if comment.user.profile.photo!=0 %} {{ Url.media('/images/w65-h65-ccc-si/'~comment.user.profile.img.file_path) }}{% else %}{{ Url.media('/images/w65-h65-ccc-si/media/images/no_user.jpg') }}{% endif %}" alt=""/>
+                </div>
+                <div class="c-user-comment">
+                    <p class="comment-information">
+                        <strong><a href="{{ Url.site('profile/view/'~comment.user.id) }}">{{ comment.user.username }}</a></strong><span>{{ Date.translate(comment.date, 'd.m.Y, H:i') }}
+                            {% if (_user.has_access('am')) %}<a href="{{ Url.media('manage/debate/commenthide/'~comment.id~'?r=debate/view/'~debate.id) }}" style="font-style:normal ;float: right; text-decoration: none; color: #FF0000;"><i class="icon-exclamation-sign"></i> {% if comment.hide == 1%}{{ "Display the comment"|i18n }}{% else %}{{ "Hide comment"|i18n }}{% endif %}</a>{% endif %}</span>
+                    </p>
+                    <p class="comment-text">{{ comment.comment }}</p>
+                </div>
+            </div>
+        {% endfor %}
+        {% if _user and debate.is_public==1 %}
+            <div class="add-comment-block">
+                <form action="{{ Url.site('debate/comment/'~debate.id) }}" method="POST">
+                    <textarea alt="{{ "Leave a comment"|i18n }}" name="comment" id="comment">{{ comment.comment|striptags|raw|default("Leave a comment"|i18n) }}</textarea>
+                </form>
+
+                <span>{{ "Send with Enter"|i18n }}</span>
+            </div>
+        {% endif %}
+        <div class="debate-bottom-space"></div>
+    </div>
+{% endblock content %}

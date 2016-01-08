@@ -1,0 +1,191 @@
+#expert-page-title, #expert-page-announce, #expert-text, #expert-photo, #expert-name, .expert-likes, #expert-position, #expert-info, .bottom-line, #expert-publications  {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+#expert-left, #expert-right {
+    position: relative;
+    float: left;
+}
+
+#expert-left {
+    width: 620px;
+}
+
+#expert-right {
+    width: 220px;
+    left: 100px;
+}
+
+#expert-page-announce {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+    margin-top: 15px;
+}
+
+#expert-page-announce div {
+    position: absolute;
+    width: 2px;
+    height: 1px;
+    left: -22px;
+    top: 6px;
+    background: url(../images/v1/expert-announce-line.gif);
+}
+
+#expert-text {
+    line-height: 24px;
+}
+
+#expert-text blockquote {
+    font-style: italic;
+    margin-left: 40px;
+    border-left: none !important;
+    padding: 0 !important;
+}
+
+#expert-photo {
+    margin-top: 13px;
+}
+
+#expert-name {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+#expert-position, #expert-info {
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 10px;
+}
+
+.bottom-line {
+    height: 1px;
+    font-size: 0;
+    background: url(../images/v1/debate-pixel.gif);
+    margin-top: 20px;
+}
+
+#expert-publications {
+    margin-top: 40px;
+}
+
+#expert-publications ul {
+    list-style-type: none;
+    margin-left: 0;
+    line-height: 24px;
+}
+
+#expert-publications li {
+    margin-top: 10px;
+}
+
+#expert-publications strong {
+    font-size: 18px;
+}
+
+#expert-publications a {
+    color: #e2d7d4;
+    text-decoration: underline;
+}
+
+#expert-publications a:hover {
+    text-decoration: none;
+}
+
+#expert-publications a span {
+    color: #9f7b71;
+}
+
+.expert-likes {
+    margin-top: 17px;
+}
+
+/* Comments CSS */
+
+.comments-count-title, .one-comment, .debate-bottom-space {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.c-user-avatar, .c-user-comment, .add-comment-block {
+    position: relative;
+    float: left;
+}
+
+.comments-count-title {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 35px;
+    margin-top: 20px;
+}
+
+.one-comment {
+    margin-top: 23px;
+}
+
+.c-user-avatar {
+    width: 80px;
+}
+
+.c-user-avatar img {
+    margin-top: 7px;
+}
+
+.c-user-comment {
+    width: 540px;
+}
+
+.comment-information {
+    line-height: 24px;
+}
+
+.comment-information strong {
+    font-size: 18px;
+    margin-right: 10px;
+}
+
+.comment-information span {
+    color: #999999;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.comment-text {
+    line-height: 24px;
+}
+
+.add-comment-block {
+    width: 620px;
+    margin-top: 30px;
+}
+
+.add-comment-block textarea {
+    width: 606px;
+    color: #999999;
+    font-size: 18px;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    height: 25px;
+    padding: 10px 6px !important;
+}
+
+.add-comment-block span {
+    display: block;
+    float: right;
+    line-height: 24px;
+    font-style: italic;
+    color: #999999;
+    font-size: 16px;
+    clear: both;
+    margin-top: 5px;
+    padding-right: 23px;
+    background: url(../images/v1/enter.png) top right no-repeat;
+}
+
+.debate-bottom-space {
+    height: 40px;
+}

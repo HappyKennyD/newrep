@@ -1,0 +1,49 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <strong>{{ "Links for personalities"|i18n }}</strong>
+        <div class="pull-right">
+            <a class="btn" href="{{ Url.media('manage/biography/editattachments?biography='~id) }}"><i class="icon-plus"> {{ "Add"|i18n }}</i></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        <strong>{{ "Advised to read"|i18n }}:</strong>
+        {% for item in read %}
+            <div style="margin-left: 20px" class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        {% if item.link %}
+                            <a href="{{ item.link }}">{{ item.title }}</a>
+                        {% else %}
+                            {{ item.title }}
+                        {% endif %}
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/biography/editattachments/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/biography/deleteattachments/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <br><br>
+        <strong>{{ "References"|i18n }}:</strong>
+        {% for item in references %}
+            <div style="margin-left: 20px" class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        {% if item.link %}
+                            <a href="{{ item.link }}">{{ item.title }}</a>
+                        {% else %}
+                            {{ item.title }}
+                        {% endif %}
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/biography/editattachments/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/biography/deleteattachments/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock content %}

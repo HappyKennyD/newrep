@@ -1,0 +1,44 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/video/category/'~category) }}" class="close">&times;</a>
+            <h4>{{ "Редактирование/добавление записи"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" style="width: 98%;"/>
+            <label for="link">Ссылка</label>
+            <input type="text" name="link" id="link" class="input-xxlarge" value="{{ item.link }}" style="width: 98%;"/>
+            <label for="category_id">Категория</label>
+            <select name="category_id" id="category_id" style="width: 80%">
+                <option value="0" selected>Без категории</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if cat.has_children() and cat.lvl==1 %}disabled style="color:lightgrey;"{% endif %} {% if category and cat.id == category.id %} selected{% endif %}>{% for i in 1..cat.lvl %}&nbsp;&nbsp;&nbsp;&nbsp;{% endfor %}{% if cat.has_children() %}&#8595;{% endif %}{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="description">{{ "Краткое описание новости (максимум 255 символов)"|i18n }}</label>
+            <textarea name="description" id="description" maxlength="255" rows="3" style="width: 98%; resize: none;">{{ item.description }}</textarea>
+            <label for="language">{{ "Язык"|i18n }}</label>
+            <input type="radio" name="language" value="ru" id="ru"{% if item.language=='ru' %} checked=""{% endif %}>&nbsp;<label for="ru" class="label label-info">ru</label>
+            <input type="radio" name="language" value="kz" id="kz"{% if item.language=='kz' %} checked=""{% endif %}>&nbsp;<label for="kz" class="label label-info">kz</label>
+            <input type="radio" name="language" value="en" id="en"{% if item.language=='en' %} checked=""{% endif %}>&nbsp;<label for="en"class="label label-info">en</label>
+            <label for="datepicker">{{ "Date"|i18n }}</label>
+            <input type="text" name="date" class="datepicker"
+                   data-date="{% if item.date is empty %}{{ "now"|date("Y-m-d H:i") }}{% else %}{{ item.date|date("Y-m-d H:i") }}{% endif %}"
+                   data-date-format="dd.mm.yyyy hh:ii" value="{% if item.date is empty %}{{ "now"|date("d.m.Y H:i") }}{% else %}{{ item.date|date("d.m.Y H:i") }}{% endif %}"
+                   id="datepicker" readonly style="cursor: pointer"/>
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/video/category/'~category) }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

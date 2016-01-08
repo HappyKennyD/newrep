@@ -1,0 +1,37 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="graybox news" style="margin-top: 10px;">
+        <div class="box-header">
+            <h3> Журнал «Актуальные вопросы национальной истории»
+                {% if (_user is defined) and (_user!=false) and (_user.has_access('mao')) %}
+                <a class="btn btn-small" href="{{ Url.site('manage/eljournal/edit/') }}">
+                    <i class="icon-plus"></i> {{ "Add a magazine"|i18n }}</a>{% endif %}
+            </h3>
+        </div>
+        {% for item in callings %}
+            {{ item.detect_exist() }}
+            <div class="well well-small">
+                <div class="text">
+                    <span class="btn-group pull-right">
+                        <a class="btn"
+                           href="{{ Url.site('manage/eljournal/edit/'~item.id) }}"><i
+                                    class="icon-edit"></i> Редактировать</a>
+                        <a class="btn btn-danger" onclick="return confirm('Удалить этот элемент?');"
+                           href="{{ Url.site('manage/eljournal/delete/'~item.id) }}"><i
+                                    class="icon-remove"></i> Удалить</a>
+                    </span>
+
+                    <div>
+                        {{ item.title }} <br>
+                        <span class="label label-info"> {{ Date.ru_date(item.date, 'd F Y') }} </span> <br>
+
+                        <a href="{{ Url.media(item.file_pdf.file_path) }}"><img
+                                    src='{{ Url.media('images/w200-si/' ~ item.file_cover.file_path) }}'/></a>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="text">{{ "No magazines"|i18n }}</div>
+        {% endfor %}
+    </div>
+{% endblock content %}

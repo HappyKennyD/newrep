@@ -1,0 +1,18 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="post">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <a type="button" href="{{ return }}" class="close">&times;</a>
+            <h4>{{ "Set the mark"|i18n}} "{{ "Spam"|i18n }}"</h4>
+        </div>
+
+        <div class="modal-body">
+            <p>{{ "Are you sure you want to mark the question"|i18n }} «{{ question.question|raw|striptags }}» {{ "as spam"|i18n }}?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ return }}" class="btn">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-danger"><i class="icon-remove"></i> {{ "Yes, Spam"|i18n }}</button>
+        </div>
+    </form>
+{% endblock content %}

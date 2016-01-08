@@ -1,0 +1,34 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<form action="" style="margin:0" method="post">
+    <div class="modal-header">
+        <h4>{{ "Edit question"|i18n }}</h4>
+    </div>
+    <div class="modal-body">
+        <label for="name">{{ "Question text"|i18n }}</label>
+        {% if errors.text is defined %}
+            <span class="alert">{{ errors.text }}</span>
+        {% endif %}
+        <textarea class="redactor" name="text" id="text" style="width: 98%;">{% if quest is defined %}{{ quest.quest }}{% endif %}</textarea>
+        {#<textarea name="text" class="input-block-level">{% if quest is defined %}{{ quest.quest }}{% endif %}</textarea>#}
+
+        {#<label for="name"> Пояснние</label>#}
+        {#{% if errors.text is defined %}#}
+            {#<span class="alert">{{ errors.text }}</span>#}
+        {#{% endif %}#}
+        {#<textarea class="redactor" name="description" id="text_2" style="width: 98%;">{{ quest.description }}</textarea>#}
+
+        {#<input type="hidden" name="right" value="0" />#}
+        {#<label for="right">Верно</label>#}
+        {#<input type="checkbox" name="right" id="right" value="1" {% if quest is defined and quest.right == 1 %}checked="checked"{% endif %} />#}
+
+    </div>
+
+
+
+    <div class="modal-footer">
+        <a href="{{ cancel_url }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+        <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+    </div>
+</form>
+{% endblock content %}

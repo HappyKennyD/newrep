@@ -1,0 +1,38 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/links/edit') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-success btn-mini" href="{{ Url.media('manage/links/up/' ~item.id) }}"><i class="icon-arrow-up"></i></a>
+                            <a class="btn btn-danger btn-mini" href="{{ Url.media('manage/links/down/' ~item.id) }}"><i class="icon-arrow-down"></i></a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/links/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/links/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left">
+                        <a class="link" href="{{ item.link }}">{{ item.title }}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        {{ item.desc|raw }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

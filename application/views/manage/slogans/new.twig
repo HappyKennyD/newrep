@@ -1,0 +1,22 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<form action="" style="margin:0" method="post">
+    <div class="modal-header">
+        <h4>Добавление</h4>
+    </div>
+    <div class="modal-body">
+        <label for="name">{{ "Название"|i18n }}</label>
+        <input type="text" name="name" class="input-xxlarge" id="name" style="width: 98%">
+        <label for="key">{{ "Ключ"|i18n }}</label>
+        <input type="text" name="key" class="input-xxlarge" id="key" style="width: 98%" />
+        <label for="description">{{ "Описание (максимум 200 символов)"|i18n }}</label>
+        <textarea name="description" id="description" maxlength="200" rows="3" style="width: 98%; resize: none;"></textarea>
+        <input type="checkbox" name="static" value="1" id="static" class="checkbox" style="margin: 0 5px 1px 0;" />
+        <label for="static" style="display: inline;" class="">Статичная страница</label>
+    </div>
+    <div class="modal-footer">
+        <a href="{{ cancel_url }}" class="btn btn-link">Отмена</a>
+        <button class="btn btn-success"><i class="icon-ok"></i> Сохранить</button>
+    </div>
+</form>
+{% endblock content %}

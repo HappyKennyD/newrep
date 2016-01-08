@@ -1,0 +1,111 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/library.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/uchebnik/demo.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/uchebnik/responsiveslides.css') }}">
+{% endblock %}
+{% block extrascripts %}
+    {#<script type="text/javascript" src="{{ Url.media('media/js/jquery.autosize-min.js') }}"></script>#}
+    <script type="text/javascript" src="{{ Url.media('media/js/library.js') }}"></script>
+    <script src="{{ Url.media('media/js/uchebnik/slides.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="top-background" style="height: 900px;">
+        <div class="wrap">
+            {% if books %}
+                {% for item in books %}
+                    <div style="float: left; width: 505px;    margin-top: 164px;    margin-left: 165px;">
+                        <div id="wrapper">
+                            <!-- Slideshow 4 -->
+                            <div class="callbacks_container">
+                                <ul class="rslides" id="slider4">
+                                    {% for n in 0..(kol-1) %}
+                                        <li>
+                                            <img src="/media/upload/{{ item.file_path }}/{{ item.file_path }}-{{ n }}.png">
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="comment">
+                            {% if books %}
+                                {% for item in books %}
+                                <div class="info_book inlbl" style="margin-left: 85px">
+                                    <h2 style="margin-top: 45px;     text-align: center;">{{ item.subject|i18n }}, {{ item.class }} класс</h2>
+                                    <p>•  <span>Язык:</span> {{ item.language|i18n }} </p>
+                                    <p>•  <span>Издательство:</span> {{ item.publisher }} </p>
+                                    <p>•  <span>Авторы:</span> {{ item.author }} </p>
+                                    <p>•  <span>кол-во страниц:</span> {{ kol }} </p>
+                                </div>
+                                {% endfor %}
+                            {% endif %}
+                            {% if not _user %}
+                                <div class="block-title-text">{{ "Чтобы оставить комментарий к книге зарегистрируйтесь"}},<br/>{{ " или зайдите под своим именем" }}
+                                    {#<a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }}#}
+                                    {#<a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a>#}
+                                    <a href="{{ Url.site('auth/enter') }}" {% if Url.site('auth/enter')==nofollowlink%} class="link active" rel="nofollow"{% endif %}>
+                                        <div {% if Url.site('auth/enter')==nofollowlink%}class="log-in active" rel="nofollow" {% else %} class="log-in"{% endif %} style="margin: 25px auto; width: 205px;">
+                                            <span style=" line-height: 44px;   padding: 0;" {% if Url.site('auth/enter')==nofollowlink%}class="active"{% endif %}>{{ "Войти"|i18n }}</span>
+                                        </div>
+                                    </a>
+                                    <a href="{{ Url.site('auth/register') }}" {% if Url.site('auth/register')==nofollowlink%}rel="nofollow"{% endif %}>
+                                        <div {% if Url.site('auth/register')==nofollowlink%}class="sign-up active" rel="nofollow" {% else %} class="sign-up"{% endif %} style="margin: 25px auto; width: 205px;">
+                                            <span style=" line-height: 44px;   padding: 0;" {% if Url.site('auth/register')==nofollowlink%}class="active"{% endif %}>{{ "Регистрация"|i18n }}</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            {% endif %}
+                        {{ _request.factory('comments/index/book-'~item.id).execute()|raw }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <div id="scontent"></div>
+    <div class="comments">
+        <div class="wrap text-page" style="">
+            <div class="header_text">КОММЕНТАРИИ </div>
+            <div id="block"></div>
+            <div class="mini_view">
+                {#<input type="hidden" id="id1" name="id1" class="id1" value="1"/>#}
+                {%  if books2 %}
+                    {% for item in books2 %}
+                        <div class="subject_mini">
+                            <div class="about_book_view">
+                                <div class="image_book_mini inlbl">
+                                    <img src="/media/theme/uchebnik/book_mini.png" alt=""/>
+                                </div>
+                                <div class="info_book_mini inlbl">
+                                    <h2>{{ item.subject|i18n }}, {{ item.class }} класс</h2>
+                                    <p>•  <span>Язык:</span> {{ item.language|i18n }} </p>
+                                    <p>•  <span>Издательство:</span> {{ item.publisher }} </p>
+                                    <p>•  <span>Авторы:</span> {{ item.author }} </p>
+                                    <p>•  <span>кол-во страниц:</span> {{ item.kol }} </p>
+                                </div>
+                            </div>
+                            <a href="{{ Url.site('books/view/'~item.id) }}">
+                                <div class="abs-right abs-bottom learn">
+                                    <p class="">Читать</p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+    <script>
+        $(function () {
+            $("#slider4").responsiveSlides({
+                auto: false,
+                pager: false,
+                nav: true,
+                speed: 500,
+                namespace: "callbacks"
+            });
+        });
+    </script>
+
+{% endblock content %}

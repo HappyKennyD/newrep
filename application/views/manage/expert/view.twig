@@ -1,0 +1,32 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="well well-small" style="margin-bottom: 0">
+        <div>
+            <div class="pull-left">
+                <div class="name">{{ item.name }}</div>
+            </div>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-mini" href="{{ Url.site('manage/expert/edit/'~item.id~'/page-'~page) }}?r=manage/expert/view/{{ item.id }}"><i class="icon-pencil"></i>
+                        {{ "Edit "|i18n }}</a>
+                    <a class="btn btn-mini btn-danger" href="{{ Url.site('manage/expert/delete/'~item.id) }}?r=manage/expert/view/{{ item.id }}"><i class="icon-remove"> </i></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="subpane" style="margin-top: 10px">
+            {% if item.picture.file_path is defined %}
+                <img src="{{ Url.site('/images/w150-ccc-si/'~item.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+            <div class="clear"></div>
+            <hr/>
+            {{ item.position|striptags }}
+            <div class="clear"></div>
+            <hr/>
+            {{ item.description|striptags }}
+        </div>
+
+        <br/>
+        <a href="{{ Url.site('manage/expert/page-'~page) }}">Все эксперты</a>
+    </div>
+{% endblock content %}

@@ -1,0 +1,30 @@
+{% extends "manage/layout/html.twig" %}
+{% block content %}
+<div class="container">
+   <form class="modal" method="post">
+        <div class="modal-header">
+        <h4 class="form-signin-heading">Укажите данные для входа</h4>
+        </div>
+        <div class="modal-body">
+            {% if error %}<div class="alert alert-error"><strong>Ошибка!</strong> Имя пользователя или пароль не верны</div>{% endif %}
+            {% if message %}<div class="alert alert-error"><strong>Ошибка!</strong> Неверно введён проверочный код</div>{% endif %}
+        <input type="text" name="username" class="input-block-level" placeholder="Адрес электронной почты" value="{{ username }}">
+        <input type="password" name="password" class="input-block-level" placeholder="Пароль">
+        <label class="checkbox">
+            <input type="checkbox" name="remember" id="remember" value="1" {{ remember }}><label for="remember">Запомнить меня</label>
+        </label>
+        </div>
+        <div style="padding: 15px">
+            <div style="display: inline-block">
+                <label for="captcha">Введите символы с картинки: *</label>
+                <input name="captcha" type="text" id="captcha" />
+            </div>
+            <div style="display: inline-block;   margin-left: 15px;  vertical-align: top;">{{  captcha | raw }}</div>
+        </div>
+        <div class="modal-footer">
+        <button class="btn btn-large btn-primary" type="submit">Войти в систему</button>
+        </div>
+    </form>
+
+</div>
+{% endblock content %}

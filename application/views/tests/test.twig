@@ -1,0 +1,201 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+<link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/v1.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/ent.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/game.css') }}" />
+
+{% endblock %}
+{% block extrascripts %}
+    {#<script type="text/javascript" src="{{ Url.media('media/js/ent.js') }}"></script>#}
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.cookie.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+            $('.ans').css("display", "none");
+            $('.error').css("display", "none");
+            $.cookie("foo",0);
+            $.cookie("ffalse",0);
+	    $.cookie("kol",1);
+
+            console.log('test');
+            $( ".ent-question-text" ).children("p").children("img").css( "width", "auto");
+            $( ".ent-question-text" ).children("p").children("img").css( "height", "auto");
+            var hei = 0;
+            $(".ent-question-text").each(function(i){
+                hei = $(this).outerHeight();
+                console.log(hei);
+                if ((hei > 0) && (hei < 540)){
+                    $(".ent-question-title").css("margin","15% 0 0");
+                }
+            });
+            console.log(hei);
+            $('.action').click(function () {
+                var error = $.cookie("ffalse");
+                var div = $(this).parent().parent();
+                var div_2 = $(this).parent().parent().parent().find('.ans');
+                var fl = $(this).parent().parent().parent().find('.false');
+                var tr = $(this).parent().parent().parent().find('.true');
+                var foo = parseInt($.cookie("foo"));
+                var dataC = parseInt($(this).attr('data-value'));
+                var count = foo+dataC;
+                $.cookie("foo",count);
+                var c_cookie = $.cookie("foo");
+                if ($(this).attr('data-value') == 1) {
+                    fl.css("display", "none");
+                    tr.css("display", "block");
+                    console.log('TRUE!');
+                }
+                if ($(this).attr('data-value') == 0) {
+                    console.log('FALSE!');
+                    tr.css("display", "none");
+                    fl.css("display", "block");
+                    $.cookie("ffalse", parseInt($.cookie("ffalse")) + 1);
+                    if (error == 0){
+                        $('.heart1').css("visibility","hidden");
+                    }
+                    if (error == 1){
+                        $('.heart2').css("visibility","hidden");
+                    }
+                    if (error == 2){
+                        $('.heart3').css("visibility","hidden");
+                    }
+                }
+
+                div.addClass('answered');
+                $('.answered').css("display", "none");
+                div_2.css("display", "block");
+
+
+                $('#true').text(c_cookie);
+                $('#false').text($.cookie("ffalse"));
+
+            });
+
+            $('.next-slideBio').click(function () {
+                var error = $.cookie("ffalse");
+                var div_3 = $(this).parent().parent().parent().find('.error');
+                if (error == 3){
+                    console.log('3 raza ne pravilno');
+                    $('.slide-itemBio').css("display","none")
+                    $('.error').css("display", "block");
+$('.score').css("visibility","hidden");
+                };
+		var kol = $.cookie("kol");
+		        $.cookie("kol", parseInt($.cookie("kol"))+1);
+		        document.getElementById('kol').innerHTML=$.cookie("kol");
+		        if (kol==15){
+		            $('.score').css("visibility","hidden");
+		        }
+
+            });
+
+            var overlay = $('#overlay'); // подложка, должна быть одна на странице
+            console.log('test overlay');
+            var open_modal = $('.open_modal'); // все ссылки, которые будут открывать окна
+            var close = $('.modal_close'); // все, что закрывает модальное окно, т.е. крестик и оверлэй-подложка
+            var modal = $('.modal_div'); // все скрытые модальные окна
+            // ловим клик по ссылке с классом open_modal
+//            event.preventDefault(); // вырубаем стандартное поведение
+
+            overlay.fadeIn(400, //показываем оверлэй
+                    function(){ // после окончания показывания оверлэя
+                        modal // берем строку с селектором и делаем из нее jquery объект
+                                .css('display', 'block')
+                                .animate({opacity: 1, top: '2%'}, 200); // плавно показываем
+                    });
+
+
+            close.click( function(){ // ловим клик по крестику или оверлэю
+                modal // все модальные окна
+                        .animate({opacity: 0, top: '2%'}, 200, // плавно прячем
+                        function(){ // после этого
+                            $(this).css('display', 'none');
+                            overlay.fadeOut(400); // прячем подложку
+                        }
+                );
+            });
+        });
+    </script>
+
+    <div class="item-list wrap modal_div">
+<p class="score"><span id="kol">1</span>/15</p>
+
+        <span class="modal_close"><a {%if _language == 'ru'  %} href="/ru/tests" {% endif %} {%if _language == 'kz'  %} href="/kz/tests" {% endif %} {%if _language == 'en'  %} href="/en/tests" {% endif %}>x</a></span>
+        {#<div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>#}
+        
+        {#<div class="div100"><h1>{{ ent.title }}</h1></div>#}
+        
+        <div id="ent-questions-list">
+
+            <div class="sliderBio" style=" width: 530px; padding: 0px;">
+                <div class="slide-listBio">
+                    <div class="slide-wrapBio">
+                        <div style="  position: absolute; left: 285px; top: 15px;">
+                            <div class="heart heart1" style="display: inline-block; margin: 0 26px; vertical-align: middle;"></div>
+                            <div class="heart heart2" style="display: inline-block; vertical-align: middle;"></div>
+                            <div class="heart heart3" style="display: inline-block; margin: 0 25px; vertical-align: middle;"></div>
+                        </div>
+                        {% for item in q %}
+                            <div class="slide-itemBio" style="width: 530px;  padding: 0;">
+                                <div class="ent_block">
+                                    <div id="ent-{{ loop.index }}" class="ent-question-block" style=" float: none;  ">
+                                        <div alt="{{ item.quest.id }}" class="ent-question-title" id="question-{{ item.quest.id }}">
+                                            {#<div class="ent-question-number">{{ loop.index }})</div>#}
+                                            <div class="ent-question-text">{{ item.quest.text|raw }}</div>
+                                            <button class="action bttn btn-2 btn-2g" data-value="{% if item.quest.right == 1 %}1{% else %}0{% endif %}">{{"Правда"|i18n}}</button>
+                                            <button class="action bttn btn-2 btn-2e" data-value="{% if item.quest.right == 1 %}0{% else %}1{% endif %}">{{"Ложь"|i18n}}</button>
+                                        </div>
+                                        {% for var in item.variants %}
+                                            <div class="ent-answer-variant"><div>{{ var.id }}</div><span><strong>{{ range[loop.index0] }})</strong> {{ var.text }}</span></div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="ans" style="  width: 530px;">
+                                        <div class="true"><img src="/media/images/tests/true.png" style="border: none;  vertical-align: middle;  float: none;  margin: 0;display: inline-block;background-color: rgba(0,0,0,0);"><p style="  vertical-align: middle;display: inline-block;margin: 0;color:  #48f048;font-size: 20.36px;font-weight: 900;text-transform: uppercase;  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;">{{"Правильно"|i18n}}</p></div>
+                                        <div class="false"><img src="/media/images/tests/false.png" style="border: none;  vertical-align: middle;  float: none;  margin: 0;display: inline-block;background-color: rgba(0,0,0,0);"><p style="  vertical-align: middle;display: inline-block;margin: 0;color:  #f04848;font-size: 20.36px;font-weight: 900;text-transform: uppercase;  font-family: Helvetica Neue,Helvetica,Arial,sans-serif;">{{"Неправильно"|i18n}}</p></div>
+                                        <div class="ent-question-text">{{ item.quest.description|raw }}</div>
+                                        <button name="nextBio" class="next-slideBio bttn btn-2 btn-2d" style="display: block" >{{"Следующий"|i18n}}</button>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                        <div class="slide-itemBio res" style="width: 530px;">
+                            <p style="color: green;">{{"Правильных:"|i18n}} <span id="true"></span></p>
+                            <p style="color: red;">{{"Неправильных:"|i18n}} <span id="false"></span></p>
+                            <a href="javascript:window.location.reload()">{{"Попробовать снова"|i18n}}</a>
+                        </div>
+                        <div class="error" style="  ">
+                            <p>{{"У Вас 3 неправильных ответа"|i18n}}</p>
+                            <a href="javascript:window.location.reload()">{{"Попробовать снова"|i18n}}</a>
+                        </div>
+                    </div>
+                    <div class="clearBio"></div>
+                </div>
+            </div>
+
+            
+            <div id="status-panel">
+                <div id="status-timer"></div>
+                
+                <div id="status-numbers">
+                    {% for question in q %}
+                        <span id="digit-{{ question.quest.id }}">{{ loop.index }}</span>
+                    {% endfor %}
+                </div>
+                
+                <div id="status-result"><a href="#1">{{ "Result"|i18n }}</a></div>
+            </div>
+            
+        </div>
+        
+        <div class="ent-clear"></div>
+    </div>
+
+    <input type="hidden" id="ajaxurl" name="ajaxurl" value="{{ Url.site('ajax/ent') }}" />
+    <input type="hidden" id="notallquestions" name="notallquestions" value="{{ "Not all questions"|i18n }}" />
+
+
+{% endblock content %}

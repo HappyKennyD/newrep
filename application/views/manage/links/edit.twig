@@ -1,0 +1,35 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <h4>{{ "Редактирование / добавление"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            {% if errors.title is defined %}
+                <span class="alert">{{ errors.title }}</span>
+            {% endif %}
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" style="width: 98%;"/>
+
+            <label for="desc">{{ "Краткое описание (максимум 200 символов)"|i18n }}</label>
+            {% if errors.desc is defined %}
+                <span class="alert">{{ errors.desc }}</span>
+            {% endif %}
+            <textarea name="desc" id="desc" maxlength="200" rows="3" style="width: 98%; resize: none;">{{ item.desc }}</textarea>
+
+            <label for="link">{{ "Link"|i18n }}</label>
+            {% if errors.link is defined %}
+                <span class="alert">{{ errors.link }}</span>
+            {% endif %}
+            <input type="text" name="link" id="link" class="input-xxlarge" value="{{ item.link }}" style="width: 98%;"/>
+
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/links') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ "Useful links"|i18n }}</h1></div>
+        
+        {% for item in links %}
+            <div class="link-item">
+                <div class="ulink-title"><a href="{{ item.link }}">{{ item.title }}</a></div>
+                <div class="ulink-brief">{{ item.desc|raw }}</div>
+                {% if not loop.last %}<div class="ulink-clear"></div>{% endif %}
+            </div>
+        {% endfor %}
+        
+        <div class="ulink-bottom-clear"></div>
+        
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

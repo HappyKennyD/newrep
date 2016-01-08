@@ -1,0 +1,271 @@
+#exhibits-list, #exhibit-gallery, .other-exhibits, .other-image, .other-title, .likes-block-content, #exhibit-likes, #exhibit-main-photo-name, #exhibit-main-photo, #exhibit-text, #exhibit-content, #exhibit-announce, .ex-last-clear, .exhibit-item, .ex-item-clear, .ex-title, .ex-announce, #album-exhibits, #album-category, #album-description, #exhibits-title, .album-clear, .album-photo, .album-title, .exhibits-list-clear {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.album-block, #album-left, #album-right, .exhibit-item-photo, .exhibit-item-text {
+    position: relative;
+    float: left;
+}
+
+.m-top-10 {
+    margin-top: 10px !important;
+}
+
+#exhibit-gallery {
+    margin-top: 30px;
+}
+
+#exhibit-announce {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 24px;
+}
+
+#exhibit-announce div {
+    position: absolute;
+    width: 2px;
+    height: 1px;
+    left: -22px;
+    top: 6px;
+    background: url(../images/v1/expert-announce-line.gif);
+}
+
+#exhibit-main-photo {
+    margin-top: 30px;
+}
+
+#exhibit-main-photo img {
+    max-width: 620px;
+}
+
+#exhibit-main-photo-name {
+    font-size: 14px;
+    line-height: 18px;
+    color: #999999;
+    margin-top: 15px;
+}
+
+#exhibit-text {
+    margin-top: 25px;
+    line-height: 24px;
+}
+
+#exhibit-likes {
+    margin-top: 25px;
+    border-top: solid 1px #e0e0e0;
+    height: 60px;
+}
+
+.likes-block-content {
+    height: 27px;
+    margin-top: 17px;
+}
+
+.other-exhibits {
+    margin-top: 42px;
+}
+
+.other-title {
+    font-size: 14px;
+    line-height: 18px;
+    margin-top: 12px;
+}
+
+.ex-item-clear {
+    height: 15px;
+    border-bottom: solid 1px #e0e0e0;
+    font-size: 0;
+    line-height: 0;
+}
+
+.ex-last-clear {
+    height: 25px;
+    font-size: 0;
+    line-height: 0;
+}
+
+.exhibit-item {
+    margin-top: 30px;
+}
+
+.exhibit-item-photo {
+    width: 210px;
+}
+
+.exhibit-item-photo img {
+    margin-top: 4px;
+}
+
+.exhibit-item-text {
+    width: 410px;
+    line-height: 24px;
+}
+
+.full-width .exhibit-item-text {
+    width: 730px;
+}
+
+.ex-full-width {
+    width: 100% !important;
+}
+
+.ex-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.ex-announce {
+    font-size: 16px;
+    margin-top: 7px;
+}
+
+#album-left {
+    width: 620px;
+}
+
+#album-description {
+    margin-top: 10px;
+}
+
+.text {
+    line-height: 24px;
+}
+
+#album-right {
+    width: 220px;
+    left: 100px;
+}
+
+#album-category {
+    margin-top: 27px;
+}
+
+#album-category ul {
+    list-style-type: none;
+}
+
+#album-category li {
+    display: block;
+    float: left;
+    clear: both;
+    font-size: 17px;
+    line-height: 20px;
+    margin-bottom: 8px;
+}
+
+#album-category a {
+    display: block;
+    float: left;
+}
+
+.selected-album {
+    background: #e8d7bf;
+    padding: 2px 8px;
+    margin-left: -8px;
+}
+
+.selected-album a {
+    color: #333333 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+}
+
+#exhibits-title h1 {
+    margin-bottom: 0;
+}
+
+.album-block {
+    width: 300px;
+    margin-top: 30px;
+}
+
+.album-2 {
+    left: 20px;
+}
+
+.album-3 {
+    left: 40px;
+}
+
+.album-clear {
+    height: 1px;
+    font-size: 0;
+    line-height: 0;
+}
+
+.album-title {
+    font-size: 20px;
+    line-height: 22px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+
+.album-title a, #album-category a, .ex-title a {
+    text-decoration: underline;
+}
+
+.album-title a:hover, #album-category a:hover, .ex-title a:hover {
+    text-decoration: none;
+}
+
+.exhibits-list-clear {
+    height: 25px;
+}
+
+/**
+ *  Carousel
+ */
+ 
+.jcarousel-skin-tango .jcarousel-direction-rtl {
+	direction: rtl;
+}
+
+.jcarousel-skin-tango .jcarousel-container-horizontal {
+    width: 620px;
+}
+
+.jcarousel-skin-tango .jcarousel-clip {
+    overflow: hidden;
+}
+
+.jcarousel-skin-tango .jcarousel-clip-horizontal {
+    width:  620px;
+    height: 184px;
+}
+
+.jcarousel-skin-tango .jcarousel-item {
+    width: 184px;
+    height: 184px;
+}
+
+.jcarousel-skin-tango .jcarousel-item-horizontal {
+	margin-left: 0;
+    margin-right: 4px;
+}
+
+/**
+ *  Horizontal Buttons
+ */
+.jcarousel-skin-tango .jcarousel-next-horizontal {
+    position: absolute;
+    top: 79px;
+    right: -37px;
+    width: 15px;
+    height: 27px;
+    cursor: pointer;
+    background: transparent url(../images/v1/exhibits-nav.png) no-repeat 0 0;
+    background-position: -15px 0;
+}
+
+.jcarousel-skin-tango .jcarousel-prev-horizontal {
+    position: absolute;
+    top: 79px;
+    left: -37px;
+    width: 15px;
+    height: 27px;
+    cursor: pointer;
+    background: transparent url(../images/v1/exhibits-nav.png) no-repeat 0 0;
+}

@@ -1,0 +1,43 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="POST" style="margin:0">
+        <div class="page-header">
+            <a type="button" href="{{ r }}" class="close">&times;</a>
+            <h4>{{ "Редактирование / добавление"|i18n }}</h4>
+        </div>
+        <div style="padding: 10px;">
+            <label style="display: inline;" for="is_active"> Показывать на сайте </label>
+            <input type="hidden" value="0" name="is_active" />
+            <input type="checkbox" name="is_active" id="is_active" value="1" {% if slider.is_active is defined %} {% if slider.is_active %} checked {% endif %}{% else %} checked {% endif %}/>
+            <div class="clear"></div><br />
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ slider.title }}" />
+            <label for="link">{{ "Link"|i18n }}</label>
+            <input type="text" name="link" id="link" class="input-xxlarge" value="{{ slider.link }}" />
+
+
+            <h4>{{ "Image"|i18n }}</h4>
+            {{ uploader|raw }}
+            {% if slider.image is defined and slider.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media('/images/w80-si/'~slider.picture.file_path) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ slider.image }}">
+                </div>
+            {% else %}
+                {% if type=='slider' %}
+                    <img id="photo" width="34" height="34" src="{% if slider.picture.path is defined %}{{ Url.site(slider.picture.path, TRUE) }}{% else %}http://placehold.it/80x80{% endif %}" alt="{{ "Preview"|i18n }}" />
+                {% elseif type=='link' %}
+                    <img id="photo" width="40" height="40" src="{% if slider.picture.path is defined %}{{ Url.site(slider.picture.path, TRUE) }}{% else %}http://placehold.it/40x40{% endif %}" alt="{{ "Preview"|i18n }}" />
+                {% else %}
+                    <img id="photo" width="168" height="217" src="{% if slider.picture.path is defined %}{{ Url.site(slider.picture.path, TRUE) }}{% else %}http://placehold.it/168x217{% endif %}" alt="{{ "Preview"|i18n }}" />
+                {% endif %}
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+        </div>
+        <div class="modal-footer">
+            <button class="btn">{{ "Save"|i18n }}</button>
+            <a href="{{ r }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,53 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/videogallery.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/videogallery.js') }}"></script>
+{% endblock extrascripts %}
+{% block content %}
+    <div id="scontent"></div>
+    <div id="videogallery-content" class="item-list wrap video-list">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <article>
+            {% for item in video %}
+                <div class="gallery-article{% if loop.index % 2 == 0 %} ga-2{% endif %}{% if loop.index < 3 %} m-top-15{% endif %}">
+                    <div class="div100">
+                        <a href="{{ Url.site('video/view/'~item.id~'#scontent') }}">
+                            <img src="http://img.youtube.com/vi/{{item.link}}/1.jpg" alt=""/>
+                        </a>
+                    </div>
+                    
+                    <div class="div100 m-top-15">
+                        <p class="g-a-title"><a href="{{ Url.site('video/view/'~item.id~'#scontent') }}">{{ item.title }}</a></p>
+                        <p class="g-a-announce" style="max-height: 115px; overflow: hidden; text-overflow: ellipsis">{{ item.description|raw|striptags }}</p>
+                        <p class="g-a-date">{{ Date.ru_date(item.date, 'd.m.Y') }} {% if item.category.lvl==3 %}<a href="{{ Url.site('video/'~item.category.parent.id~'#scontent') }}">{{ item.category.parent.name }}</a>{% else %}<a href="{{ Url.site('video/'~item.category.id~'#scontent') }}">{{ item.category.name }}</a>{% endif %}</p>
+                        <p class="g-a-date m-top-0">{{count_comments.comment_count('video',item.id)}} {{ CorrectDeclension.give(count_comments.comment_count('video',item.id))|i18n }}</p>
+                    </div>
+                </div>
+                {% if loop.index % 2 == 0 or loop.last %}<div class="gallery-clear"></div>{% endif %}
+            {% else %}
+                <p>{{ "No contents in this page"|i18n }}</p>
+            {% endfor %}
+            
+            {{ paginate|raw }}
+        </article>
+        
+        <aside>
+            <div id="videogallery-menu">
+                <ul>
+                    {% for item in cat %}
+                        {% if item.lvl==1 %}
+                            <li style="padding-left: {{ item.level }}em;"><span>{{ item.name }}</span></li>
+                            {# <li><a href="{{ Url.site('video/'~item.id) }}">{{ item.name }}</a></li> #}
+                        {% else %}
+                            <li style="padding-left: {{ item.level }}em;"><span><a href="{{ Url.site('video/'~item.id~'#scontent') }}">{{ item.name }}</a></span></li>
+                        {% endif %}
+                    {% endfor %}
+                    {#<li style="padding-left: 1em;"><span><a href="{{ Url.site('video'~'#scontent') }}">Видео без категории</a></span></li>#}
+                </ul>
+            </div>
+        </aside>
+    </div>
+{% endblock content %}

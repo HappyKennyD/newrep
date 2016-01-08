@@ -1,0 +1,2 @@
+Здравствуйте <?= $receivername ?>, пользователь <?= $sendername ?> только что ответил в теме, на которую Вы подписались. <br />
+Эта тема расположена по адресу: <a href="http://<?=$_SERVER['SERVER_NAME'].$url;?>">http://<?=$_SERVER['SERVER_NAME'].$url;?></a>

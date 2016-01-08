@@ -1,0 +1,41 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form action="" method="POST">
+            <div>
+                <h4>{{ "Редактирование/добавление записи"|i18n }}</h4>
+            </div>
+            <div>
+                <label for="title">{{ "Title"|i18n }}</label>
+                {% if errors.title is defined %}
+                    <span class="alert">{{ errors.title }}</span>
+                {% endif %}
+                <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" style="width: 98%;"/>
+                <label>{{ "Image"|i18n }}</label>
+                {{ uploader|raw }}
+                {% if item.image.file_path  %}
+                    <div style="margin-bottom: 10px">
+                        <img src="{{ Url.media(item.image.file_path, TRUE) }}" alt="" id="photo" />
+                        <input type="hidden" id="image" name="image_storage_id" value="{{ item.image_storage_id }}">
+                    </div>
+                {% else %}
+                    <img alt="" id="photo" style="display: none;"/>
+                    <input type="hidden" id="image" name="image_storage_id" value="0" />
+                {% endif %}
+
+                <label for="description">{{ 'Description'|i18n }}</label>
+                <textarea name="description" id="description" cols="30" rows="10" class="redactor">{{ item.description }}</textarea>
+                <div>
+                    <input type="hidden" name="published" value="0" >
+                    <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;">
+                    <label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/infographs') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

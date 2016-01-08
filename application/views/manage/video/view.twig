@@ -1,0 +1,18 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/video/edit/'~video.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/video/delete/'~video.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+            &nbsp;<span class="label label-info">{{ video.language }}</span>({{ Date.ru_date(video.date, 'd F Y H:i:s') }}, {% if video.category is defined %}{% if video.category.parent.id is defined %}{{ video.category.parent.name }}->{% endif %}{{ video.category.name }}{% endif %})<br>
+            <h4>{{ video.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <iframe width="560" height="315" src="http://www.youtube.com/embed/{{ video.link }}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

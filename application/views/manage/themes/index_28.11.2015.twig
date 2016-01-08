@@ -1,0 +1,39 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<div class="page-header">
+    <h4>{{ "Tests"|i18n }}</h4>
+
+    <div class="pull-right">
+        <a class="btn" href="{{ Url.media('manage/tests/edit/ru') }}"><i class="icon-plus"> {{ "Add variant for questions"|i18n }}</i></a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="page">
+
+    {% for item in ent %}
+        <div class="well well-small">
+            <div class="text">
+                <div class="date">
+                    <span class="pull-right btn-group">
+                        <a class="btn btn-mini" href="{{ Url.media('manage/tests/edit/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                        {% if item.published %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/tests/published/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Hide"|i18n }}</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/tests/published/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "Unhide"|i18n }}</a>
+                        {% endif %}
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/tests/delete/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                    </span>
+
+                    <div>
+                        <a href="{{ Url.site('manage/tests/quests/'~item.id) }}">{{ item.title }}.</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {{ paginate|raw }}
+
+</div>
+{% endblock content %}

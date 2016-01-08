@@ -1,0 +1,57 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <h4>{{ "Редактирование / добавление"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            {% if errors.title is defined %}
+                <span class="alert">{{ errors.title }}</span>
+            {% endif %}
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" style="width: 98%;"/>
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if item.image is defined and item.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(item.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ item.image }}">
+                    </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/calendar/clearimage/'~item.id) }}">Удалить изображение? &times;</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <label for="desc">{{ "Краткое описание (максимум 200 символов)"|i18n }}</label>
+            {% if errors.desc is defined %}
+                <span class="alert">{{ errors.desc }}</span>
+            {% endif %}
+            <textarea name="desc" id="desc" maxlength="200" rows="3" style="width: 98%; resize: none;">{{ item.desc }}</textarea>
+            <label for="text">{{ "Text"|i18n }}</label>
+            {% if errors.text is defined %}
+                <span class="alert">{{ errors.text }}</span>
+            {% endif %}
+            <textarea class="redactor" name="text" id="text" style="width: 98%;">{{ item.text }}</textarea>
+            <label for="year">{{ "Year"|i18n }}</label>
+                {% if errors.year is defined %}
+                    <span class="alert">{{ errors.year }}</span>
+                {% endif %}
+            <input type="text" name="year" id="year" class="input-xxlarge" value="{{ item.year }}" style="width: 98%;"/>
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+            <div>
+                <input type="hidden" name="is_important" value="0" >
+                <input type="checkbox" name="is_important" {% if item.is_important is not defined or item.is_important %} checked="checked" {% endif %} value="1" id="is_important" style="margin: 0 5px 1px 0;"><label for="is_important" style="display: inline;">{{ "На главную"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/calendar/list?m='~month~'&d='~day) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

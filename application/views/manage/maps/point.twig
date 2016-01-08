@@ -1,0 +1,65 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="POST">
+        <div style="padding: 20px;">
+            <div>
+                <h4>{{ "Add point"|i18n }}</h4>
+            </div>
+            <div>
+                <label for="name">{{ "Name"|i18n }}</label>
+                <input type="text" name="name" id="name" class="input-block-level" value="" />
+
+                <label for="marker">{{ "Marker"|i18n }}</label>
+                <input type="radio" name="marker" id="marker" value="0" checked="checked" /> <img src={{ Url.media("media/theme/markers/0.png") }} /> {{ "City"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="1" /> <img src={{ Url.media("media/theme/markers/1.png") }} /> {{ "Big city"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="2" /> <img src={{ Url.media("media/theme/markers/2.png") }} /> {{ "Showplace"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="3" /> <img src={{ Url.media("media/theme/markers/3.png") }} /> {{ "Locality"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="4" /> <img src={{ Url.media("media/theme/markers/4.png") }} /> {{ "Mausoleum"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="5" /> <img src={{ Url.media("media/theme/markers/5.png") }} /> {{ "Mosque"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="6" /> <img src={{ Url.media("media/theme/markers/6.png") }} /> {{ "Church"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="7" /> <img src={{ Url.media("media/theme/markers/7.png") }} /> {{ "Relig"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="8" /> <img src={{ Url.media("media/theme/markers/8.png") }} /> {{ "Museum"|i18n }}<br />
+
+                <input type="radio" name="marker" id="marker" value="9" /> <img src={{ Url.media("media/theme/markers/9.png") }} /> {{ "Arch"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="10" /> <img src={{ Url.media("media/theme/markers/10.png") }} /> {{ "Gorodishe"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="11" /> <img src={{ Url.media("media/theme/markers/11.png") }} /> {{ "Zapovednik"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="12" /> <img src={{ Url.media("media/theme/markers/12.png") }} /> {{ "Culture"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="13" /> <img src={{ Url.media("media/theme/markers/13.png") }} /> {{ "Kurgan"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="14" /> <img src={{ Url.media("media/theme/markers/14.png") }} /> {{ "Nature"|i18n }}<br />
+
+                <input type="radio" name="marker" id="marker" value="15" /> <img src={{ Url.media("media/theme/markers/15.png") }} /> {{ "Zanyatost"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="16" /> <img src={{ Url.media("media/theme/markers/16.png") }} /> {{ "Zdorov"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="17" /> <img src={{ Url.media("media/theme/markers/17.png") }} /> {{ "Invest"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="18" /> <img src={{ Url.media("media/theme/markers/18.png") }} /> {{ "Cult"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="19" /> <img src={{ Url.media("media/theme/markers/19.png") }} /> {{ "Edu"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="20" /> <img src={{ Url.media("media/theme/markers/20.png") }} /> {{ "Sport"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="21" /> <img src={{ Url.media("media/theme/markers/21.png") }} /> {{ "Build"|i18n }}<br />
+                <input type="radio" name="marker" id="marker" value="22" /> <img src={{ Url.media("media/theme/markers/22.png") }} /> {{ "Econom"|i18n }}<br />
+		<input type="radio" name="marker" id="marker" value="23" /> <img src={{ Url.media("media/theme/markers/23.png") }} /> {{ "National park"|i18n }}<br />
+		
+                <label for="image">{{ "Image"|i18n }}</label>
+                {{ uploader|raw }}
+                <img alt="" id="photo" style="display: none;" />
+                <input type="hidden" id="image" name="image" value="0" />
+
+                <label for="desc">{{ "Description"|i18n }}</label>
+                <textarea name="desc" id="desc" maxlength="200" rows="3" class="input-block-level">{{ item.desc }}</textarea>
+
+                <label for="text">{{ "Text"|i18n }}</label>
+                <textarea class="redactor" name="text" id="text" class="input-block-level">{{ item.text }}</textarea>
+
+                <div>
+                    <input type="hidden" name="published" value="0" />
+                    <input type="checkbox" name="published" value="1" id="published" />
+                    <label for="published" style="display: inline;">{{ "Publish"|i18n }}</label>
+                </div>
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/maps/view/'~district.id) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </div>
+    </form>
+{% endblock content %}

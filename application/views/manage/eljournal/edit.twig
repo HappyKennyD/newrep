@@ -1,0 +1,65 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    {% for error in errors %}
+        {{ error.text }}
+    {% endfor %}
+
+    <div class="graybox news" style="margin-top: 10px">
+        <form action="" method="post">
+            <div class="text">
+                <h4>{{ "Date"|i18n }}</h4>
+                <div class="date">
+                    <input type="text" name="date" id="date" class="datepicker"
+                           data-date="{% if item.date is empty %}{{ Date.ru_date('now', 'd.m.Y H:i') }}{% else %}{{ Date.ru_date(item.date, 'd.m.Y H:i') }}{% endif %}"
+                           data-date-format="dd.mm.yyyy hh:ii"
+                           value="{% if item.date is empty %}{{ Date.ru_date('now', 'd.m.Y H:i') }}{% else %}{{ Date.ru_date(item.date, 'd.m.Y H:i') }}{% endif %}"/>
+                </div>
+                <h4>{{ "Title"|i18n }}</h4>
+                <input type="text" name="title" value="{{ item.title }}">
+                {% if errors.title_ru!='' or errors.title_kz!='' or errors.title_en!='' %}
+                    <br>
+                    <span class="label label-warning">Это поле должно быть заполнено</span>
+                {% endif %}
+                    <h4>{{ "Magazine"|i18n }}</h4>
+                    {{ uploader|raw }}
+                {% if errors.storage_id!='' %}
+                    <span class="label label-warning">Нужно выбрать файл</span>
+                {% endif %}
+
+                <div class="clear"></div>
+                <div class="file_holder">
+                    <div id="pdfname">{{ item.file_pdf.name }}</div>
+                    <input type="hidden" name="attachments" id="attachments" value="{{ item.storage_id }}" />
+                </div>
+
+                    <div id="presskit-wrapper"></div>
+            </div>
+            <input type="hidden" name="exist" value="1"/>
+
+            <div class="modal-footer">
+                <button class="btn btn-success">{{ "Save"|i18n }}</button>
+                <a class="btn" href="{{ Url.site('manage/eljournal/list') }}">{{ "Cancel"|i18n }}</a>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.presskit-delete-button').click(function (e) {
+                var id = this.getAttribute("id");
+                $.ajax({
+                    url: '{{ Url.site('ajax/removePresskit') }}',
+                    data: {presskit_id: id, token: "{{ _token }}"},
+                    type: 'POST',
+                    success: function (status) {
+                        if (status == 1) {
+                            $('#file-' + id).html('');
+                        }
+                    }
+                });
+                e.preventDefault();
+            })
+        })
+    </script>
+{% endblock content %}
+

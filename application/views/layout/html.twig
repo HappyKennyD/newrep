@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="{{ _language }}">
+    <head>
+        <!--Mod DasG-->
+        <title>{{ _metadata.title }}</title>
+        <meta charset="UTF-8"/>
+        <meta name="description" content="{{ _metadata.description }}"/>
+        <meta property="og:description" content="{{ _metadata.description }}"/>
+
+        <link rel="shortcut icon" href="{{ Url.media('/favicon.png') }}"/>
+        <link rel="icon" href="{{ Url.media('/favicon.png') }}"/>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ Url.site('rss') }}" />
+        {#<link rel="stylesheet" href="{{ Url.media('media/css/bootstrap.min.css') }}"/>#}
+        <link rel="stylesheet" href="{{ Url.media('media/css/zoomy1.2.css') }}">
+        <link rel="stylesheet" href="{{ Url.media('media/jouele/jouele.css') }}">
+        <link rel="stylesheet" href="{{ Url.media('media/css/font-awesome.css') }}"/>
+        <link rel="stylesheet" href="{{ Url.media('media/css/index.css') }}"/>
+        <link rel="stylesheet" href="{{ Url.media('media/css/v1.05.10.15.css') }}"/>
+        <link rel="stylesheet" href="{{ Url.media('media/css/slider.css') }}"/>
+        <link rel="stylesheet" href="{{ Url.media('media/css/fancybox/jquery.fancybox.css') }}" />
+        {% block extrastyles %}{% endblock extrastyles %}
+        <script type="text/javascript" src="{{ Url.media('media/js/jquery.min.js') }}"></script>
+        {#<script type="text/javascript" src="{{ Url.media('media/js/bootstrap.js') }}"></script>#}
+        <script type="text/javascript" src="{{ Url.media('media/js/fancybox/jquery.fancybox.pack.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/js/fancybox/jquery.fancybox-media.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/js/jquery-migrate-1.2.1.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/js/jquery.zoomy1.2.min.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/jouele/jquery.jplayer.min.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/jouele/jouele.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/js/swfupload.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/js/jcarousellite_1.0.1.min.js') }}"></script>
+        {% block extrascripts %}{% endblock extrascripts %}
+        <script type="text/javascript">
+            function addLink() {
+                var body_element = document.getElementsByTagName('body')[0];
+                var selection;
+                selection = window.getSelection();
+                var pagelink = "<br /><br /> Источник: <a href='"+document.location.href+"'>"+document.location.href+"</a><br />© uchebnik.kz"; // В этой строке поменяйте текст на свой
+                var copytext = selection + pagelink;
+                var newdiv = document.createElement('div');
+                newdiv.style.position='absolute';
+                newdiv.style.left='-99999px';
+                body_element.appendChild(newdiv);
+                newdiv.innerHTML = copytext;
+                selection.selectAllChildren(newdiv);
+                window.setTimeout(function() {
+                    body_element.removeChild(newdiv);
+                },0);
+            }
+            document.oncopy = addLink;
+        </script>
+        {#<script language=JavaScript>#}
+            {#<!--#}
+            {#var message="Правая кнопка мыши отключена!";#}
+            {#function click(e) {#}
+                {#if (document.all) {    // IE#}
+                    {#if (event.button == 2) {    // Чтобы отключить левую кнопку поставьте цифру 1#}
+                        {#alert(message);    // чтобы отключить среднюю кнопку поставьте цифру 1#}
+                        {#return false;}#}
+                {#}#}
+                {#if (document.layers) { // NC#}
+                    {#if (e.which == 3) {#}
+                        {#alert(message);#}
+                        {#return false;}#}
+                {#}#}
+            {#}#}
+            {#if (document.layers)#}
+            {#{document.captureEvents(Event.MOUSEDOWN);}#}
+            {#document.onmousedown=click;#}
+            {#document.oncontextmenu=function(e){return false};#}
+            {#//-->#}
+        {#</script>#}
+    </head>
+    <body>
+        <header>
+            {% include 'layout/header.twig' %}
+        </header>
+
+        <section>
+            {% block content %}{% endblock content %}
+        </section>
+
+        <footer>
+            {% include 'layout/footer.twig' %}
+        </footer>
+
+    </body>
+</html>

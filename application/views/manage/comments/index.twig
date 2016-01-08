@@ -1,0 +1,32 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <h4>Список комментариев</h4>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group">
+                            {% if not type %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/comments/success/'~item.id~'?type='~type) }}"><i class="icon-eye-open"> </i> Одобрить комментарий</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media(CommentsUrl.giveurl(item.object_id,item.table)) }}"><i class="icon-eye-open"></i> Страница с комментарием</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/comments/delete/'~item.id) }}"><i class="icon-remove"> </i> Удалить</a>
+
+                        </span>
+                        {#<br>Комментарий к <a href="{{ Url.site('contents/view/'~item.page_content.id) }}" target="_blank">{{ item.page_content.title }}</a>#}
+                       {#<br> Комментарий к посту {{ CommentsUrl.giveurl(item.object_id,item.table)}}#}
+                        <br>{{ Date.ru_date(item.date, 'd F Y H:i:s') }}&nbsp; {{ item.user.show_name() }}&nbsp;
+                     </div>
+                    <div>
+                        {{ item.text }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

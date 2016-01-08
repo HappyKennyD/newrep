@@ -1,0 +1,44 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form action="" method="POST">
+            <div>
+                <h4>{{ "Edit / Add Items expert"|i18n }}</h4>
+            </div>
+            <div>
+                <label for="name">{{ "The name of the expert"|i18n }}</label>
+                {% if errors.name is defined %}
+                    <span class="alert">{{ errors.name }}</span>
+                {% endif %}
+                <input type="text" name="name" id="name" class="input-xxlarge" value="{{ expert.name }}" style="width: 98%;"/>
+                {% if expert.image is defined and expert.image %}
+                    <div style="margin-bottom: 10px">
+                        <img src="{{ Url.media(expert.picture.file_path, TRUE) }}" alt="" id="photo"/>
+                        <input type="hidden" id="image" name="image" value="{{ expert.image }}">
+                    </div>
+                    <a class="btn btn-info" onclick="return confirm('{{ "Are you sure you want to delete the image?"|i18n }}')" href="{{ Url.site('manage/expert/clearimage/'~expert.id) }}">{{ "Delete image?"|i18n }} &times;</a>
+                {% else %}
+                    {{ uploader|raw }}
+                    <img alt="" id="photo" style="display: none;"/>
+                    <input type="hidden" id="image" name="image" value="0"/>
+                {% endif %}
+
+                <label for="position">{{ "Position expert"|i18n }}</label>
+                {% if errors.position is defined %}
+                    <span class="alert">{{ errors.position }}</span>
+                {% endif %}
+                <input type="text" name="position" id="position" class="input-xxlarge" value="{{ expert.position }}" style="width: 98%;"/>
+                <label for="description">{{ "Summary"|i18n }}</label>
+                {% if errors.description is defined %}
+                    <span class="alert">{{ errors.description }}</span>
+                {% endif %}
+                <textarea name="description" id="description" maxlength="500" rows="3" style="width: 98%; resize: none;">{{ expert.description }}</textarea>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/expert/page-'~page) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

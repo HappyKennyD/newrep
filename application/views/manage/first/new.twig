@@ -1,0 +1,32 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+
+        <form action="" method="POST">
+
+            <div>
+                <h4>{{ "Добавление записи"|i18n }}</h4>
+            </div>
+
+            <div>
+                <label for="title">{{ "Заголовок для текущего языка"|i18n }}</label>
+                <input type="text" name="title" id="title" class="input-xxlarge" value="" style="width: 98%;"/>
+            </div>
+
+            <div>
+                <label for="link">{{ "Ссылка"|i18n }}</label>
+                {% if errors.link is defined %}
+                    <span class="alert">{{ errors.link }}</span>
+                {% endif %}
+                <input type="text" name="link" id="title" class="input-xxlarge" value="" style="width: 98%;"/>
+            </div>
+
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/first') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+
+        </form>
+
+    </div>
+{% endblock content %}

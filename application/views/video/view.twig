@@ -1,0 +1,63 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/videogallery.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.autosize-min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/video.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div id="scontent"></div>
+    <div id="videogallery-content" class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <article>
+            <div class="div100 normal-h1"><h1>{{ video.title }}</h1></div>
+            
+            <div class="player">
+                <iframe width="620" height="465" src="//www.youtube.com/embed/{{ video.link }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+            
+            <div class="div100">
+                <p class="g-a-date">{{ Date.ru_date(video.date, 'd.m.Y') }} {% if video.category.lvl==3 %}<a href="{{ Url.site('video/'~video.category.parent.id~'#scontent') }}">{{ video.category.parent.name }}</a>{% else %}<a href="{{ Url.site('video/'~video.category.id~'#scontent') }}">{{ video.category.name }}</a>{% endif %}</p>
+                <p class="g-a-content">{{ video.description|striptags }}</p>
+            </div>
+            
+            <div class="video-likes">
+                <div class="video-likes-content">
+                    <script type="text/javascript">(function () {
+                        if (window.pluso) if (typeof window.pluso.start == "function") return;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript';
+                        s.charset = 'UTF-8';
+                        s.async = true;
+                        s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                        var h = d[g]('head')[0] || d[g]('body')[0];
+                        h.appendChild(s);
+                    })();</script>
+                    <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                </div>
+            </div>
+            
+            <div class="comments-count-title">{{ "Comments"|i18n }}</div>
+            
+            {% if not _user %}
+                <div class="b-title m-top-25">
+                    <div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>
+                </div>
+            {% endif %}
+            
+            {{ _request.factory('comments/index/video-'~video.id).execute()|raw }}
+        </article>
+        
+        <aside>
+            <div id="videogallery-menu" class="m-top-12">
+                <ul>
+                    {% for item in other_video %}
+                        <li><a href="{{ Url.site('video/view/'~item.id~'#scontent') }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </aside>
+    </div>
+{% endblock content %}

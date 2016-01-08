@@ -1,0 +1,28 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            {% if content.type=="dynamic" %}
+                <a class="btn btn-small" href="{{ Url.media('manage/contents/list/'~content.page_id) }}"><i class="icon-share"></i> {{ "К списку статей"|i18n }}</a>
+            {% endif %}
+            <a class="btn btn-small" href="{{ Url.media('manage/contents/edit/'~content.id~'?r=show') }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+        </div>
+        <div>
+            {{ Date.ru_date(content.date, 'd F Y, H:i') }}<br>
+            <h4>{{ content.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if content.picture.file_path is defined %}
+                <img src="{{ Url.site(content.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+        </div>
+        <div>
+            <strong>{{ content.description }}</strong>
+        </div><br>
+        <div>
+            {{ content.text|raw }}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

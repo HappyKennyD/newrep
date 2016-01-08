@@ -1,0 +1,38 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/debate/new') }}"><i class="icon-plus"></i> {{ "Create"|i18n }}
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="graybox news" style="margin-top: 10px;">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+
+                        <a class="link" target="_blank" href="{{ Url.site('debate/view/'~item.id) }}">{{ item.title }}</a>
+                        <sup style="color: red;">
+                            {% if item.admin_create==1 %}A
+                            {% else %}П
+                            {% endif %}
+                        </sup>
+                        &nbsp;({{ Date.translate(item.date, 'd.m.Y H:i') }})&nbsp;
+                        <div class="pull-right btn-group">
+                            <a class="btn btn-mini" href="{% if item.admin_create==1 %}{{ Url.media('manage/debate/new/'~item.id) }}{% else %}{{ Url.media('manage/debate/edit/'~item.id) }}{% endif %}"><i class="icon-edit"> </i>
+                                {{ "Edit "|i18n }}</a>
+                            <a class="btn btn-mini btn-{% if item.is_closed==0 %}success{% else %}warning{% endif %}" href="{{ Url.site('manage/debate/hide/'~item.id) }}"><i class="icon-eye-{% if item.is_closed==0 %}close{% else %}open{% endif %}">
+                                    {% if item.is_closed==0 %}{{ "Hide debate"|i18n }}{% else %}{{ "Display debate"|i18n }}{% endif %}</i></a>
+                        </div>
+                        &nbsp;
+                    </div>
+                </div>
+            </div>
+        {% else %}
+           {{ "No debate"|i18n }}
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

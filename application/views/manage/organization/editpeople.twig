@@ -1,0 +1,32 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="POST" style="margin:0">
+    <div class="page-header">
+            <h4>{{ "Редактирование/Добавление сотрудника организации"|i18n }}</h4>
+    </div>
+        <div style="padding:15px;">
+            <label for="fio">{{ "ФИО"|i18n }}</label>
+            <input type="text" name="fio" id="fio" class="input-xxlarge" value="{{ content.fio }}" style="width: 98%;" />
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if content.image is defined and content.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(content.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ content.image }}">
+                </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/organization/clearimagepeople/'~content.id) }}"><i class="icon-trash"></i> Удалить изображение?</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <label for="rank">{{ "Должность, ученое звание или другая доп. информация"|i18n }}</label>
+            <input type="text" name="rank" id="rank" class="input-xxlarge" value="{{ content.rank }}" style="width: 98%;" />
+            <label for="description">{{ "Описание"|i18n }}</label>
+            <textarea name="description" id="description" rows="8" style="width: 98%;">{{ content.description }}</textarea>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ r }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+{% endblock content %}

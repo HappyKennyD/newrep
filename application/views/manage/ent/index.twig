@@ -1,0 +1,50 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<div class="page-header">
+    <h4>{{ "ENT"|i18n }}</h4>
+
+    <div class="pull-right">
+        <a class="btn" href="{{ Url.media('manage/ent/edit/ru') }}"><i class="icon-plus"> {{ "Add RU variant"|i18n }}</i></a>
+        <a class="btn" href="{{ Url.media('manage/ent/edit/kz') }}"><i class="icon-plus"> {{ "Add KZ variant"|i18n }}</i></a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="page">
+
+    {% for item in ent %}
+        <div class="well well-small">
+            <div class="text">
+                <div class="date">
+                    <span class="pull-right btn-group">
+                        <a class="btn btn-mini" href="{{ Url.media('manage/ent/edit/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                        {% if item.language == 'ru' %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/ent/show_ru/'~item.id) }}">RU</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/ent/show_ru/'~item.id) }}">RU</a>
+                        {% endif %}
+                        {% if item.language == 'kz' %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/ent/show_kz/'~item.id) }}">KZ</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/ent/show_kz/'~item.id) }}">KZ</a>
+                        {% endif %}
+                        {% if item.published %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/ent/published/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Hide"|i18n }}</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/ent/published/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "Unhide"|i18n }}</a>
+                        {% endif %}
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/ent/delete/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                    </span>
+
+                    <div>
+                        <a href="{{ Url.site('manage/ent/quests/'~item.id) }}">{{ item.title }}. {{ "Language"|i18n }}: {{ item.language|upper|i18n }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {{ paginate|raw }}
+
+</div>
+{% endblock content %}

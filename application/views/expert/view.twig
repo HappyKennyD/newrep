@@ -1,0 +1,96 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/expert.css') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/sel-common.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.autosize-min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/expert.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="text-page wrap{% if opinion.protected is defined and opinion.protected %} selNone{% endif %}">
+        {% include 'layout/bread-crumbs.twig' %}
+
+        <div id="expert-left">
+            <div id="expert-page-title"><h1>{{ opinion.title|striptags }}</h1></div>
+
+            <div id="expert-page-announce">
+                <div></div>
+                <p>
+                    {{ opinion.description|striptags }}
+                </p>
+            </div>
+            <div id="expert-text">
+                {{ opinion.text|raw }}
+            </div>
+
+            <div class="bottom-line"></div>
+
+            <div class="expert-likes">
+                <script type="text/javascript">(function () {
+                        if (window.pluso) if (typeof window.pluso.start == "function") return;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript';
+                        s.charset = 'UTF-8';
+                        s.async = true;
+                        s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                        var h = d[g]('head')[0] || d[g]('body')[0];
+                        h.appendChild(s);
+                    })();</script>
+                <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+            </div>
+
+            {% if comments.count()!=0 %}<div class="comments-count-title">{{ comments.count() }} {{ CorrectDeclension.give(comments.count())|i18n }}</div> {% else %}<h3>{{ "Нет комментариев"|i18n }}</h3> {% endif %}
+            {% for comment in comments %}
+                <div class="one-comment">
+                    <div class="c-user-avatar">
+                        <img src="{% if comment.user.profile.photo!=0 %} {{ Url.media('/images/w65-h65-ccc-si/'~comment.user.profile.img.file_path) }}{% else %}{{ Url.media('/images/w65-h65-ccc-si/media/images/no_user.jpg') }}{% endif %}" alt=""/>
+                    </div>
+                    <div class="c-user-comment">
+                        <p class="comment-information">
+                            <strong><a href="{{ Url.site('profile/view/'~comment.user.id) }}">{{ comment.user.username }}</a></strong><span>{{ Date.translate(comment.date, 'd.m.Y, H:i') }}
+                        {% if (_user.has_access('am')) %}<a href="{{ Url.media('manage/expertcomments/show/'~comment.id~'?r=expert/view/'~opinion.id) }}" style="font-style:normal ;float: right; text-decoration: none; color: #FF0000;"><i class="icon-exclamation-sign"></i> {% if comment.moderator_decision == 0%}{{ "Display the comment"|i18n }}{% else %}{{ "Hide comment"|i18n }}{% endif %}</a>{% endif %}</span>
+                        </p>
+
+                        <p class="comment-text">{{ comment.text }}</p>
+                    </div>
+                </div>
+                <div class="debate-bottom-space"></div>
+            {% endfor %}
+            {% if _user %}
+                <div class="add-comment-block">
+                    <form action="" method="POST">
+                        <textarea alt="{{ "Leave a comment"|i18n }}" name="text" id="text">{{ "Leave a comment"|i18n }}</textarea>
+                    </form>
+
+                    <span>{{ "Send with Enter"|i18n }}</span>
+                </div>
+            {% else %}
+                {% if not _user %}<div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>{% endif %}
+            {% endif %}
+            <div class="debate-bottom-space"></div>
+        </div>
+
+        <div id="expert-right">
+            {% if opinion.expert.picture.file_path is defined %}
+                <div id="expert-photo">
+                    <img src="{{ Url.media('/images/w220-h294-ccc-si/'~opinion.expert.picture.file_path, TRUE) }}" alt="{{ opinion.expert.name }}" title="{{ opinion.expert.name }}"/>
+                </div>
+            {% endif %}
+            <div id="expert-name"> {{ opinion.expert.name }}</div>
+
+            <div id="expert-position">{{ opinion.expert.position }}</div>
+            <div id="expert-info">{{ opinion.expert.description }}</div>
+
+            <div id="expert-publications">
+                <ul>
+                    {% if other_opinions|length>0 %}
+                        <li><strong>{{ "Publications of the author"|i18n }}</strong></li>{% endif %}
+                    {% for item in other_opinions %}
+                        <li><a href="{{ Url.site('expert/view/'~item.id) }}"><span>{{ item.title }}</span></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

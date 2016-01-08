@@ -1,0 +1,193 @@
+.audio-item, #audio-list, #audio-category-list, #audio-left .jouele-name {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+#audio-left, #audio-left .jouele, #audio-left .jouele-info-area, #audio-left .jouele-play, #audio-left .jouele-pause, #audio-right {
+    position: relative;
+    float: left;
+}
+
+#audio-right {
+    width: 220px;
+    left: 80px;
+}
+
+#audio-left {
+    width: 640px;
+}
+
+#audio-list {
+    margin-top: 15px;
+}
+
+#audio-left .jouele {
+    width: 660px !important;
+    margin-left: -20px;
+    border-top: solid 1px #e0e0e0;
+}
+
+#audio-left .jouele-progress-area {
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    position: absolute !important;
+    width: 104px !important;
+    left: 455px;
+    height: 3px;
+    top: 27px;
+}
+
+#audio-left .jouele-mine-left, #audio-left .jouele-mine-right {
+    display: none;
+}
+
+#audio-left .jouele-mine {
+    height: 3px;
+    font-size: 0;
+    line-height: 0;
+    border: none !important;
+}
+
+#audio-left .jouele-name {
+    margin: 0;
+    font-size: 18px;
+    text-align: left;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    line-height: 24px;
+    padding: 14px 0 15px;
+}
+
+#audio-left .jouele-info-area {
+    width: 350px;
+    left: 50px;
+}
+
+#audio-left .jouele-play-control {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    left: -30px;
+    top: 21px;
+}
+
+#audio-left .jouele-play-pause {
+    font-size: 0;
+    line-height: 0;
+}
+
+#audio-left .jouele-play, #audio-left .jouele-pause {
+    width: 12px;
+    height: 12px;
+    line-height: 0;
+    font-size: 0;
+    background: url(../images/v1/controls.png) no-repeat;
+}
+
+#audio-left .jouele-pause {
+    background-position: -12px 0 !important;
+}
+
+#audio-left .jouele-play-time, .jouele-total-time {
+    position: absolute;
+    width: 45px;
+    text-align: right;
+    font-size: 16px;
+    color: #999999;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    line-height: 18px;
+    min-width: 45px;
+    min-height: 0;
+    top: 18px;
+}
+
+#audio-left .jouele-play-time {
+    left: 350px;
+}
+
+#audio-left .jouele-total-time {
+    right: -210px;
+}
+
+#audio-left .jouele-download {
+    background: url(../images/v1/controls.png) no-repeat !important;
+    background-position: -24px 0 !important;
+    height: 12px;
+    margin: 0;
+    font-size: 0;
+    line-height: 0;
+    width: 10px;
+    right: -240px;
+    top: 21px;
+}
+
+#audio-left .jouele-load-bar {
+    height: 3px;
+    font-size: 0;
+    line-height: 0;
+    background: #ddc3a1;
+    border: none;
+    margin: 0;
+    padding: 0;
+    top: 0;
+}
+
+#audio-left .jouele-play-bar {
+    height: 3px;
+    top: 0;
+    font-size: 0;
+    line-height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    background: #9f7b71;
+}
+
+#audio-left .jouele-play-bar-left, #audio-left .jouele-play-lift, #audio-left .jouele-load-bar-left, #audio-left .jouele-load-bar-right {
+    visibility: hidden;
+}
+
+.active-audio-item {
+    background: #faf1dc;
+}
+
+#audio-category-list {
+    margin-top: 27px;
+}
+
+#audio-category-list ul {
+    list-style-type: none;
+    margin: 0;
+}
+
+#audio-category-list li {
+    display: block;
+    float: left;
+    clear: both;
+    font-size: 17px;
+    line-height: 20px;
+    margin-bottom: 8px;
+}
+
+#audio-category-list li a {
+    display: block;
+    float: left;
+    text-decoration: underline;
+}
+
+#audio-category-list li a:hover {
+    text-decoration: none;
+}
+
+.selected-audio-list {
+    background: #e8d7bf;
+    padding: 2px 8px;
+    margin-left: -8px;
+}
+
+.selected-audio-list a {
+    color: #333333 !important;
+    text-decoration: none !important;
+    font-weight: bold;
+}

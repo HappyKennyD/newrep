@@ -1,0 +1,55 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/ent.css') }}" />
+ <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/game.css') }}" />
+<link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/v1.css') }}" />
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/ent.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <!--<div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <div class="div100"><h1>Варианты ТЕстов</h1></div>
+        
+        <div id="ent-description-text">
+            <p>{{ "ENT description"|i18n }}</p>
+        </div>
+        
+        <div id="ent-test-list">
+            {% for item in ent %}
+                <div class="test-list-item">
+                    <a href="{{ Url.site('tests/test/'~item.id) }}" class="open_modal">{{ item.title }}</a>
+                </div>
+                <div class="test-line"></div>
+            {% else %}
+                {{ "ENT notfoundcontent"|i18n }}
+            {% endfor %}
+        </div>-->
+<div style="  text-align: center;
+  padding-top: 34px;
+  line-height: 46px;"><p>{{"Игра Правда/Ложь."|i18n}} <br/>{{"Биыл ұлы ақын, ойшыл, композитор, қазақтың данасы Абайдың
+                                                туғанына 170 жыл. Ұлылар рухы алыстаған сайын, рухы асқақтай түседі. 
+                                                Мұндай ойды ғасыр бұрын Міржақып Дулатов айтқан еді. Біз Абайды 
+                                                қаншалықты білеміз, шығармашылығын қалай танимыз, жалпы біз 
+                                                Абайды танимыз ба деген  сауал ойлы қазақты айналдыра береді. Сол 
+                                                сауал сізді мазаласа, өзіңізді тексеріп көріңіз, мархабат!"|i18n}}
+</p></div>
+<a href="170let/test/3"><button style="  margin: 10px auto 0;
+  display: block;
+  border-radius: 40px;
+  background: #48b7f0;
+  color: #fff;
+  box-shadow: 0 4px #3081AB;
+  -webkit-transition: none;
+  -moz-transition: none;
+  transition: none;
+  padding: 10px 50px;
+  font-weight: bold;
+  float: left;
+  margin-left: 386px;">{{"Играть"|i18n}}</button></a>
+
+        <div class="ent-clear"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form action="" method="POST">
+            <div>
+                <h4>{{ "Create / Edit debate"|i18n }}</h4>
+            </div>
+            <div>
+                <label for="title">{{ "Name of the debate"|i18n }}</label>
+                {% if errors.title is defined %}
+                    <span class="alert">{{ "Name of the debate should be filled"|i18n }}</span>
+                {% endif %}
+                <input type="text" name="title" class="input-xxlarge" id="title" style="width: 98%"
+                       value="{{ debate.title|striptags|raw|default("") }}">
+
+                <label for="description">{{ "Summary of debate"|i18n }}</label>
+                <textarea name="description" id="description" maxlength="500" rows="3"
+                          style="width: 98%; resize: none;">{{ debate.description|striptags|raw|default("") }}</textarea>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/debate') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

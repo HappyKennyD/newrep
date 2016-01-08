@@ -1,0 +1,57 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <style>
+        section{
+            background-color: #faf9f5;
+        }
+        footer .whole-footer{
+            margin: 0!important;
+        }
+        form{
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <form method="post" action="{{ Url.site('auth/reminder') }}" style=" margin: auto; margin-top: 138px; width: 800px; text-align: left;">
+            <input type="hidden" name="token_auth" value="{{ _token }}">
+            <div class="modal-header">
+                <h4 class="form-signin-heading">{{ "Recovery password"|i18n }}</h4>
+            </div>
+            <div class="modal-body">
+                {% if error is defined %}
+                <div class="alert alert-error">
+                    {% for ee in errors %}
+                    <strong>{{ "Error"|i18n }}!</strong>
+                    {{ee}}<br>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                {{ "Fill in the form by entering your login (nickname), then wait for the letter to the e-mail that you used during the registration."|i18n }}<br><br>
+                {% if errors.login is defined %}
+                    <div class="alert" style="margin: 0">{{ errors.login }}</div>
+                {% endif %}
+                <div class="reg_form">
+                    <label for="login">{{ "Please enter your login"|i18n }}:</label>
+                    <input type="text" name="username" class="input-block-level" id="login" required>
+                </div>
+                <img src="{{Url.media('/captcha/default')}}" width="150" height="50" alt="Captcha" class="captcha_old"/>
+                <input type="text" name="captcha" required style="margin: 0; width: 147px; height: 42px; font-size:35px" autocomplete="off">
+                <a onclick="reload()" style="cursor: pointer;"><img src="{{Url.media('media/theme/refresh.png')}}" width="16px" height="16px"></a>
+                {% if errors.captcha is defined %}
+                    <br><div class="alert" style="margin: 0">{{ errors.captcha }}</div><br>
+                {% endif %}
+                <script type="text/javascript">
+                    function reload(){
+                        var id=Math.floor(Math.random()*1000000);
+                        $("img.captcha_old").attr("src","{{Url.media('/captcha/default?id=')}}"+id);
+                    }
+                </script>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+                <button style="background-position-x: 12px;"  class="btn btn-large btn-primary" type="submit">{{ "recover password"|i18n }}</button>
+            </div>
+        </form>
+</div>
+{% endblock content %}

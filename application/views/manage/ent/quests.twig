@@ -1,0 +1,43 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<div class="page-header">
+    <h4>{{ "ENT"|i18n }} - {{ "Variant"|i18n }} {{ ent.id }}. {{ "Language"|i18n }}: {{ ent.language|upper|i18n }}.</h4>
+    <div class="pull-right">
+        <a class="btn" href="{{ Url.media('manage/ent/questedit/'~ent.id) }}"><i class="icon-plus"> {{ "Add question"|i18n }}</i></a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="page">
+
+    {% for item in quests %}
+        <div class="well well-small">
+            <div class="text">
+                <div class="date">
+                    <span class="pull-right btn-group">
+                        {% if item.published %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/ent/questpublish/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Hide"|i18n }}</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/ent/questpublish/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "Unhide"|i18n }}</a>
+                        {% endif %}
+                        <a class="btn btn-mini" href="{{ Url.media('manage/ent/questedit/'~ent.id~'-'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/ent/questdelete/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                    </span>
+
+                    <span class="pull-right btn-group">
+                        <a class="btn btn-mini" href="{{ Url.media('manage/ent/questup/'~item.id) }}"><i class="icon-arrow-up"></i></a>
+                        <a class="btn btn-mini" href="{{ Url.media('manage/ent/questdown/'~item.id) }}"><i class="icon-arrow-down"></i></a>
+                    </span>
+
+                    <div>
+                        <a href="{{ Url.site('manage/ent/variants/'~item.id) }}">{{ "Question"|i18n }} {{ item.number }}. {{ item.text }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {{ paginate|raw }}
+
+</div>
+{% endblock content %}

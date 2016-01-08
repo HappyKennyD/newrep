@@ -1,0 +1,31 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+            <h4>{{ "Редактирование/добавление ссылки"|i18n }}</h4>
+        </div>
+        {% if biography is defined %}
+            <input type="hidden" name="biography" value="{{ biography }}" />
+        {% endif %}
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ attach.title }}" style="width: 98%;"/>
+        </div>
+        <select name="key">
+            <option value="read" {% if attach.key == "read" %} selected{% endif %}>{{ "Advised to read"|i18n }}</option>
+            <option value="references" {% if attach.key == "references" %} selected{% endif %}>{{ "References"|i18n }}</option>
+        </select>
+        <div>
+            <label for="link">{{ "Link"|i18n }}</label>
+            <input type="text" name="link" id="link" class="input-xxlarge" value="{{ attach.link }}" style="width: 98%;"/>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/contacts/headedit/'~attach.contact_id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+        </div>
+            <p><b>Адрес:</b> {{ attach.post }}
+            <p><b>Телефон приемной:</b> {{ attach.phone }}</p>
+            <p><b>Телефон канцелярии:</b> {{ attach.fax }}</p>
+            <p><b>Телефон Управления связи со СМИ:</b> {{ attach.phone_smi }}</p>
+            <p><b>Электронная почта Управления связи со СМИ:</b> <a href="mailto:{{ attach.email_smi }}" class="a-style">{{ attach.email_smi }}</a></p>
+            <p><b>Телефон доверия:</b> {{ attach.name }}</p>
+            <p><b>e-mail:</b> <a href="mailto:{{ attach.cabinet }}" class="a-style">{{ attach.cabinet }}</a></p>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

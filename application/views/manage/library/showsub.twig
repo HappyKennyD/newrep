@@ -1,0 +1,12 @@
+<script type="text/javascript">
+        function delsub(book_id,category_id){
+            $.post("{{ Url.media("manage/library/delsub") }}", { "book_id": book_id, "category_id": category_id },
+                    function(data){
+                        $('#subs').empty();
+                        $('#subs').load("{{ Url.media("manage/library/showsub/") }}"+'/'+book_id);
+                    });
+        };
+</script>
+{% for sub in all %}
+    {{ sub.name }}(<a href="Javascript:void(0);" onclick="delsub('{{ sub.book_id }}','{{ sub.category_id }}');">{{ "Delete"|i18n }}</a>)<br />
+{% endfor %}

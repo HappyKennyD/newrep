@@ -1,0 +1,531 @@
+#ent-description-text, #ent-test-list, #end-question, .test-list-item, .test-line, .ent-clear, #ent-questions-list, .ent-question-block {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.ent-question-number, .ent-question-text, .ent-answer-variant {
+    position: relative;
+    float: left;
+}
+
+#ent-description-text {
+    line-height: 24px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+#ent-test-list {
+    margin-top: 15px;
+}
+
+.ent-clear {
+    height: 25px;
+}
+
+.test-list-item {
+    margin-top: 15px;
+}
+
+.test-list-item a {
+    line-height: 24px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.test-line {
+    height: 15px;
+    border-bottom: solid 1px #e0e0e0;
+}
+
+.ent-question-block {
+    margin-top: 20px;
+}
+.ent-question-title{
+    margin: 8% 0 0;
+}
+.ent-question-text{
+    margin: 8% 0 0;
+}
+.ent-question-number, .ent-question-text {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: bold;
+}
+
+.ent-question-number {
+    width: 40px;
+}
+
+.ent-question-text {
+    width: 530px;
+    margin-left: 0px;
+    background-color: #ffffff;
+    text-align: center;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.ent-question-text img{
+    max-height: 150px !important;
+    max-width: 150px !important;
+    margin: 0 auto;
+    display: block;
+    float: none;
+    border: none;
+}
+
+.ent-answer-variant {
+    width: 900px;
+    left: 40px;
+    font-size: 18px;
+    line-height: 24px;
+    margin-top: 5px;
+}
+
+.ent-answer-variant div {
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    left: -40px;
+    top: 4px;
+    background: url(../images/v1/radio.png) no-repeat;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 0;
+}
+
+.selected-test div {
+    background-position: -17px 0 !important;
+}
+
+.button {
+    display: block;
+    float: left;
+    height: 36px;
+    line-height: 34px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    background: url(../images/v1/button.png) repeat-x;
+    border-left: solid 1px #cfa574;
+    border-right: solid 1px #cfa574;
+    border-top: none;
+    border-bottom: none;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    padding: 0 30px;
+    margin-top: 15px;
+}
+
+.button:hover {
+    color: #fff;
+    text-decoration: none;
+    background: url(../images/v1/button.png) 0 -36px repeat-x;
+}
+
+.button:active {
+    background: url(../images/v1/button.png) 0 -72px repeat-x;
+}
+
+#end-question {
+    margin-top: 15px;
+}
+
+#ent-questions-list {
+    margin-top: 20px;
+}
+
+#test-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+#status-panel {
+    position: absolute;
+    width: 962px;
+    height: 70px;
+    left: -2px;
+    background: url(../images/v1/status-panel.png) no-repeat;
+    z-index: 10;
+    display: none;
+}
+
+#status-numbers {
+    position: absolute;
+    width: 685px;
+    height: 30px;
+    left: 110px;
+    top: 16px;
+    color: #e84444;
+    line-height: 24px;
+    font-size: 16px;
+    text-align: center;
+}
+
+#status-numbers span {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.active-number {
+    color: #006699 !important;
+}
+
+.answered-good {
+    color: green !important;
+    font-weight: 600;
+}
+
+.answered-bad {
+    color: #e84444 !important;
+    font-weight: 900;
+}
+
+#status-timer {
+    position: absolute;
+    width: 100px;
+    text-align: center;
+    left: 4px;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+    top: 15px;
+}
+
+#status-result {
+    position: absolute;
+    width: 126px;
+    height: 30px;
+    top: 16px;
+    font-size: 16px;
+    line-height: 24px;
+    left: 810px;
+    text-align: center;
+    color: #c3c3c3;
+}
+
+#status-result a {
+    color: #c3c3c3;
+    text-decoration: none;
+}
+
+.no-margin {
+    margin-top: 0 !important;
+}
+
+
+.modal_div {
+    width: 530px;
+    height: 460px; /* Размеры должны быть фиксированы */
+    border-radius: 10px;
+    border: 3px #000 solid;
+    /*background: #fff;*/
+    position: fixed; /* чтобы окно было в видимой зоне в любом месте */
+    /*top: 45%;*/ /* отступаем сверху 45%, остальные 5% подвинет скрипт */
+    left: 0;
+    right: 0;
+    margin: 20px auto; /* половина экрана слева */
+    /*margin-top: -25%;*/
+
+    /* тут вся магия центровки css, отступаем влево и вверх минус половину ширины и высоты соответственно =) */
+    display: none; /* в обычном состоянии окна не должно быть */
+    opacity: 0; /* полностью прозрачно для анимирования */
+    z-index: 999; /* окно должно быть наиболее большем слое */
+    /*padding: 20px 10px;*/
+    background: url(/media/images/tests/overlay_modal.png);
+    background-repeat: no-repeat;
+    background-position: -9px -3px;
+}
+/* Кнопка закрыть для тех кто в танке) */
+.modal_div .modal_close {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 0px;
+    right: -7px;
+    cursor: pointer;
+    display: block;
+}
+.modal_close a:hover{
+    text-decoration: none;
+}
+/* Подложка */
+#overlay {
+    z-index: 99; /* подложка должна быть выше слоев элементов сайта, но ниже слоя модального окна */
+    position: fixed; /* всегда перекрывает весь сайт */
+    background: url(/media/images/tests/overlay.png) rgba(0, 0, 0, 1);
+    /*opacity: 0.8; *//* но немного прозрачна */
+    width: 100%;
+    height: 100%; /* размером во весь экран */
+    top: 0;
+    left: 0; /* сверху и слева 0, обязательные свойства! */
+    cursor: pointer;
+    display: none; /* в обычном состоянии её нет) */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.txtblock h1{
+    font-size:2em;}
+#divexample1{
+    height: 90%;
+    z-index:999999;
+    padding-right: 10px;}
+.txtblock {
+    height: 90%;
+    position: relative;
+}
+
+/* General button style (reset) */
+.bttn {
+    border: none;
+    font-size: 14px;
+    /*font-family: inherit;*/
+    /*font-size: inherit;*/
+    color: inherit;
+    background: none;
+    cursor: pointer;
+    /*padding: 25px 80px;*/
+    display: inline-block;
+    /*margin: 15px 30px;*/
+    /*text-transform: uppercase;*/
+    letter-spacing: 1px;
+    font-weight: 700;
+    outline: none;
+    position: relative;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+    height: 33px;
+    width: 123px;
+    margin-top: 10px;
+}
+
+.bttn:after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+/* Pseudo elements for icons */
+.bttn:before{
+    font-family: 'icomoon';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+.btn-2g {
+    margin-left: 130px;
+    margin-right: 10px;
+    border-radius: 40px;
+    background: #48f048;
+    color: #fff;
+    box-shadow: 0 4px #3AC83A;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+}
+
+.btn-2g:hover {
+    box-shadow: 0 2px #3AC83A;
+    top: 2px;
+}
+
+.btn-2g:active {
+    box-shadow: 0 0 #3AC83A;
+    top: 4px;
+}
+.btn-2e {
+    border-radius: 40px;
+    background: #cb4e4e;
+    color: #fff;
+    box-shadow: 0 4px #ab3c3c;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+}
+
+.btn-2e:hover {
+    box-shadow: 0 2px #ab3c3c;
+    top: 2px;
+}
+
+.btn-2e:active {
+    box-shadow: 0 0 #ab3c3c;
+    top: 4px;
+}
+.btn-2d {
+    margin: 10px auto 0;
+    display: block;
+    border-radius: 40px;
+    background: #48b7f0;
+    color: #fff;
+    box-shadow: 0 4px #3081AB;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    float: left;
+    margin-left: 200px;
+}
+
+.btn-2d:hover {
+    box-shadow: 0 2px #3081AB;
+    top: 2px;
+}
+
+.btn-2d:active {
+    box-shadow: 0 0 #3081AB;
+    top: 4px;
+}
+.error{
+    width: 530px;
+    text-align: center;
+    font-family: Arial;
+    font-size: 18px;
+    font-weight: 900;
+}
+.error p{
+    margin: 25% 0 10px;
+    vertical-align: middle;
+    /* display: inline-block; */
+    /* margin: 0; */
+    color: #f04848;
+    font-size: 20px;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-family: Arial;
+    text-align: center;
+}
+.res{
+    text-align: center;
+    margin: 110px 0 0;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: 900;
+}
+.res a{
+    font-size: 18px;
+}
+
+
+.heart {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    -webkit-transform: rotate(45deg);  /* для Chrome и Safari */
+    -moz-transform: rotate(45deg); /* для Firefox */
+    -o-transform: rotate(45deg); /* для Opera */
+    transform: rotate(45deg);
+    border: solid 1px red;
+    border-top: none;
+    border-left: none;
+}
+
+.heart:before, .heart:after {
+    position:absolute;
+    content: ' ';
+    -webkit-border-radius: 50px 0 0 50px;
+    -moz-border-radius: 50px 0 0 50px;
+    border-radius: 50px 0 0 50px;
+    width: 12px;
+    height: 14px;
+    border: solid 1px red;
+    border-right: none;
+    left: -12px;
+}
+.heart:after {
+    position: absolute;
+    left: 2.4px;
+    top: -13px;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+.heart {
+    background: red;
+    /* для браузеров, которые не поддерживают градиент */
+    background: -webkit-radial-gradient(0% 0%, 0px 0px, #8B0000, #8B0000, red);
+    /* для Chrome и Safari */
+    background: -moz-radial-gradient(170% 50%, circle , #F00 0%, #F00 52%,  red 76%);
+    /* для Firefox */
+    background: -o-radial-gradient(0% 0%, 0px 0px, #8B0000, #8B0000, red);
+    /* для Opera */
+    background: radial-gradient(0% 0%, 0px 0px, #8B0000, #8B0000, red);
+    /* по стандартам CSS3 */
+}
+.heart:before {
+    background: red;
+    background: -webkit-radial-gradient(15% 50%, 0px 0px, #FFE4E1, red);
+    background: -moz-radial-gradient(15% 50%, circle, #FFE4E1, red 0%);
+    background: -o-radial-gradient(15% 50%, 0px 0px, #FFE4E1, red);
+    background: radial-gradient(15% 50%, 0px 0px, #FFE4E1, red);
+}
+.heart:after {
+    background: red;
+    background: -webkit-radial-gradient(17% 51%, 25px 13px, #FFB6C1, red, #8B0000);
+    background: -moz-radial-gradient(17% 51%, 25px 13px, #FFB6C1, red, #8B0000);
+    background: -o-radial-gradient(17% 51%, 25px 13px, #FFB6C1, red, #8B0000);
+    background: radial-gradient(17% 51%, 25px 13px, #FFB6C1, red, #8B0000);
+}
+.heart {
+    animation-name: 'anime';
+    /* имя кейфрейма для анимации */
+    animation-duration: 300ms;
+    /* длительность анимации */
+    animation-iteration-count: infinite;
+    /* количество повторений, в данном случае - бесконечно */
+    animation-direction: alternate;
+    /* проигрывать анимацию в прямом и в обратном порядке */
+    animation-timing-function: ease-in;
+    /* вычисление временных промежутков для анимации, в данном случае анимация ускоряется */
+}
+@keyframes 'anime' {
+    from {
+        transform: scale(1) rotate(45deg);
+    }
+    to {
+        transform: scale(1.1) rotate(45deg);
+    }
+}
+.heart {
+    -webkit-animation-name: 'anime';
+    -webkit-animation-duration: 300ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-timing-function: ease-in;
+}
+@-webkit-keyframes 'anime' {
+    from {
+        -webkit-transform: scale(1) rotate(45deg);
+    }
+    to {
+        -webkit-transform: scale(1.1) rotate(45deg);
+    }
+}
+
+.score{
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 10px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+.stick{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 60px;
+}

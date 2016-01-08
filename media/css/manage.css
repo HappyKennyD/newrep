@@ -1,0 +1,196 @@
+html, body {
+    min-height  : 100%;
+    font-family : "PT Sans", Tahoma, Helvetica, Arial, sans-serif;
+    background  : url('../theme/manage/background.png') repeat;
+}
+
+.main-menu {
+    min-height    : 0;
+    padding       : 4px 20px;
+    margin-bottom : 10px;
+}
+
+.main-menu .brand {
+    line-height  : 32px;
+    margin-right : 20px;
+}
+
+.main-menu .nav {
+    margin-bottom : 0;
+}
+
+.well-nopad {
+    padding : 0;
+}
+
+.list-row {
+    padding               : 3px;
+    cursor                : pointer;
+    border-bottom         : 1px solid transparent;
+    -webkit-border-radius : 2px;
+    -moz-border-radius    : 2px;
+    border-radius         : 2px;
+}
+
+.list-row:nth-child(even) {
+    background-color : #f9f9f9;
+}
+
+.list-row:hover {
+    background-color : #f7f7f7;
+    border-bottom    : 1px solid #f6f6f6;
+}
+
+.page-header {
+    padding       : 15px 10px;
+    border-bottom : 1px solid #eee;
+    margin        : 0 0 10px 0;
+}
+
+.page-header .breadcrumb {
+    margin-bottom : 0;
+}
+
+.clear {
+    clear : both;
+}
+
+.page-pad {
+    margin : 20px;
+}
+
+.m-cursive {
+    font-style  : italic;
+    color       : #979797;
+    padding-top : 1em;
+    text-align  : right;
+}
+
+.m-text {
+    font-size   : 100%;
+    color       : #333;
+    line-height : 18px;
+}
+
+.interactive-map {
+    background-color : #faf1dc;
+    min-height       : 320px;
+    padding-bottom   : 50px;
+}
+
+.interactive-map .locate-map {
+    background : url('../theme/v1/map.png') no-repeat center center;
+    height     : 400px;
+    /*
+    -webkit-box-shadow : inset 0 0 3px 3px rgba(20, 20, 20, .1);
+    box-shadow         : inset 0 0 3px 3px rgba(20, 20, 20, .1);
+    */
+}
+
+.locate-map a.city-item {
+    display               : block;
+    position              : absolute;
+    float                 : left;
+    padding               : 0 10px;
+    background            : url("../theme/v1/map-but.png") repeat-x 50% 0;
+    height                : 25px;
+    line-height           : 25px;
+    font-weight           : normal;
+    font-size             : 12px;
+    color                 : #c0c1be;
+    text-transform        : uppercase;
+    text-decoration       : none;
+    border-radius         : 6px;
+    -webkit-border-radius : 6px;
+    -moz-border-radius    : 6px;
+}
+
+.locate-map a.city-item .point {
+    height     : 26px;
+    margin     : -6px auto 0;
+    width      : 30px;
+    background : transparent url("../theme/v1/map-circle.png") no-repeat scroll 0 0;
+}
+
+.locate-map a.city-item .point.red {
+    background : url("../theme/v1/map-circle-red.png") no-repeat;
+}
+
+.locate-map a.city-item .arrow {
+    background : url("../theme/v1/map-ugol.png") no-repeat scroll 50% 0 transparent;
+    height     : 9px;
+    margin     : -20px 0 0 0;
+}
+
+.locate-map a:hover {
+    background-position : 50% -25px;
+    color               : #fff;
+}
+
+.locate-map a:hover .arrow {
+    background-position : 50% -9px;
+}
+
+.locate-map a:hover .point {
+    background-position : 50% -26px;
+}
+
+.locate-map a:hover .point.red {
+    background-position : 50% -26px;
+}
+
+.titul {
+    margin-top: 20px;
+    line-height : 33px;
+    height: 33px;
+}
+
+.titul a {
+    padding: 3px 6px;
+    border-radius: 5px;
+    line-height : 1;
+}
+
+.titul a:hover,
+.titul a.active {
+    background-color: #4f81bd;
+    text-decoration: none;
+    color: #fff;
+}
+
+#in-pagination {
+    position: relative;
+    float: left;
+    margin-bottom: 15px;
+}
+
+#pagination-block a {
+    display      : block;
+    float        : left;
+    padding      : 0 5px;
+    margin-right : 1px;
+}
+
+.space-span {
+    display      : block !important;
+    float        : left !important;
+    padding      : 0 5px !important;
+    margin-right : 1px !important;
+    margin-left  : 0 !important;
+}
+
+.selected-pagelink, #pagination-block a:hover {
+    padding-left : 0 !important;
+    color        : #333;
+}
+
+.selected-pagelink span, #pagination-block a:hover span {
+    display      : block;
+    float        : left;
+    padding-left : 5px;
+}
+
+.manage_slogan{
+    display: block !important;
+    width: 97%;
+}

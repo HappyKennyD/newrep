@@ -1,0 +1,57 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/audio') }}" class="close">&times;</a>
+            <h4>{{ "Audio edit"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-block-level" value="{{ audio.title }}" />
+
+            <label for="category_id">{{ "Category"|i18n }}</label>
+            <select name="category_id" id="category_id" class="input-block-level">
+                <option value="0"></option>
+                {% for cat in cats %}
+                    <option
+                            value="{{ cat.id }}"
+                            {% if cat.mama() %}disabled="disabled" style="color: darkgray;" {% endif %}
+                            {% if audio is defined and audio.category_id==cat.id %}selected="selected"{% endif %}>
+                        {% for i in 1..(cat.lvl-1)*10 %}&nbsp;{% endfor %}
+                        {{ cat.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label for="rubric">{{ "Rubric"|i18n }}</label>
+            <input type="text" name="rubric" id="rubric" class="input-block-level" value="{{ audio.rubric }}" />
+
+            <label for="storage_id">{{ "mp3"|i18n }}</label>
+            {% if audio.mp3.loaded() %}
+                <div style="margin-bottom: 10px">
+                    <a href="{{ Url.media(audio.mp3.file_path, TRUE) }}">{{ "download"|i18n }}</a>
+                    <input type="hidden" id="storage_id" name="storage_id" value="{{ audio.storage_id }}">
+                </div>
+                <a class="btn btn-info" onclick="return confirm('{{ "Audio deleting confirmation"|i18n }}')" href="{{ Url.site('manage/audio/clearfile/'~audio.id) }}">{{ "Delete mp3"|i18n }}? &times;</a>
+            {% else %}
+                {{ uploader|raw }}
+                <input type="hidden" id="storage_id" name="storage_id" value="0" />
+            {% endif %}
+
+            <div id="audio-wrapper"></div>
+            <div id="file"></div>
+
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if audio.published is not defined or audio.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Publish"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/audio') }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,225 @@
+#calendar-title, #event-list-title, #event-list, .event-line, .event-content, .event-announce, .event-info, .event-text, .bottom-line, .calendar-nav, .calendar-table, #tomorrow-events, #calendar-block {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+#calendar-left, #calendar-right {
+    position: relative;
+    float: left;
+}
+
+#calendar-left {
+    width: 620px;
+}
+
+#calendar-right {
+    width: 220px;
+    left: 100px;
+}
+
+#event-list-title {
+    font-size: 18px;
+    line-height: 24px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+#event-list table {
+    width: 100%;
+    margin-top: 9px;
+}
+
+#event-list td {
+    vertical-align: top;
+    line-height: 24px !important;
+    padding: 9px 0;
+}
+
+.event-year {
+    font-size: 14px;
+    margin-right: 15px;
+    float: right;
+    display: block;
+    margin-top: 1px;
+}
+
+#event-list a {
+    color: #9f7b71;
+    text-decoration: none;
+    font-size: 18px;
+    background: url(../images/v1/a-dash.png) bottom left repeat-x;
+}
+
+#event-list a:hover {
+    background: none;
+}
+
+.selected-event {
+    font-weight: bold;
+    color: #333333 !important;
+    background: none !important;
+}
+
+.event-line {
+    height: 1px;
+    font-size: 0;
+    background: url(../images/v1/debate-pixel.gif);
+    margin-top: 20px;
+}
+
+#calendar-right .event-line {
+    margin-top: 40px !important;
+}
+
+.event-content {
+    line-height: 24px;
+    display: none;
+}
+
+.event-date {
+    font-size: 18px;
+    color: #999999;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+.event-content .event-title {
+    font-size: 28px;
+}
+
+.event-preview {
+    margin-top: 20px;
+}
+
+.event-preview img {
+    border: solid 1px #e2e2e2;
+    padding: 10px;
+}
+
+.event-announce {
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+
+.event-announce div {
+    position: absolute;
+    width: 2px;
+    height: 1px;
+    left: -22px;
+    top: 6px;
+    background: url(../images/v1/expert-announce-line.gif);
+}
+
+.bottom-line {
+    height: 1px;
+    font-size: 0;
+    background: url(../images/v1/debate-pixel.gif);
+    margin-top: 20px;
+}
+
+#tomorrow-events ul {
+    list-style-type: none;
+    margin: 0;
+}
+
+.e-title {
+    margin-top: 7px !important;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+#tomorrow-events li {
+    margin-top: 20px;
+}
+
+#tomorrow-events li a {
+    color: #9f7b71;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+#calendar-block {
+    margin-top: 35px;
+}
+
+.other-month span {
+    display: none !important;
+}
+
+.calendar-month  td {
+    width: 31px;
+    height: 27px;
+    text-align: center;
+}
+
+.calendar-month .day {
+    display: block;
+    float: left;
+    width: 31px;
+    height: 27px;
+    line-height: 26px;
+    color: #222222;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.is-today {
+    background: #FAF1DC !important;
+    color: #222222 !important;
+}
+
+.calendar-month a:hover, .is-select {
+    background: #c19566 !important;
+    color: #fff !important;
+}
+
+.a-calendar-manage a{
+    text-align: left !important;
+    font-size: 8pt !important;
+    line-height: 0.9 !important;
+}
+
+.a-calendar-manage a:hover {
+    background: none !important;
+    color: #005580 !important;
+    text-decoration: underline !important;
+}
+
+.calendar-month .weekday {
+    font-size: 13px;
+    color: #999999;
+    text-align: center;
+    font-weight: normal;
+}
+
+.calendar-nav {
+    text-align: center;
+    font-size: 18px;
+    line-height: 24px;
+}
+
+.calendar-table {
+    margin-top: 15px;
+}
+
+.calendar-nav a {
+    display: block;
+    position: absolute;
+    width: 18px;
+    height: 11px;
+    font-size: 0;
+    background: url(../images/v1/calendar-arrows.png) no-repeat;
+    top: 7px;
+}
+
+#prev-month {
+    left: 0;
+}
+
+#next-month {
+    right: 0;
+    background-position: -18px 0 !important;
+}

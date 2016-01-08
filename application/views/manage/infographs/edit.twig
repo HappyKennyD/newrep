@@ -1,0 +1,51 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <h4>{{ "Редактирование/добавление записи"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            {% if errors.title is defined %}
+                <span class="alert">{{ errors.title }}</span>
+            {% endif %}
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" style="width: 98%;"/>
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if item.image is defined and item.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(item.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ item.image }}">
+                    </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/infographs/clearimage/'~item.id) }}">Удалить изображение? &times;</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <div>
+            <label for="">Выбранный язык</label>
+            <label for="ru" class="inline"><input type="radio" name="language" value="ru" id="ru" {% if language == 'ru' %}checked="checked" {% endif %}/> RU</label>
+            <label for="kz" class="inline"><input type="radio" name="language" value="kz" id="kz" {% if language == 'kz' %}checked="checked" {% endif %}/> KZ</label>
+            <label for="en" class="inline"><input type="radio" name="language" value="en" id="en" {% if language == 'en' %}checked="checked" {% endif %}/> EN</label>
+        </div>
+            <label for="datepicker">{{ "Date"|i18n }}</label>
+            <input type="text" name="date" class="datepicker"
+                   data-date="{% if item.date is empty %}{{ "now"|date("Y-m-d H:i") }}{% else %}{{ item.date|date("Y-m-d H:i") }}{% endif %}"
+                   data-date-format="dd.mm.yyyy hh:ii" value="{% if item.date is empty %}{{ "now"|date("d.m.Y H:i") }}{% else %}{{ item.date|date("d.m.Y H:i") }}{% endif %}"
+                   id="datepicker" readonly style="cursor: pointer"/>
+
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;">
+                <label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/infographs') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

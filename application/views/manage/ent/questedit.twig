@@ -1,0 +1,16 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<form action="" style="margin:0" method="post">
+    <div class="modal-header">
+        <h4>{{ "Edit question"|i18n }}</h4>
+    </div>
+    <div class="modal-body">
+        <label for="name">{{ "Question text"|i18n }}</label>
+        <textarea name="text" class="input-block-level">{% if quest is defined %}{{ quest.text }}{% endif %}</textarea>
+    </div>
+    <div class="modal-footer">
+        <a href="{{ cancel_url }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+        <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+    </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+    <div class="well well-small">
+        <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+
+        <form action="" method="post">
+            <div class="text">
+                <div class="date">
+                        <span class="btn-group">
+                </div>
+                <h4>{{ "Question"|i18n }}</h4>
+                {{ questions.user.username|raw|striptags }}
+                <br>{{ Date.translate(questions.date, 'd F Y G:i:s') }}<br>
+                {% if errors is defined %}
+                    <span class="alert">{{ "Question must be at least 30 characters long"|i18n }}</span>{% endif %}
+                <textarea name="question" maxlength="5000" style="width: 98%; resize: none;">{{  questions.question|raw|striptags|default("") }}</textarea>
+            </div>
+            <br>
+            <div class="modal-footer">
+                <button class="btn">{{ "Save"|i18n }}</button>
+                <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

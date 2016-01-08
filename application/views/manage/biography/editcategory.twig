@@ -1,0 +1,24 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/biography/category') }}" class="close">&times;</a>
+            <h4>{{ "Редактирование/добавление категории"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ category.title }}" style="width: 98%;"/>
+        </div>
+        <select name="era">
+            <option value="1" {% if category.era == 1 %} selected{% endif %}>{{ "The History Man"|i18n }}</option>
+            <option value="2" {% if category.era == 2 %} selected{% endif %}>{{ "Contemporary"|i18n }}</option>
+        </select>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/biography/category') }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

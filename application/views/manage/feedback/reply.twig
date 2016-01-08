@@ -1,0 +1,36 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="well well-small">
+        <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+
+        <form action="" method="post">
+            <div class="text">
+                {% if question.is_spam == 1 %}<h4>{{ "The question is marked as spam by the user"|i18n }} {{ question.moderator.username }}</h4>{% endif %}
+                <h4>{{ "Question"|i18n }}</h4>
+                {{ question.user.username }}
+                <br>{{ Date.translate(question.date, 'd F Y G:i:s') }}
+                <br>{{ question.question|striptags|raw }}
+
+                <h4>{{ "Answer"|i18n }}</h4>
+                {% if question.is_answered == 0 %}
+                    {% if errors is defined %}
+                        <span class="alert">{{ "Answer must be at least 30 characters long"|i18n }}</span>{% endif %}
+                    <textarea name="answer" maxlength="5000" style="width: 98%;">{{ answer|striptags|raw|default("") }}</textarea>
+                {% else %}
+                    {{ question.qalist.user.username }}<br>
+                    {{ Date.translate(question.qalist.date, 'd F Y G:i:s') }}<br>
+                    {{ question.qalist.answer }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="modal-footer">
+                <a class="btn btn-danger" href="{{ Url.site('manage/feedback/spam/'~question.id) }}?r=manage/feedback/reply/{{ question.id }}"><i class="icon-remove"></i> {% if question.is_spam == 0 %}{{ "Spam"|i18n }}{% else %}{{ "Not spam"|i18n }}{% endif %}
+                </a>
+                {% if question.is_answered == 0 %}
+                    <button class="btn">{{ "Save"|i18n }}</button>{% endif %}
+                <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

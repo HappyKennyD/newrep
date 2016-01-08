@@ -1,0 +1,38 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/education/add') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in education %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            {#
+                            <a class="btn btn-mini" href="{{ Url.media('manage/news/view/'~item.id) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            #}
+                            <a class="btn btn-mini" href="{{ Url.media('manage/education/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/education/publish/'~item.id) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/education/publish/'~item.id) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/education/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left">
+                        {{ item.title }}
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

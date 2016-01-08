@@ -1,0 +1,14 @@
+{% extends "layout/specialhtml.twig" %}
+{% block content %}
+    {% include 'layout/bread-crumbs-special.twig' %}
+
+    <div class="page-name">
+        <h1>{{ briefing.title }}</h1>
+    </div>
+
+    <div class="page-content">
+        <div class="text">
+            <p>{{ briefing.text|raw }}</p>
+        </div>
+    </div>
+{% endblock content %}

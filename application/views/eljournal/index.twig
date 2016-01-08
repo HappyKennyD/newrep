@@ -1,0 +1,31 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+   {# <div class="titul" style="padding-bottom:15px;">
+        <span class="font-titul">Журнал «Актуальные вопросы национальной истории», {{ months_name[select_month-1]|i18n }}, {{ select_year }}</span>
+
+        {% for item in years %}
+            <a href="{{ Url.site("eljournal/" ~ item.year ~ "/" ~ item.month) }}"{% if item.year == select_year %} class="active"{% endif %}{% if Url.media(_request.uri)|lower == Url.site("astanacalling/" ~ item.year ~ "/" ~ item.month)|lower %} rel="nofollow"{% endif %}>{{ item.year }}</a>
+        {% endfor %}
+        <br>
+        {% for item in months %}
+            <a href="{{ Url.site("eljournal/"~select_year~"/" ~ item) }}"{% if item == select_month %} rel="nofollow" class="active"{% endif %}>{{ months_name[item-1]|i18n }}</a>
+        {% endfor %}
+        <br>
+    </div>
+    {% for key, item in callings %}
+        <div class="calling {% if (key+1) % 4 != 0 %}mar-46{% endif %}">
+            <div class="block-calling">
+                <a target="_blank" href="{{ Url.media(item.file_pdf.file_path) }}"><img src="{{ Url.media('images/w200-si/' ~ item.file_cover.file_path) }}" title="{{ item.title }}, {{ Date.ru_date(item.date, 'd F Y') }}" alt="{{ item.title }}, {{ Date.ru_date(item.date, 'd F Y') }}"/></a>
+            </div>
+            <div class="font-call">{{ item.title }}, {{ Date.ru_date(item.date, 'd F Y') }}</div>
+            <a target="_blank" href="{{ Url.media(item.file_pdf.file_path) }}">{{ "Load magazine "|i18n }}, ({{ item.file_pdf.type }}, {{ MbSize.size(item.size) }} Мb)</a>
+        </div>
+        {% if (key+1) % 4 == 0 %}
+            <div class="clear"></div>{% endif %}
+    {% endfor %}
+
+    <div class="clear"></div>#}
+
+
+{% endblock content %}

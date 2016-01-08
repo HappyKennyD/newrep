@@ -1,0 +1,93 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <style>
+        section{
+            /*background-color: #faf9f5;*/
+        }
+        footer .whole-footer{
+            margin: 0!important;
+        }
+        form{
+            margin: 0;
+        }
+        .ulogin-buttons-container{
+            width: initial!important;
+            border: 1px solid #bababa!important;
+            padding-left: 8px!important;
+        }
+        .ulogin-button-google,
+        .ulogin-button-vkontakte,
+        .ulogin-button-facebook,
+        .ulogin-button-mailru,
+        .ulogin-button-odnoklassniki{
+            width: 38px!important;
+            display: inherit!important;
+            border-bottom: 0px solid #bababa!important;
+            height: 38px!important;
+            margin: 8px 8px 8px 0!important;
+        }
+        .ulogin-button-odnoklassniki{
+            padding-left: 0px!important;
+            width: 38px!important;
+            background: url(/media/theme/shkolkovo/odn.png) white 0px 0px no-repeat!important;
+        }
+        .ulogin-button-vkontakte{
+            background: url(/media/theme/shkolkovo/vk.png) white 0px 0px no-repeat!important;
+        }
+
+        .ulogin-button-google{
+            background: url(/media/theme/shkolkovo/gmail.png) white 0px 0px no-repeat!important;
+
+        }
+
+        .ulogin-button-facebook{
+            background: url(/media/theme/shkolkovo/fb.png) white 0px 0px no-repeat!important;
+        }
+
+        .ulogin-button-mailru{
+            background: url(/media/theme/shkolkovo/mail.png) white 0px 0px no-repeat!important;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <form method="post" action="{{ Url.site('auth/enter') }}" style="text-align: center;margin: auto;">
+            <input type="hidden" name="token_auth" value="{{ _token }}">
+            <div class="pull-left style-button" id="uLogin"
+                 x-ulogin-params="display=panel;fields=first_name,last_name,photo,photo_big;optional=phone,email;providers=vkontakte,facebook,mailru,odnoklassniki,google;hidden=;redirect_uri={{ Url.site('auth/enter', true) }}">
+            </div>
+            <script src="http://ulogin.ru/js/ulogin.js"></script>
+            <div class="modal-body reg_form">
+                <div>
+                    {% if errors.username is defined %}
+                        <div class="alert">{{ errors.username }}</div>
+                    {% endif %}
+                    {#<label for="username">{{ "E-mail"|i18n }}</label>#}
+                    <input type="text" name="username" class="input-block-level auth-block" value="" id ="username" required="required">
+                </div>
+                <div>
+                    {#<label for="password">{{ "Password"|i18n }}</label>#}
+                    <input type="password" name="password" class="input-block-level auth-block" id="password" required style="border-top: none;">
+                </div>
+                {% if captcha %}
+                    <img src="{{Url.media('/captcha/default')}}" width="150" height="50" alt="Captcha" class="captcha_old"/>
+                    <input type="text" name="captcha" required style="margin: 0; width: 147px; height: 42px; font-size:35px" autocomplete="off">
+                    <a onclick="reload()" style="cursor: pointer;"><img src="{{Url.media('media/theme/refresh.png')}}" width="16px" height="16px"></a>
+                    {% if errors.captcha is defined %}
+                        <div class="alert">{{ errors.captcha }}</div>
+                    {% endif %}
+                    <script type="text/javascript">
+                        function reload(){
+                            var id=Math.floor(Math.random()*1000000);
+                            $("img.captcha_old").attr("src","{{Url.media('/captcha/default?id=')}}"+id);
+                        }
+                    </script>
+                {% endif %}
+                {#<a href="{{ Url.site('auth/reminder') }}" class="font-eleven">{{ "Forgot Password?"|i18n }}</a>#}
+            </div>
+            <div class="modal-footer">
+                <button class="btn-large btn-enter" type="submit">{{ "Do Login"|i18n }}</button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

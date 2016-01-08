@@ -1,0 +1,119 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#type-pdf').click(function(){
+            $('#pdf-wrapper').fadeIn(400);
+        });
+        $('#type-txt').click(function(){
+            $('#pdf-wrapper').fadeOut(400);
+        });
+        $('#subs').load("{{ Url.media("manage/library/showsub/"~book.id) }}");
+        $('#addsub').click(function(){
+            $('#sub_id').toggle();
+            return false;
+        });
+        $('#sub_id').change(function(){
+            var book_id={{ book.id }};
+            var category_id=$('#sub_id').val();
+            $.post("{{ Url.media("manage/library/addsub") }}", { "book_id": book_id, "category_id": category_id },
+                    function(data){
+                        $('#subs').empty();
+                        $('#subs').load("{{ Url.media("manage/library/showsub/"~book.id) }}");
+                    });
+        });
+    });
+</script>
+
+<div style="padding: 20px;">
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div>
+            <a type="button" href="{{ Url.media('manage/library') }}" class="close">&times;</a>
+            <h4>{{ "Add / edit book"|i18n }}</h4>
+        </div>
+        <div>
+            <label>{{ "Type"|i18n }}</label>
+            <input type="radio" checked="checked" name="type" id="type-pdf" value="pdf" /> <label for="type-pdf" style="display: inline;">{{ "PDF"|i18n }}</label><br />
+            <br />
+
+            <label for="language">{{ "Language"|i18n }}</label>
+            <select name="language" id="language">
+                <option {% if book is defined and book.language=='kazakh' %}selected="selected"{% endif %} value="kazakh">{{ "KZ"|i18n }}</option>
+                <option {% if book is defined and book.language=='russian' %}selected="selected"{% endif %} value="russian">{{ "RU"|i18n }}</option>
+                <option {% if book is defined and book.language=='uzbek' %}selected="selected"{% endif %} value="uzbek">{{ "UZ"|i18n }}</option>
+                <option {% if book is defined and book.language=='english' %}selected="selected"{% endif %} value="english">{{ "EN"|i18n }}</option>
+            </select>
+
+            <label for="subject">{{ "Subject"|i18n }}</label>
+            <select name="subject" id="subject">
+                <option {% if book is defined and book.subject=='maths' %}selected="selected"{% endif %} value="maths">{{ "Математика"|i18n }}</option>
+                <option {% if book is defined and book.subject=='russian_l' %}selected="selected"{% endif %} value="russian_l">{{ "Русский язык"|i18n }}</option>
+                <option {% if book is defined and book.subject=='kazakh_l' %}selected="selected"{% endif %} value="kazakh_l">{{ "Казахский язык"|i18n }}</option>
+                <option {% if book is defined and book.subject=='algebra' %}selected="selected"{% endif %} value="algebra">{{ "Алгебра"|i18n }}</option>
+                <option {% if book is defined and book.subject=='geometri' %}selected="selected"{% endif %} value="geometri">{{ "Геометрия"|i18n }}</option>
+                <option {% if book is defined and book.subject=='kazakh_lit' %}selected="selected"{% endif %} value="kazakh_lit">{{ "Казахская литература"|i18n }}</option>
+                <option {% if book is defined and book.subject=='uzbek_l' %}selected="selected"{% endif %} value="uzbek_l">{{ "Узбекский язык"|i18n }}</option>
+            </select>
+
+            <label for="class">{{ "Class"|i18n }}</label>
+            <select name="class" id="class">
+                <option {% if book is defined and book.class=='1' %}selected="selected"{% endif %} value="1">{{ "1-ый класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='2' %}selected="selected"{% endif %} value="2">{{ "2-ой класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='3' %}selected="selected"{% endif %} value="3">{{ "3-ий класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='4' %}selected="selected"{% endif %} value="4">{{ "4-ый класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='5' %}selected="selected"{% endif %} value="5">{{ "5-ый класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='6' %}selected="selected"{% endif %} value="6">{{ "6-ой класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='7' %}selected="selected"{% endif %} value="7">{{ "7-ой класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='8' %}selected="selected"{% endif %} value="8">{{ "8-ой класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='9' %}selected="selected"{% endif %} value="9">{{ "9-ый класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='10' %}selected="selected"{% endif %} value="10">{{ "10-ый класс"|i18n }}</option>
+                <option {% if book is defined and book.class=='11' %}selected="selected"{% endif %} value="11">{{ "11-ый класс"|i18n }}</option>
+            </select>
+
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-block-level" value="{% if book is defined %}{{ book.title }}{% endif %}" />
+
+            <label for="author">{{ "Author"|i18n }}</label>
+            <input type="text" name="author" id="author" class="input-block-level" value="{% if book is defined %}{{ book.author }}{% endif %}" />
+
+            <label for="publisher">{{ "Publisher"|i18n }}</label>
+            <input type="text" name="publisher" id="publisher" class="input-block-level" value="{% if book is defined %}{{ book.publisher }}{% endif %}" />
+
+            <div id="pdf-wrapper" {% if book is defined and book.type=='txt' %}style="display: none;" {% endif %}>
+                <label for="storage_id">{{ "PDF file"|i18n }}</label>
+                {#{% if pdf %}#}
+                    {#<a href="{{ Url.media(pdf.file_path) }}">{{ "link"|i18n }}</a>#}
+                    {#<input type="" name="storage_id" value="{{ pdf.id }}" />#}
+                    {#<a class="btn btn-mini" href="{{ Url.media('manage/library/removepdf/'~book.id) }}">{{ "Delete file"|i18n }}</a>#}
+                {#{% else %}#}
+                    {#{{ uploader|raw }}#}
+                    {#<div id="audio-wrapper"></div>#}
+                    {#<div id="file"></div>#}
+                {#{% endif %}#}
+                <input name="myfile" type="file" />
+                <br/>
+
+            </div>
+
+
+
+            <label for="description">{{ "Description"|i18n }}</label>
+            <textarea class="redactor" name="description" id="description" class="input-block-level">{% if book is defined %}{{ book.description }}{% endif %}</textarea>
+
+            <div style="padding-top: 10px;">
+                <input type="hidden" name="published" value="1" />
+                {#<input type="checkbox" name="published" {% if book is defined and book.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;">#}
+                {#<label for="published" style="display: inline;">{{ "Publish"|i18n }}</label>#}
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            {#<button class="btn btn-success">{{ "Save"|i18n }}</button>#}
+            <input type="submit" value="Upload" />
+            <a href="{{ Url.media('manage/library') }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

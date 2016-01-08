@@ -1,0 +1,45 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="wrap text-page">
+        {% include 'layout/bread-crumbs.twig' %}
+        <div class="item">
+            <h1 style="padding: 10px 0; margin-top: 10px;">{{ item.title }}</h1>
+            <div class="date">{{ Date.ru_date(item.date, 'd F Y') }}</div>
+            <div class="text">
+                {% if item.picture.file_path is defined %}
+                    <div class="photo">
+                        <img src="{{ Url.media(item.picture.file_path) }}" alt="{{ item.title }}" title="{{ item.title }}"/>
+                    </div>
+                {% endif %}
+                <div class="desc">{{ item.desc }}</div>
+                {{ item.text|raw }}
+                {#<strong>Теги:</strong> {{ tags }}#}
+                <div class="clear"></div>
+                {% if admin_mode %}
+                    <div style="margin-top: 10px;">
+                        {% if item.user_id %}
+                            {{ 'Added By'|i18n }}: {{ item.user.username }} {{ 'Email'|i18n }}: {{ item.user.email }} {{ 'Date'|i18n }}: {{ item.date|date("d.m.Y H:i:s") }}
+                        {% endif %}
+                    </div>
+                    <div class="clear"></div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="likes">
+            <script type="text/javascript">(function () {
+                    if (window.pluso) if (typeof window.pluso.start == "function") return;
+                    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                    s.type = 'text/javascript';
+                    s.charset = 'UTF-8';
+                    s.async = true;
+                    s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                    var h = d[g]('head')[0] || d[g]('body')[0];
+                    h.appendChild(s);
+                })();</script>
+            <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+        </div>
+        {% if comments.count()!=0 %}<div class="comments-count-title">{{ 'Comments'|i18n }}</div> {% else %}<h3>{{ "Нет комментариев"|i18n }}</h3> {% endif %}
+        {% if not _user %}<div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>{% endif %}
+        {{ _request.factory('comments/index/publications-'~item.id).execute()|raw }}
+    </div>
+{% endblock content %}

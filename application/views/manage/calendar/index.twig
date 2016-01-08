@@ -1,0 +1,53 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/calendar.css') }}" />
+    <script type="text/javascript" src="{{ Url.media('media/js/event_calendar/jquery.calendar-widget.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/event_calendar/calendar.js') }}"></script>
+    <script type="text/javascript">
+        document.BASE_URL = '{{ Url.media('manage/calendar/list') }}';
+        function show_event(month)
+        {
+            $.ajax({
+                url     : "{{ Url.media('ajax/calendar') }}",
+                type    : "POST",
+                dataType: "json",
+                data    : { 'language': '{{ _language }}', 'month':month },
+                success : function (data)
+                {
+                    $("#list-event").empty();
+                    $("#list-event").append('<a class="btn btn-mini btn-success" href="{{ Url.media("/manage/calendar/list") }}'+'?m='+month+'&d='+day+'">Добавить / Редактировать события</a><br><br>');
+                    for (var i=1;i<=31;i++)
+                    {
+                        $("#div_day"+i).empty();
+                    }
+                    $.each(data, function (i, value)
+                    {
+                        $("#div_day"+value['day']).append('<a href="{{ Url.media("manage/calendar/view") }}/'+value['id']+'">'+value['title']+'</a><hr style="margin: 5px 0">');
+                    });
+                },
+                error   : function ()
+                {
+                    // alert('error')
+                }
+            });
+        }
+
+        $(document).ready(function(){
+            show_event({{ month }});
+        });
+    </script>
+
+    <div class="page-header">
+        <h3>Дни в истории</h3>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        <div id="calendar-block">
+            <span id="selectedDay">{{ day }}</span>
+            <span id="selectedMonth">{{ month }}</span>
+        </div>
+        <a name="list-event"></a>
+        <div id="list-event"style="padding:10px; display: none;">
+        </div>
+    </div>
+{% endblock content %}

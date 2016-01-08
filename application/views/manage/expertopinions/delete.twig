@@ -1,0 +1,16 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="post">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <h4>{{ "Deleting a expert"|i18n }}</h4>
+        </div>
+        <div class="modal-body">
+            <p>{{ "Delete a expert"|i18n }} «{{ item.title }}»?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ cancel_url }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-danger"><i class="icon-remove"></i> {{ "Delete"|i18n }}</button>
+        </div>
+    </form>
+{% endblock content %}

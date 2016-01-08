@@ -1,0 +1,35 @@
+/**************************************************
+***            SMILES STYLE                     ***
+***************************************************/
+body .redactor_toolbar li a.redactor_btn_smile {
+   background-image:url(/media/js/redactor/plugins/smiles/images/button_icon/smile.png);
+   background-position:center;
+   background-color: 0px;
+}
+
+.smilelink {
+    display: inline !important;
+}
+
+.img {
+   padding: 0px 10px 10px 0;
+}
+
+.redactor_dropdown{
+    text-align:center;
+}
+
+.redactor_dropdown a.smilelink:hover {
+    background-color: #fff !important;
+}
+
+a.smilelink img:hover {
+    background-color: #444 ;
+}
+
+.item-list img {
+    display: inline;
+    float: none;
+    margin: 0px;
+    padding:0px;
+}

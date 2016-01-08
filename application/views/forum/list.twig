@@ -1,0 +1,53 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ forum.name }}</h1></div>
+        {% if _user %}
+            <a class="btn btn-success" href="{{ Url.site('forum/theme/'~forum.id) }}" style="float: right">{{ 'New theme'|i18n }}</a>
+        {% else %}
+            {{ "For create a theme"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a>
+        {% endif %}
+        <table border="1" cellspacing="0" cellpadding="4" style="width: 940px;">
+            {% for item in list %}
+                <tr>
+                    <td>
+                        <a href="{{ Url.site('forum/show/'~item.id) }}" onclick="add_view('{{item.id }}')">{{ item.name }}</a>
+                    </td>
+                    <td>
+                        {% if item.last_message.user.profile.img.file_path %}
+                            <img src="{{ Url.media(item.last_message.user.profile.img.file_path) }}" alt="{{ item.last_message.user.show_name }}" title="{{ item.last_message.user.show_name }}" />
+                        {% endif %}
+                        <br />
+                        {{ item.last_message.user.show_name() }}
+                        {{ Date.ru_date(item.last_message.date, 'd.m.Y H:i:s') }}
+                    </td>
+                    <td>
+                        {{ item.last_message.text|raw }}
+                    </td>
+                    <td>
+                        {{ CorrectDeclension.give(item.count_view, 'просмотр','просмотра','просмотров','21просмотр','0просмотров') }} {{ item.count_view }} / {{ 'Messages'|i18n }} {{ item.count_messages }}
+                    </td>
+                    {% if moderator %}
+                        <td>
+                            <a class="btn btn-mini" href="{{ Url.site('forum/edit/'~item.id) }}">Редактировать</a><br />
+                            <a class="btn btn-mini btn-danger" href="{{ Url.site('forum/delete/'~item.id) }}">Удалить</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+        {{ paginate|raw }}
+    </div>
+    <script type="text/javascript">
+        function add_view(id)
+        {
+            $.ajax({
+                url     : "{{ Url.media('ajax/addview') }}",
+                type    : "POST",
+                dataType: "json",
+                data    : { 'id': id }
+            });
+        }
+    </script>
+{% endblock content %}

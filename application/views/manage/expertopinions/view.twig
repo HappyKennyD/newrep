@@ -1,0 +1,34 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="well well-small" style="margin-bottom: 0">
+        <div>
+            <div class="pull-left">
+                <div class="name">{{ item.expert.name }}</div>
+            </div>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-mini" href="{{ Url.site('manage/expertopinions/edit/'~item.id~'/page-'~page) }}?r=manage/expertopinions/view/{{ item.id }}"><i class="icon-pencil"></i>
+                        {{ "Edit "|i18n }}</a>
+                    <a class="btn btn-mini btn-danger" href="{{ Url.site('manage/expertopinions/delete/'~item.id~'/page-'~page) }}?r=manage/expertopinions/view/{{ item.id }}"><i class="icon-remove"> </i></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="subpane" style="margin-top: 10px">
+            {% if item.expert.picture.file_path is defined %}
+                <img src="{{ Url.site('/images/w150-ccc-si/'~item.expert.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+            <div class="clear"></div>
+            <hr/>
+            {{ item.title|striptags }}
+            <div class="clear"></div>
+            <hr/>
+            {{ item.description|striptags }}
+            <div class="clear"></div>
+            <hr/>
+            {{ item.text|striptags }}
+        </div>
+        <br/>
+        <a href="{{ Url.site('manage/expertopinions/page-'~page) }}">Вернуться к списку</a>
+    </div>
+{% endblock content %}

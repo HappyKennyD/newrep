@@ -1,0 +1,39 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+
+        <form action="{{ Url.media('manage/links/') }}" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/links/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/links/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left">
+                            <a class="link" href="{{ item.link }}">{{ item.title }}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        {{ item.desc|raw }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+        <div class="list-row">
+            <span><i>{{ sorry }}</i></span>
+        </div>
+
+    </div>
+{% endblock content %}

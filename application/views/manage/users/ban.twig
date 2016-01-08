@@ -1,0 +1,16 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="post">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="page-pad">
+            <h4>Блокировка пользователя</h4>
+        </div>
+        <div class="page-pad">
+            <p>Заблокировать пользователя «{{ patient.profile.first_name ~ " " ~ patient.profile.last_name }}»?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.site('manage/users') }}" class="btn btn-link">Отмена</a>
+            <button class="btn btn-danger"><i class="icon-lock"></i> Заблокировать</button>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/contacts/edit/'~contact.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/contacts/delete/'~contact.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+            <a class="btn btn-mini" href="{{ Url.media('manage/contacts/editPost?c_id='~contact.id) }}"><i class="icon-edit"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <div>
+            <h4>{{ contact.name }}</h4>
+            <div class="clear"></div>
+        </div>
+        {% for item in contact.attach.find_all() %}
+            <span style="padding: 10px;">{{ item.post }}</span>
+            <div class="pull-right btn-group">
+                <a class="btn btn-mini" href="{{ Url.media('manage/contacts/editPost/'~item.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+                <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/contacts/deletePost/'~item.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+            </div>
+            <div>ФИО: {{ item.name }}</div>
+            <div>Телефон: {{ item.phone }}</div>
+            <div>Факс: {{ item.fax }}</div>
+            <div>Кабинет: {{ item.cabinet }} </div>
+            <br>
+        {% endfor %}
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/debate.css') }}"/>
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        {% include 'layout/bread-crumbs.twig' %}
+        <form action="" style="margin:0" method="post">
+            <div class="div100"><h1>{{ "Edit the debate"|i18n }}</h1></div>
+            <div id="block">
+                <div class="inputLabel">{{ "Name of the debate"|i18n }}
+                    {% if errors.title is defined %}
+                        <br> <span class="alert">{{ "Name of the debate should be filled"|i18n }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="inputText">
+                    <input type="text" name="title" class="input-xxlarge" id="title" style="width: 98%" value="{{ debate.title|default('') }}">
+                </div>
+                <div class="inputLabel">{{ "Summary of debate"|i18n }}</div>
+                <div class="inputTextarea">
+                    <textarea class="redactor" name="description" id="description" maxlength="5000" style="width: 98%;">{{ debate.description }}</textarea>
+                </div>
+                <div class="inputLabel">{{ "E-mail your opponent"|i18n }}
+                    {% if errors.opponent_email is defined %}
+                        <br> <span class="alert">{{ "E-mail must be filled in correctly"|i18n }}</span>
+                    {% endif %}
+                </div>
+                <div class="inputText">
+                    <input type="text" name="opponent_email" class="input-xxlarge" id="opponent_email" style="width: 98%" value="{{ debate.opponent_email|default('') }}">
+                </div>
+                <div class="inputLabel">{{ "Finish debate (after the consent of the opponent)"|i18n }}</div>
+                <div class="inputText">
+                    <select name="lifetime">
+                        {% for i in 3..14 %}
+                            <option value="{{ i*12 }}" {% if debate.lifetime==i*12 %}selected{% endif %}>{{ i*12 }} {{ "hours "|i18n }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="button-block">
+                <input type="submit" class="button" value="{{ "Save"|i18n }}"/>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

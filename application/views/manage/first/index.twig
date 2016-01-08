@@ -1,0 +1,59 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+
+        <div class="pull-left">
+            <h4>{{ "Хроника деятельности Первого Президента"|i18n }}</h4>
+        </div>
+
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/first/new') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+
+        <div class="clear"></div>
+    </div>
+
+    <div class="page">
+        <table class="table table-striped">
+            {% for item in firstlist %}
+                <tr id='{{ item.id }}'>
+                    <td>
+                        {{ item.title }}
+                    </td>
+                    <td>
+                        <div class="btn-group pull-right">
+
+                            {% if item.show_ru %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/first/show_ru/'~item.id) }}">RU</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/first/show_ru/'~item.id) }}">RU</a>
+                            {% endif %}
+
+                            {% if item.show_kz %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/first/show_kz/'~item.id) }}">KZ</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/first/show_kz/'~item.id) }}">KZ</a>
+                            {% endif %}
+
+                            {% if item.show_en %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/first/show_en/'~item.id) }}">EN</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/first/show_en/'~item.id) }}">EN</a>
+                            {% endif %}
+
+                            <a class="btn btn-mini" href="{{ Url.media('manage/first/edit/'~item.id) }}"><i class="icon-edit"></i> Редактировать</a>
+
+                            {% if item.is_published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/first/published/'~item.id) }}">Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/first/published/'~item.id) }}">Отображать</a>
+                            {% endif %}
+
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/first/delete/'~item.id) }}"><i class="icon-remove icon-white"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

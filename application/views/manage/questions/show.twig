@@ -1,0 +1,37 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="POST" style="margin:0">
+        <div class="page-header">
+            <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+            <h4>{{ "Просмотр вопроса"|i18n }}</h4>
+        </div>
+        <div style="padding:15px;">
+            <span class="btn-group">
+                {% if question.status == 0 or question.status == 1 %}
+                    <a class="btn btn-mini btn-success" href="{{ Url.media('manage/questions/edit_answer/'~item.id) }}"><i class="icon-question-sign"> </i> Ответить на вопрос</a>
+                {% endif %}
+                <a class="btn btn-mini" href="{{ Url.media('manage/questions/edit_question/'~question.id) }}"><i class="icon-edit"> </i> Редактировать вопрос</a>
+                {% if question.status == 0 or question.status == 3 %}
+                    <a class="btn btn-mini btn-success" href="{{ Url.media('manage/questions/success/'~question.id) }}"><i class="icon-eye-open"> </i> Одобрить вопрос</a>
+                {% endif %}
+                {% if question.status != 3 %}
+                    <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/questions/reject/'~question.id) }}"><i class="icon-eye-close"> </i> Отклонить вопрос</a>
+                {% endif %}
+                <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/questions/delete_question/'~question.id) }}"><i class="icon-remove"> </i> Удалить вопрос</a>
+            </span>
+            <div style="padding-top: 10px;">
+                <b>({{ Date.ru_date(question.date_question, 'd F Y H:i:s') }})&nbsp;
+                {{ question.fio~' ('~question.email~')' }}</b><br>
+                {{ question.text_question }}
+            </div>
+            {% if question.status == 2 %}
+                <b>Ответ на вопрос</b> ({{ Date.ru_date(question.date_answer, 'd F Y H:i:s') }})&nbsp;{{ question.author }}<br>
+                {{ question.text_answer|raw }}
+                <span class="btn-group">
+                    <a class="btn btn-mini" href="{{ Url.media('manage/questions/edit_answer/'~question.id) }}"><i class="icon-edit"> </i> Редактировать ответ</a>
+                    <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/questions/delete_question/'~question.id) }}"><i class="icon-remove"> </i> Удалить ответ</a>
+                </span>
+            {% endif %}
+        </div>
+    </form>
+{% endblock content %}

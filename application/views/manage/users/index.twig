@@ -1,0 +1,39 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div class="page-header">
+    <form action="" method="POST" style="margin: 0;">
+        <input type="text" name="search" id="search" class="input-xxlarge" value="{{ search }}" style="margin: 0;" placeholder="Поиск пользователя"/>
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/users/new/page-'~page) }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+    </form>
+
+</div>
+<div class="modal-body">
+    {% for user in users %}
+        <div class="list-row" style="margin-left: 10px;">
+            <span>{{ user.username }} ({{ user.email }})</span>
+            <a href="{{ Url.media('manage/profiles/edit/'~user.id)}}">{{ user.profile.email }}</a>
+
+            <div class="pull-right btn-group">
+
+                <a class="btn btn-mini" href="{{ Url.media('manage/users/roles/'~user.id~'/page-'~page)}}"><i class="icon-user"></i> Права</a>
+
+                <a class="btn btn-mini" href="{{ Url.media('manage/users/edit/'~user.id~'/page-'~page)}}"><i class="icon-edit"></i> {{"Edit"|i18n}}</a>
+
+                <a class="btn btn-mini" href="{{ Url.media('manage/users/password/'~user.id~'/page-'~page)}}"><i class="icon-asterisk"></i> Изменить пароль</a>
+
+                {% if logins[user.id]==1 %}
+                    <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/users/block/'~user.id~'/page-'~page)}}"><i class="icon-lock"></i> Заблокировать</a>
+                {% else %}
+                    <a class="btn btn-mini btn-success" href="{{ Url.media('manage/users/unblock/'~user.id~'/page-'~page)}}"><i class="icon-unlock"></i> Разблокировать</a>
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+        </div>
+    {% else %}
+        <div class="alert alert-info">Пользователи не найдены</div>
+    {% endfor %}
+    {{ paginate|raw }}
+</div>
+{% endblock content %}

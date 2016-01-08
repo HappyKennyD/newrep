@@ -1,0 +1,172 @@
+{% extends "manage/layout/manage.twig" %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/search.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/audio.js') }}"></script>
+{% endblock extrascripts %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/audio.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <div class="search-content">
+
+
+        <div class="page-h1-title"><h1>{{ "Search results"|i18n }}</h1></div>
+        <div id="search-results">
+            <div id="search-form-block">
+                <form action="{{ Url.site('/manage/search/'~id_project) }}" method="post">
+                    <input type="text" name="search" id="search" class="search-input" value="{{ search }}"/>
+                    <input type="submit" class="submit" value="Найти"/>
+                    <!--<a class="change-category">Выбрать категорию</a>-->
+                    <div class="search-category">
+
+                         <table width="100%">
+                            <tr>
+                                <td width="33%">
+                                    <span class="category_name"><input type="checkbox" name="news" id="news" {% if 'news' in c or 'all' in c %}{{ 'checked' }}{% endif %}><label for="news"></label> <span class="category_name_label">{{ "Publications"|i18n }}</span></span><br>
+                                </td>
+                           <!--     <td width="33%">
+                                    <span class="category_name"><input type="checkbox" name="publication" id="publication" {% if 'publication' in c or 'all' in c %}{{ 'checked' }}{% endif %}><label for="publication"></label> <span class="category_name_label">{{ "Articles"|i18n }}</span></span><br>
+                                </td>-->
+                                <td width="34%">
+                                    <span class="category_name"><input type="checkbox" name="books" id="books" {% if 'books' in c or 'all' in c %}{{ 'checked' }}{% endif %}><label for="books"></label> <span class="category_name_label">{{ "Library"|i18n }}</span></span><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                      <span class="category_name"><input type="checkbox" name="biographies" id="biographies" {% if 'biographies' in c or 'all' in c %}{{ 'checked' }}{% endif %}>
+                                          <label for="biographies"></label>
+                                          <span class="category_name_label">{{ "Biographies"|i18n }}</span>
+                                      </span><br>
+                                </td>
+                                <td>
+                                    <span class="category_name"><input type="checkbox" name="infographics" id="infographics" {% if 'infographics' in c or 'all' in c %}{{ 'checked' }}{% endif %}><label for="infographics"></label> <span class="category_name_label">{{ "Infographics"|i18n }}</span></span><br>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="category_name"><input type="checkbox" name="photo" id="photo" {% if 'photo' in c or 'all' in c or 'all' in c %}{{ 'checked' }}{% endif %}><label for="photo"></label> <span class="category_name_label">{{ "Photosets"|i18n }}</span></span><br>
+                                </td>
+                                <td>
+                                    <span class="category_name"><input type="checkbox" name="video" id="video" {% if 'video' in c or 'all' in c %}{{ 'checked' }}{% endif %}><label for="video"></label> <span class="category_name_label">{{ "Video"|i18n }}</span></span><br>
+                                </td>
+
+                            </tr>
+                        </table>
+                    </div>
+                </form>
+            </div>
+
+            <div id="search-results-list">
+
+                {% if not search is empty %}   <p class="search-word">{{ total }} {{"результатов по запросу"|i18n}} «{{ search }}»</p>{% endif %}
+
+                <ul id="result-list">
+
+                    {% for item in results %}
+                        <li class="result-link">
+                        {% if item.controller=='audio' %}
+
+                            <style>
+                                #audio-left .jouele{
+                                    border-top:none;
+                                    margin-bottom: 20px;
+                                    font-size:16px;
+                                }
+                                #audio-left .jouele-name{
+                                    font-size:16px;
+                                }
+                                #audio-list {
+                                    margin-top: -10px;}
+                            </style>
+
+
+                            <div id="audio-left">
+                                <div id="audio-list">
+                                    <div class="audio-item">
+                                        {% for song in item.id %}
+                                        <a href="{{ Url.media(song.file_path) }}" class="jouele" >
+                                            {{ item.title }}
+                                        </a>
+                                        {% endfor %}
+
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+
+                            <li class="result-announce"></li>
+                        {% else %}
+{% if item.controller=='calendar' %}{{ "Calendar"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='chronologies' %}{{ "Chronology"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='biography' %}{{ "Biographies"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='news' %}{{ "Publications"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='contents' %}{{ "Articles"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='publications' %}{{ "Articles"|i18n }}
+                            {% endif %}
+                            {% if item.controller=='books' %}{{ "Library"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='ent' %}{{ "Interactive"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='audio' %}{{ "Audio"|i18n }}
+                                {% endif %}
+                            {% if item.controller=='video' %}{{ "Video"|i18n }}
+                            {% endif %}
+                            {% if item.controller=='debate' %}{{ "Interactive"|i18n }}
+                                {% endif %}
+				</li><li>
+                            <span><a href="{% if item.controller=='calendar' %}{{ Url.site(item.controller~'/event/'~item.id) }}{% elseif item.controller=='books' %}{{ Url.site(item.controller~'/library/view/'~item.id) }}{% elseif item.controller=='ent' %}{{ Url.site(item.controller~'/test/'~item.id) }}{% elseif item.controller=='audio' %}{{ Url.site(item.controller~'/test/'~item.title) }}{% elseif item.controller=='scorm' %}{{ Url.site(item.controller~'/course/'~item.id) }}{% else %}{{ Url.site( _language~'/'~item.controller~'/view/'~item.id) }}{% endif %}">{{ item.title }} </a></span>
+                            </li>
+
+                            {% if item.inc=='false' %}
+                            <li class="result-announce">{{ item.desc }}</li> <a class="btn btn-mini btn-success" href="{{ Url.media('manage/searchadd/add/'~item.controller~'/'~id_project~'/'~item.id~'/'~search)  }}"><i class="icon-eye-close"> </i> Добавить</a>
+                            {% endif %}
+                            {% if item.inc=='true' %}
+                            <li class="result-announce">{{ item.desc }}</li> <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/searchadd/delete/'~item.controller~'/'~id_project~'/'~item.id~'/'~search)  }}"><i class="icon-eye-close"> </i> Удалить</a>
+                            {% endif %}
+
+                        {% endif %}  {% endfor %}
+
+
+                </ul>
+            </div>
+            {{ paginate|raw }}
+        </div>
+
+        <div id="additional-right-block">
+
+           <!-- {% if not result is empty %}
+                <div id="main-person-image">
+                    <div id="main-person-announce">
+                        <a href="{% if result[first_key].controller=='calendar' %}{{ Url.site(result[first_key].controller~'/event/'~result[first_key].id) }}{% else %}{{ Url.site(result[first_key].controller~'/view/'~result[first_key].id) }}{% endif %}">{{ result[first_key].title }}</a>
+                    </div>
+                    <img src="{{ Url.media('/images/w220-h220-ccc-si/'~images|first) }}" alt=""/>{{ images|first.index }}
+                </div>
+            {% endif %}
+
+            {% set k=0 %}
+          <!--  <div id="thumb-images">
+                {% for key,item in images %}
+                    {% if (k+1)%9==1 %}<div class="thumbs-block">{% endif %}
+                    <a href="{{ Url.media('/images/w220-h220-ccc-si/'~item) }}" alt="{% if result[key].controller=='calendar' %}{{ Url.site(result[key].controller~'/event/'~result[key].id) }}{% else %}{{ Url.site(result[key].controller~'/view/'~result[key].id) }}{% endif %}" title="{{ result[key].title }}">
+                        <img src="{{ Url.media('/images/w60-h60-ccc-si/'~item) }}"/></a>
+                    {% if (k+1)%9==0 or k+1==max_key %}</div>{% endif %}
+                    {% set k=k+1 %}
+                {% endfor %}
+            </div>-->
+
+            <div id="thumbs-line" class="pre-pagination-line m-top-20"></div>
+
+           <!-- {% if max_key>9 %}
+                <div class="more-thumbs"><a href="javascript:showMoreThumbs()" class="dash">{{"Ещё"|i18n}}</a></div>{% endif %}
+-->
+            <div class="clear30"></div>
+        </div>
+    </div>
+{% endblock content %}

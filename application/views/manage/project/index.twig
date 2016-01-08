@@ -1,0 +1,60 @@
+{% extends "manage/layout/manage.twig" %}
+
+{% block content %}
+    <form action="" method="POST" style="margin: 0">
+        <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/project/edit/page-'~page) }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+
+        <div class="clear"></div>
+    </div>
+
+
+
+    <div class="page">
+
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                           <a class="btn btn-mini btn-success" href="{{ Url.media('manage/search/'~item.id ) }}"><i class="icon-eye-open"> </i> Поиск</a>
+
+                            <a class="btn btn-success btn-mini" href="{{ Url.media('manage/project/up/' ~item.id~ '/page-'~page) }}"><i class="icon-arrow-up"></i></a>
+                            <a class="btn btn-danger btn-mini" href="{{ Url.media('manage/project/down/' ~item.id~ '/page-'~page) }}"><i class="icon-arrow-down"></i></a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/project/view/'~item.id~ '/page-'~page) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/project/edit/'~item.id~ '/page-'~page) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/project/published/'~item.id ~ '/page-'~page) }}"><i class="icon-eye-close">
+                                    </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/project/published/'~item.id ~ '/page-'~page ~ '/page-'~page) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+                            {% if item.is_important %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/project/important/'~item.id ~ '/page-'~page) }}"><i class="icon-eye-close"> </i> Убрать с главной</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/project/important/'~item.id ~ '/page-'~page) }}"><i class="icon-eye-open"> </i> На главную</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/project/delete/'~item.id ~ '/page-'~page) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                       <a class="link" href="{{ Url.media('manage/project/view/'~item.id) }}">{{ item.name }}</a>
+                    </div>
+                        <div class="clear"></div>
+                </div>
+                    <div>
+                        {{ item.desc }}<br>
+                    </div>
+            </div>
+
+        {% endfor %}
+
+            {{ paginate|raw }}
+
+
+    </div>
+    </form>
+
+{% endblock content %}

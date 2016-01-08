@@ -1,0 +1,150 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jshashtable-2.1_src.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jquery.numberformatter-1.2.3.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/tmpl.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jquery.dependClass-0.1.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/draggable-0.1.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jquery.slider.js') }}"></script>
+    <link rel="stylesheet" href="{{ Url.media('media/js/polzunok/jslider.css') }}"/>
+    <style type="text/css">
+        .region {
+            height     : 50px;
+            width      : 100%;
+            cursor: pointer;
+            background-color: #BE9B7C;
+            {#border-top : 3px solid #000;#}
+        }
+
+        .region span {
+            font-size: 30px;
+            margin-top: -11px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        .region span:hover {
+            color: white;
+        }
+
+        .region .select {
+            color: red;
+        }
+
+        .region .line{
+            height: 50%;
+            border-bottom : 2px solid #000;
+        }
+        .bar{
+            -moz-box-sizing: border-box;
+            background-color: #DFCDBE;
+            color: #4D3A34;
+            cursor: pointer;
+            font-size: 12px;
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+    </style>
+
+    <form action="" method="POST" style="margin:0">
+        <div class="page-header">
+            <h4>{{ "Редактирование / добавление события"|i18n }}</h4>
+        </div>
+        <div style="padding:15px;">
+            <div style="margin-bottom: 30px;">
+                <div class="bar">{{ period.name }} ({{ period.start }} - {{ period.finish }})</div>
+                {% for s in siblings %}
+                    <div style="margin: 10px 0 15px 0;">{% if s.id == page.id %}<strong>{{ s.name }} ({{ s.start }} - {{ s.finish }})</strong>{% else %}{{ s.name }} ({{ s.start }} - {{ s.finish }}){% endif %}</div>
+                    <span style="display: inline-block; width: 100%; padding: 0 5px;">
+                    <input type="slider" name="value[]" value="{{ s.value }}" class="slider" />
+                </span>
+                {% endfor %}
+                <div class="region">
+                    <div class="line"></div>
+                </div>
+            </div>
+            <input type="text" name="line_x" value="{{ item.line_x }}" id="point_label" />
+            <label for="layer">Выберите Лист</label>
+            <select name="layer" id="layer">
+                {% for item_layer in period_brother %}
+                    <option value="{{ item_layer.id }}" {% if item_layer.id == item.period_id %}selected="" {% endif %}>{{ item_layer.name }}</option>
+                {% endfor %}
+            </select>
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" style="width: 98%;" />
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if item.image is defined and item.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(item.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ item.image }}">
+                </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/lines/clearimage/'~item.id) }}"><i class="icon-trash"></i> Удалить изображение?</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <label for="date">{{ "Date"|i18n }}</label>
+            <input type="text" name="date" class="input-xxlarge" id="date" style="width: 98%;" value="{{ item.date }}"/>
+            <label for="description">{{ "Краткое описание (максимум 200 символов)"|i18n }}</label>
+            <textarea name="description" id="description" maxlength="200" rows="3" style="width: 98%; resize: none;">{{ item.description }}</textarea>
+            <label for="text">{{ "Text"|i18n }}</label>
+            <textarea class="redactor" name="text" id="text" style="width: 98%;">{{ item.text }}</textarea>
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;">
+                <label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ r }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            var offset = $(".region").offset();
+            {% for el in list %}
+                var pr_x = parseFloat('{{ el.line_x }}');
+                var x = offset.left + (pr_x*$(".region").width())/100;
+                var y = offset.top + 25;
+                var m_left = x-offset.left;
+                var m_top = y;
+                {% if item.id is defined and item.id ==el.id %}
+                    $(".region").append('<a href="#" rel="tooltip" class="event-item select" data-trigger="hover" data-html="true" data-placement="top" data-title="{{ el.date }}" data-content="{{ el.title }}"  style="margin-left:'+m_left+'px;"><span style="top: '+y+'px; left: '+x+'px" id="new_point">&bull;</span></a>');
+                {% else %}
+                    $(".region").append('<a href="#" rel="tooltip" class="event-item" data-trigger="hover" data-html="true" data-placement="top" data-title="{{ el.date }}" data-content="{{ el.title }}" style="margin-left:'+m_left+'px; margin-top:'+m_top+'"><span style="top: '+y+'px; left: '+x+'px">&bull;</span></a>');
+                {% endif %}
+            {% endfor %}
+            $('.event-item').popover();
+        });
+        $(".region").click(function(e) {
+            $("#new_point").remove();
+            var offset = $(this).offset();
+            var relativeX = (e.pageX - offset.left);
+            var relativeY = (e.pageY - offset.top);
+            var top = offset.top +25;
+            var raznica = 0;
+            if (relativeX > $(this).width())
+            {
+                raznica = relativeX - $(this).width();
+                $("#point_label").val(100);
+            }
+            else
+            {
+                $("#point_label").val((relativeX*100 / $(this).width()).toFixed(7));
+            }
+            var left = e.pageX - raznica*2;
+            $(this).append('<span style="top: '+top+'px; left: '+left+'px" id="new_point" class="select">&bull;</span>');
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            jQuery(".slider").slider({ from: 1, to: 100, step: 1, smooth: true, round: 0, dimension: "&nbsp;%", skin: "plastic" });
+        });
+    </script>
+{% endblock content %}

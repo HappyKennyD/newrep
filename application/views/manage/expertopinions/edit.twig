@@ -1,0 +1,44 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form action="" method="POST">
+            <div>
+                <h4>{{ "Edit / Add Items expert"|i18n }}</h4>
+            </div>
+            <div>
+                <label for="expert_id">{{ "Select Expert"|i18n }}</label>
+                <select name="expert_id" id="expert_id">
+                    {% for item in experts %}
+                        <option value="{{ item.id }}" {% if opinion.expert_id == item.id %}selected="selected"{% endif %}>{{ item.name }}</option>
+                    {% endfor %}
+                </select>
+                {% if errors.name is defined %}
+                    <span class="alert">{{ errors.name }}</span>
+                {% endif %}
+                <label for="title">{{ "Subject matter"|i18n }}</label>
+                {% if errors.title is defined %}
+                    <span class="alert">{{ errors.title }}</span>
+                {% endif %}
+                <input type="text" name="title" id="title" class="input-xxlarge" value="{{ opinion.title }}" style="width: 98%;"/>
+                <label for="description">{{ "Summary of the response"|i18n }}</label>
+                {% if errors.description is defined %}
+                    <span class="alert">{{ errors.description }}</span>
+                {% endif %}
+                <textarea name="description" id="description" rows="3" style="width: 98%; resize: none;">{{ opinion.description }}</textarea>
+                <label for="text">{{ "Full text of the response"|i18n }}</label>
+                {% if errors.text is defined %}
+                    <span class="alert">{{ errors.text }}</span>
+                {% endif %}
+                <textarea class="redactor" name="text" id="text" style="width: 98%;">{{ opinion.text }}</textarea>
+                <div style="margin: 12px 0">
+                    <input type="checkbox" name="protected" {% if opinion.protected is defined and opinion.protected == "1" %} checked="checked" {% endif %} value="1" id="protected" style="margin: 0 5px 1px 0;"><label for="protected" style="display: inline;">{{ "Защитить текст от копирования"|i18n }}</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/expertopinions/page-'~page) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

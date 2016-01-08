@@ -1,0 +1,101 @@
+{% extends "layout/html.twig" %}
+{% block extrascripts %}
+    <script type="text/javascript" src="/media/js/pagination.js"></script>
+{% endblock extrascripts %}
+{% block content %}
+    <div class="search-content">
+        <div class="page-h1-title"><h1>{{ "Search results"|i18n }}</h1></div>
+
+        <div id="search-results">
+            <div id="search-form-block">
+                <form action="{{ Url.site('search') }}" method="post">
+                    <input type="text" name="search" id="search" class="search-input"/>
+                    <input type="submit" class="submit" value="Найти"/>
+                </form>
+            </div>
+
+            <div id="search-results-list">
+                <p class="search-word">{{ total }} результатов по запросу «{{ search }}»</p>
+
+                <ul id="result-list">
+                    {% for item in results %}
+                        <li class="result-link">
+                            <span><a href="{% if item.controller=='calendar' %}{{ Url.site(item.controller~'/event/'~item.id) }}{% else %}{{ Url.site(item.controller~'/view/'~item.id) }}{% endif %}">{{ item.title }} </a></span>
+                        </li>
+                        <li class="result-announce">{{ item.desc }}</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+
+            <div class="pre-pagination-line"></div>
+
+            <div id="pagination-block">
+                <div id="in-pagination">
+                    <a href="#" class="selected-pagelink"><span>1</span></a>
+                    <a href="#"><span>2</span></a>
+                    <a href="#"><span>3</span></a>
+                    <a href="#"><span>4</span></a>
+                    <a href="#"><span>5</span></a>
+                    <a href="#"><span>6</span></a>
+                    <a href="#"><span>7</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div id="additional-right-block">
+            <div id="thumbs-loader">
+                <img src="/media/images/v1/ajax-loader.gif" alt="" />
+            </div>
+
+            <div id="main-person-image">
+                <div id="main-person-announce"><a href="http://google.com/">Абай Кунанбаев</a></div>
+                <img src="/media/images/v1/person/abai1.jpg" alt=""/>
+            </div>
+
+            <div id="thumb-images">
+                <div class="thumbs-block">
+                    <a href="/media/images/v1/person/abai2.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai2.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai3.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai3.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai4.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai4.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai5.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai5.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai6.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai6.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai7.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai7.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai8.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai8.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai9.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai9.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai10.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai10.jpg" alt="" /></a>
+                </div>
+
+                <div class="thumbs-block">
+                    <a href="/media/images/v1/person/abai2.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai2.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai3.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai3.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai4.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai4.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai5.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai5.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai6.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai6.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai7.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai7.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai8.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai8.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai9.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai9.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai10.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai10.jpg" alt="" /></a>
+                </div>
+
+                <div class="thumbs-block">
+                    <a href="/media/images/v1/person/abai2.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai2.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai3.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai3.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai4.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai4.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai5.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai5.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai6.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai6.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai7.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai7.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai8.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai8.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai9.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai9.jpg" alt="" /></a>
+                    <a href="/media/images/v1/person/abai10.jpg" title="Абай" alt="http://google.com/"><img src="/media/images/v1/person/abai10.jpg" alt="" /></a>
+                </div>
+            </div>
+
+            <div id="thumbs-line" class="pre-pagination-line m-top-20"></div>
+
+            <div class="more-thumbs"><a href="javascript:showMoreThumbs()" class="dash">Ещё</a></div>
+
+            <div class="clear30"></div>
+        </div>
+    </div>
+{% endblock content %}

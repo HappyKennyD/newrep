@@ -1,0 +1,23 @@
+{% extends "layout/specialhtml.twig" %}
+{% block content %}
+    {% include 'layout/bread-crumbs-special.twig' %}
+
+    <div class="page-name">
+        <h1>{{"Briefings"|i18n}}</h1>
+    </div>
+
+    <div class="content-block">
+        {% for item in briefings %}
+            <div class="article-block">
+                <div class="article-title">{{ item.title }}</div>
+                <div class="article-date">{{ Date.ru_date(item.date, 'd F Y') }}</div>
+                <div class="article-announce">
+                    <p>{{ item.desc|raw }}</p>
+                </div>
+
+                <a class="article-link" href="{{ Url.site('briefings/view/'~item.id) }}"></a>
+            </div>
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

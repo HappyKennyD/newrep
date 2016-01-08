@@ -1,0 +1,103 @@
+{% extends "layout/shezhire.twig" %}
+{% block slider %}
+    <div id="slider-block">
+        {% for item in sliders1 %}
+            <div id="slider-{{ loop.index }}" class="slider-image">
+                <a href="{{ Url.site('shezhire/page/'~item.id, true) }}"><img src="{{ Url.media('/images/w950-h334-cct-si/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" /></a>
+                <div class="slider-text">{{ item.title }}</div>
+                <div class="text"> {{ item.picture.file_path }}</div>
+            </div>
+        {% endfor %}
+
+        <div id="slider-nav-bg"><div></div></div>
+        <div id="slider-nav"></div>
+        <div id="slider-cover"></div>
+    </div>
+{% endblock slider %}
+
+{% block content %}
+    <div id="index-content">
+        <div id="index-left">
+            {% for item in middles %}
+                {% if loop.index==1 %}
+                    <div class="article-image">
+                        <a href="{{ Url.site('shezhire/page/'~item.id, true) }}">
+                            <img src="{{ Url.media('/images/w280-cct-si/'~item.picture.file_path, TRUE) }}"  alt="" />
+                        </a>
+                    </div>
+                    <div class="article-title">
+                        <a href="{{ Url.site('shezhire/page/'~item.id, true) }}">{{ item.title }}</a>
+                    </div>
+                    <div class="article-announce">{{ item.desc }}</div>
+                    <div class="article-date">
+                        <span>{{ Date.ru_date(item.date, 'd F Y') }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div id="index-right">
+            {% for item in middles %}
+                {% if loop.index!=1 %}
+                    <div class="article-title">
+                        <a href="{{ Url.site('shezhire/page/'~item.id, true) }}">{{ item.title }}</a>
+                    </div>
+                    <div class="article-announce"> {{ item.desc }}</div>
+                    <div class="article-date">
+                        <span>{{ Date.ru_date(item.date, 'd F Y') }}</span>
+                        <span>{{ CommentsCount.getcount('publications',item.id)}} {{ CorrectDeclension.give(CommentsCount.getcount('publications',item.id))|i18n }}</span>
+                    </div>
+
+                    <div class="index-clear"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="clear50"></div>
+    </div>
+{% endblock content %}
+
+{% block shezhire %}
+    <div id="shezhire-block">
+        <div class="center-content">
+            <div id="shezhire-content">
+                <div class="shezhire-title">
+                    <a href="#"><span>{{ 'Шежире – древо единства казахов'|i18n }}</span></a>
+                </div>
+
+                <div id="shezhire-slider">
+                    <div id="shezhire-slider-content">
+                        {% for item in bottoms %}
+                            {% if loop.index==loop.first %}
+                                <div class="shezhire-slide-block">
+                            {% endif %}
+                            <div class="shezhire-item">
+                                <div class="article-preview">
+                                    <img src="{{ Url.media('/images/w280-h186-cct-si/'~item.picture.file_path, TRUE) }}"  alt="" />
+                                    <div class="article-preview-title">
+                                        <a href="{{ Url.site('shezhire/page/'~item.id, true) }}">{{ item.title }}</a>
+                                    </div>
+                                </div>
+                                <div class="article-announce m-top-10">{{ item.desc }} </div>
+                                <div class="article-date">{{ Date.ru_date(item.date, 'd F Y') }}</div>
+                            </div>
+
+                            {% if (Subtool.multiple(loop.index,3)==1)%}
+                                </div>
+                                {% if loop.index!=loop.last %}<div class="shezhire-slide-block"> {% endif %}
+                            {%  else %}
+                                {% if loop.index==loop.last %}</div>{% endif %}
+                            {% endif %}
+
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div id="shezhire-nav">
+                    <div></div>
+                </div>
+            </div>
+            <div id="padd"></div>
+        </div>
+    </div>
+{% endblock shezhire %}

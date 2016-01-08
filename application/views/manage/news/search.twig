@@ -1,0 +1,31 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+
+        <form action="{{ Url.media('manage/news') }}" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in news %}
+            <div class="list-row">
+                <span style="padding: 10px;">{{ item.title }}</span>
+                <div class="pull-right btn-group">
+                    <a class="btn btn-mini" href="{{ Url.media('manage/news/view/'~item.id) }}"><i class="icon-eye-open"></i> {{ "Show"|i18n }}</a>
+                    <a class="btn btn-mini" href="{{ Url.media('manage/news/edit/'~item.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+                    <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/news/delete/'~item.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+        <div class="list-row">
+            <span><i>{{ sorry }}</i></span>
+        </div>
+
+    </div>
+{% endblock content %}

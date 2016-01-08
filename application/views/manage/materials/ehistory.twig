@@ -1,0 +1,29 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+    <div class="graybox news" style="margin-top: 10px;">
+        {% for item in materials %}
+            {{ item.detect_exist() }}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="pull-right">
+                        <div class="btn-group">
+                            <a class="btn btn-mini" href="{{ Url.site('manage/materials/view/'~item.id) }}">
+                                <i class="icon-edit"></i> {{ "See"|i18n }}</a>
+                            <a class="btn btn-mini btn-{% if item.mod_public==1 %}success{% else %}warning{% endif %}" href="{{ Url.site('manage/materials/show/'~item.id) }}"><i class="icon-eye-{% if item.mod_public==1 %}open{% else %}close{% endif %}"></i> {% if item.mod_public==1 %}{{ "Published"|i18n }}{% else %}{{ "Unpublished"|i18n }}{% endif %}</a>
+                        </div>
+                    </div>
+                    {{ item.user.username }}<br>{{ Date.translate(item.date, 'd F Y G:i:s') }}
+                    <br>{{ Text.limit_chars(item.theme|raw|striptags,100) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="text">{{ "No materials"|i18n }}</div>
+        {% endfor %}
+        <br>
+        <div style="padding: 0 30px 30px 30px;">
+            {{ paginate|raw }}
+        </div>
+
+    </div>
+{% endblock content %}

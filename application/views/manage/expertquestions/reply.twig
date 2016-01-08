@@ -1,0 +1,39 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+    <div class="well well-small">
+        <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+
+        <form action="" method="post">
+            <div class="text">
+                <div class="date">
+                        <span class="btn-group">
+                </div>
+                <h4>{{ "Question"|i18n }}</h4>
+                {{ questions.user.username }}
+                <br>{{ Date.translate(questions.date, 'd F Y G:i:s') }}
+                <br>{{ questions.question|striptags|raw }}
+
+                <h4>{{ "Answer"|i18n }}</h4>
+                {% if questions.is_answered == 0 %}
+                    {% if errors is defined %}
+                        <span class="alert">{{ "Answer must be at least 30 characters long"|i18n }}</span>{% endif %}
+                    <textarea name="answer" maxlength="5000" style="width: 98%; resize: none;">{{ answer|striptags|raw|default("") }}</textarea>
+                {% else %}
+                    {{ questions.qalist.answer }}
+                {% endif %}
+            </div>
+            <br>
+            <div class="modal-footer">
+                {% if questions.is_spam == 0 %}
+                    <a class="btn btn-danger" href="{{ Url.site('manage/expertquestions/spam/'~questions.id~'/page-'~page~'?sort='~sort) }}&r=manage/expertquestions/reply/{{ questions.id }}"><i class="icon-remove"></i> {{ "Spam"|i18n }}
+                    </a>
+                {% endif %}
+                <a href="{{ Url.site('manage/expertquestions/edit/'~questions.id~'/page-'~page~'?sort='~sort) }}&r=manage/expertquestions/reply/{{ questions.id }}" class="btn">{{ "Edit question"|i18n }}</a>
+                <button class="btn">{{ "Save"|i18n }}</button>
+                <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

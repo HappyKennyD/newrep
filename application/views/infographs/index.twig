@@ -1,0 +1,37 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/infographs.css') }}" />
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ "Infographics"|i18n }}</h1></div>
+        
+        <div id="infograph-list">
+            {% set i = 0 %}
+            {% for item in infographs %}
+                {% set i = i + 1 %}
+                <div class="infograph-block{% if i % 2 == 0 %} infograph-2{% endif %}">
+                    <div class="infograph-photo">
+                        <a href="{{ Url.site('infographs/view/'~item.id) }}">
+                            <img src="{{ Url.media('/images/w427-h300/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}" />
+                        </a>
+                    </div>
+                    
+                    <div class="infograph-item-title">
+                        <a href="{{ Url.site('infographs/view/'~item.id) }}">{{ item.title }}</a>
+                    </div>
+                    
+                    <div class="infograph-date">{{ Date.ru_date(item.date, 'd.m.Y') }}</div>
+                </div>
+                
+                {% if i % 2 == 0 %}
+                    {% set i = 0 %}
+                    <div class="infograph-item-clear"></div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/thanks/edit') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-success btn-mini" href="{{ Url.media('manage/thanks/up/' ~item.id) }}"><i class="icon-arrow-up"></i></a>
+                            <a class="btn btn-danger btn-mini" href="{{ Url.media('manage/thanks/down/' ~item.id) }}"><i class="icon-arrow-down"></i></a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/thanks/view/'~item.id) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/thanks/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/thanks/published/'~item.id) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/thanks/published/'~item.id) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/thanks/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left">
+                        <a class="link" href="{{ Url.media('manage/thanks/view/'~item.id) }}">{{ item.name }}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

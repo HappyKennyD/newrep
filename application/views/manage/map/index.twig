@@ -1,0 +1,48 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".locate-map").click(function(e){
+                var x = e.pageX - $(this).offset().left;
+                var y = e.pageY - $(this).offset().top;
+
+                $.browser = {};
+                $.browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
+                $.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+                $.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+                $.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+
+                if ($.browser.webkit == true || $.browser.safari == true || $.browser.opera == true || $.browser.mozilla == true)
+                {
+                    x = x - 30;
+                    y = y - 35;
+                }
+                else if ($.browser.msie == true)
+                {
+                    x = x - 30;
+                    y = y - 30;
+                }
+            });
+        });
+    </script>
+
+
+
+<div class="graybox news" style="margin-top: 10px;">
+    <div class="box-header">
+        <h2>{{ "Карта"|i18n }}</h2>
+    </div>
+    {% for item in cities %}
+        <div class="well well-small">
+            <div class="text">
+                <div class="date">
+                        <span class="btn-group">
+                        <a class="btn btn-mini" href="{{ Url.site('manage/map/edit/'~item.id) }}"><i class="icon-edit"> </i></a>
+                        </span>
+                    <a class="link" href="{{ Url.site('manage/map/view/'~item.id) }}">{{ item.name }}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}

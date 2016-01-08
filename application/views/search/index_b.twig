@@ -1,0 +1,67 @@
+{% extends "layout/html.twig" %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/search.js') }}"></script>
+{% endblock extrascripts %}
+{% block content %}
+    <div class="search-content">
+
+        {% include 'layout/bread-crumbs.twig' %}
+
+        <div class="page-h1-title"><h1>{{ "Search results"|i18n }}</h1></div>
+
+        <div id="search-results">
+            <div id="search-form-block">
+                <form action="{{ Url.site('search') }}" method="post">
+                    <input type="text" name="search" id="search" class="search-input" value="{{ search }}"/>
+                    <input type="submit" class="submit" value="Найти"/>
+                </form>
+            </div>
+
+            <div id="search-results-list">
+                {% if not search is empty %}   <p class="search-word">{{ total }} {{"результатов по запросу"|i18n}} «{{ search }}»</p>{% endif %}
+
+                <ul id="result-list">
+                    {% for item in results %}
+                        <li class="result-link">
+                            <span><a href="{% if item.controller=='calendar' %}{{ Url.site(item.controller~'/event/'~item.id) }}{% elseif item.controller=='books' %}{{ Url.site(item.controller~'/library/view/'~item.id) }}{% else %}{{ Url.site(item.controller~'/view/'~item.id) }}{% endif %}">{{ item.title }} </a></span>
+                        </li>
+                        <li class="result-announce">{{ item.desc }}</li>
+                    {% endfor %}
+
+                </ul>
+            </div>
+            {{ paginate|raw }}
+        </div>
+
+        <div id="additional-right-block">
+            <div id="thumbs-loader">
+                <img src="{{ Url.media('media/images/v1/ajax-loader.gif') }}" alt=""/>
+            </div>
+            {% if not result is empty %}
+                <div id="main-person-image">
+                    <div id="main-person-announce">
+                        <a href="{% if result[first_key].controller=='calendar' %}{{ Url.site(result[first_key].controller~'/event/'~result[first_key].id) }}{% else %}{{ Url.site(result[first_key].controller~'/view/'~result[first_key].id) }}{% endif %}">{{ result[first_key].title }}</a>
+                    </div>
+                    <img src="{{ Url.media('/images/w220-h220-ccc-si/'~images|first) }}" alt=""/>{{ images|first.index }}
+                </div>
+            {% endif %}
+            {% set k=0 %}
+            <div id="thumb-images">
+                {% for key,item in images %}
+                    {% if (k+1)%9==1 %}<div class="thumbs-block">{% endif %}
+                    <a href="{{ Url.media('/images/w220-h220-ccc-si/'~item) }}" alt="{% if result[key].controller=='calendar' %}{{ Url.site(result[key].controller~'/event/'~result[key].id) }}{% else %}{{ Url.site(result[key].controller~'/view/'~result[key].id) }}{% endif %}" title="{{ result[key].title }}">
+                        <img src="{{ Url.media('/images/w60-h60-ccc-si/'~item) }}"/></a>
+                    {% if (k+1)%9==0 or k+1==max_key %}</div>{% endif %}
+                    {% set k=k+1 %}
+                {% endfor %}
+            </div>
+
+            <div id="thumbs-line" class="pre-pagination-line m-top-20"></div>
+
+            {% if max_key>9 %}
+                <div class="more-thumbs"><a href="javascript:showMoreThumbs()" class="dash">{{"Ещё"|i18n}}</a></div>{% endif %}
+
+            <div class="clear30"></div>
+        </div>
+    </div>
+{% endblock content %}

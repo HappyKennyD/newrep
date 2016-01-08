@@ -1,0 +1,60 @@
+<div class="whole-header">
+    <div class="dark-header" style="    width: 1099px; margin: auto;">
+        <div class="top-wrap" style="    background-color: rgba(255, 255, 255, 1);">
+            <div class="wrap" >
+            <div class="div100">
+                {#<div class="languages">#}
+                    {#<div {% if _language == 'kz' %}class="language active" rel="nofollow" {% else %} class="language"{% endif %}>#}
+                        {#<a href="{{ Url.media('kz/'~ _return) }}" {% if _language == 'kz' %}class="active" rel="nofollow"{% endif %}>Қаз</a>#}
+                    {#</div>#}
+                    {#<div {% if _language == 'ru' %}class="language pull-right active" rel="nofollow" {% else %} class="language pull-right"{% endif %}>#}
+                        {#<a href="{{ Url.media('ru/'~ _return) }}" {% if _language == 'ru' %}class="active" rel="nofollow"{% endif %}>Рус</a>#}
+                    {#</div>#}
+                {#</div>#}
+                <a class="ru_logo" href="{{ Url.site('/') }}" {% if Url.site('/')==nofollowlink%}rel="nofollow"{% endif %}>
+                    <p class="logo_p" style="">Школково</p>
+                    <p class="logo_p_2">Твой помощник по математике</p>
+                </a>
+                <div class="search" style="">
+                    <form>
+                        <input class="find" type="text" name="search" value="" placeholder="{{ 'Поиск'|i18n }}" style=""/>
+                        <input type="image" src = "{{ Url.media('media/theme/shkolkovo/search.png') }}" class = 'search-button'>
+                    </form>
+                </div>
+                {#<div class="login pull-right">#}
+                    {#<div class="auth">#}
+                        {#{% if not _user %}#}
+                            {#<a href="{{ Url.site('auth/enter') }}" {% if Url.site('auth/enter')==nofollowlink%} class="link active" rel="nofollow"{% endif %}>#}
+                                {#<div {% if Url.site('auth/enter')==nofollowlink%}class="log-in active" rel="nofollow" {% else %} class="log-in"{% endif %}>#}
+                                    {#<span style="padding: 0 0 0 25px;" {% if Url.site('auth/enter')==nofollowlink%}class="active"{% endif %}>{{ "Войти"|i18n }}</span>#}
+                                {#</div>#}
+                            {#</a>#}
+                            {#<a href="{{ Url.site('auth/register') }}" {% if Url.site('auth/register')==nofollowlink%}rel="nofollow"{% endif %}>#}
+                                {#<div {% if Url.site('auth/register')==nofollowlink%}class="sign-up pull-right active" rel="nofollow" {% else %} class="sign-up pull-right"{% endif %}>#}
+                                    {#<span style="padding: 0 0 0 25px;" {% if Url.site('auth/register')==nofollowlink%}class="active"{% endif %}>{{ "Регистрация"|i18n }}</span>#}
+                                {#</div>#}
+                            {#</a>#}
+                        {#{% else %}#}
+                            {#&#123;&#35;<a class="link" href="{{ Url.site('profile') }}" {% if Url.site('profile')==nofollowlink%}rel="nofollow"{% endif %}>&#35;&#125;#}
+                                {#<span>{{ _user.username }}</span>#}
+                            {#&#123;&#35;</a>&#35;&#125;#}
+                            {#<div class="pull-right">#}
+                                {#<form action="{{ Url.site('auth/logout') }}" method="POST" id="logout-form">#}
+                                    {#<input type="hidden" name="token" value="{{ _token }}" />#}
+                                    {#<a class="link" href="#" id="logout-link">{{ "Выйти"|i18n }}</a>#}
+                                    {#<script>#}
+                                        {#$('#logout-link').on('click', function(){#}
+                                           {#$('#logout-form').submit();#}
+                                        {#});#}
+                                    {#</script>#}
+                                {#</form>#}
+                            {#</div>#}
+                        {#{% endif %}#}
+                    {#</div>#}
+                {#</div>#}
+                <div class="clear"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>

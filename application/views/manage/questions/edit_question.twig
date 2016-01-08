@@ -1,0 +1,19 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="POST" style="margin:0">
+        <div class="page-header">
+            <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+            <h4>{{ "Редактирование вопроса"|i18n }}</h4>
+        </div>
+        <div style="padding:15px;">
+            {% if errors.text_question is defined %}
+                <span class="alert">{{ errors.text_question }}</span>
+            {% endif %}
+            <textarea name="text_question" style="width: 98%;" rows="10">{{ question.text_question }}</textarea>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+{% endblock content %}

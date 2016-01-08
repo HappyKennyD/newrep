@@ -1,0 +1,16 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="post">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="page-pad">
+            <h4>{% if item.moderator_decision==1 %}{{ "Hiding comment"|i18n }}{% else %}{{ "Displaying the comment"|i18n }}{% endif %}</h4>
+        </div>
+        <div class="page-pad">
+            <p>{% if item.moderator_decision==1 %}{{ "Hide comment"|i18n }}{% else %}{{ "Display the comment"|i18n }}{% endif %} «{{ item.text|raw|striptags }}»?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.site('manage/expertcomments') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-danger"><i class="icon-remove"></i> {% if item.moderator_decision==1 %}{{ "Hide "|i18n }}{% else %}{{ "Display "|i18n }}{% endif %}</button>
+        </div>
+    </form>
+{% endblock content %}

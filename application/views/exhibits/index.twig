@@ -1,0 +1,39 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/exhibits.css') }}" />
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="exhibits-title"><h1>Электронный архив</h1></div>
+
+        <div id="exhibits-list">
+            {% set i = 0 %}
+            {% for item in albums %}
+                {% set i = i + 1 %}
+                <div class="album-block album-{{ i }}">
+                    {% if item.image|length > 0 %}
+                        <div class="album-photo">
+                            <a href="{{ Url.site('exhibits/album/'~item.id)}}">
+                                <img src="{{ Url.media('images/w300-h225-ccc-si/'~item.image.file_path) }}" width="300" height="225" alt="{{ item.title }}" />
+                            </a>
+                        </div>
+                    {% endif %}
+                    <div class="album-title">
+                        <a href="{{ Url.site('exhibits/album/'~item.id)}}">{{ item.title }}</a>
+                    </div>
+                </div>
+
+                {% if i == 3 %}
+                    <div class="album-clear"></div>
+                    {% set i = 0 %}
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="exhibits-list-clear"></div>
+
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

@@ -1,0 +1,101 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/biography.css') }}" />
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/bio.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="wrap text-page">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <div id="bio-left">
+            <div id="bio-page-title"><h1>{{ item.name }}</h1></div>
+            
+            <div id="bio-page-announce">
+                <div></div>
+                {{ item.desc }}
+            </div>
+            
+            <div id="bio-page-content">
+                {{ item.text|raw }}
+            </div>
+            
+            <div id="bio-page-clear"></div>
+            
+            <div class="bio-likes-block">
+                <script type="text/javascript">(function ()
+                    {
+                        if (window.pluso) if (typeof window.pluso.start == "function") return;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript';
+                        s.charset = 'UTF-8';
+                        s.async = true;
+                        s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                        var h = d[g]('head')[0] || d[g]('body')[0];
+                        h.appendChild(s);
+                    })();</script>
+                <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+            </div>
+        </div>
+        
+        <div id="bio-right">
+            {% if item.picture.file_path is defined %}
+                <div class="bio-page-photo">
+                    <img src="{{ Url.media('/images/w220-h294-cct-si/'~item.picture.file_path, TRUE) }}" width="220" alt="{{ item.name }}" title="{{ item.name }}" />
+                </div>
+            {% endif %}
+            
+            <div id="bio-page-info"{% if not item.picture.file_path is defined %} class="m-top-12"{% endif %}>
+                <ul>
+                    <li class="info-list-category">{{ "Name"|i18n }}</li>
+                    <li>{{ item.name }}</li>
+                    
+                    <li class="info-list-category">{{ "Career"|i18n }}</li>
+                    <li>{{ item.category.title }}</li>
+
+                    {% if item.date_start %}
+                        <li class="info-list-category">{{ "Birthday"|i18n }}</li>
+                        <li>{{ item.date_start }}</li>
+                    {% endif %}
+
+                    {% if item.birthplace %}
+                        <li class="info-list-category">{{ "Birthplace"|i18n }}</li>
+                        <li>{{ item.birthplace }}</li>
+                    {% endif %}
+
+                    {% if item.date_finish %}
+                        <li class="info-list-category">{{ "Deathday"|i18n }}</li>
+                        <li>{{ item.date_finish }}</li>
+                    {% endif %}
+
+                    {% if item.deathplace %}
+                        <li class="info-list-category">{{ "Deathplace"|i18n }}</li>
+                        <li>{{ item.deathplace }}</li>
+                    {% endif %}
+                </ul>
+            </div>
+            
+            <div id="bio-add-info">
+                <ul>
+                    {% if read is defined %}
+                        <li class="add-info-title">{{ "Advised to read"|i18n }}</li>
+                    {% endif %}
+
+                    {% for book in read %}
+                        <li>{% if book.link %}<a href="{{ book.link }}">{% endif %}{{ book.title }}{% if book.link %}</a>{% endif %}</li>
+                    {% endfor %}
+
+                    {% if references is defined %}
+                        <li class="add-info-title">{{ "References"|i18n }}</li>
+                    {% endif %}
+
+                    {% for ref in references %}
+                        <li>{% if ref.link %}<a href="{{ ref.link }}">{% endif %}{{ ref.title }}{% if ref.link %}</a>{% endif %}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

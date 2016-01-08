@@ -1,0 +1,67 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/debate.css') }}"/>
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        {% include 'layout/bread-crumbs.twig' %}
+
+        <div class="page-h1-title"><h1>{{ "Debate"|i18n }}</h1>
+            {% if _user %}
+                <a class="" href="{{ Url.site('debate/new/') }}">{{ "Open a new debate"|i18n }}</a> {% endif %}
+        </div>
+
+        <div id="debate-left-content">
+            <div id="debate-menu">
+                <div>
+                    <a href="{{ Url.site('debate') }}{% if id is defined %}/index/{{ id }}{% endif %}" {% if status=="all" %}class="is-active-menu"{% endif %}><span>{{ "All"|i18n }}</span></a>
+                    <a href="{{ Url.site('debate') }}{% if id is defined %}/index/{{ id }}{% endif %}?status=active" {% if status=="active" %}class="is-active-menu"{% endif %}><span>{{ "active"|i18n }}</span></a>
+                    <a href="{{ Url.site('debate') }}{% if id is defined %}/index/{{ id }}{% endif %}?status=ending" {% if status=="ending" %}class="is-active-menu"{% endif %}><span>{{ "finished"|i18n }}</span></a>
+                </div>
+            </div>
+            {% for item in list %}
+                <div class="debate-list-authors">{% if Date.translate(item.end_time, 'U') < Date.translate(nowdate, 'U') and Date.translate(item.end_time, 'U')!=0 %}
+                    <span class="not-active">{% endif %}<a href="{{ Url.site('profile/view/'~item.author.id) }}">{{ item.author.username }}</a>{% if Date.translate(item.end_time, 'U') < Date.translate(nowdate, 'U') and Date.translate(item.end_time, 'U')!=0 %}</span>{% endif %}
+                    →  {% if Date.translate(item.end_time, 'U') < Date.translate(nowdate, 'U') or item.is_public==0 %}
+                    <span class="not-active">{% endif %}{% if item.opponent.username %}<a href="{{ Url.site('profile/view/'~item.opponent.id) }}">{{ item.opponent.username }}</a>{% else %}{{ item.opponent_email }}{% endif %}{% if Date.translate(item.end_time, 'U') < Date.translate(nowdate, 'U') %}</span>{% endif %}
+                </div>
+                <div class="debate-list-title">
+                    <a href="{{ Url.site('debate/view/'~item.id) }}"><span>{{ item.title }}</span></a></div>
+                <div class="debate-list-announce">{{ item.description }}</div>
+                <div class="debate-list-info">
+                    <p>{% if item.is_closed==0 %}
+                        <span class="debate-date">{% if item.is_public %}{{ Date.ru_date(item.start_time, 'd.m.Y') }}{% else %}{{ Date.ru_date(item.date, 'd.m.Y') }}{% endif %}</span>
+                        {% if Date.translate(item.end_time, 'U') < Date.translate(nowdate, 'U') and Date.translate(item.end_time, 'U')!=0 %}
+                        <span class="debate-end-time">{{ "Completed"|i18n }}{% elseif Date.translate(item.end_time, 'U')==0 %}</span>
+                            <span class="debate-comments">{{ "Deactivate through"|i18n }} {% set ost_time=TimeDifference.give(item.date,36) %}{% if ost_time.day>0 %}{{ ost_time.day~" "~"litera day"|i18n }}{% endif %} {% if ost_time.hour>0 %}{{ ost_time.hour~" "~"litera hour"|i18n }}{% endif %} {% if ost_time.minute>0 %}{{ ost_time.minute~" "~"litera minute"|i18n }}{% endif %}{% else %}</span>
+                                <span class="debate-end-time">{{ "Closing through"|i18n }} {% set ost_time=TimeDifference.give(item.end_time) %}{% if ost_time.day>0 %}{{ ost_time.day~" "~"litera day"|i18n }}{% endif %} {% if ost_time.hour>0 %}{{ ost_time.hour~" "~"litera hour"|i18n }}{% endif %} {% if ost_time.minute>0 %}{{ ost_time.minute~" "~"litera minute"|i18n }}{% endif %}{% endif %}</span>
+                        {% else %}<span class="debate-end-time">{{ "The debate closed"|i18n }}</span>
+                        {% endif %}
+                                <span class="debate-comments">{{ item.comments_count }} {{ CorrectDeclension.give(item.comments_count)|i18n }}</span>
+                                {% if (_user.has_access('am')) %}
+                                <a href="{{ Url.media('manage/debate/hide/'~item.id~'?r=debate') }}" style="font-style:normal ;float: right; text-decoration: none; color: #FF0000;">
+                                    <i class="icon-exclamation-sign"></i> {% if item.is_closed == 1 %}{{ "Display debate"|i18n }}{% else %}{{ "Hide debate"|i18n }}{% endif %}
+                                    </a>{% endif %}
+                    </p>
+                </div>
+                {% if not loop.last %}
+                    <div class="debate-line"></div>{% endif %}
+            {% else %}
+                {{ "No debate"|i18n }}
+            {% endfor %}
+
+            {{ paginate|raw }}
+        </div>
+
+        <div id="debate-right-content">
+            <ul id="debate-authors">
+                <li class="authors-title">{{ "Authors"|i18n }}</li>
+                {% for key,item in authors %}
+                    <li><a href="{{ Url.site('debate/index/'~key) }}">{{ item.name }}</a> {{ item.count }}</li>
+                {% endfor %}
+
+            </ul>
+        </div>
+
+    </div>
+{% endblock content %}

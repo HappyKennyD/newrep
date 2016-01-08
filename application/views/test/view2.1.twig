@@ -1,0 +1,365 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/debate.css') }}" />
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.autosize-min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/debate.js') }}"></script>
+{% endblock extrascripts %}
+{% block content %}
+    <div class="wrap text-page">
+    {% include 'layout/bread-crumbs.twig' %}
+
+    {# Состояние 1  #}
+
+    <div class="debate-inner-title not-active-color">
+        <h1>{{ debate.title }}</h1>
+    </div>
+    <div class="debate-inner-info">Оппонент еще не принял вызов. Деактивация дебата через <strong>20 часов 36 минут</strong>.</div>
+    <div class="versus">
+        <table>
+            <tr>
+                <td class="first-contestant"><p class="contestant-name">Василий Васильев</p></td>
+                <td class="contestant-avatar"><img src="{{ Url.media('media/images/v1/debate-image.jpg') }}" alt="" /></td>
+                <td><div class="vs"></div></td>
+                <td class="contestant-avatar"><img src="{{ Url.media('media/images/v1/debate-image.jpg') }}" alt="" class="not-active-image" /></td>
+                <td class="second-contestant"><p class="contestant-name not-active-color">Пётр <br/>Петров</p></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="debate-answers-list">
+        <div class="answer-block">
+            <div class="ab-arrow"></div>
+            <div class="answer-content">
+                <div class="answer-text">В Бухаре в XVIII в. создается ряд исторических сочинений, имеющих большую ценность для изучения истории Бухарского ханства. Одним из таких источников является труд Мухаммада Вафа Карминаги "Тухфат ал-хани" ("Ханский подарок"). Сочинение известно также под названием "Тарих-и Рахим-хан" ("История Рахим-хана").</div>
+                <div class="answer-info">
+                    <div class="answer-date"><p>Пётр Петров <span>15.06.2013, 13:21</span></p></div>
+                    <div class="answer-raiting">
+                        <div class="vote-bad"><a href="javascript:void(0)"></a><span>32</span></div>
+                        <div class="vote-good"><a href="javascript:void(0)"></a><span>124</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="debate-border-bottom"></div>
+
+    <div class="debate-likes">
+        <script type="text/javascript">(function () {
+                if (window.pluso) if (typeof window.pluso.start == "function") return;
+                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                s.type = 'text/javascript';
+                s.charset = 'UTF-8';
+                s.async = true;
+                s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                var h = d[g]('head')[0] || d[g]('body')[0];
+                h.appendChild(s);
+            })();</script>
+        <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+    </div>
+
+    <div class="comments-count-title">3 комментария</div>
+
+    <div class="one-comment">
+        <div class="c-user-avatar">
+            <img src="{{ Url.media('media/images/v1/user-avatar.jpg') }}" alt="" />
+        </div>
+        <div class="c-user-comment">
+            <p class="comment-information">
+                <strong>Марат Маратов</strong><span>15.06.2013, 17:52</span>
+            </p>
+
+            <p class="comment-text">Василий, если оппонент не ответит на вызов, с радостью поучаствую в дебате.</p>
+        </div>
+    </div>
+
+    <div class="one-comment">
+        <div class="c-user-avatar">
+            <img src="{{ Url.media('media/images/v1/user-avatar.jpg') }}" alt="" />
+        </div>
+        <div class="c-user-comment">
+            <p class="comment-information">
+                <strong>Екатерина Игнаткина</strong><span>15.06.2013, 17:52</span>
+            </p>
+
+            <p class="comment-text">Ох, какая отличная тема. У меня как раз диссертация на смежную тематику. Жду с нетерпением!</p>
+        </div>
+    </div>
+
+    <div class="one-comment">
+        <div class="c-user-avatar">
+            <img src="{{ Url.media('media/images/v1/user-avatar.jpg') }}" alt="" />
+        </div>
+        <div class="c-user-comment">
+            <p class="comment-information">
+                <strong>Мухтар Сагындыков</strong><span>15.06.2013, 17:52</span>
+            </p>
+
+            <p class="comment-text">Ммм, я бы с вами подискутировал. Очень наболевший вопрос. Если оппонент откажется, бросаю перчатку.</p>
+        </div>
+    </div>
+
+    <div class="add-comment-block">
+        <form method="post">
+            <textarea alt="Оставить комментарий">Оставить комментарий</textarea>
+        </form>
+
+        <span>Отправить с помощью Enter</span>
+    </div>
+
+    <div class="debate-bottom-space"></div>
+
+
+
+
+    {# Состояние 2  #}
+
+    <div class="debate-inner-title">
+        <h1>{{ debate.title }}</h1>
+    </div>
+    <div class="debate-inner-info">До окончания дебата <strong>3 дня 16 часов 36 минут</strong>.</div>
+    <div class="versus">
+        <table>
+            <tr>
+                <td class="first-contestant"><p class="contestant-name">Василий Васильев</p></td>
+                <td class="contestant-avatar"><img src="{{ Url.media('media/images/v1/debate-image.jpg') }}" alt="" /></td>
+                <td><div class="vs"></div></td>
+                <td class="contestant-avatar"><img src="{{ Url.media('media/images/v1/debate-image.jpg') }}" alt="" /></td>
+                <td class="second-contestant"><p class="contestant-name">Пётр <br/>Петров</p></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="debate-answers-list">
+        <div class="answer-block">
+            <div class="ab-arrow"></div>
+            <div class="answer-content">
+                <div class="answer-text">В Бухаре в XVIII в. создается ряд исторических сочинений, имеющих большую ценность для изучения истории Бухарского ханства. Одним из таких источников является труд Мухаммада Вафа Карминаги "Тухфат ал-хани" ("Ханский подарок"). Сочинение известно также под названием "Тарих-и Рахим-хан" ("История Рахим-хана").</div>
+                <div class="answer-info">
+                    <div class="answer-date"><p>Василий Васильев <span>15.06.2013, 13:21</span></p></div>
+                    <div class="answer-raiting">
+                        <div class="vote-bad"><a href="javascript:void(0)"></a><span>32</span></div>
+                        <div class="vote-good"><a href="javascript:void(0)"></a><span>124</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer-block is-yellow">
+            <div class="ab-arrow"></div>
+            <div class="answer-content">
+                <div class="answer-text">Начатое в детстве домашнее обучение у муллы было продолжено в медресе у муллы Ахмет-Ризы в Семипалатинске, где преподавали арабский, персидский и другие восточные языки. Одновременно посещал русскую школу. К концу пятилетней учёбы начинает писать стихи, сначала приписывая их авторство своему другу Кокпаю Джантасову. С 13 лет отец Кунанбай начинает приучать Абая к деятельности главы рода. В возрасте 28 лет Абай отходит от неё, целиком занявшись самообразованием, но только к 40 годам создаёт свои первые взрослые стихотворения.</div>
+                <div class="answer-info">
+                    <div class="answer-date"><p>Пётр Петров <span>16.06.2013, 9:32</span></p></div>
+                    <div class="answer-raiting">
+                        <div class="vote-bad"><a href="javascript:void(0)"></a><span>32</span></div>
+                        <div class="vote-good"><a href="javascript:void(0)"></a><span>124</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer-block">
+            <div class="ab-arrow"></div>
+            <div class="answer-content">
+                <div class="answer-text">В Бухаре в XVIII в. создается ряд исторических сочинений, имеющих большую ценность для изучения истории Бухарского ханства. Одним из таких источников является труд Мухаммада Вафа Карминаги "Тухфат ал-хани" ("Ханский подарок"). Сочинение известно также под названием "Тарих-и Рахим-хан" ("История Рахим-хана").</div>
+                <div class="answer-info">
+                    <div class="answer-date"><p>Василий Васильев <span>15.06.2013, 13:21</span></p></div>
+                    <div class="answer-raiting">
+                        <div class="vote-bad"><a href="javascript:void(0)"></a><span>32</span></div>
+                        <div class="vote-good"><a href="javascript:void(0)"></a><span>124</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="answer-block is-yellow">
+            <div class="ab-arrow"></div>
+            <div class="answer-content">
+                <div class="answer-text">Начатое в детстве домашнее обучение у муллы было продолжено в медресе у муллы Ахмет-Ризы в Семипалатинске, где преподавали арабский, персидский и другие восточные языки. Одновременно посещал русскую школу. К концу пятилетней учёбы начинает писать стихи, сначала приписывая их авторство своему другу Кокпаю Джантасову. С 13 лет отец Кунанбай начинает приучать Абая к деятельности главы рода. В возрасте 28 лет Абай отходит от неё, целиком занявшись самообразованием, но только к 40 годам создаёт свои первые взрослые стихотворения.</div>
+                <div class="answer-info">
+                    <div class="answer-date"><p>Пётр Петров <span>16.06.2013, 9:32</span></p></div>
+                    <div class="answer-raiting">
+                        <div class="vote-bad"><a href="javascript:void(0)"></a><span>32</span></div>
+                        <div class="vote-good"><a href="javascript:void(0)"></a><span>124</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="debate-border-bottom"></div>
+
+    <div class="debate-likes">
+        <script type="text/javascript">(function () {
+                if (window.pluso) if (typeof window.pluso.start == "function") return;
+                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                s.type = 'text/javascript';
+                s.charset = 'UTF-8';
+                s.async = true;
+                s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                var h = d[g]('head')[0] || d[g]('body')[0];
+                h.appendChild(s);
+            })();</script>
+        <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+    </div>
+
+    <div class="comments-count-title">3 комментария</div>
+
+    <div class="one-comment">
+        <div class="c-user-avatar">
+            <img src="{{ Url.media('media/images/v1/user-avatar.jpg') }}" alt="" />
+        </div>
+        <div class="c-user-comment">
+            <p class="comment-information">
+                <strong>Марат Маратов</strong><span>15.06.2013, 17:52</span>
+            </p>
+
+            <p class="comment-text">Василий, если оппонент не ответит на вызов, с радостью поучаствую в дебате.</p>
+        </div>
+    </div>
+
+    <div class="one-comment">
+        <div class="c-user-avatar">
+            <img src="{{ Url.media('media/images/v1/user-avatar.jpg') }}" alt="" />
+        </div>
+        <div class="c-user-comment">
+            <p class="comment-information">
+                <strong>Екатерина Игнаткина</strong><span>15.06.2013, 17:52</span>
+            </p>
+
+            <p class="comment-text">Ох, какая отличная тема. У меня как раз диссертация на смежную тематику. Жду с нетерпением!</p>
+        </div>
+    </div>
+
+    <div class="one-comment">
+        <div class="c-user-avatar">
+            <img src="{{ Url.media('media/images/v1/user-avatar.jpg') }}" alt="" />
+        </div>
+        <div class="c-user-comment">
+            <p class="comment-information">
+                <strong>Мухтар Сагындыков</strong><span>15.06.2013, 17:52</span>
+            </p>
+
+            <p class="comment-text">Ммм, я бы с вами подискутировал. Очень наболевший вопрос. Если оппонент откажется, бросаю перчатку.</p>
+        </div>
+    </div>
+
+    <div class="add-comment-block">
+        <form method="post">
+            <textarea alt="Оставить комментарий">Оставить комментарий</textarea>
+        </form>
+
+        <span>Отправить с помощью Enter</span>
+    </div>
+
+    <div class="debate-bottom-space"></div>
+
+
+
+
+    {# Состояние 3  #}
+
+    <div class="debate-inner-title not-active-color">
+        <h1>{{ debate.title }}</h1>
+    </div>
+    <div class="debate-inner-info">Оппонент еще не принял вызов. Деактивация дебата через <strong>20 часов 36 минут</strong>. <a href="#">Закрыть дебат</a></div>
+    <div class="versus">
+        <table>
+            <tr>
+                <td class="first-contestant"><p class="contestant-name">Василий Васильев</p></td>
+                <td class="contestant-avatar"><img src="{{ Url.media('media/images/v1/debate-image.jpg') }}" alt="" /></td>
+                <td><div class="vs"></div></td>
+                <td class="contestant-avatar">
+                    <div class="div100">
+                        <img src="{{ Url.media('media/images/v1/debate-image.jpg') }}" alt="" class="not-active-image" />
+                        <a class="change-oponent" href="#">Сменить оппонента</a>
+                    </div>
+                </td>
+                <td class="second-contestant"><p class="contestant-name not-active-color">Пётр <br/>Петров</p></td>
+            </tr>
+        </table>
+    </div>
+    <div class="debate-bottom-space"></div>
+
+
+
+    {#<div class="item">
+        <div class="modal-header">
+            <h2 style="margin-top: 60px;">{{ debate.title }}</h2>
+        </div>
+        <div class="date">
+            {{"Дебаты"|i18n}} {% if Date.translate(debate.end_time, 'U') > Date.translate(nowdate, 'U') %}завершатся{% else %}завершены{% endif %}
+            : {{ Date.ru_date(debate.end_time, 'd F Y H:i:s') }}</div>
+    </div>
+    {% for item in errors %}
+        {{ item }}
+    {% endfor %}
+    <div class="item">
+        {% if time_is_ending==true %}
+            {% if debate.author_id==_user.id and debate.is_closed==0 and debate.is_public==0 %}
+                <a class="name" href="{{ Url.site('debate/edit/'~debate.id) }}?r={{ _return_url }}">
+                    Редактировать</a>
+            <a class="name" href="{{ Url.site('debate/close/'~debate.id) }}?r={{ _return_url }}">
+                    Закрыть</a>{% endif %}
+            {% if debate.opponent_email==_user.email and debate.is_closed==0 and debate.is_public==0 %}
+                <a class="name" href="{{ Url.site('debate/agree/'~debate.id) }}">
+                    Согласиться</a>
+            <a class="name" href="{{ Url.site('debate/disagree/'~debate.id) }}">
+                    Отказаться</a>{% endif %}
+        {% endif %}
+
+    </div>
+    {% for key, item in opinions %}
+        {% if (key)%2==0 %}
+            <form action="{% if not _user %}{{ Url.site('auth/enter/') }}{% else %}{{ Url.site('debate/poll/'~debate.id) }}{% endif %}?r={{ _return_url }}" method="POST">
+                {% set i=1 %}
+                {% for variant in poll_variants %}
+                    <label for="{{ 'variant_'~i }}">
+                        <input type="radio" name="variant" id="{{ 'variant_'~i }}" value={{ i }} {% if i==1 %}checked{% endif %}/>
+                        {{ variant }}
+                    </label>
+                    {% set i=i+1 %}
+                {% endfor %}
+                <input type='hidden' name='branch' value={{ key }}>
+                <input type="submit" value="Ответить">
+            </form>
+        {% endif %}
+        <div class="comment-post" id='{{ item.id }}'>
+            <div class="comment-ttl clearfix">
+                <h4> {% if item.user.profile.first_name %}{{ item.user.profile.first_name ~ " " ~ item.user.profile.last_name }}{% else %}{{ item.user.username }}{% endif %}</h4>
+                <time>{{ Date.translate(item.date, 'd F, H:i') }}</time>
+            </div>
+            <p>{{ item.opinion }}</p>
+        </div>
+        {% if (key) % 2 != 0 %}
+            {% if _user %}
+            <form action="{{ Url.site('debate/comment/'~debate.id) }}" method="POST">
+                <div>
+                    <label for="comment">{{ "Комментарий"|i18n }}</label>
+                    <textarea class="redactor" name="comment" id="comment" style="width: 98%;">{{ comment.comment }}</textarea>
+                </div>
+                <input type='hidden' name='branch' value={{ key }}>
+                <div class="modal-footer">
+                    <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+                </div>
+                </form>{% endif %}
+            <hr>{% endif %}
+    {% endfor %}
+    {% if debate.replier_id==_user.id and debate.is_public==1 and Date.translate(debate.end_time, 'U') > Date.translate(nowdate, 'U') %}
+        <form action="" method="POST">
+            <div>
+                <label for="opinion">{{ "Мнение"|i18n }}</label>
+                <textarea class="redactor" name="opinion" id="opinion" style="width: 98%;">{{ opinion.opinion }}</textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </form>
+    {% endif %}
+
+    #}
+    </div>
+{% endblock content %}

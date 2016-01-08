@@ -1,0 +1,254 @@
+#questions-help, .overlay-success, .overlay-error, #overlay-clear, #overlay-background, #questions-button, .overlay-title, .overlay-label, .overlay-input, .faq-end-clear, .faq-clear-line, .faq-block, .faq-author, .faq-txt {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+#questions-left, #questions-right, .faq-photo, .faq-text, #in-faq-content {
+    position: relative;
+    float: left;
+}
+
+#questions-left {
+    width: 620px;
+}
+
+#questions-right {
+    width: 220px;
+    left: 100px;
+}
+
+#questions-help {
+    font-size: 16px;
+    line-height: 21px;
+    margin-top: 27px;
+}
+
+.is-question {
+    margin-top: 30px;
+}
+
+.is-answer {
+    margin-top: 20px;
+    color: #9f7b71;
+    width: 540px !important;
+    left: 80px;
+}
+
+.faq-photo {
+    width: 80px;
+}
+
+.faq-photo img {
+    margin-top: 7px;
+}
+
+.faq-text {
+    width: 540px;
+}
+
+.is-answer .faq-text {
+    width: 460px;
+}
+
+.faq-text {
+    line-height: 24px;
+    font-size: 18px;
+}
+
+.faq-author {
+    font-weight: bold;
+}
+
+.faq-author span {
+    font-size: 14px;
+    color: #999999;
+    font-style: italic;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.is-answer .faq-author span {
+    color: #9f7b71;
+}
+
+.faq-txt {
+    margin-top: 8px;
+}
+
+.faq-clear-line {
+    height: 30px;
+    border-bottom: solid 1px #e0e0e0;
+}
+
+.faq-end-clear {
+    height: 25px;
+    font-size: 0;
+    line-height: 0;
+}
+
+#search-form-block {
+    margin-top: 15px !important;
+}
+
+#search {
+    font-size: 18px;
+    font-style: normal;
+    color: #999999;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+}
+
+#questions-button {
+    margin-top: 30px;
+}
+
+.button {
+    display: block;
+    float: left;
+    height: 36px;
+    line-height: 34px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    background: url(../images/v1/button.png) repeat-x;
+    border-left: solid 1px #cfa574;
+    border-right: solid 1px #cfa574;
+    border-radius: 2px;
+    border: none;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+}
+
+.button:hover {
+    color: #fff;
+    text-decoration: none;
+    background: url(../images/v1/button.png) 0 -36px repeat-x;
+}
+
+.button:active {
+    background: url(../images/v1/button.png) 0 -72px repeat-x;
+}
+
+.w-189 {
+    width: 189px;
+}
+
+.w-160 {
+    width: 160px;
+}
+
+.w-139 {
+    position: absolute;
+    width: 139px !important;
+    right: 0;
+    top: 1px;
+}
+
+.hideshow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 500;
+}
+
+.fade-overlay {
+  background: #000; 
+  position: fixed; 
+  width: 100%;
+  height: 100%;
+  filter: alpha(opacity=80);
+  opacity: .80;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  left: 0;
+  z-index: 999;
+}
+
+#overlay-background {
+    background: #fff;
+    border: solid 1px #e6bd83;
+}
+
+#faq-content {
+    padding: 0;
+    float: left;
+    width: 444px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -250px 0 0 -222px;
+    z-index: 1000;
+}
+
+#in-faq-content {
+    width: 380px;
+    left: 32px;
+}
+
+.overlay-title {
+    font-size: 28px;
+    line-height: 30px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+.overlay-label {
+    margin-top: 17px;
+    font-size: 18px;
+    line-height: 21px;
+}
+
+.overlay-input {
+    margin-top: 7px;
+}
+
+.overlay-input textarea {
+    width: 360px;
+    padding: 9px;
+    background: #fff;
+    border: solid 1px #e6bd83;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    height: 150px;
+    font-family: 'PT Serif', Times, "Times New Roman", sans-serif;
+    font-size: 18px;
+}
+
+.m-top-17 {
+    margin-top: 17px;
+}
+
+#overlay-clear {
+    height: 40px;
+}
+
+#close-overlay {
+    display: block;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: 31px;
+    background: url(../images/v1/overlay-close.png) no-repeat;
+    font-size: 0;
+    line-height: 0;
+    z-index: 10;
+}
+
+.overlay-error, .overlay-success {
+    line-height: 21px;
+    font-size: 16px;
+    color: #cc0008;
+    font-style: italic;
+    margin-top: 6px;
+    display: none;
+}
+
+.overlay-success {
+    color: #333333 !important;
+}

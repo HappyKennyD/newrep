@@ -1,0 +1,30 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="graybox news {% if not news.published %}graybox-hidden{% endif %}" style="margin-top: 10px;">
+        <h3 class="h3">{{ city.name }}
+            {% if _user and _user.has_access('mat') %}
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-mini" href="{{ Url.site('manage/map/edit/'~city.id) }}?r={{ _return }}"><i class="icon-edit"> </i></a>
+                </div>
+            </div>
+            {% endif %}
+        </h3>
+        <div class="text">
+                <h3>{{ "General information"|i18n }}</h3>
+                {{city.about|raw}}
+                <h3>{{ "Nature"|i18n }}</h3>
+                {{city.nature|raw}}
+                <h3>{{ "Population"|i18n }}</h3>
+                {{city.people|raw}}
+                <h3>{{ "Economics"|i18n }}</h3>
+                {{city.economics|raw}}
+                <h3>{{ "Transport"|i18n }}</h3>
+                {{city.transport|raw}}
+                <h3>{{ "Social sphere"|i18n }}</h3>
+                {{city.social|raw}}
+                <h3>{{ "From the history of the city"|i18n }}</h3>
+                {{city.history|raw}}
+        </div>
+    </div>
+{% endblock content %}

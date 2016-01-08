@@ -1,0 +1,28 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="POST">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <h4>Редактирование</h4>
+        </div>
+        <div class="modal-body">
+            <div class="page" style="margin-left: 10px;">
+                <label for="username" style="display: inline-block; width: 60px;">Имя:</label>
+                <input type="text" name="username" id="username" class="input-xxlarge" value="{{user.username}}" style="margin: 0;"/><br /><br />
+                {% if errors.username is defined %}
+                    <p class="text-error">{{ errors.username }}</p>
+                {% endif %}
+
+                <label for="email" style="display: inline-block; width: 60px;">E-mail:</label>
+                <input type="text" name="email" id="email" class="input-xxlarge" value="{{user.email}}" style="margin: 0;"/><br /><br />
+                {% if errors.email is defined %}
+                    <p class="text-error">{{ errors.email }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ r }}" class="btn btn-link">Отмена</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> Сохранить</button>
+        </div>
+    </form>
+{% endblock content %}

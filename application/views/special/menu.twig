@@ -1,0 +1,26 @@
+{% extends "layout/special.twig" %}
+{% block content %}
+    <div id="breadcrumbs">
+        <a href="#">Главная</a>
+        <a href="#">История Казахстана</a>
+    </div>
+
+    <div class="submenu-name">Казахстан в средневековье</div>
+
+    {% for item in _pages %}
+         {{ item.id }}
+    {% endfor %}
+
+    <div class="submenu">
+        <ul>
+            <li><a href="#">Государства раннего и развитого средневековья (VI-нач. ХШ вв.)</a></li>
+            <li><a href="#">Великий Шелковый путь на территории Казахстана. Город и степь</a></li>
+            <li><a href="#">Казахстан в монгольскую эпоху</a></li>
+            <li><a href="#">Средневековые государства в XIV-XV вв.</a></li>
+            <li><a href="#">Этногенез и этнические процессы на территории Казахстана</a></li>
+            <li><a href="#">Казахское ханство в XV-XVII вв.</a></li>
+            <li><a href="#">Казахско-джунгарская война (XVII -XVIII вв.)</a></li>
+            <li><a href="#">Позднесредневековая городская культура</a></li>
+        </ul>
+    </div>
+{% endblock content %}

@@ -1,0 +1,134 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <style>
+        section{
+            /*background-color: #faf9f5;*/
+        }
+        footer .whole-footer{
+            margin: 25px!important;
+        }
+        form{
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+{% block content %}
+    <div class="wrap-reg" style="display: block; position: relative;">
+        <form method="post" action="{{ Url.site('auth/register') }}">
+            {#<div>#}
+            {#<h4 class="form-signin-heading">{{ "Provide data for the registration of"|i18n }}</h4>#}
+            {#</div>#}
+            <div id="radiocheck">
+                <div>
+                    <input type="radio" name="radio" id="radio1" class="radio" value="1" checked/>
+                    <label for="radio1" id="uchenik"><span></span>Ученик</label>
+                </div>
+                <div>
+                    <input type="radio" name="radio" id="radio2" class="radio" value="2"/>
+                    <label for="radio2" id="expert"><span></span>Эксперт</label>
+                </div>
+            </div>
+            <div id="input-block-level" style="    width: 221px;    display: inline-block;margin-right: -5px;    margin-top: 6px;">
+                {#<label for="username">{{ "Username"|i18n }}</label>#}
+                <input placeholder="Фамилия" type="text" name="username" class="input-block-level {% if errors.username is defined %}error{% endif %}" value="{{username}}" required id="username">
+                {% if errors.username is defined %}
+                    <div class="alert">
+                        {% if errors.username =='Такой "Имя пользователя" уже существует' %}
+                            {{ "The user with the same name already exists"|i18n }}
+                        {% else %}
+                            {{ errors.username }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <select name="class" id="class" value="">
+                    <option value="">Выберите класс</option>
+                    <option value="9">9 класс</option>
+                    <option value="10">10 класс</option>
+                    <option value="11">11 класс</option>
+                </select>
+                <input placeholder="ВУЗ" type="text" name="vuz" class="input-block-level" value="{{vuz}}" id="vuz">
+                {#<label for="email">{{ "E-mail"|i18n }}</label>#}
+                <input placeholder="E-mail" type="text" name="email" class="input-block-level {% if errors.email is defined %}error{% endif %}" value="{{email}}" required id="email">
+                {% if errors.email is defined %}
+                    <div class="alert">
+                        {% if errors.email=='Такой "Электронная почта" уже существует' %}
+                            {{ "This email already exists"|i18n }}
+                        {% else %}
+                            {{ errors.email }}
+                        {% endif %}
+                    </div>
+                {% endif %}
+                {#<label for="password">{{ "Password"|i18n }}</label>#}
+                <input placeholder="Пароль" type="password" name="password" class="input-block-level {% if errors.password is defined %}error{% endif %}" required id="password">
+                {% if errors.password is defined %}
+                    <div class="alert">{{ errors.password }}</div>
+                {% endif %}
+                {#<label for="password_confirm">{{ "Again password"|i18n }}</label>#}
+                <input placeholder="Повторите пароль" style="    border-bottom: 1px solid #bababa!important;" type="password" name="password_confirm" class="input-block-level {% if errors.password_confirm is defined %}error{% endif %}" required id="password_confirm">
+                {% if errors.password_confirm is defined %}
+                    <div class="alert">{{ errors.password_confirm }}</div>
+                {% endif %}
+
+            </div>
+
+            <div class="modal-footer-1">
+                <div class="pull-left style-button" id="uLogin"
+                     x-ulogin-params="display=panel;fields=first_name,last_name,photo,photo_big;optional=phone,email;providers=vkontakte,facebook,mailru,odnoklassniki,google;hidden=;redirect_uri={{ Url.site('auth/enter', true) }}">
+                </div>
+                <script src="http://ulogin.ru/js/ulogin.js"></script>
+            </div>
+            {# -------  captcha  ---------#}
+            <input type="text" name="captcha" required style="margin: 0;width: 217px;height: 48px;font-size:35px;margin-top: -1px;" autocomplete="off" class="{% if errors.captcha is defined %}error{% endif %}">
+            <a onclick="reload()" style="cursor: pointer;"><img src="{{Url.media('media/theme/refresh.png')}}" width="16px" height="16px"></a>
+            <img src="{{Url.media('/captcha/default')}}" width="194" height="50" alt="Captcha" class="captcha_old" />
+            {% if errors.captcha is defined %}
+                <div class="alert">{{ errors.captcha }}</div>
+            {% endif %}
+            <script type="text/javascript">
+                function reload(){
+                    id=Math.floor(Math.random()*1000000);
+                    $("img.captcha_old").attr("src","{{Url.media('/captcha/default?id=')}}"+id);
+                }
+            </script>
+            {# -------  captcha end  ------#}
+            <a href="enter" class="auth">Авторизация</a>
+            <button class="btn btn-large btn-reg" type="submit" style="float: left;">{{ "Зарегистрироваться"|i18n }}</button>
+        </form>
+    </div>
+    <script type='text/javascript' >
+        $(function() {
+
+            $( ".ulogin-button-google" ).html( "Google" );
+            $( ".ulogin-button-vkontakte" ).html( "ВКонтакте" );
+            $( ".ulogin-button-facebook" ).html( "Facebook" );
+            $( ".ulogin-button-mailru" ).html( "Mail.ru" );
+            $( ".ulogin-button-odnoklassniki" ).html( "Одноклассники" );
+            var uchenik = $("#uchenik");
+            var expert = $("#expert");
+            var radio1 = $("#radio1");
+            var radio2 = $("#radio2");
+            var vuz = $("#vuz");
+            var clas = $("#class");
+
+            radio1.click(function(){
+                clas.fadeOut(400,
+                        function () {
+                            clas.css("display", "block");
+                            vuz.css("display", "none");
+
+                        });
+            });
+            radio2.click(function(){
+                vuz.fadeOut(400,
+                        function () {
+                            clas.css("display", "none");
+                            vuz.css("display", "block");
+                            clas.val("");
+                        });
+            });
+
+
+        });
+    </script>
+{% endblock content %}

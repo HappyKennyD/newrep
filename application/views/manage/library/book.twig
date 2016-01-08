@@ -1,0 +1,36 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            {% if book.type=="txt" %}
+                <a class="btn btn-mini" href="{{ Url.media('manage/library/chapters/'~book.id) }}"><i class="icon-list-ul"></i> {{ "Chapters"|i18n }}</a>
+            {% endif %}
+            <a class="btn btn-mini" href="{{ Url.media('manage/library/editbook/'~book.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/library/delete/'~book.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+            {#<img src="{{ Url.media('/images/w160-ccc-si/'~book.cover.file_path) }}" />#}
+            {% for t in book.category.tree() %}
+                <div style="padding: 5px; display: inline;"><span class="label label-info">{{ t }}</span></div>
+            {% endfor %}
+            <h4>{{ book.title }}</h4>
+
+            <div class="clear"></div>
+        </div>
+        <div>
+            {{ book.description|raw }}
+        </div>
+        {#{% if book.date == '0000-00-00 00:00:00' %}#}
+            {#<div class="infograph-date">00.00.0000</div>#}
+        {#{% else %}#}
+            {#<div class="infograph-date">{{ Date.ru_date(book.date, 'd.m.Y') }}</div>#}
+        {#{% endif %}#}
+        <div>
+            {% if book.type=='pdf' and book.pdf.loaded() %}
+                <a href="{{ Url.media(book.pdf.file_path) }}">{{ "download"|i18n }}</a><br />
+                <a href="{{ Url.media('manage/library/show/'~book.id) }}">{{ "View in browser"|i18n }}</a>
+            {% endif %}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="well well-small">
+        <a type="button" href="{% if material.is_journal==0%}{{ Url.site('manage/materials') }}{% else %}{{ Url.site('manage/materials/ehistory') }}{% endif %}" class="close">&times;</a>
+
+        <form action="" method="post">
+            <div class="text">
+                <div>
+                    {{ material.user.username|raw|striptags }} ({{ Date.ru_date(material.date, 'd F Y H:i:s') }})<br>
+                    <div class="clear"></div>
+                </div>
+                <div>
+                    <strong>{{ material.theme|striptags|raw }} </strong>
+                </div>
+                <div>
+                    {{ material.message|striptags|raw }}
+                </div>
+                <div style="padding: 20px;">
+                    {% for file in files %}
+                        <div><a target="_blanc" href="{{ Url.media(file.storage.file_path) }}">{{ file.storage.name }}
+                                ({{ FileData.size(file.filesize) }})</a></div>
+                    {% endfor %}
+                </div>
+                <div>
+                    {% if material.status!=2 %}
+                        <h5>{{ "Reply to the user"|i18n }}</h5>
+                        {{ material.mod_message|raw|striptags }}
+                    {% endif %}
+                </div>
+            </div>
+            <br>
+            <div class="modal-footer">
+                {% if material.status==2 and material.is_moderator==1 %} <a class="btn btn-success" href="{{ Url.site('manage/materials/accept/'~material.id) }}?r=manage/materials/view/{{ material.id }}"><i class="icon-remove"></i> {{ "Accept"|i18n }}
+                </a>
+                <a class="btn btn-danger" href="{{ Url.site('manage/materials/reject/'~material.id) }}?r=manage/materials/view/{{ material.id }}"><i class="icon-remove"></i> {{ "Reject"|i18n }}
+                </a> {% endif %}
+                <a href="{% if material.is_journal==0%}{{ Url.site('manage/materials') }}{% else %}{{ Url.site('manage/materials/ehistory') }}{% endif %}" class="btn">{{ "Cancel"|i18n }}</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

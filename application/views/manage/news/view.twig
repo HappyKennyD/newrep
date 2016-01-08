@@ -1,0 +1,29 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/news/edit/'~news.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/news/delete/'~news.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+            ({{ Date.ru_date(news.date, 'd F Y H:i:s') }})<br>
+            <h4>{{ news.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if news.picture.file_path is defined %}
+                <img src="{{ Url.site(news.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+        </div>
+        <div>
+            <strong>{{ news.desc }}</strong>
+        </div><br>
+        <div>
+            {{ news.text|raw }}
+        </div>
+        <div>
+            <strong>Теги:</strong> {{ tags }}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

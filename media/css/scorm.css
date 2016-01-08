@@ -1,0 +1,71 @@
+#scorm-block, .scorm-item, #scorm-likes, #scorm-likes-content, .text, #scorm-menu {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+#scorm-left, #scorm-menu div {
+    position: relative;
+    float: left;
+}
+
+#scorm-left {
+    width: 620px;
+}
+
+.scorm-item {
+    margin-top: 12px;
+    font-size: 18px;
+    line-height: 24px;
+    border-bottom: solid 1px #e0e0e0;
+}
+
+.scorm-item p {
+    margin-bottom: 15px;
+}
+
+.no-border {
+    border: none !important;
+}
+
+#scorm-likes {
+    height: 60px;
+    margin-top: 30px;
+    border-top: solid 1px #e0e0e0;
+}
+
+#scorm-likes-content {
+    height: 27px;
+    margin-top: 12px;
+}
+
+.text {
+    margin-top: 12px;
+}
+
+.scorm-iframe {
+    position: relative;
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+#scorm-menu {
+    font-size: 18px;
+    line-height: 24px;
+    margin-top: 30px;
+    visibility: hidden;
+}
+
+.gray-lnk {
+    color: #999999;
+    text-decoration: none;
+}
+
+#scorm-menu a {
+    margin: 0 3px;
+}
+
+#scorm-menu span {
+    margin: 0 20px 0 3px;
+}

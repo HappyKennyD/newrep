@@ -1,0 +1,34 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/library/chapters/'~book.id) }}" class="close">&times;</a>
+            <h4>{{ book.title }} - {{ "Add / edit chapter"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-block-level" value="{% if chapter is defined %}{{ chapter.title }}{% endif %}" />
+
+            <label for="text">{{ "Text"|i18n }}</label>
+            <textarea class="redactor" name="text" id="text" class="input-block-level">{% if chapter is defined %}{{ chapter.text }}{% endif %}</textarea>
+
+            <label for="number">{{ "Chapter number"|i18n }}</label>
+            <select id="number" class="input-small" name="number">
+                {% for i in 1..100 %}
+                    <option value="{{ i }}" {% if chapter is defined and i==chapter.number %}selected="selected"{% endif %}>{{ i }}</option>
+                {% endfor %}
+            </select>
+
+            <div style="padding-top: 10px;">
+                <input type="hidden" name="published" value="0" />
+                <input type="checkbox" name="published" {% if chapter is defined and chapter.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Publish"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/library/chapters/'~book.id) }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+{% endblock content %}

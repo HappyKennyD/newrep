@@ -1,0 +1,22 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    {% for error in errors %}
+        {{ error }}
+    {% endfor %}
+    <div class="graybox news" style="margin-top: 10px">
+        <form action="" method="post">
+            <input type="hidden" name="token" value="{{ _token }}">
+            <h2 class="h2"><input type="text" style="width: 97%" name="name" value="{{ city.name }}"/></h2>
+            <div class="text">
+                <h4>Содержание всплывающего блока</h4>
+                <textarea class="redactor" name="tooltip" id="tooltip" style="width: 98%">
+                    {{ city.tooltip|raw }}
+                </textarea>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success">{{ "Save"|i18n }}</button>
+                <a class="btn" href="{{ Url.site(r) }}">{{ "Cancel"|i18n }}</a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

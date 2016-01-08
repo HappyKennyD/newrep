@@ -1,0 +1,16 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="item-list wrap">
+        {% include 'layout/bread-crumbs.twig' %}
+        {% for item in briefings %}
+            <div class="item">
+<!--                <div class="date">{{ Date.ru_date(item.date, 'd F Y') }}</div>
+    -->            <a class="s-item" href="{{ Url.site('briefings/view/'~item.id) }}">{{ item.title }}</a>
+                <div class="desc">{{ item.desc|raw }}</div>
+                <div class="clear"></div>
+            </div>
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+
+{% endblock content %}

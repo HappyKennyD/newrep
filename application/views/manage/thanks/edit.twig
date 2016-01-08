@@ -1,0 +1,45 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <h4>{{ "Edit/Add thank"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Name/FIO"|i18n }}</label>
+            {% if errors.name is defined %}
+                <span class="alert">{{ errors.name }}</span>
+            {% endif %}
+            <input type="text" name="name" id="name" class="input-xxlarge" value="{{ item.name }}" style="width: 98%;"/>
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if item.image is defined and item.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(item.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ item.image }}">
+                    </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/biography/clearimage/'~item.id) }}">{{ "Delete image"|i18n }}? &times;</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <br>
+
+            <label for="text">{{ "Text"|i18n }}</label>
+            {% if errors.text is defined %}
+                <span class="alert">{{ errors.text }}</span>
+            {% endif %}
+            <textarea class="redactor" name="text" id="text" style="width: 98%;">{{ item.text }}</textarea>
+
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Publish"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/thanks') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}

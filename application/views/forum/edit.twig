@@ -1,0 +1,13 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ "Edit theme"|i18n }}</h1></div>
+        <form method="post" action="">
+            <label for="name">{{ "Title"|i18n }}</label>
+            <input type="text" name="name" id="name" value="{{ item.name }}">
+            <br>
+            <button type="submit" class="btn btn-success">{{ "Save"|i18n }}</button>
+        </form>
+    </div>
+{% endblock content %}

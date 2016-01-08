@@ -1,0 +1,56 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form action="" method="POST">
+            <div>
+                <h4>{{ "Create / Edit debate"|i18n }}</h4>
+            </div>
+            <div>
+                <label for="title">{{ "Name of the debate"|i18n }}</label>
+                {% if errors.title is defined %}
+                    <span class="alert">{{ "Name of the debate should be filled"|i18n }}</span>
+                {% endif %}
+                <input type="text" name="title" class="input-xxlarge" id="title" style="width: 98%"
+                       value="{{ debate.title|striptags|raw|default("") }}">
+
+                <label for="description">{{ "Summary of debate"|i18n }}</label>
+                <textarea name="description" id="description" maxlength="10000" rows="3"
+                          style="width: 98%; resize: none;">{{ debate.description|striptags|raw|default("") }}</textarea>
+
+                <label for="author_email">{{ "E-mail the first participant in the debate"|i18n }}</label>
+                {% if errors.author_email is defined %}
+                    <span class="alert">{{ "User with such e-mail was not found"|i18n }}</span>
+                {% endif %}
+                {% if errors.members is defined %}
+                    <span class="alert">{{ "E-mail the participants have to be different"|i18n }}</span>
+                {% endif %}
+                <input type="text" name="author_email" id="author_email" class="input-xxlarge"
+                       value="{{ debate.author_email|striptags|raw|default("") }}" style="width: 98%;"/>
+
+                <label for="opponent_email">{{ "E-mail the second participant in the debate"|i18n }}</label>
+                {% if errors.opponent_email is defined %}
+                    <span class="alert">{{ "User with such e-mail was not found"|i18n }}</span>
+                {% endif %}
+                {% if errors.members is defined %}
+                    <span class="alert">{{ "E-mail the participants have to be different"|i18n }}</span>
+                {% endif %}
+                <input type="text" name="opponent_email" id="opponent_email" class="input-xxlarge"
+                       value="{{ debate.opponent_email|striptags|raw|default("") }}" style="width: 98%;"/>
+
+                <label for="lifetime">{{ "Duration debate"|i18n }}</label>
+
+                <p><select name="lifetime">
+                        {% for i in 3..14 %}
+                            <option value="{{ i*12 }}"
+                                    {% if debate.lifetime==i*12 %}selected{% endif %}>{{ i*12 }} {{ "hours "|i18n }}</option>
+                        {% endfor %}
+                    </select></p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/debate') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

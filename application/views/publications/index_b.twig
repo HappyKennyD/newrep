@@ -1,0 +1,23 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="wrap">
+        {% include 'layout/bread-crumbs.twig' %}
+        <h2>{{"Publications"|i18n}}</h2>
+        <div class="item-list">
+        {% for item in list %}
+            <div class="item">
+            <div class="date">{{ Date.ru_date(item.date, 'd F Y') }}</div>
+                <h4><a class="name" href="{{ Url.site('publications/view/'~item.id) }}">{{ item.title }}</a></h4>
+                {% if item.picture.file_path is defined %}
+                    <div class="photo">
+                    <img src="{{ Url.media('/images/w140-h100-cct-si/'~item.picture.file_path, TRUE) }}" alt="{{ item.title }}" title="{{ item.title }}"/>
+                </div>
+                {% endif %}
+                <div class="text">{{ item.desc }}</div>
+                <div class="clear"></div>
+            </div>
+        {% endfor %}
+            </div>
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

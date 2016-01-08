@@ -1,0 +1,17 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <div class="page-header">
+        <h4 class="pull-left">{{ chapter.book.title }} - {{ chapter.title }}</h4>
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/library/editchapter/'~chapter.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/library/deletechapter/'~chapter.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div>
+        {{ chapter.text|raw }}
+    </div>
+</div>
+
+{% endblock content %}

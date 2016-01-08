@@ -1,0 +1,40 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-left">
+            <ul class="breadcrumb">
+                {{ title }}
+            </ul>
+        </div>        <div class="pull-right">
+            <a class="btn" href="{{ Url.media('manage/sliders/edit?type='~type) }}"><i class="icon-plus">{{ "Add"|i18n }}</i></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page" style="padding: 15px;">
+        <table class="table table-striped">
+        {% for slider in sliders  %}
+            <tr>
+                <td style="min-width: 80px;"><img width="80" height="80" src="{% if slider.picture.file_path is defined %}{{ Url.site(slider.picture.file_path, TRUE) }}{% endif %}" alt="{{ "Preview"|i18n }}" /></td>
+                <td><a href="{{ slider.link }}">{{ slider.title~'('~slider.link~')' }}</a></td>
+                <td>
+                    <div class="pull-right btn-group">
+                        {% if not loop.first %}
+                            <a class="btn btn-success btn-mini" href="{{ Url.media('manage/sliders/up/' ~slider.id ~ '?type='~type) }}"><i class="icon-arrow-up"></i></a>
+                        {% endif %}
+                        {% if not loop.last %}
+                            <a class="btn btn-danger btn-mini" href="{{ Url.media('manage/sliders/down/' ~slider.id ~ '?type='~type) }}"><i class="icon-arrow-down"></i></a>
+                        {% endif %}
+                        <a class="btn btn-mini" href="{{ Url.media('manage/sliders/active/' ~slider.id ~ '?type='~type) }}">{% if slider.is_active %}<i class="icon-eye-close"></i> {{ "Скрыть"|i18n }}{% else %}<i class="icon-eye-open"></i> {{ "Показать"|i18n }}{% endif %}</a>
+                        <a class="btn btn-mini" href="{{ Url.media('manage/sliders/edit/' ~slider.id ~ '?type='~type) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/sliders/delete/'~slider.id ~ '?type='~type) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+                    </div>
+                    <div class="clear"></div>
+                </td>
+            </tr>
+
+        {% endfor %}
+        </table>
+    </div>
+
+
+{% endblock content %}

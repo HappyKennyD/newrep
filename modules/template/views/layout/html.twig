@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="{{ _language }}">
+<head>
+    <title>{{ _metadata.title }}</title>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" value="IE=Edge,chrome=1"/>
+    <meta name="description" content="{{ _metadata.description }}"/>
+    <meta property="og:title" content="{{ _metadata.title }}" />
+    <meta property="og:description" content="{{ _metadata.description }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{{ Url.media('/favicon.ico') }}"/>
+    <link rel="icon" href="{{ Url.media('/favicon.ico') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/bootstrap/bootstrap.min.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/bootstrap/bootstrap-responsive.min.css') }}"/>
+    <!--[if IE]><![if !IE]><![endif]--><link rel="stylesheet" href="{{ Url.media('media/css/font-awesome/font-awesome-embedded.css') }}"/><!--[if IE]><![endif]><![endif]-->
+    <!--[if IE]><link rel="stylesheet" href="{{ Url.media('media/css/font-awesome/font-awesome-embedded-ie.css') }}"/><![endif]-->
+    <link rel="stylesheet" href="{{ Url.media('media/css/font-awesome/font-awesome.min.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/index.css') }}"/>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery/jquery.caroufredsel.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/bootstrap/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jwplayer/jwplayer.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+
+    <div class="masthead">
+        <div class="clearfix">
+        <h3 class="muted pull-left"><a href="{{ Url.site('/') }}">{{'title'|i18n}}</a></h3>
+        <div class="pull-right" style="text-align: right;margin-top: 30px;">
+            <div class="language-selector">
+                {% if _language != 'cz' %}<a class="language-switch" href="{{ Url.media('cz/' ~ _return) }}"><span>česky</span></a>{% else %}<span class="language-switch">česky</span>{% endif %}
+                <span class="language-separator">&nbsp;</span>
+                {% if _language != 'ru' %}<a class="language-switch" href="{{ Url.media('ru/' ~ _return) }}"><span>по-русски</span></a>{% else %}<span class="language-switch">по-русски</span>{% endif %}
+                <span class="language-separator">&nbsp;</span>
+                {% if _language != 'en' %}<a class="language-switch" href="{{ Url.media('en/' ~ _return) }}"><span>in english</span></a>{% else %}<span class="language-switch">in english</span>{% endif %}
+            </div>
+        </div>
+        </div>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="container">
+                    <ul class="nav pull-left">
+                        <li {% if _request.controller()|lower == 'default' %}class="active"{% endif %}><a href="{{ Url.site('/') }}">{{ "Home"|i18n }}</a></li>
+                        <li {% if _request.controller()|lower == 'video' %}class="active"{% endif %}><a href="{{ Url.site('video')}}">{{ "Video"|i18n }}</a></li>
+                        <li {% if _request.controller()|lower == 'broadcast' %}class="active"{% endif %}><a href="{{ Url.site('broadcast') }}">{{ "Broadcast"|i18n }}</a></li>
+                        <li class=" dropdown {% if _request.controller()|lower == 'genre' %}active{% endif %}"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ "Genres"|i18n }}</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Все</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Авто и техника</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Приколы</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Музыка</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">События</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Спорт</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Игры</a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Эротика</a></li>
+                            </ul>
+                        </li>
+                        </ul>
+                        <ul class="nav pull-right">
+                        {% if not _user %}
+                        <li><a href="{{ Url.site('auth/register') }}">{{ "Register"|i18n }}</a></li>
+                        <li><a href="{{ Url.site('auth/enter') }}">{{ "Login"|i18n }}</a></li>
+                        {% else %}
+                            <li><button class="btn btn-mini btn-success" style="margin: 10px 5px 0 0;" onclick="document.location.href='{{ Url.site('video/upload') }}'"><i class="icon-upload"></i> Загрузить видео</button></li>
+                            <li><button class="btn btn-mini btn-inverse" style="margin: 10px 5px 0 0;" onclick="document.location.href='{{ Url.site('broadcast/start') }}'"><i class="icon-play"></i> Начать трансляцию</a></li>
+                            <li><a href="#">На счету <span class="badge badge-info">0</span> единиц</a></li>
+                            <li class="dropdown"><a href="#"  class="dropdown-toggle" data-toggle="dropdown"><img src="{{ Url.media('images/w18-h18-sa/' ~ _user.profile.image.file_path) }}" alt=""/> {{ _user.profile.first_name }} {{ _user.profile.last_name }}</a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Личный кабинет</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Платные услуги</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Друзья</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Мои видео</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">История просмотров</a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Пополнить баланс</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="{{ Url.site('auth/logout') }}">{{ "Logout"|i18n }}</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div><!-- /.navbar -->
+    </div>
+    {% block content %}
+    {% endblock content %}
+
+    <div class="footer clearfix">
+        <div class="pull-left">
+        <p>Название компании &copy; 2013</p>
+        <p><a href="#">Разработка и поддержка</a></p>
+        </div>
+        <div class="pull-right">
+            <a href="#">FAQ</a>
+            <a href="#">Соглашение</a>
+            <a href="#">Контакты</a>
+            <a href="#">Новости</a>
+            <a href="#">Партнерам</a>
+            <a href="#">Реклама</a>
+            <a href="#">О нас</a>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+</body>
+</html>

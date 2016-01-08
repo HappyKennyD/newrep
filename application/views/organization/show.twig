@@ -1,0 +1,151 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/contacts.css') }}?v=2.3" />
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/contacts.js') }}"></script>
+
+    <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/photogallery.css') }}"/>
+    <script type="text/javascript">
+    ymaps.ready(function  () {
+
+        var myMap;
+
+        $('.fancybox').fancybox({height:600,afterShow : function() {
+
+            myMap = new ymaps.Map('inline1', {
+                center: {% if content.coords_label %}[{{ content.coords_label|split(',')[1] }},{{ content.coords_label|split(',')[0] }}]{% endif %},
+                zoom: {% if content.scale %}[{{ content.scale }}]{% else %}16{% endif %},
+                behaviors: ["scrollZoom","drag"]
+            });
+
+            var myPlacemark = new ymaps.Placemark({% if content.coords_label %}[{{ content.coords_label|split(',')[1] }},{{ content.coords_label|split(',')[0] }}]{% endif %}, {
+                // Свойства
+                balloonContentHeader: '<strong>{{content.title}}</strong>',
+                balloonContentBody: '{{content.address}}',
+                balloonContentFooter: {% if content.site %}'Сайт: <a rel="nofollow" href="http://{{content.site}}" target="_blank">{{content.site}}</a>'{% elseif content.phone and content.phone|split('|')|length > 1 %}'Тел.:{% for item in content.phone|split('|') %}{% if item %}{{item}}<br>{% endif %}{% endfor %}'{% else %}' '{% endif %}
+            }, {
+                // Опции
+                preset: 'twirl#blueStretchyIcon',
+                balloonMaxWidth: 250
+            });
+
+            // Добавляем метку на карту
+            myMap.geoObjects.add(myPlacemark);
+
+        }, afterClose:function (){
+            myMap.destroy();
+            myMap = null;
+        }});
+    });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        {% include 'layout/bread-crumbs.twig' %}
+        <div id="contacts-left-content">
+            <div class="page-h1-title"><h1 class="nocaps">{{content.title}}</h1></div>
+            
+            <div id="contacts-announce">
+                <div></div>
+                <p>{{ content.description }}</p>
+            </div>
+            {% if content.picture.file_path is defined %}
+                <div class="contacts-preview">
+                    <img src="{{ Url.media('/images/w620-cct-si/'~content.picture.file_path, TRUE) }}" alt=""/>
+                </div>
+            {% endif %}
+            
+            <div class="contacts-persons">
+                <table>
+                    <colgroup>
+                        <col width="160" />
+                        <col />
+                    </colgroup>
+                    {% for item in people %}
+                        <tr>
+                             <td>
+                                {% if item.picture.file_path is defined %}
+                                    <img src="{{ Url.media('/images/w140-cct-si/'~item.picture.file_path, TRUE) }}" alt="" />
+                                {% endif %}
+                             </td>
+                             <td>
+                                 <h3>{{item.fio}}</h3>
+                                 <p class="contact-position">{{item.rank}}</p>
+                                 <div class="contact-brief"><p>{{ item.description }}</p></div>
+                             </td>
+                         </tr>
+                        <tr><td colspan="2" class="contacts-clear"></td></tr>
+                    {% endfor %}
+                </table>
+            </div>
+            
+            <div class="contacts-likes">
+                <script type="text/javascript">(function () {
+                        if (window.pluso) if (typeof window.pluso.start == "function") return;
+                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                        s.type = 'text/javascript';
+                        s.charset = 'UTF-8';
+                        s.async = true;
+                        s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                        var h = d[g]('head')[0] || d[g]('body')[0];
+                        h.appendChild(s);
+                    })();</script>
+                <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+            </div>
+        </div>
+
+        {{ paginate|raw }}
+        
+        <div id="contacts-right-content">
+            {% if content.scale %}
+            <div class="yandex-maps-block">
+                <div class="div100">
+                    <img src="http://static-maps.yandex.ru/1.x/?l=map&ll={{content.coords_label}}&z={{content.scale}}&size=220,165&pt={{content.coords_label}},pm2blm" width="220" height="165" alt=""/>
+                </div>
+                
+                <a href="#inline1" id="show-big-yandex-map" class="fancybox" title="{{ content.title }}"></a>
+                <div id="inline1" style="width:600px; height:530px; display: none;"></div>
+            </div>
+            {% endif %}
+
+            <div id="contacts-information-block">
+                <ul>
+                    {% if content.address %}
+                        <li class="info-title">{{ "Address"|i18n }}</li>
+                        <li>{{content.address}}</li>
+                    {% endif %}
+                    {% if content.phone and content.phone|split('|')|length > 1 %}
+                    <li class="info-title">{{ "Tel."|i18n }}</li>
+                        {% for item in content.phone|split('|') %}
+                            {% if item %}
+                                <li>{{item}}</li>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                    {% if content.fax %}
+                        <li class="info-title">{{ "Fax"|i18n }}</li>
+                        <li>{{content.fax}}</li>
+                    {% endif %}
+                    {% if content.email %}
+                        <li class="info-title">{{ "E-mail"|i18n }}</li>
+                        <li><a href="mailto:{{content.email}}">{{content.email}}</a></li>
+                    {% endif %}
+                    {% if content.site %}
+                        <li class="info-title">{{ "Web site"|i18n }}</li>
+                        <li><a href="http://{{content.site}}" target="_blank"><span>{{content.site}}</span></a></li>
+                    {% endif %}
+                    {% if content.social_fb or content.social_vk or content.social_twitter %}
+                        <li class="info-title">{{ "social"|i18n }}</li>
+                        <li class="contacts-soc">
+                            {% if content.social_fb %}<a href="http://{{content.social_fb}}" class="contacts-facebook" target="_blank"></a>{% endif %}
+                            {% if content.social_vk %}<a href="http://{{content.social_vk}}" class="contacts-vk" target="_blank"></a>{% endif %}
+                            {% if content.social_twitter %}<a href="http://{{content.social_twitter}}" class="contacts-twitter" target="_blank"></a>{% endif %}
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

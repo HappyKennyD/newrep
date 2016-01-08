@@ -1,0 +1,81 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/briefings/edit/'~briefing.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/briefings/delete/'~briefing.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+            ({{ Date.ru_date(briefing.date, 'd F Y H:i:s') }})<br>
+            <h4>{{ briefing.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            <strong>{{ briefing.desc|raw }}</strong>
+        </div><br>
+
+        {% if briefing.video %}
+            <div class="well" style="text-align: center">
+                <script type="text/javascript" src="{{ Url.media('media/swf/swfobject.js') }}"></script>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        var parameters =
+                        {	id: "1"
+                            ,	src: "rtmp://kisstelevision.es.flash3.glb.ipercast.net/kisstelevision.es-live/live"
+                            ,	autoPlay: "true"
+                            ,   width: "638"
+                            ,   height: "400"
+                            ,	autoHideControlBar: "true"
+                            ,	controlBarPosition: "over"
+                            ,   streamType: 'live'
+                        };
+
+                        // Embed the player SWF:
+
+                        swfobject.embedSWF
+                        ( "{{ Url.media('/osmf.swf') }}"
+                                , "player"
+                                , parameters["width"], parameters["height"]
+                                , "10.0.0"
+                                , {}
+                                , parameters
+                                , { allowFullScreen: "true" }
+                                , { name: "StrobeMediaPlayback" }
+                        );
+                    });
+                </script>
+                <div id="player"></div>
+            </div>
+        {% elseif briefing.link %}
+            <div>
+                <iframe width="560" height="315" src="http://www.youtube.com/embed/{{ briefing.link }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        {% endif %}
+
+        <div>
+            {{ briefing.text|raw }}
+        </div>
+        <div class="clear"></div>
+
+        {#<h5>Комментарии:</h5>
+        {% for item in comments %}
+        <div>
+            <div class="pull-right btn-group">
+                {% if item.published %}
+                    <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/briefings/publcomment/'~item.id) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                {% else %}
+                    <a class="btn btn-mini btn-success" href="{{ Url.media('manage/briefings/publcomment/'~item.id) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                {% endif %}
+                <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/briefings/delcomment/'~item.id) }}"><i class="icon-remove"> </i></a>
+
+            </div>
+            <div class="pull-left">
+                {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}, {{ Date.ru_date(item.date, 'd F Y') }} <br>
+                {{ item.text }}
+            </div>
+        </div>
+        <div class="clear"></div>
+        {% endfor %}#}
+
+    </div>
+{% endblock content %}

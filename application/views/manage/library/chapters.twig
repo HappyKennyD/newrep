@@ -1,0 +1,43 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <div class="page-header">
+        <h4 class="pull-left">{{ book.title }} - {{ "Chapters"|i18n }}</h4>
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/library/editchapter?book='~book.id) }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in chapters %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <a href="{{ Url.media('manage/library/viewchapter/'~item.id) }}">{{ item.title }}</a>
+                        <div class="pull-right">
+                            <div class="btn-group">
+                                {% if item.published==1 %}
+                                    <a class="btn btn-mini btn-success" href="{{ Url.media('manage/library/showchapter/'~item.id) }}"><i class="icon-eye-close"></i> {{ "Hide"|i18n }}</a>
+                                {% else %}
+                                    <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/library/showchapter/'~item.id) }}"><i class="icon-eye-open"></i> {{ "Unhide"|i18n }}</a>
+                                {% endif %}
+                            </div>
+
+                            <div class="btn-group">
+                                <a class="btn btn-mini" href="{{ Url.media('manage/library/pluschapter/'~item.id) }}"><i class="icon-plus"></i></a>
+                                <a class="btn btn-mini btn-success" href="#">{{ "Number"|i18n }}: {{ item.number }}</a>
+                                <a class="btn btn-mini" href="{{ Url.media('manage/library/minuschapter/'~item.id) }}"><i class="icon-minus"></i></a>
+                            </div>
+
+                            <div class="btn-group">
+                                <a class="btn btn-mini" href="{{ Url.media('manage/library/editchapter/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                                <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/library/deletechapter/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

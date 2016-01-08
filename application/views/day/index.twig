@@ -1,0 +1,52 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/v1.css') }}" />
+    <!-- <link href="{{ Url.media('media/css/dist/vis.css') }}" rel="stylesheet" type="text/css" /> -->
+    <link rel="stylesheet" href="{{ Url.media('media/js/build/css/timeline.css') }}">
+<style>
+section{
+  height: 600px;
+}
+</style>
+{% endblock %}
+{% block extrascripts %}
+    <!--<script src="{{ Url.media('media/js/dist/vis.js') }}"></script>-->
+    <!--<script type="text/javascript" src="{{ Url.media('media/js/map.js') }}"></script>-->
+    
+    <!--<script type="text/javascript" src="{{ Url.media('media/js/timeline.js') }}"></script>-->
+    <!--<script type="text/javascript" src="{{ Url.media('media/js/Embed.js') }}"></script>-->
+{% endblock %}
+{% block content %}
+<div style="
+    position: absolute;
+    top: 17px;
+    right: 637px;
+    width: 46px;
+    height: 30px;
+    background-color: rgb(90, 64, 47);
+    z-index: 9999;
+"></div>
+{%if _language=='ru'%}
+	<div id="timeline-embed"></div>
+	<script type="text/javascript">
+		var timeline_config = {
+			width: "80%",
+			height: "100%",
+			source: 'https://docs.google.com/spreadsheets/d/1grQl-qI3BOW1UNi1vcneDGoDuVd3R4SR0jrgnMu3jYg/pubhtml',
+			lang: 'ru'
+		}
+	</script>
+	<script type="text/javascript" src="{{ Url.media('media/js/build/js/storyjs-embed.js') }}"></script>
+{%else%}
+	<div id="timeline-embed"></div>
+	<script type="text/javascript">
+		var timeline_config = {
+			width: "80%",
+			height: "100%",
+			source: 'https://docs.google.com/spreadsheets/d/1rfE6kcQ_thIzHU0ebpzJTKilNydVgu1S1D_l7QzQXko/pubhtml',
+			lang: 'kk'
+		}
+	</script>
+	<script type="text/javascript" src="{{ Url.media('media/js/build/js/storyjs-embed.js') }}"></script>
+{%endif%}
+{% endblock content %}

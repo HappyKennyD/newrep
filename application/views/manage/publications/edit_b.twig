@@ -1,0 +1,126 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form method="post">
+            <div>
+                <h4>{{ "Редактирование / добавление"|i18n }}</h4>
+            </div>
+            <div>
+                <label for="title">{{ "Title"|i18n }}</label>
+                {% if errors.title is defined %}
+                    <span class="alert">{{ errors.title }}</span>
+                {% endif %}
+                <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}"
+                       style="width: 98%;"/>
+                <label>{{ "Image"|i18n }}</label>
+                {{ uploader|raw }}
+
+                <input type="hidden" id="x1" name="x1" value="">
+                <input type="hidden" id="y1" name="y1" value="">
+                <input type="hidden" id="h" name="h" value="">
+                <input type="hidden" id="w" name="w" value="">
+
+                {% if item.image is defined and item.image %}
+                    <img src="{{ Url.media(item.picture.file_path, TRUE) }}" id="target" alt=""/>
+                    <div id="cutpicture">
+                        <a class='btn btn-success' id="cutpic">{{ "Выбрать выделенную область"|i18n }}</a>
+                    </div>
+
+                    <div id="buttondelete">
+                        <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')"
+                           href="{{ Url.site('manage/publications/'~type~'/clearimage/'~item.id) }}">Удалить
+                            изображение? &times;</a>
+                    </div>
+
+                    <label>{{ "Изображение для обложки"|i18n }}</label>
+                    {#<img {% if item.carved.id!=0 %} src="{{Url.media(item.carved.file_path, TRUE)}}" {% else %} src="/media/images/v1/pixel.png" {% endif %}id="cutresult" alt=""/>#}
+
+                    <input type="hidden" id="param" name="param" value="{{ item.picture.file_path }}">
+                    <input type="hidden" id="image" name="image" value="{{ item.picture.id }}">
+                    {#<input type="hidden" id="carved_id" name="carved_id" value="{{item.carved.id}}">#}
+
+                {% else %}
+                    <img src="/media/images/v1/pixel.png" id="target" alt=""/>
+                    {#<img alt="" id="photo" style="display: none;" /> #}
+
+                    <div id="cutpicture">
+                    </div>
+
+                    <div id="buttondelete">
+                    </div>
+
+                    <label>{{ "Изображение для обложки"|i18n }}</label>
+                    <img src="/media/images/v1/pixel.png" id="cutresult" alt=""/>
+
+                    <input type="hidden" id="param" name="param" value="">
+                    <input type="hidden" id="image" name="image" value="">
+                    <input type="hidden" id="carved_id" name="carved_id" value="">
+                {% endif %}
+
+
+                <label for="desc">{{ "Краткое описание (максимум 200 символов)"|i18n }}</label>
+                {% if errors.desc is defined %}
+                    <span class="alert">{{ errors.desc }}</span>
+                {% endif %}
+                <textarea name="desc" id="desc" maxlength="200" rows="3"
+                          style="width: 98%; resize: none;">{{ item.desc }}</textarea>
+                <label for="text">{{ "Text"|i18n }}</label>
+                {% if errors.text is defined %}
+                    <span class="alert">{{ errors.text }}</span>
+                {% endif %}
+                <textarea class="redactor" name="text" id="text" style="width: 98%;">{{ item.text }}</textarea>
+                <label for="datepicker">{{ "Date"|i18n }}</label>
+                <input type="text" name="date" class="datepicker"
+                       data-date="{% if item.date is empty %}{{ "now"|date("Y-m-d H:i") }}{% else %}{{ item.date|date("Y-m-d H:i") }}{% endif %}"
+                       data-date-format="dd.mm.yyyy hh:ii"
+                       value="{% if item.date is empty %}{{ "now"|date("d.m.Y H:i") }}{% else %}{{ item.date|date("d.m.Y H:i") }}{% endif %}"
+                       id="datepicker" readonly style="cursor: pointer"/>
+
+                <div>
+                    <label for="tags">{{ "Tags"|i18n }}</label>
+                    <input type="text" name="tags" id="tags" class="input-xxlarge" value="{{ public_tags }}"
+                           style="width: 98%;"/>
+                </div>
+                <div>
+                    <input type="hidden" name="is_important" value="0">
+                    <input type="checkbox"
+                           name="is_important" {% if item.is_important is not defined or item.is_important %} checked="checked" {% endif %}
+                           value="1" id="is_important" style="margin: 0 5px 1px 0;"><label for="is_important"
+                                                                                           style="display: inline;">{{ "На главную"|i18n }}</label>
+                </div>
+                <div>
+                    <input type="hidden" name="published" value="0">
+                    <input type="checkbox"
+                           name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %}
+                           value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published"
+                                                                                        style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+                </div>
+                {% if type=='publication' %}
+                    <div>
+                        <input type="hidden" name="is_slider" value="0">
+                        <input type="checkbox"
+                               name="is_slider" {% if item.is_slider is not defined or item.is_slider %} checked="checked" {% endif %}
+                               value="1" id="is_slider" style="margin: 0 5px 1px 0;"><label for="is_slider"
+                                                                                            style="display: inline;">{{ "В слайдер"|i18n }}</label><br/>
+                        <select name="slider_position" id="slider_position">
+                            <option value="0" {% if item.slider_position==0 %}selected="selected"{% endif %}>Позиция -
+                                верх
+                            </option>
+                            <option value="1" {% if item.slider_position==1 %}selected="selected"{% endif %}>Позиция -
+                                центр
+                            </option>
+                            <option value="2" {% if item.slider_position==2 %}selected="selected"{% endif %}>Позиция -
+                                низ
+                            </option>
+                        </select>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="modal-footer">
+                <a href="{{ Url.media('manage/publications/'~type) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock content %}

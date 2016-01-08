@@ -1,0 +1,17 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="post">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+            <h4>{{ "Delete"|i18n }}</h4>
+        </div>
+        <div class="modal-body">
+            <p>{{ "Delete"|i18n }} «{{ record.title }}»?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.site('manage/education') }}" class="btn">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-danger">{{ "Delete"|i18n }}</button>
+        </div>
+    </form>
+{% endblock content %}

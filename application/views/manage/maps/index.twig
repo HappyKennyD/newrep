@@ -1,0 +1,8 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    {% for item in districts %}
+        <div class="list-row">
+            <a href="{{ Url.media('manage/maps/view/'~item.id) }}">{{ item.name }}</a>
+        </div>
+    {% endfor %}
+{% endblock content %}

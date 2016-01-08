@@ -1,0 +1,31 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/ent.css') }}" />
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/ent.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <div class="div100"><h1>{{ "ENT"|i18n }}</h1></div>
+        
+        <div id="ent-description-text">
+            <p>{{ "ENT description"|i18n }}</p>
+        </div>
+        
+        <div id="ent-test-list">
+            {% for item in ent %}
+                <div class="test-list-item">
+                    <a href="{{ Url.site('ent/test/'~item.id) }}">{{ item.title }}<a>
+                </div>
+                <div class="test-line"></div>
+            {% else %}
+                {{ "ENT notfoundcontent"|i18n }}
+            {% endfor %}
+        </div>
+
+        <div class="ent-clear"></div>
+    </div>
+{% endblock content %}

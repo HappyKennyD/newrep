@@ -1,0 +1,64 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jshashtable-2.1_src.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jquery.numberformatter-1.2.3.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/tmpl.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jquery.dependClass-0.1.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/draggable-0.1.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/polzunok/jquery.slider.js') }}"></script>
+    <link rel="stylesheet" href="{{ Url.media('media/js/polzunok/jslider.css') }}"/>
+    <style type="text/css">
+        .bar{
+            -moz-box-sizing: border-box;
+            background-color: #DFCDBE;
+            color: #4D3A34;
+            cursor: pointer;
+            font-size: 12px;
+            height: 30px;
+            line-height: 30px;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+    </style>
+<form action="" style="margin:0" method="post">
+    <div class="modal-header">
+        <h4>Добавление</h4>
+    </div>
+    <div class="page" style="margin: 0 15px 0 15px">
+        <label for="name">{{ "Название"|i18n }}</label>
+        <input type="text" name="name" class="input-xxlarge" id="name" style="width: 98%">
+        <label for="start">{{ "Начало периода"|i18n }}</label>
+        <input type="text" name="start" class="input-xxlarge" value="{{page.start}}" id="start" style="width: 98%">
+        <label for="finish">{{ "Конец периода"|i18n }}</label>
+        <input type="text" name="finish" class="input-xxlarge" value="{{page.finish}}" id="finish" style="width: 98%">
+        <label for="key">{{ "Ключ"|i18n }}</label>
+        <input type="text" name="key" class="input-xxlarge" id="key" style="width: 98%">
+        {% if period.lvl > 1 %}
+        <div class="layout-slider" style="width: 100%; margin: 10px 0 20px 0">
+            <div class="bar">{{ period.name }} ({{ period.start }} - {{ period.finish }})</div>
+            {% for s in siblings %}
+                <div style="margin: 10px 0 15px 0;">{{ s.name }} ({{ s.start }} - {{ s.finish }})</div>
+                <span style="display: inline-block; width: 100%; padding: 0 5px;">
+                    <input type="slider" name="value[]" value="{{ s.value }}" class="slider" />
+                </span>
+            {% endfor %}
+            <div style="margin: 10px 0 15px 0;"><strong>Новый период</strong></div>
+                <span style="display: inline-block; width: 100%; padding: 0 5px;">
+                    <input type="slider" name="value[]" value="80;90" class="slider" />
+                </span>
+            </div>
+        {% endif %}
+    </div>
+    <div class="modal-footer">
+        <a href="{{ cancel_url }}" class="btn btn-link">Отмена</a>
+        <button class="btn btn-success"><i class="icon-ok"></i> Сохранить</button>
+    </div>
+</form>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            jQuery(".slider").slider({ from: 1, to: 100, step: 1, smooth: true, round: 0, dimension: "&nbsp;%", skin: "plastic" });
+        });
+    </script>
+{% endblock content %}

@@ -1,0 +1,108 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#cats-toggler').click(function(e){
+            e.preventDefault();
+            $('#cats-container').toggle();
+        });
+    });
+</script>
+
+<div style="padding: 20px;">
+    <div class="page-header">
+        <h4>{{ "Library"|i18n }}</h4>
+        {#<a id="cats-toggler" href="#" style="border-bottom: 1px dotted;">{{ "select category"|i18n }}</a>#}
+
+        <div id="cats-container" style="display: none; background: #d3d3d3; padding: 10px;">
+            {% for item in cats %}
+                {% if item.mama() %}
+                    <div style="padding-left: {{ item.level }}em">
+                        <span>{{ item.name }}</span>
+                    </div>
+                {% else %}
+                    <div style="padding-left: {{ item.level }}em">
+                        <a href="{{ Url.media('manage/library?category='~item.id) }}">{{ item.name }}</a>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+
+        <div class="pull-right">
+            {#<a class="btn" href="{{ Url.media('manage/library/category') }}"><i class="icon-list"></i> {{ "Categories list"|i18n }}</i></a>#}
+            <a class="btn btn-success" href="{{ Url.media('manage/library/editbook') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        <div style="padding-left: 10px;">
+            {% if cat is defined %}
+                {{ "Category"|i18n }}: <span class="label label-success">{{ cat.name }}</span>
+            {% endif %}
+        </div>
+
+        {% for item in books %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+
+                        {#<div class="pull-left btn-group">#}
+                            {#{% if item.show_ru %}#}
+                                {#<a class="btn btn-mini btn-success" href="{{ Url.media('manage/library/show_ru/'~item.id) }}">RU</a>#}
+                            {#{% else %}#}
+                                {#<a class="btn btn-mini btn-warning" href="{{ Url.media('manage/library/show_ru/'~item.id) }}">RU</a>#}
+                            {#{% endif %}#}
+                            {#{% if item.show_kz %}#}
+                                {#<a class="btn btn-mini btn-success" href="{{ Url.media('manage/library/show_kz/'~item.id) }}">KZ</a>#}
+                            {#{% else %}#}
+                                {#<a class="btn btn-mini btn-warning" href="{{ Url.media('manage/library/show_kz/'~item.id) }}">KZ</a>#}
+                            {#{% endif %}#}
+                            {#{% if item.show_en %}#}
+                                {#<a class="btn btn-mini btn-success" href="{{ Url.media('manage/library/show_en/'~item.id) }}">EN</a>#}
+                            {#{% else %}#}
+                                {#<a class="btn btn-mini btn-warning" href="{{ Url.media('manage/library/show_en/'~item.id) }}">EN</a>#}
+                            {#{% endif %}#}
+                        {#</div>#}
+
+                        {% for t in item.category.tree() %}
+                            <div style="padding: 5px; display: inline;"><span class="label label-info">{{ t }}</span></div>
+                        {% endfor %}
+
+                        <img src="{{ Url.media('media/theme/uchebnik/mini_book.png') }}" style="width: 45px;"/>
+
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/library/book/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "View"|i18n }}</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/library/editbook/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                            {#{% if item.published %}#}
+                                {#<a class="btn btn-mini btn-warning" href="{{ Url.media('manage/library/published/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Hide"|i18n }}</a>#}
+                            {#{% else %}#}
+                                {#<a class="btn btn-mini btn-success" href="{{ Url.media('manage/library/published/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "Unhide"|i18n }}</a>#}
+                            {#{% endif %}#}
+                            {#{% if item.is_important %}#}
+                                {#<a class="btn btn-mini btn-warning" href="{{ Url.media('manage/library/important/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Remove from main"|i18n }}</a>#}
+                            {#{% else %}#}
+                                {#<a class="btn btn-mini btn-success" href="{{ Url.media('manage/library/important/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "On main"|i18n }}</a>#}
+                            {#{% endif %}#}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/library/delete/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                            <br />
+                        </span>
+                        <br />
+                        <a class="link" href="{{ Url.media('manage/library/book/'~item.id) }}">{{ item.subject }}, {{ item.class }} класс, язык обучения: {{ item.language }} </a>
+                        {% if item.type=='pdf' and item.pdf.loaded() %}
+                            (<a href="{{ Url.media(item.pdf.file_path) }}">{{ "download"|i18n }}</a>)
+                        {% endif %}
+                    </div>
+                    <div>
+                        {{ item.description|raw }}<br>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,12 @@
+<div id="breadcrumbs">
+    <a class="b-item" href="{{ Url.site('/') }}">{{ 'Home'|i18n }}</a>
+    {% for bread in _breadcumbs %}
+        {% if loop.last or bread['url'] is empty %}
+            <span class="b-item">{{ bread['title']|i18n }}</span>
+        {% else %}
+            <a class="b-item" href="{{ Url.site(bread['url']) }}">{{ bread['title']|i18n }}</a>
+        {% endif %}
+        {% if not loop.last %}
+            {% endif %}
+    {% endfor %}
+</div>

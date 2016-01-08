@@ -1,0 +1,22 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form action="" method="post">
+            <input type="hidden" value="{{ token }}" name="token">
+            <div class="modal-header">
+                <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+                <h4>{% if item.is_closed==0 %} {{ "Hiding debate"|i18n }}{% else %}{{ "Displaying debate"|i18n }}{% endif %}</h4>
+            </div>
+            <div class="modal-body">
+                <p>{% if item.is_closed==0 %} {{ "Hide debate"|i18n }}{% else %}{{ "Display debate"|i18n }}{% endif %}
+                    «{{ item.title|raw|striptags }}»?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-danger">
+                    {% if item.is_closed==0 %} {{ "Hide "|i18n }}{% else %}{{ "Display "|i18n }}{% endif %}
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

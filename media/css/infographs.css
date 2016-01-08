@@ -1,0 +1,70 @@
+#infograph-list, .in-likes-block, .infograph-likes, .in-info-date, .infograph-big-photo, .infograph-photo, .infograph-date, .infograph-item-title, .infograph-item-clear {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.infograph-block {
+    position: relative;
+    float: left;
+}
+
+.infograph-block {
+    width: 427px;
+}
+
+.infograph-item-clear {
+    height: 35px;
+}
+
+.infograph-2 {
+    left: 86px;
+}
+
+.infograph-item-title {
+    line-height: 22px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 12px;
+}
+
+.infograph-item-title a {
+    text-decoration: underline;
+}
+
+.infograph-item-title a:hover {
+    text-decoration: none;
+}
+
+.infograph-date {
+    line-height: 22px;
+    font-size: 14px;
+    color: #999999;
+    font-style: italic;
+    margin-top: 12px;
+}
+
+#infograph-list {
+    margin-top: 20px;
+}
+
+.in-info-date {
+    line-height: 22px;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.infograph-big-photo {
+    margin-top: 30px;
+}
+
+.infograph-likes {
+    margin-top: 35px;
+    height: 60px;
+    border-top: solid 1px #e0e0e0;
+}
+
+.in-likes-block {
+    height: 27px;
+    margin-top: 17px;
+}

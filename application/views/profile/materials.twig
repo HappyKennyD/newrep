@@ -1,0 +1,140 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/profile.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    {#<script type="text/javascript" src="{{ Url.media('media/js/profile.js') }}"></script>#}
+    {% include 'profile/profilejs.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="cabinet-left">
+            <div class="div100"><h1>{{ "Downloaded Content"|i18n }}</h1></div>
+
+            <div id="loaded-materials-list">
+                {% for item in materials %}
+                    <div class="material-item">
+                        <div class="material-item-title">{{ item.title|raw|striptags }}</div>
+                        <div class="material-item-date">{{ Date.translate(item.date,'d.m.Y, H:i') }}</div>
+                        <div class="material-item-date"
+                             style="color:#{% if item.status==1 %}009900{% elseif item.status==0 %}CC0033{% else %}333399{% endif %}">
+                            {{ "Status"|i18n }}
+                            : {% if item.status==1 %}{{ "Approved"|i18n }}{% elseif item.status==0 %}{{ "Rejected"|i18n }}{% else %}{{ "On the job"|i18n }}{% endif %}</div>
+                        <div class="material-item-announce">{{ item.message|raw|striptags }}
+                        </div>
+                        {% if item.status!=2 %}
+                            <div class="material-answer-title"><strong>{{ item.moderator.username }}</strong>
+                                <span>{{ Date.translate(item.mod_date,'d.m.Y, H:i') }}</span>
+                            </div>
+                            <div class="material-answer-text">
+                                {{ item.mod_message|raw|striptags }}
+                            </div>
+                        {% endif %}
+                        <div class="material-added-files">
+                            <div class="material-added-title">
+                                <a href="javascript:void(0)">{{ "Attachments"|i18n }}</a>
+                            </div>
+                            <div class="material-files-list">
+                                <table>
+                                    {% for file in item.files.find_all() %}
+                                        <tr>
+                                            <td><a target="_blanc"
+                                                   href="{{ Url.media(file.storage.file_path) }}">{{ file.storage.name }}</a>
+                                            </td>
+                                            <td><span>{{ FileData.size(file.filesize) }}</span></td>
+                                        </tr>
+                                    {% endfor %}  
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-item{% if not loop.last %}-line{% endif %}"></div>
+                {% endfor %}
+                {{ paginate|raw }}
+                <div class="material-item-line"></div>
+            </div>
+
+
+            <div class="profile-category-title m-top-10"><h3>{{ "Download material"|i18n }}</h3></div>
+
+            <div id="profile-subscribe-block">
+                <form method="post">
+                    <div class="inputLabel">{{ "Message subject"|i18n }}</div>
+                    {% if errors.theme is defined %}
+                        <div class="div100"><span class="alert">{{ "Subject must contain at least 3 characters"|i18n }}</span></div>
+                    {% endif %}
+                    <div class="inputText">
+                        <input type="text" name="theme" maxlength="250"
+                               value="{{ material.theme|raw|striptags|default("") }}"/>
+                    </div>
+
+                    <div class="inputLabel">{{ "Message text"|i18n }}</div>
+                    {% if errors.message is defined %}
+                        <div class="div100"><span class="alert">{{ "Your message must contain not less than 30 characters"|i18n }}</span></div>
+                    {% endif %}
+                    <div class="inputTextarea">
+                        <textarea name="message" maxlength="500">{{ material.message|raw|striptags|default("") }}</textarea>
+                    </div>
+
+                    <div class="inputLabel">{{ "Type of material"|i18n }}</div>
+
+                    <div class="radio-block">
+                        <div class="radio-variant selected-variant">
+                            <div>0</div>
+                            <span>{{ "Interesting material"|i18n }}</span></div>
+                        <div class="radio-variant">
+                            <div>1</div>
+                            <span>{{ "Electronic Journal of e-history"|i18n }}</span></div>
+                    </div>
+
+                    <div class="inputLabel">{{ "Upload files"|i18n }} ({{ "max 8"|i18n }})</div>
+                    <input type="hidden" value="{{ files|length+1 }}" id="material_id" name="material_id"/>
+
+                    <div id="material-files">
+                        {% if files|length<8 %}
+                            <div id="media" class="inputFile">
+                                <div class="input-file-name">{{ "Select file"|i18n }}</div>
+                                <div id="thisuploader">{{ uploader|raw }}</div>
+                            </div>
+                        {% endif %}
+                        {% for file in files %}
+                            <div id='media_{{ loop.index }}' class='inputFile is-selected-file' data-id='{{ loop.index }}'>
+                                <div class='input-file-name'>{{ FileData.name(file) }}</div>
+                                <div class='media-size-{{ loop.index }}'>{{ FileData.filesize(file) }}</div>
+                                <div class='file-cover'></div>
+                                <input type='hidden' name='files[]' value='{{ file }}'>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {#
+                        media1, media2, media3, media4, media5, media6, media7, media8 - Fixed IDs
+                        media1-input ... media8-input - Also fixed
+                        !!! You need to add name attribute for input file !!!
+                    #}
+
+                    {#<div id="add-more-files">
+
+                    </div>#}
+
+                    <div class="subscribe-button-block">
+                        <input type="hidden" value="{{ material.material_type|raw|striptags|default(0) }}"
+                               id="material_type" name="material_type"/>
+
+                        <input type="submit" class="button" value="{{ "Send"|i18n }}"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="cabinet-right">
+            {% include "profile/navigation.twig" %}
+        </div>
+
+        <div id="profile-clear"></div>
+        <input type="hidden" id="lang" value="{{ _language }}">
+    </div>
+{% endblock content %}

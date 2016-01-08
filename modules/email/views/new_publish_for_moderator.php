@@ -1,0 +1,2 @@
+<?=$date?>. Пользователем <?=$username?>  была создана новая публикация на портале "Шаруа".
+Для проведения проверки перейдите по ссылке <a href="http://<?=$_SERVER['SERVER_NAME'];?>/pages/show/<?=$id;?>">http://<?=$_SERVER['SERVER_NAME'];?>/pages/show/<?=$id;?></a>.

@@ -1,0 +1,162 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ Url.media('media/css/redactor/redactor.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/js/redactor/plugins/smiles/smiles.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/redactor.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/plugins/smiles/smiles.js') }}"></script>
+    <script type="text/javascript" src="/media/js/redactor/redactor.ru.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $(".redactor").redactor({
+            plugins: ['smiles'],
+            lang: 'ru',
+            imageUpload:'{{ Url.media("filemanager/rimages") }}',
+            buttons: ['formatting', '|', 'bold', 'italic', 'underline', 'deleted', 'unorderedlist', 'orderedlist', '|','image', '|', 'horizontalrule', '|', 'alignleft', 'aligncenter', 'alignright', 'justify']
+        });
+    });
+</script>
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ theme.name }}</h1></div>
+        {% if theme.first_message.text is defined %}
+            <table border="1" cellspacing="0" cellpadding="4" style="width: 940px;">
+                <tr>
+                    <td width="300px">
+                        {{ 'Messages'|i18n }} {{ theme.first_message.count_messages_user( theme.first_message.user ) }}<br />
+                        {{ theme.first_message.user.show_name }}<br />
+                        {% if theme.first_message.user.profile.img.file_path %}
+                            <img src="{{ Url.media(theme.first_message.user.profile.img.file_path) }}" alt="{{ theme.first_message.user.show_name }}" title="{{ theme.first_message.user.show_name }}" />
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not theme.first_message.moderator %}
+                            {{ 'Post deleted by moderator'|i18n }}
+                        {% else %}
+                            {{ Date.ru_date(theme.first_message.date, 'd.m.Y H:i:s') }}<br>
+                            {{ theme.first_message.text|raw }}
+                            <br />
+                            {% if _user%}
+                                <a href="#" onclick="rating('{{ theme.first_message.id }}',-1);return false;">-</a><span id="minus_{{ theme.first_message.id }}">{{ theme.first_message.minus }}</span>
+                                <a href="#" onclick="rating('{{ theme.first_message.id }}',1);return false;">+</a><span id="plus_{{ theme.first_message.id }}">{{ theme.first_message.plus }}</span>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                    {% if moderator and not theme.first_message.moderator %}
+                        <td><a class="btn btn-mini btn-danger" href="{{ Url.site('forum/deletemes/'~theme.first_message.id) }}">{{ 'Delete'|i18n }}</a></td>
+                    {% endif %}
+                </tr>
+            </table>
+        {% endif %}
+
+        <table border="1" cellspacing="0" cellpadding="4" style="width: 940px;">
+            {% for item in messages %}
+                <tr>
+                    <td width="300px">
+                        {{ 'Messages'|i18n }} {{ item.count_messages_user( item.user ) }}<br />
+                        {{ item.user.show_name }}<br />
+                        {% if item.user.profile.img.file_path %}
+                            <img src="{{ Url.media(item.user.profile.img.file_path) }}" alt="{{ item.user.show_name }}" title="{{ item.user.show_name }}" />
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if not item.moderator %}
+                            {{ 'Post deleted by moderator'|i18n }}
+                        {% else %}
+                            {{ Date.ru_date(item.date, 'd.m.Y H:i:s') }}<br>
+                            {{ item.text|raw }}
+
+                            {% if item.ability_edit(item.id) and _user.id==item.user_id %}
+                                <br />Можно редактировать<br />
+                                <a class="btn btn-mini" href="{{ Url.site('forum/editmes/'~item.id~'/page-'~page) }}">Редактировать</a>
+                            {% endif %}
+
+                            {% if not item.deleted_user %}
+                                <br />
+                                <a href="#" onclick="rating('{{ item.id }}',-1);return false;">-</a><span id="minus_{{ item.id }}">{{ item.minus }}</span>
+                                <a href="#" onclick="rating('{{ item.id }}',1);return false;">+</a><span id="plus_{{ item.id }}">{{ item.plus }}</span>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+
+                    {% if moderator and item.moderator %}
+                        <td>
+                            <a class="btn btn-mini" href="{{ Url.site('forum/editmes/'~item.id~'/page-'~page) }}">{{ 'Edit'|i18n }}</a><br />
+                            <a class="btn btn-mini btn-danger" href="{{ Url.site('forum/deletemes/'~item.id~'/page-'~page) }}">{{ 'Delete'|i18n }}</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        {{ paginate|raw }}
+
+        {% if _user %}
+            {% if errors.text is defined %}
+                {{ errors.text|i18n }}
+            {% endif %}
+            <form method="post" action="{{ Url.site('forum/show/'~theme.id) }}">
+                <label for="text">{{ "Message text"|i18n }}</label>
+                <textarea class="redactor" name="text" id="text" maxlength="10000">{{ data.text|default('') }}</textarea>
+                <input type="checkbox" name="notification" {% if notification %} checked="checked" {% endif %} />{{ 'Receive a notice in the mail'|i18n }}
+                <br />
+
+                <button type="submit" class="btn btn-success">{{ "Отправить"|i18n }}</button>
+            </form>
+        </div>
+        {% else %}
+            {{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a>
+        {% endif %}
+    </div>
+    <div id="test"></div>
+    <script type="text/javascript">
+        function rating(mess_id, voice)
+        {
+            $.ajax({
+                url     : "{{ Url.media('ajax/plus') }}",
+                type    : "POST",
+                dataType: "json",
+                data    : { 'mess_id': mess_id, 'voice': voice },
+                success : function (data)
+                {
+                    switch(data) {
+                        case 1:{
+                            if(data==1){
+                                if(voice==1) {
+                                    $('#plus_'+mess_id).text(parseInt($('#plus_'+mess_id).text())+voice);
+                                }
+                                if(voice==-1) {
+                                    $('#minus_'+mess_id).text(parseInt($('#minus_'+mess_id).text())-voice);
+                                }
+                                alert("{{ 'Your vote has been counted, thank you!'|i18n }}")
+                            }
+                        break;
+                        }
+
+                        case -1: {
+                            alert("{{ 'You can not vote for your message'|i18n }}")
+                        break;
+                        }
+
+                        case -2: {
+                            alert("{{ 'You have already voted'|i18n }}")
+                        break;
+                        }
+
+                        case -3: {
+                            alert("{{ 'To vote please login or register'|i18n }}")
+                            break;
+                        }
+                    }
+                },
+                error   : function ()
+                {
+                    //alert('error')
+                }
+            });
+        }
+    </script>
+{% endblock content %}

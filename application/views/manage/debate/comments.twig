@@ -1,0 +1,26 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="graybox news" style="margin-top: 10px;">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+
+                        <a class="link" target="_blank" href="{{ Url.site('debate/view/'~item.debate_id) }}">{{ item.debate.title }}</a>
+                        &nbsp;({{ Date.translate(item.date, 'd.m.Y H:i') }})&nbsp;
+                        <div class="pull-right btn-group">
+                            <a class="btn btn-mini btn-{% if item.hide==0 %}success{% else %}warning{% endif %}" href="{{ Url.site('manage/debate/commenthide/'~item.id) }}"><i class="icon-eye-{% if item.hide==0 %}close{% else %}open{% endif %}">
+                                    {% if item.hide==0 %}{{ "Hide comment"|i18n }}{% else %}{{ "Display the comment"|i18n }}{% endif %}</i></a>
+                        </div>
+                        &nbsp;
+
+                    </div>
+                    <div>{{ item.user.username|raw|striptags }}: {{ item.comment|raw|striptags }}</div>
+                </div>
+            </div>
+        {% else %}
+            {{ "No comments"|i18n }}
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

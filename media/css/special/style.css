@@ -1,0 +1,522 @@
+* {
+    outline: none;
+}
+
+html {
+    height: 100%;
+}
+
+header, nav, section, article, aside, footer {
+    display: block;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    font-family: Arial;
+    font-size: 12px;
+    background: #fff;
+    font-size: 20px;
+    line-height: 30px;
+    color: #000;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
+}
+
+img {
+    border: none;
+}
+
+input {
+    vertical-align: middle;
+}
+
+#wrapper, header, #content, #padd, footer, nav, .div100, .content-block-title, .text, .content-block-line, .nav-block, .nav-clear {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+.content-block, #breadcrumbs, .submenu, .submenu-name, .page-name, .page-content, .article-block, .nav-name, .nav-links, #nav-content, .nav-line, .menu-text, .menu-div, .spacer, #language-block, #language-name {
+    position: relative;
+    float: left;
+}
+
+.center-content, #center-footer {
+    position: relative;
+    width: 950px;
+    margin: 0 auto;
+}
+
+#wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+}
+
+/* Header
+-----------------------------------------------------------------------------*/
+header {
+    height: 290px;
+}
+
+#top-menu {
+    position: absolute;
+    width: 958px;
+    height: 84px;
+    left: -4px;
+    top: 0;
+    background: url(../../images/special/top-menu.png) no-repeat;
+}
+
+#logo {
+    display: block;
+    position: absolute;
+    width: 300px;
+    height: 114px;
+    left: 27px;
+    top: 135px;
+    background: url(../../images/special/logo.png) no-repeat;
+}
+
+#slogan {
+    position: absolute;
+    width: 600px;
+    right: 0;
+    top: 163px;
+    font-style: italic;
+}
+
+#top-menu-content {
+    position: absolute;
+    width: 950px;
+    height: 79px;
+    left: 4px;
+    top: 0;
+}
+
+.menu-div {
+    height: 79px;
+}
+
+#usual-version {
+    width: 255px;
+}
+
+#settings {
+    width: 195px;
+}
+
+#search {
+    width: 155px;
+}
+
+.spacer {
+    width: 2px;
+    height: 79px;
+    background: url(../../images/special/spacer.gif) repeat-y;
+}
+
+.menu-text {
+    text-shadow: 0 1px #fff;
+}
+
+.menu-lnk {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 79px;
+    left: 0;
+    top: 0;
+}
+
+.menu-over {
+    background: #333333;
+}
+
+.menu-over .menu-text {
+    color: #fff;
+    text-shadow: 0 1px #000;
+}
+
+#usual-version .menu-text {
+    width: 165px;
+    left: 75px;
+    visibility: hidden;
+}
+
+#settings .menu-text {
+    width: 115px;
+    left: 70px;
+}
+
+#search .menu-text {
+    width: 70px;
+    left: 70px;
+}
+
+#usual-version .menu-icon {
+    position: absolute;
+    width: 32px;
+    height: 22px;
+    left: 24px;
+    top: 50%;
+    margin-top: -11px;
+    background: url(../../images/special/eye.png) no-repeat;
+}
+
+#usual-version.menu-over .menu-icon {
+    background-position: -32px 0 !important;
+}
+
+#settings .menu-icon {
+    position: absolute;
+    width: 30px;
+    height: 32px;
+    left: 20px;
+    top: 50%;
+    margin-top: -16px;
+    background: url(../../images/special/settings.png) no-repeat;
+}
+
+#settings.menu-over .menu-icon {
+    background-position: -30px 0 !important;
+}
+
+#search .menu-icon {
+    position: absolute;
+    width: 32px;
+    height: 34px;
+    left: 24px;
+    top: 50%;
+    margin-top: -17px;
+    background: url(../../images/special/search.png) no-repeat;
+}
+
+#search.menu-over .menu-icon {
+    background-position: -32px 0 !important;
+}
+
+#language-block {
+    width: 339px;
+    height: 79px;
+}
+
+#language-name {
+    width: 115px;
+    text-align: center;
+    color: #666666;
+    text-shadow: 0 1px #fff;
+    visibility: hidden;
+}
+
+#language-select {
+    position: absolute;
+    width: 206px;
+    height: 48px;
+    right: 18px;
+    top: 15px;
+    cursor: pointer;
+    background: url(../../images/special/language-select.png) no-repeat;
+}
+
+#lang-text {
+    position: absolute;
+    width: 160px;
+    left: 15px;
+    top: 9px;
+}
+
+#select-button {
+    position: absolute;
+    width: 29px;
+    height: 45px;
+    right: 1px;
+    top: 1px;
+    background: url(../../images/special/select-arrow.png) no-repeat;
+}
+
+/* Nav
+-----------------------------------------------------------------------------*/
+nav {
+    background: #eeeeee;
+}
+
+#nav-content {
+    width: 910px;
+    left: 40px;
+    margin-top: 5px;
+}
+
+.nav-block {
+    margin-top: 5px;
+}
+
+nav .nav-title, nav a {
+    display: block;
+    float: left;
+    margin: 5px 15px 0 0;
+    white-space: nowrap;
+    padding: 5px 12px;
+}
+
+nav .nav-title {
+    color: #fff;
+    background: #000;
+    cursor: pointer;
+}
+
+nav a {
+    color: #000;
+}
+
+nav a:hover {
+    border: solid 3px #000;
+    padding: 2px 9px;
+}
+
+nav a span, nav .nav-arrow {
+    display: block;
+    float: left;
+}
+
+nav .nav-arrow {
+    width: 5px;
+    height: 9px;
+    font-size: 0;
+    margin: 11px 0 0 10px;
+    background: url(../../images/special/arrow.png) no-repeat;
+}
+
+.nav-line {
+    width: 880px;
+    height: 1px;
+    font-size: 0;
+    line-height: 0;
+    margin-top: 12px;
+    background: url(../../images/special/pixel.gif);
+}
+
+.nav-clear {
+    height: 15px;
+    font-size: 0;
+}
+
+.nav-links {
+    display: none;
+}
+
+/* Middle
+-----------------------------------------------------------------------------*/
+.content-block {
+    width: 835px;
+    left: 35px;
+}
+
+#breadcrumbs, .submenu-name, .page-name, .page-content {
+    left: 50px;
+    width: 850px;
+}
+
+#breadcrumbs {
+    margin-top: 35px;
+}
+
+#breadcrumbs a {
+    display: block;
+    float: left;
+    margin-right: 12px;
+    padding-right: 18px;
+    background: url(../../images/special/crumb-arrow.png) top right no-repeat;
+}
+
+.submenu-name, .page-name h1 {
+    font-size: 36px;
+    line-height: 38px;
+    margin-top: 30px;
+    font-weight: normal;
+}
+
+.page-content {
+    margin-top: 40px;
+}
+
+.text p {
+    margin-bottom: 25px;
+}
+
+.text a {
+    font-weight: bold;
+    padding: 0 5px;
+}
+
+.text a:hover {
+    border: solid 3px #000;
+    padding: 0 2px;
+    
+}
+
+.text table {
+    margin: 30px 0 25px;
+}
+
+.text td {
+    vertical-align: top;
+}
+
+.submenu {
+    left: 70px;
+    width: 810px;
+    margin-top: 15px;
+}
+
+.submenu li {
+    margin-top: 25px;
+    padding-left: 32px;
+    background: url(../../images/special/submenu-li.png) top left no-repeat;
+}
+
+.content-block-title {
+    margin-top: 30px;
+}
+
+#first-content-block-title {
+    margin-top: 50px;
+}
+
+.content-block-title a {
+    font-size: 36px;
+    line-height: 38px;
+    color: #000000;
+    display: block;
+    float: left;
+    padding: 5px 13px 6px 13px;
+}
+
+.content-block-title a:hover {
+    border: solid 3px #000;
+    padding: 2px 10px 3px 10px;
+}
+
+.content-block-line {
+    height: 1px;
+    font-size: 0;
+    line-height: 0;
+    margin-top: 25px;
+    background: url(../../images/special/pixel.gif);
+}
+
+.article-block {
+    padding: 5px 13px 6px 13px;
+    margin-top: 20px;
+}
+
+.article-hover, .article-active {
+    border: solid 3px #000;
+    padding: 2px 10px 3px 10px;
+}
+
+.article-active {
+    background: #eeeeee;
+}
+
+.first-article {
+    margin-top: 10px;
+}
+
+.article-title {
+    font-size: 24px;
+    line-height: 27px;
+    font-weight: bold;
+    clear: both;
+}
+
+.article-title a {
+    color: #000;
+}
+
+.article-date {
+    line-height: 27px;
+    color: #666666;
+    font-style: italic;
+    margin-top: 15px;
+    clear: both;
+}
+
+.article-announce {
+    margin-top: 5px;
+    clear: both;
+}
+
+.article-link {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: url(../../images/special/trans.png);
+    z-index: 10;
+    opacity: 0.1;
+}
+
+.abr {
+    border-bottom: dotted 3px #000;
+    z-index: 10;
+}
+
+#padd {
+    height: 40px;
+    padding: 0 0 230px;
+}
+
+/* Footer
+-----------------------------------------------------------------------------*/
+footer {
+    margin: -230px auto 0;
+    height: 230px;
+}
+
+#center-footer {
+    height: 229px;
+    border-top: solid 1px #999999;
+}
+
+#copyright {
+    position: absolute;
+    width: 455px;
+    left: 50px;
+    top: 38px;
+}
+
+#copyright div {
+    position: absolute;
+    width: 27px;
+    left: -27px;
+    top: 0;
+}
+
+.creation-help {
+    color: #666666;
+    margin-top: 15px;
+}
+
+#socials-title {
+    position: absolute;
+    width: 255px;
+    left: 530px;
+    top: 38px;
+}
+
+#knm-logo {
+    display: block;
+    position: absolute;
+    width: 35px;
+    height: 46px;
+    right: 50px;
+    top: 45px;
+    background: url(../../images/special/knm-logo.png) no-repeat;
+}

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="{{ _language }}">
+<head>
+    <title>Школково</title>
+    <meta charset="{{ _metadata.charset }}"/>
+    <meta http-equiv="X-UA-Compatible" value="IE=Edge,chrome=1" />
+    <link rel="shortcut icon" href="{{ Url.media('/favicon.png') }}" />
+    <link rel="icon" href="{{ Url.media('/favicon.png') }}" />
+    <link rel="stylesheet" href="{{ Url.media('media/css/manage/bootstrap.min.css') }}" media="screen"/>
+    <!--[if IE]><![if !IE]><![endif]--><link rel="stylesheet" href="{{ Url.media('media/css/font-awesome-embedded.css') }}"/><!--[if IE]><![endif]><![endif]-->
+    <!--[if IE]><link rel="stylesheet" href="{{ Url.media('media/css/font-awesome-embedded-ie.css') }}"/><![endif]-->
+    <link rel="stylesheet" href="{{ Url.media('media/css/font-awesome.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/redactor/redactor.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/manage.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/bootstrap-datetimepicker.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/zoomy1.2.css') }}">
+    <link rel="stylesheet" href="{{ Url.media('media/jouele/jouele.css') }}">
+    <link rel="stylesheet" href="{{ Url.media('media/css/jquery.Jcrop.css') }}">
+
+    {% block extrascripts %}
+        <script type="text/javascript" src="{{ Url.media('media/js/search.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/js/audio.js') }}"></script>
+    {% endblock extrascripts %}
+    <style type="text/css">
+        /* Apply these styles only when #preview-pane has
+           been placed within the Jcrop widget */
+        .jcrop-holder #preview-pane {
+            display: block;
+            position: absolute;
+            z-index: 2000;
+            top: -65px;
+            right: -15px;
+            padding: 6px;
+            border: 1px rgba(0,0,0,.4) solid;
+            background-color: white;
+
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+
+            -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        /* The Javascript code will set the aspect ratio of the crop
+           area based on the size of the thumbnail preview,
+           specified here */
+        #preview-pane .preview-container {
+            width: 280px;
+            height: 186px;
+            overflow: hidden;
+        }
+    </style>
+
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery-migrate-1.2.1.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/bootstrap-datetimepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/bootstrap-datetimepicker.ru.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/redactor.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/redactor.ru.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/swfupload.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/fancybox/jquery.fancybox.pack.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.zoomy1.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/jouele/jquery.jplayer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/jouele/jouele.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.Jcrop.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function ($) {
+            var jcrop_api;
+            initJcrop();
+
+            try {
+                document.getElementById('cutpic').onclick = cutpicture;
+            }
+            catch (e) {
+            }
+
+            function initJcrop() {
+                $('#target').Jcrop({
+                    onRelease: releaseCheck,
+                    aspectRatio: 280 / 186,
+                    onChange: showCoords
+                }, function () {
+                    jcrop_api = this;
+                });
+            }
+
+            function showCoords(c) {
+                $('#x1').val(c.x);
+                $('#y1').val(c.y);
+                $('#h').val(c.h);
+                $('#w').val(c.w);
+            }
+
+            function releaseCheck() {
+                jcrop_api.setOptions({ allowSelect: true });
+            }
+
+            function cutpicture() {
+                var str,
+                        x1 = $('#x1').attr('value'),
+                        h = $('#h').attr('value'),
+                        y1 = $('#y1').attr('value'),
+                        w = $('#w').attr('value'),
+                        path = $('#param').attr('value');
+                if (h != 0 || w != 0) {
+                    $.ajax({
+                        url: '{{Url.media('ajax/picturecut')}}',
+                        data: {x1: x1, h: h, y1: y1, w: w, path: path},
+                        type: 'POST',
+                        success: function (result) {
+                            var array = JSON.parse(result);
+                            $('#cutresult').attr('src', "{{Url.site('',true)}}" + array.path);
+                            $('#carved_id').attr('value', array.id);
+                        },
+                        error: function () {
+                            alert('Произошла ошибка при выборе области изображения!');
+                        }
+                    });
+                }
+                else {
+                    alert('Область не выбрана');
+                }
+            }
+
+            $('#param').change(function () {
+                jcrop_api.destroy();
+                var path = this.getAttribute('value');
+                //$('#target').attr('src', path);
+                initJcrop();
+                jcrop_api.setImage(path);
+                jcrop_api.setOptions({ bgOpacity: .6 });
+                jcrop_api.setOptions({ boxWidth: '734'});
+
+                {%   if _request.controller|lower == "publications" %}
+                    document.getElementById('buttondelete').innerHTML = "<a class='btn btn-info' href='{{ Url.site('manage/publications/'~type~'/clearimage/'~item.id) }}'>Удалить изображение? &times;</a>";
+                {% endif %}
+                {% if _request.controller|lower == "calendar" %}
+                document.getElementById('buttondelete').innerHTML = "<a class='btn btn-info' href='{{ Url.site('manage/calendar/clearimage/'~item.id) }}'>Удалить изображение? &times;</a>";
+                {% endif %}
+                document.getElementById('cutpicture').innerHTML = "<a class='btn btn-success' id='cutpic' >Вырезать выделенную область</a>";
+
+                try {
+                    document.getElementById('cutpic').onclick = cutpicture;
+                }
+                catch (e) {
+                }
+
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".redactor").redactor({lang: 'ru', imageUpload:'{{ Url.site("filemanager/rimages") }}', fileUpload :'{{ Url.site("filemanager/fupload")}}' });
+            $('.datepicker').datetimepicker({ autoclose: true, language: 'ru' });
+        });
+    </script>
+
+</head>
+<body>
+<div class="containter">
+    <div class="navbar-inner main-menu">
+        <a class="brand pull-left" href="{{ Url.media('/') }}">На главную
+            {#<img src="{{ Url.media('/favicon.png') }}" alt=""/>#}
+        </a>
+        {#<ul class="nav nav-pills pull-left">#}
+            {#<li {% if _language == 'ru' %}class="active"{% endif %}><a href="{{ Url.site('manage/language/select/ru') }}?r={{ _return_url }}">RU</a></li>#}
+            {#<li {% if _language == 'kz' %}class="active"{% endif %}><a href="{{ Url.site('manage/language/select/kz') }}?r={{ _return_url }}">KZ</a></li>#}
+            {#<li {% if _language == 'en' %}class="active"{% endif %}><a href="{{ Url.site('manage/language/select/en') }}?r={{ _return_url }}">EN</a></li>#}
+        {#</ul>#}
+        <ul class="nav nav-pills pull-right">
+            <li><a href="{{ Url.media('manage/auth/logout') }}"><i class="icon-share-alt"></i> Выход</a></li>
+        </ul>
+    </div>
+</div>
+    {% if basic_message is defined %}
+        {{ basic_message|raw }}
+    {% endif %}
+    <div class="well well-small span3">
+        <ul class="nav nav-list">
+            <li class="nav-header">Управление</li>
+            {% if _user.has_access('ma') %}
+            <li><a href="{{ Url.media('manage/slogans') }}"><i class="icon-comment"></i> Слоганы</a></li>
+            {#<li><i class="icon-comment"></i> Комментарии</li>#}
+            {#<ul class="nav nav-list">#}
+                {#<li {% if _request.controller|lower == "comments" and type == 0 %}class="active"{% endif %}><a href="{{ Url.media('manage/comments') }}"><i class="icon-chevron-right"></i> Новые {{ _countcomm }}</a></li> &#123;&#35; выводим количество новых коментов&#35;&#125;#}
+                {#<li {% if _request.controller|lower == "comments" and type == 1 %}class="active"{% endif %}><a href="{{ Url.media('manage/comments?type=1') }}"><i class="icon-chevron-right"></i> Одобренные</a></li>#}
+            {#</ul>#}
+            {#<li {% if _request.controller|lower == "pages" %}class="active"{% endif %}>#}
+                {#<a href="{{ Url.media('manage/pages') }}"><i class="icon-list"></i> Страницы</a>#}
+                {#{% if _request.controller|lower == "contents" %}#}
+                    {#<ul class="nav nav-list">#}
+                        {#<li><a style="color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.2);background-color:#0088cc;" href="{{ Url.media('manage/contents/index/'~page.id) }}"><i class="icon-chevron-right"></i> {{ page.name }} </a></li>#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#</li>#}
+            {#<li {% if _request.controller|lower == "publications" and type == 'news' %}class="active"{% endif %}><a href="{{ Url.media('manage/publications/news') }}"><i class="icon-file"></i> Новости</a></li>#}
+            {#<li {% if _request.controller|lower == "publications" and type == 'publication' %}class="active"{% endif %}><a href="{{ Url.media('manage/publications/publication') }}"><i class="icon-file"></i> Публикации</a></li>#}
+            {#<li {% if _request.controller|lower == "briefings" %}class="active"{% endif %}><a href="{{ Url.media('manage/briefings') }}"><i class="icon-bullhorn"></i> Брифинги</a></li>#}
+            {#<li {% if _request.controller|lower == "biography" %}class="active"{% endif %}><a href="{{ Url.media('manage/biography') }}"><i class="icon-user-md"></i> Персоналии</a></li>#}
+            {#<li {% if _request.controller|lower == "expert" %}class="active"{% endif %}><a href="{{ Url.media('manage/expert') }}"><i class="icon-question-sign"></i> Эксперты</a></li>#}
+                {#{% if _request.controller|lower == "expert" or _request.controller|lower == "expertopinions" or _request.controller|lower == "expertcomments" or _request.controller|lower == "expertquestions"%}#}
+                     {#<ul class="nav nav-list">#}
+                        {#<li {% if _request.controller|lower == "expertopinions" %}class="active"{% endif %}>#}
+                        {#<a href="{{ Url.media('manage/expertopinions') }}"><i class="icon-comment"></i> Позиция эксперта</a>#}
+                         {#</li>#}
+                        {#<li {% if _request.controller|lower == "expertcomments" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/expertcomments') }}"><i class="icon-comments"></i> Комментарии к позиции эксперта</a>#}
+                        {#</li>#}
+                        {#<li {% if _request.controller|lower == "expertquestions" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/expertquestions') }}"><i class="icon-question-sign"></i> Вопросы экспертам</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#<li {% if _request.controller|lower == "debate" and (_request.action|lower == "index" or _request.action|lower == "hide" or _request.action|lower == "new" or _request.action|lower == "edit")%}class="active"{% endif %}><a href="{{ Url.media('manage/debate') }}"><i class="icon-bullhorn"></i> Управление дебатами</a></li>#}
+                {#{% if _request.controller|lower == "debate" %}#}
+                    {#<ul class="nav nav-list">#}
+                        {#<li {% if _request.controller|lower == "debate" and (_request.action|lower == "opinions" or _request.action|lower == "opinionhide")%}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/debate/opinions') }}"><i class="icon-comment"></i> Управление мнениями в дебатах</a>#}
+                        {#</li>#}
+                        {#<li {% if _request.controller|lower == "debate" and (_request.action|lower == "comments" or _request.action|lower == "commenthide")%}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/debate/comments') }}"><i class="icon-comments"></i> Управление комментариями в дебатах</a>#}
+                        {#</li>#}
+                        {#{% if _user.has_access('a') %}#}
+                            {#<li {% if _request.controller|lower == "debate" and (_request.action|lower == "logs" or _request.action|lower == "view")%}class="active"{% endif %}>#}
+                                {#<a href="{{ Url.media('manage/debate/logs') }}"><i class="icon-info-sign"></i> Действия модераторов</a>#}
+                            {#</li>#}
+                        {#{% endif %}#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#<li {% if _request.controller|lower == "calendar" and _request.action|lower == "index" %}class="active"{% endif %}>#}
+                {#<a href="{% if month is defined %}{{ Url.media('manage/calendar?m='~month) }}{% else %}{{ Url.media('manage/calendar') }}{% endif %}"><i class="icon-calendar"></i> Этот день в истории</a>#}
+                {#{% if day is defined and month is defined and _request.action|lower != "index"%}#}
+                    {#<ul class="nav nav-list">#}
+                        {#<li><a style="color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.2);background-color:#0088cc;" href="{{ Url.media('manage/calendar/list?m='~month~'&d='~day) }}"><i class="icon-chevron-right"></i> {{ Date.ru_date('2013-'~month~'-'~day,'j F') }} </a></li>#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#</li>#}
+            {#<li {% if _request.controller|lower == "photosets" %}class="active"{% endif %}><a href="{{ Url.media('manage/photosets') }}"><i class="icon-camera"></i> Фотоальбомы</a></li>#}
+            {#<li {% if _request.controller|lower == "video" and not category is defined %}class="active"{% endif %}>#}
+                {#<a href="{{ Url.media('manage/video') }}"><i class="icon-play-circle"></i> Видеогалерея</a>#}
+                {#{% if _request.controller|lower == "video" and category is defined %}#}
+                    {#<ul class="nav nav-list">#}
+                    {#{% if category %}#}
+                        {#<li><a style="color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.2);background-color:#0088cc;" href="{{ Url.media('manage/video/category/'~category.id) }}"><i class="icon-chevron-right"></i> {{ category.name }} </a></li>#}
+                    {#{% else %}#}
+                        {#<li><a style="color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.2);background-color:#0088cc;" href="{{ Url.media('manage/video/category/') }}"><i class="icon-chevron-right"></i> Без категории </a></li>#}
+                    {#{% endif %}#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#</li>#}
+            {#<li {% if _request.controller|lower == "audio" %}class="active"{% endif %}><a href="{{ Url.media('manage/audio') }}"><i class="icon-play-circle"></i> Аудио</a></li>#}
+            {#<li {% if _request.controller|lower == "exhibits" %}class="active"{% endif %}><a href="{{ Url.media('manage/exhibits') }}"><i class="icon-globe"></i> Электронный архив </a></li>#}
+            {#<li {% if _request.controller|lower == "sliders" and type == 'slider' %}class="active"{% endif %}><a href="{{ Url.media('manage/sliders?type=slider') }}"><i class="icon-camera"></i> Слайдер </a></li>#}
+            {#<li {% if _request.controller|lower == "sliders" and type == 'link' %}class="active"{% endif %}><a href="{{ Url.media('manage/sliders?type=link') }}"><i class="icon-link"></i> Ссылки партнёров </a></li>#}
+            {#<li {% if _request.controller|lower == "sliders" and type == 'banner' %}class="active"{% endif %}><a href="{{ Url.media('manage/sliders?type=banner') }}"><i class="icon-link"></i> Исторические ценности </a></li>#}
+                {#<li {% if _request.controller|lower == "facts" %}class="active"{% endif %}><a href="{{ Url.media('manage/facts') }}"><i class="icon-link"></i> Факты</a></li>#}
+
+
+            {#<li {% if _request.controller|lower == "chronology" %}class="active"{% endif %}>#}
+                {#<a href="{{ Url.media('manage/chronology') }}"><i class="icon-road"></i> Хронологическая лента </a>#}
+                {#{% if _request.controller|lower == "lines" %}#}
+                    {#<ul class="nav nav-list">#}
+                        {#<li><a style="color:#ffffff;text-shadow:0 -1px 0 rgba(0, 0, 0, 0.2);background-color:#0088cc;" href="{{ Url.media('manage/lines/list/'~period.id) }}"><i class="icon-chevron-right"></i> {{ period.name }} </a></li>#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#</li>#}
+            {#<li {% if _request.controller|lower == "feedback" %}class="active"{% endif %}>#}
+                {#<a href="{{ Url.media('manage/feedback') }}"><i class="icon-question-sign"></i> Обратная связь</a>#}
+            {#</li>#}
+            {#<li {% if _request.controller|lower == "materials" and (_request.action|lower != "index" and _request.action|lower != "ehistory") %}class="active"{% endif %}>#}
+                {#<a href="{{ Url.media('manage/materials') }}"><i class="icon-print"></i> Материалы пользователей</a>#}
+                {#{% if _request.controller|lower == "materials" %}#}
+                    {#<ul class="nav nav-list">#}
+                        {#<li {% if _request.controller|lower == "materials" and _request.action|lower == "index" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/materials') }}"><i class="icon-print"></i> Интересные материалы</a>#}
+                        {#</li>#}
+                        {#<li {% if _request.controller|lower == "materials" and _request.action|lower == "ehistory" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/materials/ehistory') }}"><i class="icon-print"></i> Журнал e-history</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#</li>#}
+            {% if _user.has_access('a') %}
+                <li {% if _request.controller|lower == "users" %}class="active"{% endif %}>
+                    <a href="{{ Url.media('manage/users') }}">
+                        <i class="icon-user"></i> Пользователи
+                    </a>
+                </li>
+            {% endif %}
+                {#<li {% if _request.controller|lower == "maps" %}class="active"{% endif %}><a href="{{ Url.media('manage/maps') }}"><i class="icon-map-marker"></i> Карта</a></li>#}
+                {#<li {% if _request.controller|lower == "infographs" %}class="active"{% endif %}><a href="{{ Url.media('manage/infographs') }}"><i class="icon-picture"></i> Инфографика</a></li>#}
+                {#<li {% if _request.controller|lower == "organization" %}class="active"{% endif %}><a href="{{ Url.media('manage/organization') }}"><i class="icon-list"></i> Организации образования и науки</a></li>#}
+                {#<li {% if _request.controller|lower == "report" %}class="active"{% endif %}><a href="{{ Url.media('manage/report') }}"><i class="icon-sign-blank"></i> Отчет по наполнению</a></li>#}
+                {#<li {% if _request.controller|lower == "links" %}class="active"{% endif %}><a href="{{ Url.media('manage/links') }}"><i class="icon-link"></i> Полезные ссылки</a></li>#}
+                {#<li {% if _request.controller|lower == "first" %}class="active"{% endif %}><a href="{{ Url.media('manage/first') }}"><i class="icon-calendar"></i> Хроника деятельности первого президента</a></li>#}
+
+                {#<li><i class="icon-book"></i> Библиотека</li>#}
+                {#<ul class="nav nav-list">#}
+                    {#<li {% if _request.controller|lower == "library" and type==1 %}class="active"{% endif %}><a href="{{ Url.media('manage/library') }}"><i class="icon-eye-open"></i> Библиотека </a></li>#}
+                    {#<li {% if _request.controller|lower == "library" and type==0 %}class="active"{% endif %}><a href="{{ Url.media('manage/library?type=0') }}"><i class="icon-eye-close"></i> Книги без категории {{ _uncatcount }} </a></li> &#123;&#35;Выводим кол-во книг без категории&#35;&#125;#}
+                {#</ul>#}
+
+                {#<li {% if _request.controller|lower == "thanks" %}class="active"{% endif %}><a href="{{ Url.media('manage/thanks') }}"><i class="icon-thumbs-up"></i> Благодарности </a></li>#}
+                {#<li {% if _request.controller|lower == "ent" %}class="active"{% endif %}><a href="{{ Url.media('manage/ent') }}"><i class="icon-question-sign"></i> ЕНТ</a></li>#}
+                {#<li {% if _request.controller|lower == "tests" %}class="active"{% endif %}><a href="{{ Url.media('manage/tests') }}"><i class="icon-question-sign"></i> Тесты</a></li>#}
+                <li {% if _request.controller|lower == "themes" %}class="active"{% endif %}><a href="{{ Url.media('manage/themes') }}"><i class="icon-eye-open"></i> Темы для Shkolkovo</a></li>
+                <li {% if _request.controller|lower == "tests" %}class="active"{% endif %}><a href="{{ Url.media('manage/tests') }}"><i class="icon-question-sign"></i> Тесты для Shkolkovo</a></li>
+                {#<li {% if _request.controller|lower == "education" %}class="active"{% endif %}><a href="{{ Url.media('manage/education') }}"><i class="icon-book"></i> ЦОР</a></li>#}
+            {% endif %}
+            {#{% if _user.has_access('r') %}#}
+                {#<li {% if _request.controller|lower == "ehistory" %}class="active"{% endif %}><a href="{{ Url.media('manage/ehistory') }}"><i class="icon-print"></i> Материалы пользователей</a></li>#}
+            {#{% endif %}#}
+
+            {# Журналы #}
+            {#{% if _user.has_access('ma') %}#}
+                {#<li {% if _request.controller()|lower == 'eljournal' %}class="active"{% endif %}><a href="{{ Url.site('manage/eljournal') }}"><i class="icon-list"></i> {{ "Magazines"|i18n }}</a></li>#}
+            {#{% endif %}#}
+
+
+            {#<li {% if _request.controller()|lower == 'project' %}class="active"{% endif %}><a href="{{ Url.site('manage/project') }}"><i class="icon-list"></i> {{ "Projects"|i18n }}</a></li>#}
+            {#<li {% if _request.controller()|lower == 'publicationprojects' %}class="active"{% endif %}><a href="{{ Url.site('manage/publicationprojects/publicationproject') }}"><i class="icon-list"></i> {{ "Projects materials"|i18n }}</a></li>#}
+
+
+            {#<li>#}
+                {#<a href="{{ Url.media('manage/specprojects/1') }}"><i class="icon-th-large"></i> Спец. проекты</a>#}
+                {#{% if _request.controller|lower == "specprojects" %}#}
+                    {#<ul class="nav nav-list">#}
+                        {#<li {% if _request.controller|lower == "specprojects"  and _request.param('type')|lower =="1" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/specprojects/1') }}"><i class="icon-user"></i>Устная история</a>#}
+                        {#</li>#}
+                        {#<li {% if _request.controller|lower == "specprojects"  and _request.param('type')|lower =="2" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/specprojects/2') }}"><i class="icon-random"></i>Краеведение</a>#}
+                        {#</li>#}
+                        {#<li {% if _request.controller|lower == "specprojects"  and _request.param('type')|lower =="3" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/specprojects/3') }}"><i class="icon-picture"></i>Орнаменты</a>#}
+                        {#</li>#}
+                        {#<li {% if _request.controller|lower == "specprojects"  and _request.param('type')|lower =="4" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/specprojects/4') }}"><i class="icon-leaf"></i>Шежире</a>#}
+                        {#</li>#}
+                        {#<li {% if _request.controller|lower == "specprojects"  and _request.action|lower =="zhuzes" %}class="active"{% endif %}>#}
+                            {#<a href="{{ Url.media('manage/specprojects/zhuzes') }}"><i class="icon-random"></i>Жузы</a>#}
+                        {#</li>#}
+                    {#</ul>#}
+                {#{% endif %}#}
+            {#</li>#}
+
+        </ul>
+        {% block sidebar %}
+        {% endblock sidebar %}
+    </div>
+    <div class="well well-small well-nopad span8" style="background-color: #fefefe;">
+    {% block content %}
+    {% endblock content %}
+    </div>
+</body>
+</html>

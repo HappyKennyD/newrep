@@ -1,0 +1,866 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru-RU" lang="ru-RU">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+    <title>{{ _metadata.title }}</title>
+    <meta charset="UTF-8"/>
+    <meta name="description" content="{{ _metadata.description }}"/>
+    <meta property="og:description" content="{{ _metadata.description }}"/>
+    {% if  _language == 'ru'  %}
+        <meta name="Keywords" content="история казахстана, исторические факты, тесты по истории казахстана, казахи, казахстан" />
+        <meta name="News_keywords" content="история казахстана, исторические факты, тесты по истории казахстана, казахи, казахстан" />
+    {% endif %}
+    {%if _language == 'kz'%}
+        <meta name="News_keywords" content="қазақстан тарихы, тарих, тест қазақстан тарихы, қазақтар, қазақстан" />
+        <meta name="Keywords" content="қазақстан тарихы, тарих, тест қазақстан тарихы, қазақтар, қазақстан"/>
+    {% endif %}
+    {%if _language == 'en'%}
+        <meta name="Keywords" content="history of kazakhstan, kazakhs, kazakhstan, republic of kazakhstan, nomads" />
+        <meta name="News_keywords" content="history of kazakhstan, kazakhs, kazakhstan, republic of kazakhstan, nomads" />
+    {% endif %}
+    <link rel="shortcut icon" href="{{ Url.media('/favicon.png') }}"/>
+    <link rel="icon" href="{{ Url.media('/favicon.png') }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/fonts.css') }}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/reset.css') }}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/form.css') }}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/project/style.css') }}" media="all"/>
+
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/photogallery.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/css/fancybox/jquery.fancybox.css') }}" />
+
+
+    <!--[if lt IE 9]><script type="text/javascript" async="async" src="{{ Url.media('media/js/html5fix.js') }}"></script><![endif]-->
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/bootstrap.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/fancybox/jquery.fancybox.pack.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/fancybox/jquery.fancybox-media.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery-migrate-1.2.1.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.zoomy1.2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/jouele/jquery.jplayer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/jouele/jouele.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/swfupload.js') }}"></script>
+
+  <!--  <script type="text/javascript" src="{{ Url.media('media/js/project/jquery-1.11.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/project/jquery.formstyler.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/project/bjqs-1.3.js') }}"></script>-->
+    <script type="text/javascript" src="{{ Url.media('media/js/project/script.js') }}"></script>
+
+    <script type="text/javascript" src="{{ Url.media('media/js/photogallery.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/videogallery.css') }}"/>
+
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.autosize-min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/video.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.fancybox').fancybox({ helpers : { media : {} } });
+            $(window).scroll(function(){ if (($(this).scrollTop() > 250)) { $('#scroll-to-top').fadeIn(); } else { $('#scroll-to-top').fadeOut(); } });
+            $('#scroll-to-top').click(function(){ $("html, body").animate({ scrollTop: 0 }, 600); return false; })
+        });
+    </script>
+
+</head>
+<body>
+
+<!--[if lt IE 8]>
+<p class="b-browsehappy">Вы используете <strong>устаревший</strong> браузер. Пожалуйста <a href="http://browsehappy.com/" target="_blank">обновите браузер</a> для лучшего отображения сайта.</p>
+<![endif]-->
+
+<div class="b-page">
+<div class="b-wrapper">
+<div class="b-two-col">
+<div class="b-two-col__left">
+	<div class="b-headre__top">
+		<div class="b-header__lang">
+		    <div class="b-lang">
+		        <ul>
+		            <li class="b-lang__item" >
+		                <a href="{{ Url.media('kz/'~ _return) }}" {% if _language == 'kz' %}class="active" rel="nofollow"{% endif %}>Қаз</a>
+		            </li>
+		            <li class="b-lang__item">
+		                <a href="{{ Url.media('ru/'~ _return) }}" {% if _language == 'ru' %}class="active" rel="nofollow"{% endif %}>Рус</a>
+		            </li>
+		            <li class="b-lang__item">
+		                <a href="{{ Url.media('en/'~ _return) }}" {% if _language == 'en' %}class="active" rel="nofollow"{% endif %}>Eng</a>
+		            </li>
+
+		        </ul>
+		    </div>
+		</div>
+	    </div>
+    <div class="b-left-sidebar">
+        <div class="b-left-sidebar__logo">
+            <div class="b-logo">
+                <a href="http://e-history.kz" ><img src="{{ Url.media('media/images/project/logo_project.png') }}" alt="logo"/></a>
+            </div>
+        </div>
+        <div class="b-left-sidebar__menu">
+            <div class="b-left-menu">
+                <ul>
+		<li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project) }}" class="b-left-menu-item b-left-menu-item_0">{{ "Main"|i18n }}</a></li>
+
+                    {% if 'biography' in types %}
+                        <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=biography') }}" class="b-left-menu-item">{{ "Personalia"|i18n }}</a></li>
+                    {% endif %}
+                    {% if ('contents' in types) or ('publications' in types) or ('publicationproject' in types) %}
+                        <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=contents') }}" class="b-left-menu-item b-left-menu-item_2">{{ "Publications"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'photosets' in types %}
+                        <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=photo') }}" class="b-left-menu-item b-left-menu-item_3">{{ "Photogallery"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'video' in types %}
+                        <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=video') }}" class="b-left-menu-item b-left-menu-item_4">{{ "Video"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'infographics' in types %}
+                        <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=infographics') }}" class="b-left-menu-item b-left-menu-item_5">{{ "Infographics"|i18n }}</a></li>
+                    {% endif %}
+                    {% if 'books' in types %}
+                        <li class="b-left-menu__item"><a href="{{ Url.site('project/index/'~id_project~'?type=books') }}" class="b-left-menu-item b-left-menu-item_6">{{ "Library project"|i18n }}</a></li>
+                    {% endif %}
+  {% if id_project == 4 %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('tests/') }}" class="b-left-menu-item b-left-menu-item_7">{{ "Игра «Правда или ложь»"|i18n }}</a></li>
+                    {% endif %}
+
+		    {% if id_project == 9 %}
+                    <li class="b-left-menu__item"><a href="{{ Url.site('tests/') }}" class="b-left-menu-item b-left-menu-item_8">{{ "Игра «Правда или ложь»"|i18n }}</a></li>
+                    {% endif %}
+			{% if id_project == 11 %}
+                    <li class="b-left-menu__item"><a href="http://quest.e-history.kz" target="_blank" class="b-left-menu-item b-left-menu-item_7">{{ "Астана сити-квест"|i18n }}</a></li>
+                    <li class="b-left-menu__item"><a href="{{ Url.site('day/') }}" target="_blank" class="b-left-menu-item b-left-menu-item_7">{{ "Хронология Астаны"|i18n }}</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="b-two-col__right">
+<!-- HEADER-->
+<div class="b-header">
+    {% if project.image != '0' %}
+        <img style="position: absolute;" width="1050px" height="300px" src="{{ Url.media( project.picture.file_path) }}" alt=""/>
+    {% endif %}
+
+    <div class="b-header__middle">
+        <div class="b-header__info-block">
+            <div class="b-white-block">
+
+
+                <div class="b-white-block__left">
+                    <h1 class="b-white-title">{{ project.name }}</h1>
+                </div>
+              <!--  <div class="b-white-block__right">{{ desc }}</div>-->
+                <div class="clear"></div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- END HEADER-->
+<!-- CONTENT-->
+<div class="b-content">
+    <div class="b-article-list">
+    <style>
+        a{
+            text-decoration: none;
+            color: #535150;
+        }
+        a:hover{
+            color: #535150;
+        }
+        .wrap{
+            margin-top: -40px;
+            padding-left: 50px;
+            padding-right: 20px;
+        }
+        #bio-page-title h1, .title h1{
+            color: #cc8f7b;
+        }
+        #bio-page-content p, #exhibit-text p,#exhibit-announce, #exhibit-text, #book-description p{
+            color: #7e7e7e;
+        }
+        #bio-page-announce, #book-author{
+            color: #535150;
+        }
+        .info-list-category{
+            color: #7e7e7e;
+        }
+        #bio-page-info p{
+            color: #cc8f7b;
+        }
+    </style>
+            {% if  c=='biography' %}
+                <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/biography.css') }}" />
+                <a href="{{ Url.site('project/index/'~id_project~'?type=biography') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Personalia"|i18n }}</h2></a>
+
+                {% for item in list %}
+
+                    <div class="wrap text-page" >
+                       <div id="bio-left" >
+                            <div id="bio-page-title"><h1 >{{ item.name }}</h1></div>
+
+                            <div id="bio-page-announce">
+                                <div></div>
+                                {{ item.desc }}
+                            </div>
+
+                            <div id="bio-page-content">
+                                {{ item.text|raw }}
+                            </div>
+
+                            <div id="bio-page-clear"></div>
+
+                            <div class="bio-likes-block">
+                                <script type="text/javascript">(function ()
+                                    {
+                                        if (window.pluso) if (typeof window.pluso.start == "function") return;
+                                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                        s.type = 'text/javascript';
+                                        s.charset = 'UTF-8';
+                                        s.async = true;
+                                        s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                                        var h = d[g]('head')[0] || d[g]('body')[0];
+                                        h.appendChild(s);
+                                    })();</script>
+                                <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                            </div>
+                        </div>
+
+                        <div id="bio-right">
+                            {% if item.picture.file_path is defined %}
+                                <div class="bio-page-photo">
+                                    <img src="{{ Url.media('/images/w220-h294-cct-si/'~item.picture.file_path, TRUE) }}" width="220" alt="{{ item.name }}" title="{{ item.name }}" />
+                                </div>
+                            {% endif %}
+
+                            <div id="bio-page-info"{% if not item.picture.file_path is defined %} class="m-top-12"{% endif %}>
+                                <ul>
+                                    <li class="info-list-category">{{ "Name"|i18n }}</li>
+                                    <li><p>{{ item.name }}</p></li>
+
+                                    <li class="info-list-category">{{ "Career"|i18n }}</li>
+                                    <li><p>{{ item.category.title }}</p></li>
+
+                                    {% if item.date_start %}
+                                        <li class="info-list-category">{{ "Birthday"|i18n }}</li>
+                                        <li><p>{{ item.date_start }}</p></li>
+                                    {% endif %}
+
+                                    {% if item.birthplace %}
+                                        <li class="info-list-category">{{ "Birthplace"|i18n }}</li>
+                                        <li><p>{{ item.birthplace }}</p></li>
+                                    {% endif %}
+
+                                    {% if item.date_finish %}
+                                        <li class="info-list-category">{{ "Deathday"|i18n }}</li>
+                                        <li><p>{{ item.date_finish }}</p></li>
+                                    {% endif %}
+
+                                    {% if item.deathplace %}
+                                        <li class="info-list-category">{{ "Deathplace"|i18n }}</li>
+                                        <li><p>{{ item.deathplace }}</p></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+
+                            <div id="bio-add-info">
+                                <ul>
+                                    {% if read is defined %}
+                                        <li class="add-info-title">{{ "Advised to read"|i18n }}</li>
+                                    {% endif %}
+
+                                    {% for book in read %}
+                                        <li>{% if book.link %}<a href="{{ book.link }}">{% endif %}{{ book.title }}{% if book.link %}</a>{% endif %}</li>
+                                    {% endfor %}
+
+                                    {% if references is defined %}
+                                        <li class="add-info-title">{{ "References"|i18n }}</li>
+                                    {% endif %}
+
+                                    {% for ref in references %}
+                                        <li>{% if ref.link %}<a href="{{ ref.link }}">{% endif %}{{ ref.title }}{% if ref.link %}</a>{% endif %}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            {% if  c=='video' %}
+                <a href="{{ Url.site('project/index/'~id_project~'?type=video') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Video"|i18n }}</h2></a>
+                <div id="scontent"></div>
+                <div id="videogallery-content" class="item-list wrap">
+
+                    <article>
+                        <div class="title"><h1>{{ video.title }}</h1></div>
+
+                        <div class="player">
+                            <iframe width="620" height="465" src="//www.youtube.com/embed/{{ video.link }}" frameborder="0" allowfullscreen></iframe>
+                        </div>
+
+                        <div class="div100">
+                            <p class="g-a-date">{{ Date.ru_date(video.date, 'd.m.Y') }} {% if video.category.lvl==3 %}<a href="{{ Url.site('video/'~video.category.parent.id~'#scontent') }}">{{ video.category.parent.name }}</a>{% else %}<a href="{{ Url.site('video/'~video.category.id~'#scontent') }}">{{ video.category.name }}</a>{% endif %}</p>
+                            <p class="g-a-content">{{ video.description|striptags }}</p>
+                        </div>
+
+                        <div class="video-likes">
+                            <div class="video-likes-content">
+                                <script type="text/javascript">(function () {
+                                        if (window.pluso) if (typeof window.pluso.start == "function") return;
+                                        var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                        s.type = 'text/javascript';
+                                        s.charset = 'UTF-8';
+                                        s.async = true;
+                                        s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                                        var h = d[g]('head')[0] || d[g]('body')[0];
+                                        h.appendChild(s);
+                                    })();</script>
+                                <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                            </div>
+                        </div>
+
+                        <div class="comments-count-title">{{ "Comments"|i18n }}</div>
+
+                        {% if not _user %}
+                            <div class="b-title m-top-25">
+                                <div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>
+                            </div>
+                        {% endif %}
+
+                        {{ _request.factory('comments/index/video-'~video.id).execute()|raw }}
+                    </article>
+
+                    <aside>
+                        <div id="videogallery-menu" class="m-top-12">
+                            <ul>
+                                {% for item in other_video %}
+                                    <li><a href="{{ Url.site('video/view/'~item.id~'#scontent') }}">{{ item.title }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </aside>
+                </div>
+            {% endif %}
+
+            {% if  c=='photo' %}
+
+            <a href="{{ Url.site('project/index/'~id_project~'?type=photo') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Photogallery"|i18n }}</h2></a>
+            <div id="scontent"></div>
+                <div class="item-list wrap">
+                    <div class="title"><h1>{{ photoset.name() }}</h1></div>
+
+                    <div id="gallery-thumbs">
+                        {% set i=1 %}
+                        {% for photo in attach %}
+                            <div class="p-thumb">
+                                <img src="{{ Url.media('images/w184-h184-ccc-si/'~photo.photo.file_path) }}" alt="{{ photoset.name() }}.{{ "photo"|i18n }}-{{ i }}" title="{{ photoset.name() }}.{{ "photo"|i18n }}-{{ i }}"/>
+                                <a href="{{ Url.media(photo.photo.file_path) }}" title="{{ photo.name }}" rel="fancy" oncontextmenu="return false"><span>{{ photo.name }}</span></a>
+                            </div>
+                            {% set i=i+1 %}
+                        {% endfor %}
+                    </div>
+
+                    <div class="gallery-clear"></div>
+                </div>
+
+            {% endif %}
+
+            {% if  c=='infographics' %}
+            <a href="{{ Url.site('project/index/'~id_project~'?type=infographics') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Infographics"|i18n }}</h2></a>
+                <div class="text-page wrap">
+                    <div class="title"><h1>{{ infograph.title }}</h1></div>
+
+                    <div class="in-info-date">{{ Date.ru_date(infograph.date, 'd.m.Y') }}</div>
+
+                    <div class="infograph-big-photo">
+                        {% if infograph.picture.file_path is defined %}
+                            <div>
+                                <a href="{{ Url.media(infograph.picture.file_path, TRUE) }}" class="zoom">
+                                    <img id="to_zoom" src="{{ Url.media('/images/w940/'~infograph.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" title="" />
+                                </a>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="infograph-likes">
+                        <div class="in-likes-block">
+                            <script type="text/javascript">(function () {
+                                    if (window.pluso) if (typeof window.pluso.start == "function") return;
+                                    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                    s.type = 'text/javascript';
+                                    s.charset = 'UTF-8';
+                                    s.async = true;
+                                    s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                                    var h = d[g]('head')[0] || d[g]('body')[0];
+                                    h.appendChild(s);
+                                })();</script>
+                            <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            {% if  c=='contents' %}
+            <a href="{{ Url.site('project/index/'~id_project~'?type=contents') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Publications"|i18n }}</h2></a>
+
+            {% for item in list %}
+            <div class="wrap">
+                <div class="title"><h1>{{ item.title }}</h1></div>
+
+                    {% if item.desc|length > 0 %}
+                        <div id="exhibit-announce">
+                            <div></div>
+                            {{ item.desc|raw }}
+                        </div>
+                    {% endif %}
+
+                    <div id="exhibit-text" class="m-top-10">
+                        {{ item.text|raw }}
+                    </div>
+
+                    <div id="exhibit-likes">
+                        <div class="likes-block-content">
+                            <script type="text/javascript">(function () {
+                                    if (window.pluso) if (typeof window.pluso.start == "function") return;
+                                    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                    s.type = 'text/javascript';
+                                    s.charset = 'UTF-8';
+                                    s.async = true;
+                                    s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                                    var h = d[g]('head')[0] || d[g]('body')[0];
+                                    h.appendChild(s);
+                                })();</script>
+                            <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                        </div>
+                    </div>
+
+                    <div class="b-title m-top-25">
+                        <h3>{{ "Comments"|i18n }}</h3>
+                        {% if not _user %}<div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>{% endif %}
+                    </div>
+
+                    {{ _request.factory('comments/index/pages_contents-'~item.id).execute()|raw }}
+
+                    <div class="book-bottom-space"></div>
+
+                </div>
+            {% endfor %}
+            {% endif %}
+
+
+
+    {% if  c=='publications' %}
+        <a href="{{ Url.site('project/index/'~id_project~'?type=contents') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Publications"|i18n }}</h2></a>
+
+        {% for item in list %}
+            <div class="wrap">
+                <div class="title"><h1>{{ item.title }}</h1></div>
+
+                {% if item.desc|length > 0 %}
+                    <div id="exhibit-announce">
+                        <div></div>
+                        {{ item.desc|raw }}
+                    </div>
+                {% endif %}
+
+                <div id="exhibit-text" class="m-top-10">
+                    {{ item.text|raw }}
+                </div>
+
+                <div id="exhibit-likes">
+                    <div class="likes-block-content">
+                        <script type="text/javascript">(function () {
+                                if (window.pluso) if (typeof window.pluso.start == "function") return;
+                                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                s.type = 'text/javascript';
+                                s.charset = 'UTF-8';
+                                s.async = true;
+                                s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                                var h = d[g]('head')[0] || d[g]('body')[0];
+                                h.appendChild(s);
+                            })();</script>
+                        <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                    </div>
+                </div>
+
+                <div class="b-title m-top-25">
+                    <h3>{{ "Comments"|i18n }}</h3>
+                    {% if not _user %}<div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>{% endif %}
+                </div>
+
+                {{ _request.factory('comments/index/pages_contents-'~item.id).execute()|raw }}
+
+                <div class="book-bottom-space"></div>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if  c=='public' %}
+        <a href="{{ Url.site('project/index/'~id_project~'?type=contents') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Publications"|i18n }}</h2></a>
+
+        {% for item in list %}
+            <div class="wrap">
+                <div class="title"><h1>{{ item.title }}</h1></div>
+
+                {% if item.desc|length > 0 %}
+                    <div id="exhibit-announce">
+                        <div></div>
+                        {{ item.desc|raw }}
+                    </div>
+                {% endif %}
+
+                <div id="exhibit-text" class="m-top-10">
+                    {{ item.text|raw }}
+                </div>
+
+                <div id="exhibit-likes">
+                    <div class="likes-block-content">
+                        <script type="text/javascript">(function () {
+                                if (window.pluso) if (typeof window.pluso.start == "function") return;
+                                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                s.type = 'text/javascript';
+                                s.charset = 'UTF-8';
+                                s.async = true;
+                                s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                                var h = d[g]('head')[0] || d[g]('body')[0];
+                                h.appendChild(s);
+                            })();</script>
+                        <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                    </div>
+                </div>
+
+                <div class="b-title m-top-25">
+                    <h3>{{ "Comments"|i18n }}</h3>
+                    {% if not _user %}<div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>{% endif %}
+                </div>
+
+                {{ _request.factory('comments/index/pages_contents-'~item.id).execute()|raw }}
+
+                <div class="book-bottom-space"></div>
+
+            </div>
+        {% endfor %}
+    {% endif %}
+
+
+
+            {% if  c=='books' %}
+                <link rel="stylesheet" type="text/css" href="/media/css/library.css">
+                <a href="{{ Url.site('project/index/'~id_project~'?type=books') }}"><h2 style="color: #535150;padding: 0px 20px 20px 10px;">{{ "Library project"|i18n }}</h2></a>
+
+                <div id="scontent"></div>
+                <div class="wrap text-page">
+
+                    <div id="book-left">
+                        {% if not onechapter is defined %}
+                            <div class="title"><h1>{{ item.title }}</h1></div>
+                            <div id="book-author">{{ item.author }}</div>
+                            <div id="book-description">
+                                {{ item.description|raw }}
+                            </div>
+                        {% endif %}
+
+                        <div class="read-book-block">
+                            {% if item.type == 'txt' and onechapter is defined %}
+                                <div class="div100"><h1>{{ onechapter.title }}</h1></div>
+                                <div id="book-author">{{ item.author }}</div>
+                                <div id="book-description">
+                                    {{ onechapter.text|raw }}
+                                </div>
+
+                            {% elseif item.type == 'txt' and chapters is defined %}
+                                <ul>
+                                    <li class="read-ul-title">{{ "Read"|i18n }}:</li>
+
+                                    {% for chap in chapters %}
+                                        <li><a href="{{ Url.site('books/library/read/'~item.id)~'?chapter='~chap.number~'#scontent' }}">{{ "Chapter"|i18n }} {{ chap.number }}. {{ chap.title }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                            {% if item.type == 'pdf' %}
+                                <ul>
+                                    <li class="read-ul-title">{{ "Read"|i18n }}:</li>
+                                    <li><a href="{{ Url.site('books/library/read/'~item.id~'#scontent') }}">{{ "Read in browser"|i18n }}</a></li>
+                                    {#<li><a href="{{ Url.media(item.pdf.file_path) }}">{{ "Download PDF"|i18n }}</a></li>#}
+                                </ul>
+                            {% endif %}
+                        </div>
+                        <div class="read-book-line"></div>
+
+                        <div class="book-likes">{##}
+                            <script type="text/javascript">(function () {
+                                    if (window.pluso) if (typeof window.pluso.start == "function") return;
+                                    var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                                    s.type = 'text/javascript';
+                                    s.charset = 'UTF-8';
+                                    s.async = true;
+                                    s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                                    var h = d[g]('head')[0] || d[g]('body')[0];
+                                    h.appendChild(s);
+                                })();</script>
+                            <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                        </div>
+
+                        <div class="b-title m-top-25">
+                            <h3>{{ "Comments"|i18n }}</h3>
+                            {% if not _user %}<div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>{% endif %}
+                        </div>
+
+                        {{ _request.factory('comments/index/book-'~item.id).execute()|raw }}
+
+                        <div class="book-bottom-space"></div>
+
+                    </div>
+
+                    <div id="book-right">
+                        <div class="bio-page-photo">
+                            {% if item.cover.file_path is defined %}
+                                <img src="{{ Url.media('/images/w220/'~item.cover.file_path, TRUE) }}" alt="" />
+                            {% else %}
+                                <img src="{{ Url.media('/images/w220/media/theme/no-cover.png', TRUE) }}" alt="" />
+                            {% endif %}
+                        </div>
+
+                        <div id="book-page-info">{# {% if not item.picture.file_path is defined %} class="m-top-91"{% endif %} #}
+                            <ul>
+                                {% if item.publisher != '' %}
+                                    <li class="info-list-category">{{ "Publisher"|i18n }}</li>
+                                    <li>{{ item.publisher }}{% if item.year > 0 %}, {{ item.year }}{% endif %}</li>
+                                {% endif %}
+
+                                <li class="info-list-category">{{ "Language"|i18n }}</li>
+                                <li>{{ item.language|upper|i18n }}</li>
+
+
+
+                            </ul>
+                        </div>
+
+
+                    </div>
+
+                </div>
+ {% endif %}
+
+    </div>
+</div>
+<!-- END CONTENT-->
+
+</div>
+<div class="clear"></div>
+</div>
+{% if files_test.id != "" %}
+<div class="b-push"></div>
+</div>
+<!-- FOOTER-->
+
+
+
+
+<div class="b-footer">
+    <div class="b-footer__left"><a href="#" class="b-pdf">&nbsp;</a></div>
+    <div class="b-footer__right">
+        <div class="b-footer__slider">
+
+            <div class="b-image-slider js-image-slider">
+                <ul class="b-slides">
+                    <li>
+                        <div class="b-slide-item">
+                            <div class="b-news-list">
+                                <div class="b-news-list__col">
+                                    <ul>
+
+                                        {% for file in files %}
+                                            <li class="b-news-list__item"><a target="_blanc" href="{{ Url.media(file.storage.file_path) }}">{{ file.storage.name }}
+                                                    ({{ FileData.size(file.filesize) }})</a></li>
+                                        {% endfor %}
+
+
+                                    </ul>
+                                </div>
+
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </li>
+                    <!-- <li>
+                         <div class="b-slide-item">
+                             <div class="b-news-list">
+                                 <div class="b-news-list__col">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Структура и динамика неналоговых поступлений в бюджет.</a></li>
+                                         <li class="b-news-list__item"><a href="#">Бюджеты казахстанских регионов (взгляд непрофессионала)</a></li>
+                                         <li class="b-news-list__item"><a href="#">СССР-США (сравнение доходной части бюджета)</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика роста бюджета Казахстана (продолжаю считать деньги)</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="b-news-list__col b-news-list__col_last">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Казахи на старых исторических фото</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика и структура налоговых поступлений в бюджет</a></li>
+                                         <li class="b-news-list__item"><a href="#">Структура доходной части бюджета Казахстана за 1994-2015 годы</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="clear"></div>
+                             </div>
+                         </div>
+                     </li>
+                     <li>
+                         <div class="b-slide-item">
+                             <div class="b-news-list">
+                                 <div class="b-news-list__col">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Структура и динамика неналоговых поступлений в бюджет.</a></li>
+                                         <li class="b-news-list__item"><a href="#">Бюджеты казахстанских регионов (взгляд непрофессионала)</a></li>
+                                         <li class="b-news-list__item"><a href="#">СССР-США (сравнение доходной части бюджета)</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика роста бюджета Казахстана (продолжаю считать деньги)</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="b-news-list__col b-news-list__col_last">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Казахи на старых исторических фото</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика и структура налоговых поступлений в бюджет</a></li>
+                                         <li class="b-news-list__item"><a href="#">Структура доходной части бюджета Казахстана за 1994-2015 годы</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="clear"></div>
+                             </div>
+                         </div>
+                     </li>
+                     <li>
+                         <div class="b-slide-item">
+                             <div class="b-news-list">
+                                 <div class="b-news-list__col">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Структура и динамика неналоговых поступлений в бюджет.</a></li>
+                                         <li class="b-news-list__item"><a href="#">Бюджеты казахстанских регионов (взгляд непрофессионала)</a></li>
+                                         <li class="b-news-list__item"><a href="#">СССР-США (сравнение доходной части бюджета)</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика роста бюджета Казахстана (продолжаю считать деньги)</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="b-news-list__col b-news-list__col_last">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Казахи на старых исторических фото</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика и структура налоговых поступлений в бюджет</a></li>
+                                         <li class="b-news-list__item"><a href="#">Структура доходной части бюджета Казахстана за 1994-2015 годы</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="clear"></div>
+                             </div>
+                         </div>
+                     </li>
+                     <li>
+                         <div class="b-slide-item">
+                             <div class="b-news-list">
+                                 <div class="b-news-list__col">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Структура и динамика неналоговых поступлений в бюджет.</a></li>
+                                         <li class="b-news-list__item"><a href="#">Бюджеты казахстанских регионов (взгляд непрофессионала)</a></li>
+                                         <li class="b-news-list__item"><a href="#">СССР-США (сравнение доходной части бюджета)</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика роста бюджета Казахстана (продолжаю считать деньги)</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="b-news-list__col b-news-list__col_last">
+                                     <ul>
+                                         <li class="b-news-list__item"><a href="#">Казахи на старых исторических фото</a></li>
+                                         <li class="b-news-list__item"><a href="#">Динамика и структура налоговых поступлений в бюджет</a></li>
+                                         <li class="b-news-list__item"><a href="#">Структура доходной части бюджета Казахстана за 1994-2015 годы</a></li>
+                                     </ul>
+                                 </div>
+                                 <div class="clear"></div>
+                             </div>
+                         </div>
+                     </li>-->
+                </ul>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $('.js-image-slider').bjqs({
+                        // width and height need to be provided to enforce consistency
+                        // if responsive is set to true, these values act as maximum dimensions
+                        width : 920,
+                        height : 85,
+
+                        // animation values
+                        animtype : 'slide', // accepts 'fade' or 'slide'
+                        animduration : 450, // how fast the animation are
+                        animspeed : 6000, // the delay between each slide
+                        automatic : true, // automatic
+
+                        // control and marker configuration
+                        showcontrols : true, // show next and prev controls
+                        centercontrols : false, // center controls verically
+                        nexttext : 'Next', // Text for 'next' button (can use HTML)
+                        prevtext : 'Prev', // Text for 'previous' button (can use HTML)
+                        showmarkers : false, // Show individual slide markers
+                        centermarkers : true, // Center markers horizontally
+
+                        // interaction values
+                        keyboardnav : true, // enable keyboard navigation
+                        hoverpause : true, // pause the slider on hover
+
+                        // presentational options
+                        usecaptions : true, // show captions for images using the image title tag
+                        randomstart : true, // start slider at random slide
+                        responsive : false
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>
+
+
+
+{% endif %}
+
+
+<div class="footer">
+    <div class="containerContent">
+        <a href="//e-history.kz/kz" target="_blank">
+            {% if _language == 'ru' %}
+            <p class="logoFooter">ИСТОРИЯ <br> КАЗАХСТАНА
+
+            </p>
+            {% endif %}
+
+        {% if _language == 'kz' %}
+            <p class="logoFooter">ҚАЗАҚСТАН <br>ТАРИХЫ
+
+            </p>
+            {% endif %}
+
+        {% if _language == 'en' %}
+            <p class="logoFooter">HISTORY OF <br> KAZAKHSTAN
+
+            </p>
+           {% endif %}
+            </a>
+        <div class="social-block">
+            <a target="_blank" href="https://www.facebook.com/kazhistory" class="social-icon"></a>
+            <a target="_blank" href="http://vk.com/historykaz" class="social-icon"></a>
+            <a target="_blank" href="https://twitter.com/history_kaz" class="social-icon"></a>
+            <a target="_blank" href="http://my.mail.ru/mail/kaz-ehistory" title="Мой мир" class="social-icon"></a>
+            <a target="_blank" href="http://el.kz/ehistory" class="social-icon" class="social-icon"></a>
+            <a target="_blank" href="http://www.youtube.com/channel/UCyAimvIRIbuoYsXvaWdzD5w" class="social-icon"></a>
+            <a target="_blank" href="http://kaztube.kz/ru/channel/71420" class="social-icon"></a>
+            <a target="_blank" href="http://ehistory.yvision.kz/" title="Yvision" class="social-icon"></a>
+            <a target="_blank" href="http://e-history.kz/kz/rss"class="social-icon"></a>
+            <a target="_blank" href="https://itunes.apple.com/us/app/e-history/id816071342" class="social-icon"></a>
+            <a target="_blank" href="https://play.google.com/store/apps/details?id=kz.ehistory.android" class="social-icon"></a>
+        </div>
+    </div>
+</div>
+
+<!-- END FOOTER-->
+</div>
+</body>
+</html>

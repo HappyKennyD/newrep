@@ -1,0 +1,1 @@
+<?php echo __('Уважаемый :opponent, на Портале Истории Казахстана :link в дебатах на тему :theme :author опубликовал сообщение ":opinion".', array(':opponent' => $opponent,':link' => $link,':theme' => $theme,':author' => $author,':opinion' => $opinion));

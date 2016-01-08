@@ -1,0 +1,33 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+    <div class="titul" style="margin: 10px;">
+        <a href="{{ URL.site('manage/feedback') }}?sort=noreply" {% if sort=="noreply" %}class="active"{% endif %}>{{ "Noreply Questions"|i18n }}</a>
+        <a href="{{ URL.site('manage/feedback') }}?sort=reply" {% if sort=="reply" %}class="active"{% endif %}>{{ "Reply Questions"|i18n }}</a>
+        <a href="{{ URL.site('manage/feedback') }}?sort=spam" {% if sort=="spam" %}class="active"{% endif %}>{{ "Spam"|i18n }}</a>
+        <a href="{{ URL.site('manage/feedback') }}?sort=all" {% if sort=="all" %}class="active"{% endif %}>{{ "All Questions"|i18n }}</a>
+    </div>
+    <div class="graybox news" style="margin-top: 10px;">
+        {% for item in questions %}
+            {{ item.detect_exist() }}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+        <span class="btn-group">
+    <a class="btn btn-mini" href="{{ Url.site('manage/feedback/reply/'~item.id) }}">
+        <i class="icon-edit">{% if item.is_answered == 0 %}{{ "Reply"|i18n }} {% else %}{{ "See the question"|i18n }}{% endif %}</i></a>
+                    </div>
+                    {{ item.user.username }}<br>{{ Date.translate(item.date, 'd F Y G:i:s') }}
+                    <br>{{ Text.limit_chars(item.question,100) }}
+                </div>
+            </div>
+        {% else %}
+            <div class="text">{{ "No questions"|i18n }}</div>
+        {% endfor %}
+        <br>
+        <div style="padding: 0 30px 30px 30px;">
+            {{ paginate|raw }}
+        </div>
+
+    </div>
+{% endblock content %}

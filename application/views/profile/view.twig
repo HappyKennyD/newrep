@@ -1,0 +1,135 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/profile.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    {#<script type="text/javascript" src="{{ Url.media('media/js/profile.js') }}"></script>#}
+    {% include 'profile/profilejs.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="cabinet-left" class="p-view">
+            <div class="div100"><h1>{{ user.username|raw|striptags }}</h1></div>
+
+            <div id="profile-position">
+                {% if user.profile.specialization %}
+                    {{ user.profile.specialization|raw|striptags }}
+                {% else %}
+                    {{ "The user hasn\'t specified any information about his specialization"|i18n }}
+                {% endif %}
+             </div>
+             <div id="profile-description">
+                {% if user.profile.about %}
+                    {{ user.profile.about|raw|striptags }}
+                {% else %}
+                    {{ "The user hasn\'t specified any personal information"|i18n }}
+                {% endif %}
+            </div>
+
+            <div class="profile-line"></div>
+
+            <div class="profile-category-title"><h3>{{ "Subscriptions"|i18n }}</h3></div>
+            <div class="profile-category-list">
+
+                    {% if not subscriptions is empty %}
+                        <table>
+                        {% for item in subscriptions %}
+                            <tr>
+                                <td {% if loop.index > 5 %}class="subhide" style="display:none"{% endif %}>
+                                    <a href="{{ Url.site('contents/list/'~item.category_id) }}">{{ item.category.name }}</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                         </table>
+                        {% if counts.subs>5 %}
+                            <a id='subshow' style="color:#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Show more"|i18n }}</a>
+                            <a id='subhide' style="display:none; color:#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Hide"|i18n }}</a>
+                        {% endif %}
+                    {% else %}
+                        <div class="inputLabel">{{ user.username|raw|striptags }} {{ "Is not made ​​out (s) subscriptions."|i18n }}</div>
+                    {% endif %}
+            </div>
+
+            <div class="profile-line"></div>
+
+            <div class="profile-category-title"><h3>{{ "Participating in the debate"|i18n }}</h3></div>
+            <div class="profile-category-list">
+                {% if not debates is empty %}
+                    <table>
+                        {% for item in debates %}
+                            <tr>
+                                <td {% if loop.index > 5 %}class="debhide" style="display:none"{% endif %}>
+                                    <a href="{{ Url.site('debate/view/'~item.id) }}">{{ item.title }}</a></td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% if counts.debate>5 %}
+                        <a id='debshow' style="color:#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Show more"|i18n }}</a>
+                        <a id='debhide' style="display:none; color:#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Hide"|i18n }}</a>
+                    {% endif %}
+                {% else %}
+                    <div class="inputLabel">{{ user.username|raw|striptags }} {{ "Has no part (s) in the debate."|i18n }}</div>
+                {% endif %}
+            </div>
+
+            <div class="profile-line"></div>
+
+            <div class="profile-category-title"><h3>{{ "Downloaded Content"|i18n }}</h3></div>
+            <div class="profile-category-list">
+                {% if not materials is empty %}
+                    <table>
+                        {% for material in materials %}
+                            <tr>
+                                <td><a href="javascript:showAttachments({{ loop.index }})" {% if loop.index > 5 %}class="filehide" style="display:none"{% endif %}>{{ material.theme }}</a></td>
+                            </tr>
+
+                            <tr id="attachments_{{ loop.index }}" class="material-loaded-files{% if loop.index > 5 %} fileshide{% endif %}">
+                                <td colspan="2">
+                                    <div class="material-files-list">
+                                        <table>
+                                            {% set files=material.files.find_all() %}
+                                            {% for file in files %}
+                                                <tr>
+                                                    <td><a target="_blanc" href="{{ Url.media(file.storage.file_path) }}" style="margin-left: 10px;">{{ file.storage.name }}</a></td>
+                                                    <td class="att-file-size"><span>{{ FileData.size(file.filesize) }}</span></td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                    {% if counts.materials > 5 %}
+                        <a id='fileshow' style="color:#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Show more"|i18n }}</a>
+                        <a id='filehide' style="display:none; color:#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Hide"|i18n }}</a>
+                    {% endif %}
+                {% else %}
+                    <div class="inputLabel">{{ user.username|raw|striptags }} {{ "Have not downloaded (a) material."|i18n }}</div>
+                {% endif %}
+            </div>
+
+            <div id="profile-likes">
+                <div id="profile-likes-content">
+                    <script type="text/javascript">(function () {
+                            if (window.pluso) if (typeof window.pluso.start == "function") return;
+                            var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                            s.type = 'text/javascript';
+                            s.charset = 'UTF-8';
+                            s.async = true;
+                            s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                            var h = d[g]('head')[0] || d[g]('body')[0];
+                            h.appendChild(s);
+                        })();</script>
+                    <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+                </div>
+            </div>
+
+        </div>
+        <div id="cabinet-right">
+            {% include "profile/navigation.twig" %}
+        </div>
+    </div>
+{% endblock content %}

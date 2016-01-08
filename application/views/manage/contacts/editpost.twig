@@ -1,0 +1,32 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/contacts') }}" class="close">&times;</a>
+            <h4>Редактирование/Добавление контакта</h4>
+        </div>
+        <div>
+            <label for="post">Должность</label>
+            <input type="text" name="post" id="post" class="input-xxlarge" value="{{ item.post }}" />
+            <label for="name">ФИО контакта</label>
+            <input type="text" name="name" id="name" class="input-xxlarge" value="{{ item.name }}" />
+            <label for="phone">Телефон</label>
+            <input type="text" name="phone" id="phone" class="input-xxlarge" value="{{ item.phone }}" />
+            <label for="fax">Факс</label>
+            <input type="text" name="fax" id="fax" class="input-xxlarge" value="{{ item.fax }}" />
+            <label for="cabinet">Кабинет</label>
+            <input type="text" name="cabinet" id="cabinet" class="input-xxlarge" value="{{ item.cabinet }}" />
+            {% if contact_id is defined %}
+                <input type="hidden" name="contact_id" value="{{ contact_id }}"
+            {% endif %}
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/contacts') }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

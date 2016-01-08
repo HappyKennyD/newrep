@@ -1,0 +1,66 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/photosets') }}" class="close">&times;</a>
+            <h4>{{ "Edit/Add photoset"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="name">{{ "Title"|i18n }}</label>
+            <input type="text" name="name" id="name" class="input-xxlarge" value="{{ item.name }}" style="width: 98%;"/>
+
+            <label for="category_id">{{ "Category"|i18n }}</label>
+            <select name="category_id" id="category_id">
+                <option value="0" selected>Без категории</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}"{% if category.id == item.category_id %} selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="datepicker">{{ "Date"|i18n }}</label>
+            <input type="text" name="date" class="datepicker"
+                   data-date="{% if item.date is empty %}{{ "now"|date("Y-m-d H:i") }}{% else %}{{ item.date|date("Y-m-d H:i") }}{% endif %}"
+                   data-date-format="dd.mm.yyyy hh:ii" value="{% if item.date is empty %}{{ "now"|date("d.m.Y H:i") }}{% else %}{{ item.date|date("d.m.Y H:i") }}{% endif %}"
+                   id="datepicker" readonly style="cursor: pointer"/>
+            <div>
+                <label for="location">Место проведения фотосессии</label>
+                <input type="text" name="location" id="location" class="input-xxlarge" value="{{ item.location }}" style="width: 98%;"/>
+            </div>
+            <div>
+                <input type="hidden" name="is_important" value="0" >
+                <input type="checkbox" name="is_important" {% if item.is_important is not defined or item.is_important %} checked="checked" {% endif %} value="1" id="is_important" style="margin: 0 5px 1px 0;">
+                <label for="is_important" style="display: inline;">На главную</label>
+            </div>
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;">
+                <label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+
+
+            <div>{{ uploader|raw }} </div>
+            {% if attachments is defined %}
+                {% for attach in attachments %}
+                    <div style="margin-bottom: 10px;">
+                        <input type="text" name="name_{{ attach.storage_id }}" value="{{ attach.name }}" placeholder="Подпись к фото">
+                        <input type="checkbox" name="main_{{ attach.storage_id }}" {% if attach.main %} checked="checked" {% endif %} id="main_{{ attach.storage_id }}"><label for="main_{{ attach.storage_id }}" style="display: inline">Сделать обложкой фотоальбома</label><br>
+                        <img src="{{ Url.media('/images/h469-cct-si/'~attach.photo.file_path, TRUE)}}" alt="" id="photo" /><br>
+                        <input type="hidden" id="photos[]" name="photos[]" value="{{ attach.storage_id }}">
+                        <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить Фото?')" href="{{ Url.site('manage/photosets/delimage/'~attach.id) }}">Удалить фото? &times;</a><br /><br />
+
+
+                    </div>
+                {% endfor %}
+            {% endif %}
+            <div id="photos"></div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/photosets') }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,127 @@
+{% extends "layout/html.twig" %} {% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ 
+Url.media('media/css/exhibits.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ 
+Url.media('media/css/photogallery.css') }}"/> {% endblock %}
+    {% block extrascripts %}
+        <script type="text/javascript" src="{{ 
+Url.media('media/js/photogallery.js') }}"></script>
+    {% endblock extrascripts %} {% block content %}
+    {% if page.id==378 %}
+            <div id="scontent"></div>
+            <div class="item-list wrap">
+                {% include 'layout/bread-crumbs.twig' %}
+                <div class="div100"><h1>{{ page.name }}</h1></div>
+
+ {% if _language =='ru' %}
+                    <p>Материалы взяты из книги «Нурсултан Назарбаев. Биография», 2012 г.</p>
+                {% endif %}
+                {% if _language =='kz' %}
+                    <p>Мәліметтер 2012 жылы жарық көрген «Нұрсұлтан Назарбаев. Өмірбаян» кітабынан алынды</p>
+                {% endif %}
+                {% if _language =='en' %}
+                    <p>Materials taken from the book “Nursultan Nazarbayev. Biography”, 2012.</p>
+                {% endif %}
+                <div id="gallery-thumbs">
+                    {% set i=1 %}
+                    {% for item in contents %}
+                        <div class="p-thumb">
+                            <img src="{{ 
+Url.media('images/w184-h184-ccc-si/'~item.picture.file_path) }}" alt="{{ 
+page.name() }}.{{ "photo"|i18n }}-{{ i }}" title="{{ page.name() }}.{{ 
+"photo"|i18n }}-{{ i }}"/>
+                            <a href="{{ 
+Url.media(item.picture.file_path) }}" title="{{ item.title }}" 
+rel="fancy" oncontextmenu="return false"><span>{{ item.title 
+}}</span></a>
+                        </div>
+                        {% set i=i+1 %}
+                    {% endfor %}
+                </div>
+                <div class="gallery-clear"></div>
+            </div>
+    {% else %}
+        <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' 
+%}</div>
+        <div id="album-left"{% if cont_p|length == 0 %} 
+class="full-width"{% endif %}>
+            <div class="div100"><h1>{{ page.name }}</h1></div>
+            {% if (contents is empty) and (cont_p is empty) %}
+                <div id="album-description" class="text">{{ "No contents 
+in this page"|i18n }}</div>
+            {% else %}
+                {% if page.id==376 %}
+            <style>
+                .p-thumb{
+                    position:relative;
+                    float:left;
+                    width: 188px;
+                }
+            </style>
+            <div id="gallery-thumb" class="">
+                {% for item in contents %}
+                    <div class="p-thumb">
+                        <img width="184" height="184" src="{{ 
+Url.media('images/w199-h200-ccc-sa/' ~ item.picture.file_path) }}" 
+alt=""/>
+                        <div class="over"><a title="{{ item.title }}" 
+href="{{ Url.media(item.picture.file_path) }}" class="fancybox">{{ 
+item.title }}</a></div>
+                    </div>
+                {% endfor %}
+            </div>
+                 {% else %}
+                <div id="album-exhibits">
+                    {% for item in contents %}
+                        <div class="exhibit-item{% if loop.first %} 
+m-top-15{% endif %}">
+                            {% if item.picture|length > 0 %}
+                                <div class="exhibit-item-photo">
+                                    <a href="{{ 
+Url.site('contents/view/'~item.id) }}">
+                                        <img src="{{ 
+Url.media('/images/w187-cct-si/'~item.picture.file_path|default('media/theme/noimage.png')) 
+}}" alt="{{ item.title }}" title="{{ item.title }}" />
+                                    </a>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="exhibit-item-text{% if not 
+item.picture|length > 0 %} ex-full-width{% endif %}">
+                                <div class="ex-title">
+                                    <a class="s-item" href="{{ 
+Url.site('contents/view/'~item.id) }}">{{ item.title }}</a>
+                                </div>
+                                <div class="ex-announce">{{ 
+item.description }}</div>
+                            </div>
+                        </div>
+                        {% if loop.last %}
+                            <div class="ex-last-clear"></div>
+                        {% else %}
+                            <div class="ex-item-clear"></div>
+                        {% endif %}
+                    {% endfor %}
+                    {% endif %}
+                {% endif %}
+            </div>
+            
+             {{ paginate|raw }}
+        </div>
+        
+        {# Подразделы #}
+        {% if cont_p|length > 0 %}
+            <div id="album-right">
+                <div id="album-category">
+                    <ul>
+                        {% for item in cont_p %}
+                            <li><a class="s-item" href="{{ 
+Url.site('contents/list/'~item.id) }}">{{ item.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    {% endif %} {% endblock content %}

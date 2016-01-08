@@ -1,0 +1,14 @@
+{% extends "layout/html.twig" %}
+
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/exhibits.css') }}" />
+{% endblock %}
+
+{% block content %}
+    <div id="scontent"></div>
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{item.title}}</h1></div>
+        <iframe style="width:940px; height: 548px;" src="{{item.link}}"></iframe>
+    </div>
+{% endblock content %}

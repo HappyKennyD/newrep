@@ -1,0 +1,7 @@
+{% block content %}
+    <h4>{% if _request.param('type')|lower =="1" and _request.controller|lower == "specprojects" %} Спец. проект: "Устная история" {% endif %}
+        {% if _request.param('type')|lower =="2" and _request.controller|lower == "specprojects"%} Спец. проект: "Краеведение" {% endif %}
+        {% if _request.param('type')|lower =="3" and _request.controller|lower == "specprojects"%} Спец. проект: "Орнаменты" {% endif %}
+        {% if _request.param('type')|lower =="4" and _request.controller|lower == "specprojects"%} Спец. проект: "Шежире" {% endif %}
+    </h4>
+{% endblock content %}

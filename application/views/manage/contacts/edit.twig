@@ -1,0 +1,21 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <a type="button" href="{{ Url.media('manage/contacts') }}" class="close">&times;</a>
+            <h4>Редактирование/Добавление контакта</h4>
+        </div>
+        <div>
+            <label for="name">Наименование контакта</label>
+            <input type="text" name="name" id="name" class="input-xxlarge" value="{{ item.name }}" />
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn">{{ "Save"|i18n }}</button>
+            <a href="{{ Url.media('manage/contacts') }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

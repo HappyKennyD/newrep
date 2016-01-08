@@ -1,0 +1,38 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    {% for item in project %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/project/edit/'~item.id~ '/page-'~page) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/project/delete/'~item.id~ '/page-'~page) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+
+            <h4>{{ item.name }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if item.picture.file_path is defined %}
+                <img src="{{ Url.site(item.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+
+        </div>
+        <div>
+            <strong>{{ item.desc }}</strong>
+        </div><br>
+
+        {% for file in files %}
+            <div><a target="_blanc" href="{{ Url.media(file.storage.file_path) }}">{{ file.storage.name }}
+                    ({{ FileData.size(file.filesize) }})</a></div>
+        {% endfor %}
+
+
+
+
+        <div class="clear"></div>
+        <a href="{{ Url.media('manage/project/page-'~page) }}">Вернуться к списку</a>
+        <br>
+        <a href="/project/index/{{ item.id }}?type">Перейти к пользовательской части</a>
+    </div>
+{% endfor %}
+{% endblock content %}

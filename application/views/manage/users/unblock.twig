@@ -1,0 +1,16 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="post" style="margin:0;">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <h4>Разблокировать пользователя</h4>
+        </div>
+        <div class="modal-body">
+            <p>Вы уверены, что хотите разблокировать пользователя «{{ record.email }}»?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ cancel_url }}" class="btn btn-link">Отмена</a>
+            <button class="btn btn-success"><i class="icon-unlock"></i> Да, разблокировать</button>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,74 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/biography.css') }}"/>
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="bio-alphabet">
+            <a id="all-list" {% if not alpha %}class="selected-bio-category"{% endif %} href="{% if category!= 0 %}{{ Url.site('biography/'~category) }}{% else %}{{ Url.site('biography') }}{% endif %}">{{ "All list"|i18n }}</a>
+            {% for al in alphabet %}
+                <a {% if alpha == al %}class="selected-bio-category"{% endif %} href="{% if category != 0 %}{{ Url.site('biography/'~category~'/'~al) }}{% else %}{{ Url.site('biography/'~al) }}{% endif %}">{{ al }}</a>
+            {% endfor %}
+        </div>
+
+        <div id="bio-left">
+            <div class="bio-list">
+                {% if error is defined %} <strong>{{ error }}</strong> {% endif %}
+                {% for item in list %}
+                    {% if item.translation==true %}
+                        <div class="bio-list-block">
+                            {% if item.picture.file_path is defined %}
+                                <div class="bio-photo">
+                                    <img src="{{ Url.media('/images/w140-h187-cct-si/'~item.picture.file_path, TRUE) }}" alt="{{ item.name }}" title="{{ item.name }}"/>
+                                </div>
+                            {% endif %}
+
+                            <div class="bio-short-info{% if not item.picture.file_path is defined %} is-big-info{% endif %}">
+                                <div class="div100"><h3>
+                                        <a class="name" href="{{ Url.site('biography/view/'~item.id) }}">{{ item.name }}</a>
+                                    </h3></div>
+                                {#{% if not item.date_start is empty or  not item.date_finish is empty %}<div class="bio-years">{% if not item.date_start is empty %}{{ item.date_start }}{% if not item.date_finish is empty %} — {{ item.date_finish }}{% endif %}{% endif %}</div>{% endif %}#}
+                                {% if item.getYear('date_start') %}
+                                    <div class="bio-years">{{ item.getYear('date_start') }}{% if not item.getYear('date_finish') is empty %} — {{ item.getYear('date_finish') }}{% endif %}</div>{% endif %}
+                                <div class="bio-brief">{{ item.desc }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                        {% if not loop.last and item.translation==true %}
+                            <div class="bio-line"></div>{% else %}
+                            <div class="bio-clear"></div>{% endif %}
+
+                {% endfor %}
+            </div>
+
+            {{ paginate|raw }}
+        </div>
+
+        <div id="bio-right">
+            <div id="bio-category-list">
+                <ul>
+                    <li class="bio-category-title">{{ "The History Man"|i18n }}</li>
+
+                    {% for cat1 in categories1 %}
+                        <li{% if cat1.id == category %} class="selected-bio-list"{% endif %}>
+                            <a href="{% if alpha %}{{ Url.site('biography/'~cat1.id~'/'~alpha) }}{% else %}{{ Url.site('biography/'~cat1.id) }}{% endif %}">{{ cat1.title }}</a>
+                        </li>
+                    {% endfor %}
+                    <li{% if halyk_kaharmany.id == category %} class="selected-bio-list"{% endif %}>
+                        <a href="{% if alpha %}{{ Url.site('biography/'~halyk_kaharmany.id~'/'~alpha) }}{% else %}{{ Url.site('biography/'~halyk_kaharmany.id) }}{% endif %}">{{ halyk_kaharmany.title }}</a>
+                    </li>
+
+
+                    {#<li class="bio-category-title">{{ "Contemporary"|i18n }}</li>
+                    
+                    {% for cat2 in categories2 %}
+                        <li{% if cat2.id == category %} class="selected-bio-list"{% endif %}><a href="{% if alpha %}{{ Url.site('biography/'~cat2.id~'/'~alpha) }}{% else %}{{ Url.site('biography/'~cat2.id) }}{% endif %}">{{ cat2.title }}</a></li>
+                    {% endfor %}#}
+                </ul>
+            </div>
+        </div>
+
+    </div>
+{% endblock content %}

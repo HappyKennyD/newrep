@@ -1,0 +1,55 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in questions %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/questions/show/'~item.id) }}"><i class="icon-eye-open"> </i> Просмотр вопроса</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/questions/edit_question/'~item.id) }}"><i class="icon-edit"> </i> Редактировать вопрос</a>
+                            {% if status == 0 or status == 3 %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/questions/success/'~item.id) }}"><i class="icon-eye-open"> </i> Одобрить вопрос</a>
+                            {% endif %}
+                            {% if status != 3 %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/questions/reject/'~item.id) }}"><i class="icon-eye-close"> </i> Отклонить вопрос</a>
+                            {% endif %}
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/questions/delete_question/'~item.id) }}"><i class="icon-remove"> </i> Удалить вопрос</a>
+                        </span>
+                        <br>({{ Date.ru_date(item.date_question, 'd F Y H:i:s') }})&nbsp;
+                        <a class="link" href="{{ Url.media('manage/questions/show/'~item.id) }}">{{ item.fio~' ('~item.email~')' }}</a>
+                     </div>
+                    <div>
+                        {{ Text.limit_words(item.text_question|striptags,50) }}<br>
+                    </div>
+                    {% if status == 0 or status == 1 %}
+                        <div class="text-right">
+                             <a class="btn btn-mini btn-success" href="{{ Url.media('manage/questions/edit_answer/'~item.id) }}"><i class="icon-question-sign"> </i> Ответить на вопрос</a>
+                        </div>
+                    {% elseif item.date_answer is defined %}
+                        <div style="margin-left: 20px;">
+                            <div class="date">
+                                <br><b>Ответ на вопрос</b> ({{ Date.ru_date(item.date_answer, 'd F Y H:i:s') }})&nbsp;
+                                <a class="link" href="{{ Url.media('manage/questions/show/'~item.id) }}">{{ item.author }}</a>
+                            </div>
+                            <div>
+                                {{ Text.limit_words(item.text_answer|striptags,50) }}<br>
+                            </div>
+                            <span class="btn-group">
+                                <a class="btn btn-mini" href="{{ Url.media('manage/questions/edit_answer/'~item.id) }}"><i class="icon-edit"> </i> Редактировать ответ</a>
+                                <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/questions/delete_answer/'~item.id) }}"><i class="icon-remove"> </i> Удалить ответ</a>
+                            </span>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

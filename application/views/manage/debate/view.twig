@@ -1,0 +1,41 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a type="button" href="{{ Url.media('manage/debate/logs') }}" class="close">&times;</a>
+        </div>
+        <div>
+            <h4>{{ item.debate.title }}</h4>
+            {{ item.moderator.username }}&nbsp;({{ Date.translate(item.date, 'd.m.Y H:i') }})&nbsp;
+            <br><strong>{{ "Action"|i18n }}: </strong>{{ DebateLogAction.give(item.action)|i18n }}
+            <div class="clear"></div>
+        </div>
+        {% if item.action=="time" %}
+            <div>
+                <strong>{{ "The old value"|i18n }}: </strong>{{ Date.translate(item.old_date, 'd.m.Y H:i') }}
+                <br><strong>{{ "The new value"|i18n }}: </strong>{{ Date.translate(item.new_date, 'd.m.Y H:i') }}
+            </div>
+        {% endif %}
+        {% if item.action=="member" %}
+            <div>
+                <strong>{{ "The old value"|i18n }}: </strong>{{ item.old_member.username|striptags|raw }}
+                <br><strong>{{ "The new value"|i18n }}: </strong>{{ item.new_member.username|striptags|raw }}
+            </div>
+        {% endif %}
+        {% if item.action=="edit" or item.action=="description" or item.action=="title" %}
+            <div>
+                {% if item.action=="edit" %}<strong>{{ "User"|i18n }}
+                    : </strong>{{ item.opinion.user.username|striptags|raw }}{% endif %}
+                <br><strong>{{ "The old value"|i18n }}: </strong>{{ item.old_text|striptags|raw }}
+                <br><strong>{{ "The new value"|i18n }}: </strong>{{ item.new_text|striptags|raw }}
+            </div>
+        {% endif %}
+        {% if item.action=="hide" or item.action=="show" %}
+            <div>
+                <strong>{{ "User"|i18n }}: </strong>{{ item.comment.user.username|striptags|raw }}
+                <br><strong>{{ "Comment"|i18n }}: </strong>{{ item.comment.comment|striptags|raw }}
+            </div>
+        {% endif %}
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+<div id="user-photo-block">
+    <img src="{{ Url.media('/images/w220-h220-ccc-si/'~user.profile.img.file_path|default('media/images/nophoto.jpg')) }}" width="220" height="220" alt="" id="photo"/>
+
+    {% if Url.current == Url.site('profile') %}
+    <a>{{ "Upload new photo"|i18n }}</a>
+    <div id="ava_uploader">{{ avatar_uploader|raw }}</div>
+    {% endif %}
+</div>
+{% if Url.current == Url.site('profile') %}
+<div class="profile-soc-title">{{ _user.username }} {{ "in the social networks"|i18n }}</div>
+
+<div id="profile-soc-icons">
+    {% for profile_social in profile_socials %}
+    <a target=_blanc href="{{ profile_social.link }}" class="{{ profile_social.social }}-icon"></a>
+    {% endfor %}
+</div>
+
+<div id="profile-navigation">
+    <ul>
+        <li class="is-big-title{% if _request.action|lower == "index" %} selected-profile-nav{% endif %}"><a href="{{ Url.site('profile') }}">{% if  _request.action|lower == "index" %}{{ "User profile"|i18n }}{% else %}<span>{{ "User profile"|i18n }}</span>{% endif %}</a>
+        </li>
+        <li {% if _request.action|lower == "subscription" %} class="selected-profile-nav"{% endif %}><a href="{{ Url.site('profile/subscription') }}">{{ "Subscriptions"|i18n }}</a></li>
+        <li {% if _request.action|lower == "materials" %} class="selected-profile-nav"{% endif %}><a href="{{ Url.site('profile/materials') }}">{{ "Downloaded Content"|i18n }}</a></li>
+        <li {% if _request.action|lower == "feedback" %} class="selected-profile-nav"{% endif %}><a href="{{ Url.site('profile/feedback') }}">{{ "Feedback"|i18n }}</a></li>
+        <li {% if _request.action|lower == "information" %} class="selected-profile-nav"{% endif %}><a href="{{ Url.site('profile/information') }}">{{ "Personal data"|i18n }}</a></li>
+        <li {% if _request.action|lower == "settings" %} class="selected-profile-nav"{% endif %}><a href="{{ Url.site('profile/settings') }}">{{ "Account Settings"|i18n }}</a></li>
+    </ul>
+</div>
+{% endif %}

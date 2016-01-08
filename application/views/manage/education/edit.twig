@@ -1,0 +1,28 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="post" style="margin: 0">
+    <div style="padding: 20px;">
+        <div>
+            <h4>Редактирование ЦОР</h4>
+        </div>
+        <div>
+            <label for="title">Наименование ЦОР</label>
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" />
+        </div>
+        <div>
+            <label for="">Выбранный язык</label>
+            <label for="ru" class="inline"><input type="radio" name="language" value="ru" id="ru" {% if item.language == 'ru' %}checked="checked" {% endif %}/> RU</label>
+            <label for="kz" class="inline"><input type="radio" name="language" value="kz" id="kz" {% if item.language == 'kz' %}checked="checked" {% endif %}/> KZ</label>
+            <label for="en" class="inline"><input type="radio" name="language" value="en" id="en" {% if item.language == 'en' %}checked="checked" {% endif %}/> EN</label>
+        </div>
+        <div>
+            <label for="number">Номер урока</label>
+            <input type="text" name="number" id="number" class="input-xxlarge" value="{{ item.number }}" />
+        </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/education') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+{% endblock content %}

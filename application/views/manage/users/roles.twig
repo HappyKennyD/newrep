@@ -1,0 +1,22 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" style="margin:0" method="POST">
+        <input type="hidden" value="{{ token }}" name="token">
+        <div class="modal-header">
+            <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+            <h4>Права пользователя</h4>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" name="saveroles" value="1" />
+            {% for role in roles %}
+                    <label class="checkbox" for="role-{{ role.id }}">
+                    <input type="checkbox" id="role-{{ role.id }}" name="roles[{{ role.id }}]" value="{{ role.id }}" {% if role.has==1 %} checked="checked" {% endif %}/>
+                    {{ role.description }}</label>
+            {% endfor %}
+        </div>
+        <div class="modal-footer">
+            <a href="{{ cancel_url }}" class="btn btn-link">Отмена</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> Сохранить</button>
+        </div>
+    </form>
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    {% for item in errors %}
+        {{ item }}
+    {% endfor %}
+    <form action="" style="margin:0" method="POST">
+        <div class="modal-header">
+            <h4>Добавление пользователя</h4>
+        </div>
+        <div class="page-pad" style="margin-bottom: 30px">
+            <label for="username">Логин</label>
+            {% if errors.username is defined %}
+                {% if errors.username == "user/user.username.unique" %}<span class="label label-important">Пользователь с таким логином уже существует</span>
+                {% elseif errors.username == "Поле не должно быть пустым" %}<span class="label label-important">Введите логин пользователя</span>
+                {% else %}
+                    <span class="label label-important">Логин должен быть не короче 3 и не длиннее 32 символов</span>
+                {% endif %}
+            {% endif %}
+            <input class="input-block-level" id="username" type="text" name="username" value="{{ user_reg.username|default('') }}" placeholder="Введите логин пользователя, от 3 до 32 символов"/>
+            <label for="email">Электронная почта</label>
+            {% if errors.email is defined %}
+                {% if errors.username == "user/user.email.unique" %}<span class="label label-important">Пользователь с такой электронной почтой уже существует</span>
+                {% else %}
+                    <span class="label label-important">Введите электронную почту пользователя</span>
+                {% endif %}
+            {% endif %}
+            <input class="input-block-level" id="email" type="text" name="email" value="{{ user_reg.email|default('') }}" placeholder="Введите электронную почту, до 255 символов"/>
+            <label for="password">Пароль</label>
+            {% if errors.password is defined %}
+                <span class="label label-important">Заполните поле "Пароль"</span>
+            {% endif %}
+            <input class="input-block-level" id="password" type="text" name="password" value="{{ user_reg.password|default('') }}" placeholder="Введите пароль, до 255 символов"/>
+            <label for="first_name">Имя</label>
+            <input class="input-block-level" id="first_name" type="text" name="first_name" value="{{ user_reg.first_name|default('') }}" placeholder="Введите имя пользователя, до 255 символов"/>
+            <label for="last_name">Фамилия</label>
+            <input class="input-block-level" id="last_name" type="text" name="last_name" value="{{ user_reg.last_name|default('') }}" placeholder="Введите фамилию пользователя, до 255 символов"/>
+            <label>Права пользователя</label>
+            <div>
+                <input type="checkbox" id="is_admin" name="is_admin" value="1" {% if user_reg.is_admin %}checked{% endif %}/>
+                <label for="is_admin" class="checkbox inline">Администратор</label></div>
+            <div>
+                <input type="checkbox" id="is_moder" name="is_moder" value="1" {% if user_reg.is_moder %}checked{% endif %}/>
+                <label for="is_moder" class="checkbox inline">Модератор</label></div>
+            <div>
+                <input type="checkbox" id="is_customer" name="is_customer" value="1" {% if user_reg.is_customer %}checked{% endif %}/>
+                <label for="is_customer" class="checkbox inline">Пользователь</label></div>
+            <div class="clear"></div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/users') }}" class="btn">Отмена</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> Сохранить</button>
+        </div>
+    </form>
+{% endblock content %}

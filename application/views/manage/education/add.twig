@@ -1,0 +1,27 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div>
+    <form action="" method="post" style="margin: 0" enctype="multipart/form-data">
+        <div style="padding: 20px;">
+        <div>
+            <h4>Добавление материала</h4>
+        </div>
+        <div>
+            <label for="upload">ZIP-архив в правильном формате для загрузки:
+                <input type="file" name="file"/>
+            </label>
+        <div>
+                <input type="hidden" name="published" value="0">
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;">
+                <label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/education') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,63 @@
+{% block content %}
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.BlackAndWhite.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/jquery.zoomy1.2.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ Url.media('media/css/jquery.Jcrop.css') }}">
+    <style>
+
+        img.captcha_old {
+            filter: url({{ Url.media('media/css/filters.svg')}}#grayscale); /* Firefox 3.5+ */
+            filter: gray; /* IE6-9 */
+            -webkit-filter: grayscale(1); /* Google Chrome & Safari 6+ */
+        }
+
+    </style>
+<form method="post">
+
+    {#  {{ errors }}
+    <p></p>
+    <input type="text" name="captcha" required style="margin: 0; width: 147px; height: 42px; font-size:35px" autocomplete="off">
+    <button class="btn btn-large btn-primary" type="submit">{{ "send"|i18n }}</button>
+
+    <div id="bwWrapper" class="zoom" style="width: 150px; height: 50px">
+        <img src="{{ Url.media('/captcha/default') }}" width="100%" height="100%" alt="Captcha" class="captcha_old"/>
+    </div>
+    #}
+
+    <label for="name_ru">Текст запроса</label>
+    <input id="name_ru" name="name_ru" type="text" value="" style="width: 200px">
+    <br>
+    <button class="btn btn-large btn-primary" type="submit">{{ "посчитать"|i18n }}</button>
+
+</form>
+    <script>
+        $(document).ready(function () {
+            function blackimg() {
+                $('#bwWrapper').BlackAndWhite({
+                            hoverEffect: false
+                        }
+                );
+            }
+
+            //blackimg();
+            var height = $('#bwWrapper').height() + 'px',
+                    width = $('#bwWrapper').width() + 'px',
+                    newWidth = $('#bwWrapper').width() * 4,
+                    newHeight = (newWidth * $('#bwWrapper').height()) / $('#bwWrapper').width();
+
+            newHeight += 'px';
+            newWidth += 'px';
+            //$('.BWfade').attr('width', '100%').attr('height', '100%');
+            $(function () {
+                //console.log(height, width, newWidth, newHeight);
+                $('#bwWrapper').hover(function () {
+                    $(this).children('.captcha_old').stop().animate({width: newWidth, height: newHeight}, 300);
+                }, function () {
+                    $(this).children('.captcha_old').stop().animate({width: width, height: height}, 300);
+                });
+            });
+        });
+
+
+    </script>
+{% endblock content %}

@@ -1,0 +1,123 @@
+{% extends "manage/layout/manage.twig" %}
+  {% block extrascripts %}
+<script type="text/javascript" src="{{ Url.media('media/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ Url.media('media/js/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ Url.media('media/js/fancybox/jquery.fancybox.pack.js') }}"></script>
+<script type="text/javascript" src="{{ Url.media('media/js/fancybox/jquery.fancybox-media.js') }}"></script>
+<script type="text/javascript" src="{{ Url.media('media/js/jquery-migrate-1.2.1.js') }}"></script>
+<script type="text/javascript" src="{{ Url.media('media/js/jquery.zoomy1.2.min.js') }}"></script>
+<script type="text/javascript" src="{{ Url.media('media/jouele/jquery.jplayer.min.js') }}"></script>
+<script type="text/javascript" src="{{ Url.media('media/jouele/jouele.js') }}"></script>
+
+
+<script type="text/javascript" src="{{ Url.media('media/js/jquery-2.1.1.min.js')}}"></script>
+
+<script type="text/javascript" src="{{ Url.media('media/js/swfupload.js') }}"></script>
+
+
+
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
+<script type="text/javascript" src="{{ Url.media('media/js/slick.min.js') }}"></script>
+  {% endblock extrascripts %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <h4>{{ "Редактирование / добавление"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Название"|i18n }}</label>
+            {% if errors.name is defined %}
+                <span class="alert">{{ errors.name }}</span>
+            {% endif %}
+            <input type="text" name="name" id="name" class="input-xxlarge" value="{{ item.name }}" style="width: 98%;"/>
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if item.image is defined and item.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(item.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ item.image }}">
+                    </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/project/clearimage/'~item.id) }}">Удалить изображение? &times;</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <br>
+
+
+
+
+            <label for="desc">{{ "Краткое описание (максимум 500 символов)"|i18n }}</label>
+            {% if errors.desc is defined %}
+                <span class="alert">{{ errors.desc }}</span>
+            {% endif %}
+            <textarea name="desc" id="desc" maxlength="500" rows="3" style="width: 98%; resize: none;">{{ item.desc }}</textarea>
+
+            <div>
+                <input type="hidden" name="is_important" value="0" >
+                <input type="checkbox" name="is_important" {% if item.is_important is not defined or item.is_important %} checked="checked" {% endif %} value="1" id="is_important" style="margin: 0 5px 1px 0;"><label for="is_important" style="display: inline;">{{ "На главную"|i18n }}</label>
+            </div>
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+
+
+            <div class="inputLabel">{{ "Upload files"|i18n }} ({{ "max 8"|i18n }})</div>
+            <input type="hidden" value="{{ files|length+1 }}" id="material_id" name="material_id"/>
+
+            <div id="material-files">
+                {% if files|length<8 %}
+                    <div id="media" class="inputFile">
+                        <div class="input-file-name">{{ "Select file"|i18n }}</div>
+                        <div id="thisuploader">{{ uploader_files|raw }}</div>
+                    </div>
+                {% endif %}
+                {% for file in files %}
+                    <div id='media_{{ loop.index }}' class='inputFile is-selected-file' data-id='{{ loop.index }}'>
+                        <div class='input-file-name'>{{ FileData.name(file) }}</div>
+                        <div class='media-size-{{ loop.index }}'>{{ FileData.filesize(file) }}</div>
+                        <div class='file-cover'></div>
+                        <input type='hidden' name='files[]' value='{{ file }}'>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/project/page-'~page) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            function ShowOption()
+            {
+                var era = $("#era").val();
+                if (era == 1)
+                {
+                    $(".second").hide();
+                    $(".first").show();
+                }
+                else
+                {
+                    $(".first").hide();
+                    $(".second").show();
+                }
+            }
+            ShowOption();
+
+            $("#era").change(function()
+            {
+                ShowOption();
+            });
+        });
+    </script>
+{% endblock content %}

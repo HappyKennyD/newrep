@@ -1,0 +1,105 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <h4>{{ "Редактирование / добавление"|i18n }}</h4>
+        </div>
+        <div>
+            <label for="title">{{ "ФИО"|i18n }}</label>
+            {% if errors.name is defined %}
+                <span class="alert">{{ errors.name }}</span>
+            {% endif %}
+            <input type="text" name="name" id="name" class="input-xxlarge" value="{{ item.name }}" style="width: 98%;"/>
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if item.image is defined and item.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(item.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ item.image }}">
+                    </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/biography/clearimage/'~item.id) }}">Удалить изображение? &times;</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <br>
+            <div>
+                <select name="era" id="era">
+                    <option value="1" {% if era == 1 %} selected{% endif %}>{{ "The History Man"|i18n }}</option>
+                    <option value="2" {% if era == 2 %} selected{% endif %}>{{ "Contemporary"|i18n }}</option>
+                </select>
+            </div>
+
+            <label for="category">{{ "Категория"|i18n }}</label>
+            {% if errors.category is defined %}
+                <span class="alert">{{ errors.category }}</span>
+            {% endif %}
+            <select name="category_id" id="category">
+                {#<option value="0" {% if item.category_id == 0 %}selected="selected"{% endif %}>---</option>#}
+                {% for category in categories %}
+                    <option {% if category.era == 1 %} class="first"{% else %} class="second"{% endif %} value="{{ category.id }}" {% if category.id == item.category_id %}selected="selected"{% endif %}>{{ category.title }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="desc">{{ "Краткое описание биографии (максимум 200 символов)"|i18n }}</label>
+            {% if errors.desc is defined %}
+                <span class="alert">{{ errors.desc }}</span>
+            {% endif %}
+            <textarea name="desc" id="desc" maxlength="200" rows="3" style="width: 98%; resize: none;">{{ item.desc }}</textarea>
+            <label for="text">{{ "Полная биография"|i18n }}</label>
+            {% if errors.text is defined %}
+                <span class="alert">{{ errors.text }}</span>
+            {% endif %}
+            <textarea class="redactor" name="text" id="text" style="width: 98%;">{{ item.text }}</textarea>
+            <label for="date_start">{{ "Birthday"|i18n }}</label>
+            <input type="text" name="date_start" class="input-xxlarge" id="date_start" value="{{ item.date_start }}"/>
+            <label for="birthplace">{{ "Birthplace"|i18n }}</label>
+            <input type="text" name="birthplace" class="input-xxlarge" id="birthplace" value="{{ item.birthplace }}"/>
+
+            <label for="date_finish">{{ "Deathday"|i18n }}</label>
+            <input type="text" name="date_finish" class="input-xxlarge" value="{{ item.date_finish }}"/>
+            <label for="deathplace">{{ "Deathplace"|i18n }}</label>
+            <input type="text" name="deathplace" class="input-xxlarge" value="{{ item.deathplace }}"/>
+            <div>
+                <input type="hidden" name="is_important" value="0" >
+                <input type="checkbox" name="is_important" {% if item.is_important is not defined or item.is_important %} checked="checked" {% endif %} value="1" id="is_important" style="margin: 0 5px 1px 0;"><label for="is_important" style="display: inline;">{{ "На главную"|i18n }}</label>
+            </div>
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/biography/page-'~page) }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+
+    <script type="text/javascript">
+        $(document).ready(function ()
+        {
+            function ShowOption()
+            {
+                var era = $("#era").val();
+                if (era == 1)
+                {
+                    $(".second").hide();
+                    $(".first").show();
+                }
+                else
+                {
+                    $(".first").hide();
+                    $(".second").show();
+                }
+            }
+            ShowOption();
+
+            $("#era").change(function()
+            {
+                ShowOption();
+            });
+        });
+    </script>
+{% endblock content %}

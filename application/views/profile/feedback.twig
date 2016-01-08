@@ -1,0 +1,70 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/profile.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    {#<script type="text/javascript" src="{{ Url.media('media/js/profile.js') }}"></script>#}
+    {% include 'profile/profilejs.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="cabinet-left">
+            <div class="div100"><h1>{{ "Feedback"|i18n }}</h1></div>
+
+            <div id="profile-feedback-block">
+                {#   <form method="post">
+                       <div class="inputLabel">{{ "Message text"|i18n }}</div>
+                       {% if errors is defined %}
+                           <span class="alert">{{ "The question must contain a minimum of 30 characters"|i18n }}</span>
+                       {% endif %}
+                       <div class="inputTextarea">
+                           <textarea name="question" id="question">{{ question.question|raw|striptags|default("") }}</textarea>
+                       </div>
+
+                       <div class="subscribe-button-block">
+                           <input type="submit" class="button" value="{{ "Send"|i18n }}"/>
+                       </div>
+                   </form>
+                 #}
+                <input type="button" class="button" value="{{ 'Use ligo!'|i18n }}" onclick="sendByLigo(); return false;" />
+            </div>
+
+            <div id="loaded-materials-list" class="m-top-25">
+                {% for item in questions %}
+                    <div class="material-item">
+                        <div class="material-item-title">{{ "You wrote"|i18n }}</div>
+                        <div class="material-item-date">{{ Date.ru_date(item.date, 'd.m.Y, H:i') }}</div>
+                        <div class="material-item-announce">{{ item.question|raw|striptags }}</div>
+
+                        {# !!! Если нет ответа, то добавляем класс m-top-20 #}
+                        {% if item.is_answered == 0 %}
+                            <div class="material-answer-text m-top-20">
+                                <p>{{ "Thank you for your message. We will reply you soon."|i18n }}</p>
+                            </div>
+                        {% else %}
+                            <div class="material-answer-title"><strong>{{ "We said"|i18n }}</strong>
+                                <span>{{ Date.ru_date(item.qalist.date, 'd.m.Y, H:i') }}</span></div>
+                            <div class="material-answer-text">
+                                {{ item.qalist.answer|raw|striptags }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    {% if not loop.last %}
+                        <div class="material-feedback-line"></div> {% endif %}
+                {% endfor %}
+
+
+                {{ paginate|raw }}
+            </div>
+      </div>
+
+        <div id="cabinet-right">
+            {% include "profile/navigation.twig" %}
+        </div>
+
+        <div id="profile-clear"></div>
+    </div>
+{% endblock content %}

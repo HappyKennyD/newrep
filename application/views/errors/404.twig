@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="{{ _language }}">
+    <head>
+        <title>{{ _metadata.title }}</title>
+        <meta charset="UTF-8"/>
+        <link rel="shortcut icon" href="{{ Url.media('/favicon.png') }}"/>
+        <link rel="icon" href="{{ Url.media('/favicon.png') }}"/>
+        <link rel="alternate" type="application/rss+xml" title="RSS" href="{{ Url.site('rss') }}" />
+        
+        <link rel="stylesheet" href="{{ Url.media('media/css/base.css') }}"/>
+        <!--[if IE]><![if !IE]><![endif]--><link rel="stylesheet" href="{{ Url.media('media/css/pt-serif-embedded.css') }}"/><!--[if IE]><![endif]><![endif]-->
+        <!--[if IE]><![if !IE]><![endif]--><link rel="stylesheet" href="{{ Url.media('media/css/pt-sans-embedded.css') }}"/><!--[if IE]><![endif]><![endif]-->
+        <!--[if IE]><link rel="stylesheet" href="{{ Url.media('media/css/pt-sans-embedded-ie.css') }}"/><![endif]-->
+        <!--[if IE]><link rel="stylesheet" href="{{ Url.media('media/css/pt-serif-embedded-ie.css') }}"/><![endif]-->
+        <!--[if IE]><link rel="stylesheet" href="{{ Url.media('media/css/pt-serif-bold-embedded-ie.css') }}"/><![endif]-->
+        <!--[if IE]><link rel="stylesheet" href="{{ Url.media('media/css/pt-serif-italic-embedded-ie.css') }}"/><![endif]-->
+        <link rel="stylesheet" href="{{ Url.media('media/css/errors.css') }}"/>
+
+        <!--[if lt IE 9]><script type="text/javascript" async="async" src="{{ Url.media('media/js/html5fix.js') }}"></script><![endif]-->
+        <script type="text/javascript" src="{{ Url.media('media/js/jquery.min.js') }}"></script>
+        <script type="text/javascript" src="{{ Url.media('media/js/errors.js') }}"></script>
+    </head>
+    <body>
+        <div id="content">
+            <div id="error-bg" style="background: url('/media/theme/uchebnik/background.jpg') no-repeat; background-size: 100%;">
+                {#<img src="{{ Url.media('media/images/v1/404.jpg') }}" alt="" />#}
+            </div>
+            
+            <div id="main-block" style="margin: auto;    left: 0;    right: 0;">
+                {#<a href="{{ Url.site('/') }}" id="logo"></a>#}
+                <div id="logo-text">
+                    {#<p class="site-name"><a href="{{ Url.site('/') }}">{{ "History of Kazakhstan"|i18n|raw }}</a></p>#}
+                    {#<p><a href="{{ Url.site('/') }}">{{ "Logo citate error"|i18n|raw }}</a></p>#}
+                </div>
+                <div id="error-name">{{ "Error 404"|i18n|raw }}</div>
+                
+                <div id="error-text">
+                    {% if no_translation!='no_translation'%}
+                        <p>{{ "Page does not exist or has been removed"|i18n }}</p>
+                        <p>{{ "You can go"|i18n }} <a href="/">{{ "to home"|i18n }}</a>.</p>
+                    {% else %}
+                        <p>{{ 'Sorry translation of this publication does not exist'|i18n }}.</p>
+                        <p>{{ "You can go"|i18n }} <a href="javascript:history.back()">{{ "back"|i18n }}</a> {{ "or go"|i18n }} <a href="/">{{ "to home"|i18n }}</a></p>
+                    {% endif %}
+                </div>
+                
+                {#<div id="search">#}
+                    {#<form action="{{ Url.site('search') }}" method="POST">#}
+                        {#<input type="text" id="searchInput" name="search" value="{{ 'Поиск по сайту'|i18n }}" data-alt="{{ 'Поиск по сайту'|i18n }}" />#}
+                        {#<input type="submit" value="" id="searchSubmit" />#}
+                    {#</form>#}
+                {#</div>#}
+            </div>
+        </div>
+    </body>
+</html>

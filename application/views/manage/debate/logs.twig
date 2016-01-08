@@ -1,0 +1,28 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="graybox news" style="margin-top: 10px;">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+
+                        <a class="link" target="_blank" href="{{ Url.site('debate/view/'~item.debate_id) }}">{{ item.debate.title }}</a>
+
+                        <div class="pull-right btn-group">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/debate/view/'~item.id) }}"><i class="icon-eye-open"> </i>
+                                {{ "View"|i18n }}</a>
+                        </div>
+                        &nbsp;
+                    </div>
+                    <div>
+                        {{ item.moderator.username }}&nbsp;({{ Date.translate(item.date, 'd.m.Y H:i') }})&nbsp;
+                        <br><b>{{ "Action"|i18n }}: </b>{{ DebateLogAction.give(item.action)|i18n }}
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            {{ "No debate"|i18n }}
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

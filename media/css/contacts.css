@@ -1,0 +1,150 @@
+#contacts-left-content, #contacts-right-content {
+    position: relative;
+    float: left;
+}
+
+#contacts-announce, .contacts-persons, .contacts-likes, #contacts-preview, .yandex-maps-block, #contacts-information-block {
+    position: relative;
+    float: left;
+    width: 100%;
+}
+
+#contacts-left-content {
+    width: 620px;
+}
+
+#contacts-preview {
+    margin-top: 25px;
+}
+
+#contacts-announce {
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: normal;
+    margin-top: 10px;
+}
+
+#contacts-announce div {
+    position: absolute;
+    width: 2px;
+    height: 1px;
+    left: -22px;
+    top: 6px;
+    background: url(../images/v1/expert-announce-line.gif);
+}
+
+.contacts-persons {
+    margin-top: 40px;
+    line-height: 24px;
+}
+
+.contacts-persons table {
+    width: 100%;
+}
+
+.contacts-persons td {
+    vertical-align: top;
+}
+
+.contacts-persons img {
+    margin-top: 7px;
+}
+
+.contacts-persons h3 {
+    font-size: 18px;
+    margin: 0 0 10px;
+    line-height: 24px;
+}
+
+.contact-position {
+    font-size: 16px;
+    font-style: italic;
+}
+
+.contact-brief {
+    font-size: 16px;
+}
+
+.contacts-clear {
+    height: 50px;
+    background: url(../images/v1/contacts/contacts-clear.png) repeat-x;
+}
+
+.is-last-clear {
+    height: 40px !important;
+}
+
+.contacts-likes {
+    height: 60px;
+}
+
+#contacts-right-content {
+    width: 220px;
+    left: 100px;
+    margin-top: 42px;
+}
+
+.yandex-maps-block {
+    height: 165px;
+    overflow: hidden;
+}
+
+#show-big-yandex-map {
+    display: block;
+    position: absolute;
+    width: 42px;
+    height: 42px;
+    left: 178px;
+    top: 123px;
+    background: url(../images/v1/contacts/plus.png) no-repeat;
+}
+
+#contacts-information-block {
+    line-height: 22px;
+}
+
+#contacts-information-block a {
+    text-decoration: underline;
+}
+
+#contacts-information-block a:hover {
+    text-decoration: none;
+}
+
+#contacts-information-block ul {
+    list-style: none;
+    margin: 0;
+    font-size: 17px;
+}
+
+.info-title {
+    font-size: 14px;
+    color: #999999;
+    margin-top: 30px;
+}
+
+#contacts-information-block li {
+    margin-bottom: 3px;
+    display: block;
+    clear: both;
+}
+
+.contacts-soc a {
+    display: block;
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin: 8px 10px 0 0;
+}
+
+.contacts-facebook {
+    background:  url(../images/v1/contacts/facebook.png) no-repeat;
+}
+
+.contacts-vk {
+    background:  url(../images/v1/contacts/vk.png) no-repeat;
+}
+
+.contacts-twitter {
+    background:  url(../images/v1/contacts/twitter.png) no-repeat;
+}

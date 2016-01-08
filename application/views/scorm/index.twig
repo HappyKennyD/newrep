@@ -1,0 +1,24 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/scorm.css') }}" />
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <div id="scorm-left">
+            <div class="div100"><h1>{{ "Цифровые образовательные ресурсы"|i18n }}</h1></div>
+            
+            <div id="scorm-block">
+                {% for item in courses %}
+                    <div class="scorm-item{% if loop.last %} no-border{% endif %}">
+                        {# {{ item.number }} - номер занятия, но он же по умолчанию есть в заголовке #}
+                        <p><a class="name" href="{{ Url.site('scorm/course/'~item.id) }}">{{ item.title }}</a></p>
+                    </div>
+                {% endfor %}
+            </div>
+            
+            {{ paginate|raw }}
+        </div>
+    </div>
+{% endblock content %}

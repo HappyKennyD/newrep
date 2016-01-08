@@ -1,0 +1,39 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/pages/new') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+
+        <form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="Поиск" />
+        </form>
+
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        <table class="table table-striped">
+        {% for page in pages %}
+            <tr id='{{ page.id }}'>
+                <td>
+                    <div style="padding-left: {{ page.level }}em">
+                    {% if page.static %}<i class="icon-file" style="color: darkred"></i> {% endif %}{{ page.name }}
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group pull-right">
+                        {% if page.parent_id != 0 %}
+                            <a class="btn btn-info btn-mini" href="{{ Url.media('manage/pages/up/'~page.id) }}"><i class="icon-arrow-up"></i></a>
+                            <a class="btn btn-info btn-mini" href="{{ Url.media('manage/pages/down/'~page.id) }}"><i class="icon-arrow-down"></i></a>
+                        {% endif %}
+                        {#{% if not page.key and page.parent.parent.key != 'institute' %}#}<a class="btn btn-mini" href="{{ Url.media('manage/contents/index/'~page.id) }}"><i class="icon-pencil"></i> Содержимое</a>{#{% endif %}#}
+                        <a class="btn btn-mini" href="{{ Url.media('manage/pages/new/'~page.id) }}"><i class="icon-plus"></i> Подстраница</a>
+                        <a class="btn btn-mini" href="{{ Url.media('manage/pages/edit/'~page.id) }}"><i class="icon-edit"></i> Редактировать</a>
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/pages/delete/'~page.id) }}"><i class="icon-remove icon-white"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

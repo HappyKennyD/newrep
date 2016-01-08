@@ -1,0 +1,25 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <form action="" method="post">
+            <input type="hidden" value="{{ token }}" name="token">
+            <div class="modal-header">
+                <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+                <h4>{{ "Editing opinion"|i18n }}</h4>
+            </div>
+            <div class="modal-body">
+                <p><label for="moderator_text">{{ "Debater opinion"|i18n }}:</label>
+                    {{ item.opinion|raw|striptags }}</p>
+                <p><label for="moderator_text">{{ "Enter the edited opinion"|i18n }}:</label>
+                    {% if error is defined %} <span class="alert">{{ "Opinion can not be empty"|i18n }}</span>{% endif %}
+                    <textarea name="moderator_text" id="moderator_text" maxlength="5000" style="width: 98%; resize: none;">{% if post is defined %}{{ post.moderator_text|raw|striptags }}{% else %}{{ item.moderator_text|raw|striptags|default(item.opinion|raw|striptags) }}{% endif %}</textarea></p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+                <button class="btn btn-danger">
+                    {{ "Edit "|i18n }}
+                </button>
+            </div>
+        </form>
+    </div>
+{% endblock content %}

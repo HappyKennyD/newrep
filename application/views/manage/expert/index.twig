@@ -1,0 +1,37 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/expert/edit/page-'~page) }}"><i class="icon-plus"></i> {{ "Add"|i18n }}
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in experts %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/expert/view/'~item.id~'/page-'~page) }}"><i class="icon-eye-open"> </i>
+                                {{ "Show"|i18n }}</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/expert/edit/'~item.id~'/page-'~page) }}"><i class="icon-edit"> </i>
+                                {{ "Edit "|i18n }}</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/expert/delete/'~item.id~'/page-'~page) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left"><a class="link" href="{{ Url.media('manage/expert/view/'~item.id) }}">{{ item.name }}</a> —
+                            {{ item.position }}
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        {{ item.description|striptags }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

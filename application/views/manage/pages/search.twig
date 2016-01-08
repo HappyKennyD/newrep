@@ -1,0 +1,42 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div class="page-header">
+    <form action="{{ Url.media('manage/pages') }}" method="POST" style="margin: 0;">
+        <label for="search" style="display: inline">Поиск:</label>
+        <input type="text" name="search" id="search" class="input-xxlarge" value="{{ search }}" style="margin: 0;"/>
+    </form>
+    <div class="clear"></div>
+</div>
+<div class="page">
+    {% for page in pages %}
+        {% for parent in parents[page.id] %}
+            <div class="list-row">
+                <span style="margin-left: {{ parent.level +1 }}em"> {{ parent.name }}{% if parent.static %}<sup style="color: red;">ст</sup>{% endif %}</span>
+                <div class="pull-right btn-group">
+                    <a class="btn btn-mini" href="{{ Url.media('manage/pages/new/'~parent.id) }}"><i class="icon-plus"></i> Добавить</a>
+                    <a class="btn btn-mini" href="{{ Url.media('manage/pages/edit/'~parent.id) }}"><i class="icon-edit"></i> Редактировать</a>
+                    <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/pages/delete/'~parent.id) }}"><i class="icon-remove icon-white"></i></a>
+                </div>
+                <div class="clear"></div>
+            </div>
+        {% endfor %}
+
+        <div class="list-row">
+            <span style="margin-left: {{ page.level +1 }}em"> {{ page.name }}{% if page.static %}<sup style="color: red;">ст</sup>{% endif %}</span>
+            <div class="pull-right btn-group">
+                <a class="btn btn-mini" href="{{ Url.media('manage/pages/new/'~page.id) }}"><i class="icon-plus"></i> Добавить</a>
+                <a class="btn btn-mini" href="{{ Url.media('manage/pages/edit/'~page.id) }}"><i class="icon-edit"></i> Редактировать</a>
+                <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/pages/delete/'~page.id) }}"><i class="icon-remove icon-white"></i></a>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <hr style="margin: 10px 0 10px 0;"/>
+
+    {% endfor %}
+
+    <div class="list-row">
+        <span><i>{{ sorry }}</i></span>
+    </div>
+</div>
+{% endblock content %}

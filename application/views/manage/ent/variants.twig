@@ -1,0 +1,46 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<div class="page-header">
+    <h4>{{ "ENT"|i18n }} - {{ "Variant"|i18n }} {{ ent.id }}. {{ "Language"|i18n }}: {{ ent.language|upper|i18n }}.</h4>
+    <p>{{ "Question"|i18n }}: {{ quest.text }}</p>
+    <h5>{{ "Variants of answer"|i18n }}</h5>
+    <div class="pull-right">
+        <a class="btn" href="{{ Url.media('manage/ent/variantedit/'~quest.id) }}"><i class="icon-plus"> {{ "Add variant"|i18n }}</i></a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="page">
+
+    {% for item in variants %}
+        <div class="well well-small">
+            <div class="text">
+                <div class="date">
+                    <span class="pull-right btn-group">
+                        {% if item.published %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/ent/variantpublish/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Hide"|i18n }}</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/ent/variantpublish/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "Unhide"|i18n }}</a>
+                        {% endif %}
+                        <a class="btn btn-mini" href="{{ Url.media('manage/ent/variantedit/'~quest.id~'-'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/ent/variantdelete/'~item.id) }}"><i class="icon-remove"> </i> {{ "Delete"|i18n }}</a>
+                    </span>
+
+                    <span class="pull-right btn-group">
+                        <a class="btn btn-mini" href="{{ Url.media('manage/ent/variantup/'~item.id) }}"><i class="icon-arrow-up"></i></a>
+                        <a class="btn btn-mini" href="{{ Url.media('manage/ent/variantdown/'~item.id) }}"><i class="icon-arrow-down"></i></a>
+                    </span>
+
+                    <div>
+                        {% if item.right==1 %}<b>{{ item.number }}. {{ item.text }}</b>{% endif %}
+                        {% if item.right==0 %}{{ item.number }}. {{ item.text }}{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    {{ paginate|raw }}
+
+</div>
+{% endblock content %}

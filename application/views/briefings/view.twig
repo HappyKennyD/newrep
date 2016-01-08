@@ -1,0 +1,96 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="text-page wrap">
+    {% include 'layout/bread-crumbs.twig' %}
+    <div class="news-view">
+        <h1>{{ briefing.title }}</h1>
+<!--        <div class="date">{{ Date.ru_date(briefing.date, 'd F Y') }}</div>
+-->
+        {% if briefing.video %}
+            <div class="well" style="text-align: center">
+                <script type="text/javascript" src="{{ Url.media('media/swf/swfobject.js') }}"></script>
+                <script type="text/javascript">
+                    $(document).ready(function(){
+                        var parameters =
+                        {	id: "1"
+                            ,	src: "rtmp://kisstelevision.es.flash3.glb.ipercast.net/kisstelevision.es-live/live"
+                            ,	autoPlay: "true"
+                            ,   width: "638"
+                            ,   height: "400"
+                            ,	autoHideControlBar: "true"
+                            ,	controlBarPosition: "over"
+                            ,   streamType: 'live'
+                        };
+
+                        // Embed the player SWF:
+
+                        swfobject.embedSWF
+                        ( "{{ Url.media('/osmf.swf') }}"
+                                , "player"
+                                , parameters["width"], parameters["height"]
+                                , "10.0.0"
+                                , {}
+                                , parameters
+                                , { allowFullScreen: "true" }
+                                , { name: "StrobeMediaPlayback" }
+                        );
+                    });
+                </script>
+                <div id="player"></div>
+            </div>
+        {% elseif briefing.link %}
+            <div>
+                <iframe width="560" height="315" src="http://www.youtube.com/embed/{{ briefing.link }}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        {% endif %}
+
+        <div class="text">
+            {{ briefing.text|raw }}
+        </div>
+    </div>
+    <div class="likes">
+        <script type="text/javascript">(function () {
+                if (window.pluso) if (typeof window.pluso.start == "function") return;
+                var d = document, s = d.createElement('script'), g = 'getElementsByTagName';
+                s.type = 'text/javascript';
+                s.charset = 'UTF-8';
+                s.async = true;
+                s.src = ('https:' == d.location.protocol ? 'https' : 'http') + '://share.pluso.ru/pluso-like.js';
+                var h = d[g]('head')[0] || d[g]('body')[0];
+                h.appendChild(s);
+            })();</script>
+        <div class="pluso" data-options="small,square,line,horizontal,nocounter,theme=08" data-services="vkontakte,facebook,odnoklassniki,twitter,yandex,livejournal,liveinternet,moimir" data-background="transparent"></div>
+    </div>
+
+    <div class="b-title m-top-25">
+        <h3>{{ "Comments"|i18n }}</h3>
+        {% if not _user %}<div class="block-title-text">{{ "For comment"|i18n }} <a href="{{ Url.site('auth/enter') }}">{{ "enter"|i18n }}</a> {{ "or"|i18n }} <a href="{{ Url.site('auth/register') }}">{{ "to register"|i18n }}</a></div>{% endif %}
+    </div>
+
+    {{ _request.factory('comments/index/briefing-'~briefing.id).execute()|raw }}
+
+    {#{% for item in comments %}
+        <div>
+            {{ item.user.profile.first_name }} {{ item.user.profile.last_name }}, {{ Date.ru_date(item.date, 'd F Y') }} <br>
+            {{ item.text }}
+        </div>
+    {% endfor %}
+
+    {% if auth is defined and auth == 1 %}
+        <form method="POST" action="" id='form'>
+            <input type="text" name="text" id="text">
+            <input type="button" value="{{ "Add comment"|i18n }}" onclick="Check_Text();">
+        </form>
+    {% endif %}
+
+    <script type="text/javascript">
+        function Check_Text()
+        {
+            var text = document.getElementById('text').value;
+            if (text.length < 1) return false
+            else document.getElementById('form').submit();
+        }
+
+    </script>#}
+
+{% endblock content %}

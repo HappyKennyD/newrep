@@ -1,0 +1,27 @@
+{% extends "layout/html.twig" %}
+{% block content %}
+    <div class="wrap">
+            <div>
+                <h4 class="form-signin-heading">{{ "Changing Password"|i18n }}</h4>
+            </div>
+            <form method="post" action="{{ Url.site('auth/recovery') }}">
+                <input type="hidden" name="token_auth" value="{{ _token }}">
+                <input type="hidden" name="code" value="{{ code }}">
+                <div>
+                    <label for="password">{{ "Enter the new password"|i18n }}</label>
+                    <input type="password" name="password" class="input-block-level" required="required" id="password"/>
+                    {% if errors.password is defined %}
+                        <div class="alert">{{ errors.password }}</div>
+                    {% endif %}
+                    <label for="password_confirm">{{ "Enter it again for safety"|i18n }}</label>
+                    <input type="password" name="password_confirm" class="input-block-level" required="required" id="password_confirm"/>
+                    {% if errors.password_confirm is defined %}
+                        <div class="alert">{{ errors.password_confirm }}</div>
+                    {% endif %}
+                </div>
+                <div>
+                    <button class="btn btn-large btn-primary" type="submit">{{ "To Change Password"|i18n }}</button>
+                </div>
+            </form>
+    </div>
+{% endblock content %}

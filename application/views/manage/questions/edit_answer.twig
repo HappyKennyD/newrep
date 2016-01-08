@@ -1,0 +1,46 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <form action="" method="POST" style="margin:0">
+        <div class="page-header">
+            <a type="button" href="{{ cancel_url }}" class="close">&times;</a>
+            <h4>{{ "Добавление/Редактирование ответа на вопрос "|i18n }}({{ Date.ru_date(question.date_question, 'd F Y H:i:s') }})&nbsp; {{ question.fio~' ('~question.email~')' }}</h4>
+            <div id='question' style="display: none;">
+                <div style="padding-left: 20px;">{{ question.text_question }}</div>
+            </div>
+            <a href="#" onclick="see()" id='see_question' class="btn-link">{{ "Показать вопрос"|i18n }}</a>
+        </div>
+        <div style="padding:15px;">
+            {% if errors._external.text_answer is defined %}
+                <span class="alert">{{ errors._external.text_answer }}</span>
+            {% endif %}
+            <textarea name="text_answer" style="width: 98%;" rows="20">{{ question.text_answer }}</textarea>
+            <label for="author">{{ "Автор ответа"|i18n }}</label>
+            <input type="text" name="author" id="author" class="input-xxlarge" value="{{ question.author }}" />
+            <label for="datepicker">{{ "Date"|i18n }}</label>
+            <input type="text" name="date_answer" class="datepicker"
+               data-date="{% if question.date_answer is defined %}{{ question.date_answer|date("Y-m-d H:i") }}{% else %}{{ "now"|date("Y-m-d H:i") }}{% endif %}"
+               data-date-format="dd.mm.yyyy hh:ii"
+               value="{% if question.date_answer is defined %}{{ question.date_answer|date("Y-m-d H:i") }}{% else %}{{ "now"|date("Y-m-d H:i") }}{% endif %}"
+               id="datepicker" readonly style="cursor: pointer"/>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-success">{{ "Save"|i18n }}</button>
+            <a href="{{ cancel_url }}" class="btn">{{ "Cancel"|i18n }}</a>
+        </div>
+    </form>
+    <script type="text/javascript">
+        function see()
+        {
+            if($('#question').css('display') == 'none')
+            {
+                $('#question').show('slow');
+                $('#see_question').text('Скрыть вопрос');
+            }
+            else
+            {
+                $('#question').hide('slow');
+                $('#see_question').text('Показать вопрос');
+            }
+        }
+    </script>
+{% endblock content %}

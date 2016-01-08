@@ -1,0 +1,76 @@
+.Vwidget, .Vwidget2{
+    margin: 0 20px;
+    padding: 0;
+    /* width: 200px; */
+}
+
+a.up, a.down{
+    display: block;
+    width:24px;
+    height:17px;
+    margin: 0 auto;
+    /*background-color: #0022cc;*/
+}
+
+a.up{
+    padding-bottom: 2px;
+    background: url(/media/theme/shkolkovo/up.png) no-repeat;
+}
+
+a.down {
+    padding-top: 2px;
+    background: url(/media/theme/shkolkovo/down.png) no-repeat;
+}
+
+.VjCarouselLite,.VjCarouselLite2{
+    margin: 0;
+    padding: 0;
+}
+
+.VjCarouselLite li, .VjCarouselLite2 li{
+    overflow: hidden;
+    float: none;
+    display: block;
+    padding: 0;
+    text-align: center;
+}
+
+.VjCarouselLite li div, .VjCarouselLite2 li div{
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    /*padding: 4px;*/
+    /*border: 1px solid #bbb;*/
+    height: 52px;
+    /*width: 185px;*/
+    line-height: 3.3;
+    text-transform: uppercase;
+    text-align: left;
+}
+
+.VjCarouselLite li div .expert-img, .VjCarouselLite2 li div .expert-img{
+    width: 53px;
+    height: 52px;
+    float: left;
+    margin: 0;
+    border: 1px solid #bbb;
+    border-radius: 50%;
+    margin-right: 20px;
+    background-size: cover;
+ }
+
+.img1{
+    background: url("/media/theme/shkolkovo/avatar.png") no-repeat center center;
+}
+
+.img2{
+    background: url("/media/theme/shkolkovo/avatar.png") no-repeat center center;
+}
+
+.img3{
+    background: url("/media/theme/shkolkovo/avatar.png") no-repeat center center;
+}
+
+.img4{
+    background: url("/media/theme/shkolkovo/avatar.png") no-repeat center center;
+}

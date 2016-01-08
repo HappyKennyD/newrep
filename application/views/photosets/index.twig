@@ -1,0 +1,45 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/photogallery.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/photogallery.js') }}"></script>
+{% endblock extrascripts %}
+{% block content %}
+    <div id="scontent"></div>
+    <div id="photogallery-list" class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <article>
+            {% if error is defined %}<strong>{{ error }}</strong>{% endif %}
+            {% for item in photosets %}
+                <div class="photo-item-block{% if loop.index % 2 == 0 %} photo-block-2{% endif %}">
+                    <div class="photo-block-image">
+                        <a href="{{ Url.site('photosets/view/'~item.id~'#scontent') }}">
+                            <img src="{% if item.isCover() %}{{ Url.media('images/w300-h225-ccc-si/'~item.pathCover()) }}{% else %}{{ Url.media('images/w300-h225-ccc-si/media/images/nocover.jpg') }}{% endif %}" alt="{{ item.name }}" title="{{ item.name }}"  oncontextmenu="return false"/>
+                        </a>
+                    </div>
+                    <div class="photo-block-description">
+                        <p class="g-a-title"><a href="{{ Url.site('photosets/view/'~item.id~'#scontent') }}">{{ item.name() }}</a></p>
+                        <p class="g-a-date">{{ Date.ru_date(item.date, 'd.m.Y') }} {{ item.category.name }}</p>
+                        <p class="g-a-date">{{ item.countphoto() }} {{ CorrectDeclension.give(item.countphoto(), '1фотография', '2фотографии', '5фотографий', '21фотография')|i18n }}</p>
+                    </div>
+                </div>
+                
+                {% if loop.index % 2 == 0 or loop.last %}
+                    <div class="g-clear-div"></div>
+                {% endif %}
+            {% endfor %}
+            
+            {{ paginate|raw }}
+        </article>
+        
+        <aside>
+            <ul>
+                {% for cat in categories %}
+                    <li{% if loop.first %} class="m-top-5"{% endif %}><a{% if cat.id == category %} class="selected-g-nav"{% endif %} href="{{ Url.site('photosets/'~cat.id~'#scontent') }}">{{ cat.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
+    </div>
+{% endblock content %}

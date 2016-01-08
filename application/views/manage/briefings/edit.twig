@@ -1,0 +1,52 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+<div style="padding: 20px;">
+    <form action="" method="POST">
+        <div>
+            <h4>Редактирование / добавление брифинга</h4>
+        </div>
+        <div>
+            <label for="title">{{ "Title"|i18n }}</label>
+            {% if errors.title is defined %}
+                <span class="alert">{{ errors.title }}</span>
+            {% endif %}
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ item.title }}" style="width: 98%;"/>
+
+            <label for="desc">{{ "Краткое описание (максимум 200 символов)"|i18n }}</label>
+            {% if errors.desc is defined %}
+                <span class="alert">{{ errors.desc }}</span>
+            {% endif %}
+            <textarea class="redactor" name="desc" id="desc" style="width: 98%;">{{ item.desc }}</textarea>
+
+            <label for="text">{{ "Text"|i18n }}</label>
+            {% if errors.text is defined %}
+                <span class="alert">{{ errors.text }}</span>
+            {% endif %}
+            <textarea class="redactor" name="text" id="text" style="width: 98%;">{{ item.text }}</textarea>
+            <label for="datepicker">{{ "Date"|i18n }}</label>
+            <input type="text" name="date" class="datepicker"
+                   data-date="{% if item.date is empty %}{{ "now"|date("Y-m-d H:i") }}{% else %}{{ item.date|date("Y-m-d H:i") }}{% endif %}"
+                   data-date-format="dd.mm.yyyy hh:ii" value="{% if item.date is empty %}{{ "now"|date("d.m.Y H:i") }}{% else %}{{ item.date|date("d.m.Y H:i") }}{% endif %}"
+                   id="datepicker" readonly style="cursor: pointer"/>
+
+            <label for="link">Ссылка на видео(youtube)</label>
+            <input type="text" name="link" id="link" class="input-xxlarge" value="{{ item.link }}" style="width: 98%;"/>
+
+            <div>
+                <input type="hidden" name="video" value="0" >
+                <input type="checkbox" name="video" {% if item.video %} checked="checked" {% endif %} value="1" id="video" style="margin: 0 5px 1px 0;"><label for="video" style="display: inline;">{{ "Включить прямую трансляцию"|i18n }}</label>
+            </div>
+
+            <div>
+                <input type="hidden" name="published" value="0" >
+                <input type="checkbox" name="published" {% if item.published is not defined or item.published %} checked="checked" {% endif %} value="1" id="published" style="margin: 0 5px 1px 0;"><label for="published" style="display: inline;">{{ "Опубликовать"|i18n }}</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="{{ Url.media('manage/briefings') }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

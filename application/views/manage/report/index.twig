@@ -1,0 +1,71 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.total').click(function(e){
+                e.preventDefault();
+                var counter = $(this).data('counter');
+
+                $('.history').hide();
+                $('.history-'+counter).fadeIn(400);
+            });
+        });
+    </script>
+
+    <div class="page-header">
+        <h4>{{ "Report"|i18n }} {% if dates.start==dates.end %}{{ dates.start }}{% else %}{{ dates.start }} - {{ dates.end }}{% endif %}</h4>
+        <form action="" method="POST">
+            <div>
+                {{ "Start date"|i18n }}: <input type="text" name="start" value="{{ dates.start }}" class="datepicker" />
+            </div>
+            <div>
+                {{ "End date"|i18n }}: <input type="text" name="end" value="{{ dates.end }}" class="datepicker" />
+            </div>
+            <div>
+                <button class="btn btn-info btn-mini">{{ "Filter by date"|i18n }} <i class="icon-filter"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="page">
+        <table class="table">
+            <tr>
+                <th>{{ "Section"|i18n }}</th>
+                <th>{{ "Author"|i18n }}</th>
+                <th>{{ "Count of publications"|i18n }}</th>
+                <th>{{ "Count of words"|i18n }}</th>
+            </tr>
+            {% set counter = 0 %}
+            {% for k, item in data %}
+                {% for u, row in item %}
+                    {% set counter = counter + 1 %}
+                    <tr>
+                        <td>{{ models[k] }}<br />
+                            <span title="{{ "Report today"|i18n }}" style="padding-right: 5px;" class="label label-info">{{ today[k] }}</span>
+                            <span title="{{ "Report all"|i18n }}" style="padding-right: 5px;" class="label label-success">{{ all[k] }}</span>
+                        </td>
+                        <td>{{ u }}</td>
+                        <td><a href="#" class="total" data-counter="{{ counter }}">{{ row.count }}</a></td>
+                        <td>{{ row.words }}</td>
+                    <tr>
+                    <tr class="history history-{{ counter }}" style="display: none;">
+                        <td colspan="4">
+                            {% for i,pub in row.pubs %}
+                                <b>{{ row.event[i]|i18n }}</b>
+                                {% if row.event[i] == 'delete' %}
+                                    <span style="color: red">{{ row.title[i] }}</span><br/>
+                                {% else %}
+                                    {% if row.has[i] %}
+                                        {{ pub|raw }} <br />
+                                    {% else %}
+                                        {{ row.title[i] }}<br />
+                                    {% endif %}
+
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

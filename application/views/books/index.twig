@@ -1,0 +1,49 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    {#<link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/library.css') }}" />#}
+{% endblock %}
+{% block content %}
+    <div class="top-background">
+        <div id="scontent"></div>
+    </div>
+    <div class="wrap" style="">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div class="div100">
+
+        </div>
+
+        
+        <div id="book-left">
+            <div class="book-list">
+                {%  if books %}
+                    {% for item in books %}
+                        <div class="subject">
+                            <div class="about_book">
+                                <div class="image_book inlbl">
+                                    <img src="/media/theme/uchebnik/book.png" alt=""/>
+                                </div>
+                                <div class="info_book inlbl">
+                                    <h2>{{ item.subject }}, {{ item.class }} класс</h2>
+                                    <p>•  <span>Язык:</span> {{ item.language }} </p>
+                                    <p>•  <span>Издательство:</span> {{ item.publisher }} </p>
+                                    <p>•  <span>Авторы:</span> {{ item.author }} </p>
+                                    <p>•  <span>кол-во страниц:</span> {{ item.kol_page }} </p>
+                                </div>
+                            </div>
+                            <a href="{{ Url.site('books/view/'~item.id) }}">
+                                <div class="abs-right abs-bottom learn">
+                                    <p class="">Читать</p>
+                                </div>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+
+            {{ paginate|raw }}
+        </div>
+
+    </div>
+
+{% endblock content %}

@@ -1,0 +1,160 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="interactive-map">
+        <div class="wrap">
+            <div class="locate-map" style="height: 544px; width: 940px;  background: url('{{ Url.media('media/theme/areas/'~district.key~'.png') }}') no-repeat center center";>
+                {% for point in points %}
+                    {% if point.published %}
+                        <a href="#"
+                           rel="tooltip"
+                           class="city-item"
+                           data-trigger="hover"
+                           data-html="true"
+                           data-placement="top"
+                           data-title="{{ point.name }}"
+                           data-content="<img src='/images/w190/{{ Url.media(point.picture.file_path) }}'><br /> {{ point.desc }}"
+                           style="margin-top : {{ point.y }}px; margin-left : {{ point.x }}px;">
+                            {#  {{ point.name }} #}
+                            <div style="margin: -6px auto 0; width: 24px; height: 24px; background: transparent url({{ Url.media('media/theme/markers/'~point.marker~'.png') }}) no-repeat scroll 0 0;"></div>
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+                <div id="bigredpoint" style="display: none;">
+                    <i class="icon-remove"></i>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('.city-item').popover();
+                });
+            </script>
+        </div>
+    </div>
+
+    <div class="page">
+    {% for item in points %}
+        <div class="well well-small">
+            <div class="text">
+                <div class="date">
+                    <span class="btn-group pull-right">
+                        <a class="btn btn-mini" href="{{ Url.media('manage/point/view/'~item.id) }}"><i class="icon-eye-open"></i> {{ "View"|i18n }}</a>
+                        <a class="btn btn-mini" href="{{ Url.media('manage/point/edit/'~item.id) }}"><i class="icon-edit"> </i> {{ "Edit"|i18n }}</a>
+                        {% if item.published %}
+                            <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/point/published/'~item.id) }}"><i class="icon-eye-close"> </i> {{ "Hide"|i18n }}</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-success" href="{{ Url.media('manage/point/published/'~item.id) }}"><i class="icon-eye-open"> </i> {{ "Unhide"|i18n }}</a>
+                        {% endif %}
+                        <a class="btn btn-mini btn-danger" title={{ "Delete"|i18n }} href="{{ Url.media('manage/point/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                    </span>
+                    <div class="pull-left">
+                        <a class="link" href="{{ Url.media('manage/point/view/'~item.id) }}">{{ item.name }}</a>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div>
+                    {{ item.desc }}<br>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+    <script type="text/javascript">
+
+        /* Открываем модальное окно: */
+        function open_popup(box) {
+            $("#background").show()
+            $(box).centered_popup();
+            $(box).delay(100).show(1);
+        }
+
+        /* Закрываем модальное окно: */
+        function close_popup(box) {
+            $(box).hide();
+            $("#background").delay(100).hide(1);
+        }
+
+        $(document).ready(function () {
+            $('.city-item').popover();
+
+            $(".locate-map").click(function(e){
+                var x = e.pageX - $(this).offset().left;
+                var y = e.pageY - $(this).offset().top;
+                //console.log(x,y);
+
+                $.browser = {};
+                $.browser.mozilla = /mozilla/.test(navigator.userAgent.toLowerCase()) && !/webkit/.test(navigator.userAgent.toLowerCase());
+                $.browser.webkit = /webkit/.test(navigator.userAgent.toLowerCase());
+                $.browser.opera = /opera/.test(navigator.userAgent.toLowerCase());
+                $.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+
+                if ($.browser.webkit == true || $.browser.safari == true || $.browser.opera == true || $.browser.mozilla == true)
+                {
+                    x = x - 30;
+                    y = y - 35;
+                }
+                else if ($.browser.msie == true)
+                {
+                    x = x - 30;
+                    y = y - 30;
+                }
+                x = x.toFixed();
+                y = y.toFixed();
+                $("#pointa").attr('href', "{{ Url.media('manage/maps/point/'~district.id) }}-"+x+"-"+y);
+                {% for item in points %}
+                    $("#pointa_{{ item.id }}").attr('href', "{{ Url.media('manage/maps/coor/'~item.id) }}-"+x+"-"+y);
+                {% endfor %}
+                open_popup('#modal_window');
+
+                $("#bigredpoint").css('position', 'absolute');
+                $("#bigredpoint").css('margin-top', (y+20)+'px');
+                $("#bigredpoint").css('margin-left', (x+10)+'px');
+                $("#bigredpoint").show();
+            });
+
+            /* Позиционируем блочный элемент окна по центру страницы: */
+            $.fn.centered_popup = function() {
+                this.css('position', 'absolute');
+                this.css('top', ($(window).height() - this.height()) / 2 + $(window).scrollTop() + 'px');
+                this.css('left', ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + 'px');
+            }
+        });
+    </script>
+
+    <div id="modal_window">
+        <a class="btn btn-info" id="pointa"><i class="icon-plus icon-white"></i> {{ "Add point"|i18n }}</a>
+        {% for item in points %}
+            <a class="btn btn-success" id="pointa_{{ item.id }}"><i class="icon-plus icon-white"></i> {{ item.name }}</a><br>
+        {% endfor %}
+        <a class="btn" onclick="close_popup('#modal_window');" href="#">
+            <i class="icon-remove icon-white"></i> {{ "Cancel"|i18n }}
+        </a>
+    </div>
+    <div id="background"></div>
+
+    <style type="text/css">
+        #background {
+            left: 0;
+            top: 0;
+            position: absolute;
+            background: #000;
+            opacity: 0.7;
+            z-index: 999;
+            display: none;
+            height: 100%;
+            width: 100%;
+        }
+
+        #modal_window {
+            display: none;
+            z-index: 9999;
+            border: 1px solid #444;
+            background-color: #FEFEFE;
+            border-radius: 10px;
+            padding: 15px 20px;
+            height: 25px;
+            width: 300px;
+        }
+    </style>
+{% endblock content %}

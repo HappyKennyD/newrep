@@ -1,0 +1,16 @@
+.projects { 
+width: 940px;
+  margin: 0 auto;
+}
+
+.projects img{
+ padding: 10px;
+}
+
+ul.line { 
+margin: 0; padding: 5px; 
+}
+
+ul.line li { 
+display: inline; padding: 10px; 
+}

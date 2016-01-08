@@ -1,0 +1,38 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" href="{{ Url.media('media/css/redactor/redactor.css') }}"/>
+    <link rel="stylesheet" href="{{ Url.media('media/js/redactor/plugins/smiles/smiles.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/redactor.js') }}"></script>
+    <script type="text/javascript" src="{{ Url.media('media/js/redactor/plugins/smiles/smiles.js') }}"></script>
+    <script type="text/javascript" src="/media/js/redactor/redactor.ru.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".redactor").redactor({
+                plugins: ['smiles'],
+                lang: 'ru',
+                imageUpload:'{{ Url.media("filemanager/rimages") }}',
+                buttons: ['formatting', '|', 'bold', 'italic', 'underline', 'deleted', 'unorderedlist', 'orderedlist', '|','image', '|', 'horizontalrule', '|', 'alignleft', 'aligncenter', 'alignright', 'justify']
+            });
+        });
+    </script>
+{% endblock %}
+{% block content %}
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        <div class="div100"><h1>{{ 'Edit'|i18n }}</h1></div>
+        {% if errors.text is defined %}
+            {{ errors.text|i18n }}
+        {% endif %}
+        <form method="post" action="{{ Url.site('forum/editmes/'~message.id~'/page-'~page) }}">
+            <input type="hidden" value="{{ token }}" name="token">
+            <div class="modal-body">
+                {{ message.text|raw }}
+            </div>
+             {#<label for="text">{{ 'Edit'|i18n }}</label>#}
+             <textarea class="redactor" name="text" id="text" maxlength="10000">{% if post is defined %}{{ post.text }}{% else %}{{ message.text|default('') }}{% endif %}</textarea>
+             <button type="submit" class="btn btn-success">{{ 'Save'|i18n }}</button>
+        </form>
+    </div>
+{% endblock content %}

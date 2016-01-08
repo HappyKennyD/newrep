@@ -1,0 +1,50 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <strong>Список категорий видео</strong>
+        <div class="pull-right">
+            <a class="btn" href="{{ Url.media('manage/video/newcategory') }}"><i class="icon-plus"> {{ "Add"|i18n }}</i></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="page">
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    <div style="padding-left: 1em">
+                        ВИДЕО БЕЗ КАТЕГОРИИ ({{ count_video_not_category }})
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group pull-right">
+                        <a class="btn btn-mini btn-info" href="{{ Url.media('manage/video/category') }}"><i class="icon-play-circle"></i> Видео ({{ count_video_not_category }})</a>
+                    </div>
+                </td>
+            </tr>
+        {% for item in list %}
+            <tr>
+                <td>
+                    <div style="padding-left: {{ item.level }}em">
+                        {{ item.name }}
+                    </div>
+                </td>
+                <td>
+                    <div class="btn-group pull-right">
+                        {% if item.lvl==1 %}
+                            <a class="btn btn-mini" href="{{ Url.media('manage/video/newcategory/'~item.id) }}"><i class="icon-plus"></i> Подкатегория</a>
+                        {% elseif item.lvl==2 %}
+                            <a class="btn btn-mini btn-info" href="{{ Url.media('manage/video/category/'~item.id) }}"><i class="icon-play-circle"></i> Видео ({{ item.videos.count_all() }})</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/video/newcategory/'~item.id) }}"><i class="icon-plus"></i> Подкатегория с названием сериала</a>
+                        {% else %}
+                            <a class="btn btn-mini btn-info" href="{{ Url.media('manage/video/category/'~item.id) }}"><i class="icon-play-circle"></i> Видео ({{ item.videos.count_all() }})</a>
+                        {% endif %}
+                        <a class="btn btn-mini" href="{{ Url.media('manage/video/editcategory/'~item.id) }}"><i class="icon-edit"></i> Редактировать</a>
+                        <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/video/deletecategory/'~item.id) }}"><i class="icon-remove icon-white"></i></a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </table>
+    </div>
+{% endblock content %}

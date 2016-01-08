@@ -1,0 +1,26 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/calendar/edit/'~item.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/calendar/delete/'~item.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div>
+            ({{ Date.ru_date('2013-'~item.month~'-'~item.day, 'd F') }})<br>
+            <h4>{{ item.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if item.picture.file_path is defined %}
+                <img src="{{ Url.site(item.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+        </div>
+        <div>
+            <strong>{{ item.desc }}</strong>
+        </div><br>
+        <div>
+            {{ item.text|raw }}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

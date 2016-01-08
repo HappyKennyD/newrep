@@ -1,0 +1,176 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/profile.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    {% include 'profile/profilejs.twig' %}
+{% endblock %}
+{% block content %}
+    <div class="wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+
+        <div id="cabinet-left">
+            <div class="div100"><h1>{{ "Subscriptions"|i18n }}</h1></div>
+
+            <div id="profile-subscription-list">
+                <table>
+                    <colgroup>
+                        <col width="90%"/>
+                        <col/>
+                    </colgroup>
+                    {% for item in subscriptions %}
+                        <tr>
+                            <td {% if loop.index > 5 %}class="subhide" style="display:none"{% endif %}>
+                                <a href="{{ Url.site('contents/list/'~item.category_id) }}">{{ item.category.name }}</a>
+                            </td>
+                            <td {% if loop.index > 5 %}class="subhide" style="display:none"{% endif %}>
+                                <a href="{{ Url.site('profile/deletesubscription/'~item.id) }}" class="profile-sub">{{ "Unsubscribe"|i18n }}</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </table>
+                {% if counts.subs>5 %}
+                    <a id='subshow'
+                       style="color=#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Show more"|i18n }}</a>
+                    <a id='subhide'
+                       style="display:none; color=#148bbe;text-decoration: none; border-bottom: 1px dashed #148bbe;">{{ "Hide"|i18n }}</a>
+                {% endif %}
+            </div>
+
+            <div class="profile-category-title"><h3>{{ "Subscription settings"|i18n }}</h3></div>
+
+            <div id="profile-subscribe-block">
+                <form method="post" action='{{ Url.site('profile/subset') }}'>
+
+                    <div class="inputLabel">{{ "Select Language"|i18n }}</div>
+                    {% if settings.lang is defined %}{% set language=settings.lang %}{% else %}{% set language=_language %}{% endif %}
+                    {% if settings.period is defined %}{% set period=settings.period %}{% else %}{% set period=2 %}{% endif %}
+                    <div id="select_language" class="select-element-block z1">
+                        <div class="select-element-text">{% if language == 'ru' %}Русский{% elseif language == 'kz' %}Қазақша{% else %}English{% endif %}</div>
+
+                        <div class="select-click-area"></div>
+
+                        <div class="select-element-list">
+                            <div>
+                                <ul>
+                                    <li alt="kz">Қазақша</li>
+                                    <li alt="ru">Русский</li>
+                                    <li alt="en">English</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inputLabel">{{ "Select the period of sending subscription"|i18n }}</div>
+
+                    <div id="select_period" class="select-element-block z0">
+                        <div class="select-element-text">{% if period == 1 %}{{ "Once a day"|i18n }}{% elseif period == 2 %}{{ "Once a week"|i18n }}{% else %}{{ "Once a month"|i18n }}{% endif %}</div>
+
+                        <div class="select-click-area"></div>
+
+                        <div class="select-element-list">
+                            <div>
+                                <ul>
+                                    <li alt="1">{{ "Once a day"|i18n }}</li>
+                                    <li alt="2">{{ "Once a week"|i18n }}</li>
+                                    <li alt="3">{{ "Once a month"|i18n }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="subscribe-button-block">
+                        <input type="submit" class="button" value="{{ "Save"|i18n }}"/>
+
+                        <input type="hidden" name="lang" id="lang" value="{{ language }}"/>
+                        <input type="hidden" name="period" id="period" value="{{ period }}"/>
+
+                        <input type="hidden" value="{{ Url.site('ajax/profile') }}" id="site_url"/>
+                    </div>
+                </form>
+            </div>
+
+            <div class="profile-category-title"><h3>{{ "Do Subscribe"|i18n }}</h3></div>
+
+            <div id="profile-subscribe-block">
+                <form method="post">
+                    <div class="inputLabel">{{ "Select the section"|i18n }}</div>
+
+                    <div id="select_parent_block" class="select-element-block z3">
+                        <div class="select-element-text">{{ parent[0].name }}</div>
+
+                        <div class="select-click-area"></div>
+
+                        <div class="select-element-list">
+                            <div>
+                                <ul>
+                                    {% for item in parent %}
+                                        <li alt="{{ item.id }}">{{ item.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="select_child_block" class="select-element-block z2 m-top-25">
+                        <div class="select-element-text">{{ "For All"|i18n }}</div>
+
+                        <div class="select-click-area"></div>
+
+                        <div class="select-element-list">
+                            <div>
+                                <ul>
+                                    {% for item in child %}
+                                        <li alt="{{ item.id }}">{{ item.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="subscribe-button-block">
+                        <input type="submit" class="button" value="{{ "To Subscribe"|i18n }}"/>
+
+                        <input type="hidden" name="parent_id" id="parent_id"/>
+                        <input type="hidden" name="lang" id="lang" value="{{ _language }}"/>
+                        <input type="hidden" name="child_id" id="child_id" value="{{ parent[0].id }}"/>
+                        <input type="hidden" name="period" id="period" value="{{ period }}"/>
+
+                        <input type="hidden" value="{{ Url.site('ajax/profile') }}" id="site_url"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="cabinet-right">
+            {% include "profile/navigation.twig" %}
+        </div>
+
+        <div id="profile-clear"></div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#subhide").click(function () {
+                $("#subshow").show();
+                $("#subhide").hide();
+                $(".subhide").hide();
+            });
+            $("#subshow").click(function () {
+                $("#subhide").show();
+                $("#subshow").hide();
+                $(".subhide").show();
+            });
+            $("#debhide").click(function () {
+                $("#debshow").show();
+                $("#debhide").hide();
+                $(".debhide").hide();
+            });
+            $("#debshow").click(function () {
+                $("#debhide").show();
+                $("#debshow").hide();
+                $(".debhide").show();
+            });
+        });
+    </script>
+{% endblock content %}

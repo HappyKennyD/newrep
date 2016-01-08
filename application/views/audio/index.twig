@@ -1,0 +1,56 @@
+{% extends "layout/html.twig" %}
+{% block extrastyles %}
+    <link rel="stylesheet" type="text/css" href="{{ Url.media('media/css/audio.css') }}"/>
+{% endblock %}
+{% block extrascripts %}
+    <script type="text/javascript" src="{{ Url.media('media/js/audio.js') }}"></script>
+{% endblock %}
+{% block content %}
+    <div id="scontent"></div>
+    <div class="item-list wrap">
+        <div class="div100">{% include 'layout/bread-crumbs.twig' %}</div>
+        
+        <div id="audio-left">
+            <div class="div100"><h1>{% if selected_cat!=0 and name_category!='' %}{{ name_category }}{% else %}{{ "All audio"|i18n }}{% endif %}</h1></div>
+            
+            <div id="audio-list">
+                {% for item in audio %}
+                    <div class="audio-item">
+                        <a href="{{ Url.media(item.mp3.file_path) }}" class="jouele">
+                            {{ item.title }}
+                            {% if selected_cat==0 and item.category.name!='' %}{{ '('~item.category.name~')' }}{% endif %}
+                        </a>
+                    </div>
+                    <div class="clear"></div>
+                 {% else %} {{ "ENT notfoundcontent"|i18n }}
+                {% endfor %}
+            </div>
+            
+            {{ paginate|raw }}
+        </div>
+        
+        <div id="audio-right">
+            <div id="audio-category-list">
+                {#<ul>
+                    <li><a href="#">Художественная литература</a></li>
+                    <li><a href="#">Детская литература</a></li>
+                    <li class="selected-audio-list"><a href="#">Учебные материалы для студентов</a></li>
+                    <li><a href="#">Научно-популярная литература</a></li>
+                    <li><a href="#">Справочные издания</a></li>
+                    <li><a href="#">Документальная литература</a></li>
+                </ul>#}
+
+                <ul>
+                    {% for item in cats %}
+                        {% if item.mama() %}
+                            <li style="padding-left: {{ item.level }}em;"><span>{{ item.name }}</span></li>
+                        {% else %}
+                            <li style="padding-left: {{ item.level }}em;" {% if selected_cat!=0 and selected_cat==item.id %}{{ 'class="selected-audio-list"' }}{% endif %}><a href="{{ Url.site('audio?category=')~item.id~'#scontent' }}">{{ item.name }}</a></li>
+                        {% endif %}
+
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

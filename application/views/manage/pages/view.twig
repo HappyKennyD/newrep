@@ -1,0 +1,19 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="well well-small" style="margin-bottom: 0">
+        <div>
+            <div class="pull-left">
+                <div class="title"><b>{{ item.title }}</b></div>
+            </div>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-mini" href="{{ Url.site('manage/pages/edit/'~item.id) }}"><i class="icon-pencil"></i> Редактировать</a>
+                    <a class="btn btn-mini btn-danger" href="{{ Url.site('manage/pages/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="subpane" style="margin-top: 10px">
+        {{ item.text|raw }}
+    </div>
+{% endblock content %}

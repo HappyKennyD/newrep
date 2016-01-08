@@ -1,0 +1,41 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/exhibits/edit') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in exhibits %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                            <a class="btn btn-mini" href="{{ Url.media('manage/exhibits/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/exhibits/album_edit/?exhibit_id='~item.id) }}"><i class="icon-edit"> </i> Добавить предмет</a>
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/exhibits/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left">
+                            <a class="link" href="{{ Url.site(_language~'/exhibits/album/'~item.id) }}">{{ item.title }}</a>
+                        </div>
+                        <div class="clear"></div>
+                        <div>
+                            <span class="pull-left">
+                            {% for album in item.albums.find_all() %}
+                            {% if loop.first %}
+                                <p>Предметы</p>
+                            {% endif %}
+                            <a class="btn btn-mini" href="{{ Url.media('manage/exhibits/album_edit/'~album.id~'?exhibit_id='~item.id) }}"><i class="icon-edit"> </i> {{ album.title }}</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/exhibits/album_delete/'~album.id) }}"><i class="icon-remove"></i></a>
+                            {% endfor %}
+                            </span>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {{ paginate|raw }}
+    </div>
+{% endblock content %}

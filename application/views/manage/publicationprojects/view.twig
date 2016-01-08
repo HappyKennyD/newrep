@@ -1,0 +1,40 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div style="padding: 20px;">
+        <div class="pull-right btn-group">
+            <a class="btn btn-mini" href="{{ Url.media('manage/publicationprojects/'~type~'/edit/'~item.id) }}"><i class="icon-edit"></i> {{ "Edit"|i18n }}</a>
+            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/publicationprojects/'~type~'/delete/'~item.id) }}"><i class="icon-remove icon-white"></i> {{ "Delete"|i18n }}</a>
+        </div>
+        <div> {% if  _language == 'en' and  item.date_en!='0000-00-00 00:00:00' %}
+                ({{ Date.ru_date(item.date_en, 'd F Y H:i:s') }})
+            {% elseif  _language == 'kz' and  item.date_kz!='0000-00-00 00:00:00' %}
+                ({{ Date.ru_date(item.date_kz, 'd F Y H:i:s') }})
+            {% elseif _language == 'ru' and  item.date_ru!='0000-00-00 00:00:00' %}
+                ({{ Date.ru_date(item.date_ru, 'd F Y H:i:s') }})
+            {% else %}
+                ({{ Date.ru_date(item.date, 'd F Y H:i:s') }})
+            {% endif %}
+          <br>
+            <h4>{{ item.title }}</h4>
+            <div class="clear"></div>
+        </div>
+        <div>
+            {% if item.picture.file_path is defined %}
+                <img src="{{ Url.site(item.picture.file_path, TRUE) }}" alt="{{ "Preview"|i18n }}" />
+            {% endif %}
+        </div>
+        <div>
+            <strong>{{ item.desc }}</strong>
+        </div><br>
+        <div>
+            {{ item.text|raw }}
+        </div>
+        <div>
+            <strong>Теги:</strong> {{ tags }}
+        </div>
+        <div>
+            <strong>Проект:</strong> {{ project }}
+        </div>
+        <div class="clear"></div>
+    </div>
+{% endblock content %}

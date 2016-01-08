@@ -1,0 +1,75 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+    <div class="page-header">
+        {% include('manage/specprojects/title.twig') %}
+
+    <div class="page-header">
+        <form action="" method="POST" style="margin: 0">
+            <textarea id="title1" name="title1" style="width: 98%; resize: none;" rows="3" maxlength="500">{{ title }}</textarea>
+            <input class="btn btn-success" type="submit" value="Изменить"/>
+        </form>
+    </div>
+
+        <div class="clear"></div>
+
+        <div class="pull-right">
+            <a class="btn btn-success" href="{{ Url.media('manage/specprojects/'~type~'/edit') }}"><i class="icon-plus"></i> {{ "Add"|i18n }}</a>
+        </div>
+        {#<form action="" method="POST" style="margin: 0">
+            <input type="text" name="search" id="search" class="input-xxlarge" value="" style="margin: 0" placeholder="{{ "Search"|i18n }}"/>
+        </form> #}
+
+        <div class="clear"></div>
+    </div>
+    <div class="page">
+        {% for item in list %}
+            <div class="well well-small">
+                <div class="text">
+                    <div class="date">
+                        <span class="btn-group pull-right">
+                                {#<a class="btn btn-info btn-mini" href="{{ Url.media('manage/specprojects/'~type~'/up/' ~item.id) }}"><i class="icon-arrow-up"></i></a>
+                                <a class="btn btn-info btn-mini" href="{{ Url.media('manage/specprojects/'~type~'/down/' ~item.id) }}"><i class="icon-arrow-down"></i></a>#}
+                            <a class="btn btn-mini" href="{{ Url.media('manage/specprojects/'~type~'/view/'~item.id) }}"><i class="icon-eye-open"> </i> Просмотр</a>
+                            <a class="btn btn-mini" href="{{ Url.media('manage/specprojects/'~type~'/edit/'~item.id) }}"><i class="icon-edit"> </i> Редактировать</a>
+                            {% if item.spec_published %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/specprojects/'~type~'/published/'~item.id) }}"><i class="icon-eye-close"> </i> Скрыть</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" href="{{ Url.media('manage/specprojects/'~type~'/published/'~item.id) }}"><i class="icon-eye-open"> </i> Опубликовать</a>
+                            {% endif %}
+
+                            {% if item.in_slider==1 %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/specprojects/'~type~'/slider/'~item.id) }}"><i class="icon-list-alt"> </i> Убрать из слайдера</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" style="width: 110px" href="{{ Url.media('manage/specprojects/'~type~'/slider/'~item.id) }}"><i class="icon-list-alt"> </i> В слайдер</a>
+                            {% endif %}
+
+                            {% if item.in_middle==1 %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/specprojects/'~type~'/middle/'~item.id) }}"><i class="icon-list-alt"> </i> Убрать из среднего блока</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" style="width: 140px" href="{{ Url.media('manage/specprojects/'~type~'/middle/'~item.id) }}"><i class="icon-list-alt"> </i> В средний блок</a>
+                            {% endif %}
+
+                            {% if item.in_bottom==1 %}
+                                <a class="btn btn-mini btn-warning" href="{{ Url.media('manage/specprojects/'~type~'/bottom/'~item.id) }}"><i class="icon-list-alt"> </i> Убрать из нижнего блока</a>
+                            {% else %}
+                                <a class="btn btn-mini btn-success" style="width: 140px" href="{{ Url.media('manage/specprojects/'~type~'/bottom/'~item.id) }}"><i class="icon-list-alt"> </i> В нижний блок</a>
+                            {% endif %}
+
+                            <a class="btn btn-mini btn-danger" href="{{ Url.media('manage/specprojects/'~type~'/delete/'~item.id) }}"><i class="icon-remove"> </i></a>
+                        </span>
+                        <div class="pull-left">{{ Date.ru_date(item.date, 'd F Y, H:i') }} —
+                        <a class="link" href="{{ Url.media('manage/specprojects/'~type~'/view/'~item.id) }}">{{ item.title }}</a>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div>
+                        {{ item.desc }}<br>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        {{ paginate|raw }}
+
+    </div>
+{% endblock content %}

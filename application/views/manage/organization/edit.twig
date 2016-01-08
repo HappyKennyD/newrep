@@ -1,0 +1,156 @@
+{% extends "manage/layout/manage.twig" %}
+{% block content %}
+
+<script src="//api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+
+<script type="text/javascript">
+
+	var myMap, myPlacemark, coords;
+
+    ymaps.ready(init);
+
+    function init () {
+
+        //Определяем начальные параметры карты
+        myMap = new ymaps.Map('YMapsID', {
+            center: {% if content.center_map %}[{{ content.center_map|split(',')[1] }},{{ content.center_map|split(',')[0] }}]{% else %}[51.13712973, 71.45585781]{% endif %},
+            zoom: {% if content.scale %}[{{ content.scale }}]{% else %}10{% endif %},
+            behaviors: ['default', 'scrollZoom']
+        });
+
+        //Определяем элемент управления поиск по карте
+        var SearchControl = new ymaps.control.SearchControl({noPlacemark:true});
+
+        //Добавляем элементы управления на карту
+        myMap.controls
+                .add(SearchControl)
+                .add('zoomControl')
+                .add('typeSelector')
+                .add('mapTools');
+
+        coords = {% if content.coords_label %}[{{ content.coords_label|split(',')[1] }},{{ content.coords_label|split(',')[0] }}]{% else %}[51.13712973, 71.45585781]{% endif %};
+
+        //Определяем метку и добавляем ее на карту
+        myPlacemark = new ymaps.Placemark([56.326944, 44.0075],{}, {preset: "twirl#redIcon", draggable: true});
+
+        myMap.geoObjects.add(myPlacemark);
+
+        //Отслеживаем событие перемещения метки
+        myPlacemark.events.add("dragend", function (e) {
+            coords = this.geometry.getCoordinates();
+            savecoordinats();
+        }, myPlacemark);
+
+        //Отслеживаем событие щелчка по карте
+        myMap.events.add('click', function (e) {
+            coords = e.get('coordPosition');
+            savecoordinats();
+        });
+
+        //Отслеживаем событие выбора результата поиска
+        SearchControl.events.add("resultselect", function (e) {
+            coords = SearchControl.getResultsArray()[e.get('resultIndex')].geometry.getCoordinates();
+            savecoordinats();
+        });
+
+        //Ослеживаем событие изменения области просмотра карты - масштаб и центр карты
+        myMap.events.add('boundschange', function (event) {
+            if (event.get('newZoom') != event.get('oldZoom')) {
+                savecoordinats();
+            }
+            if (event.get('newCenter') != event.get('oldCenter')) {
+                savecoordinats();
+            }
+
+        });
+
+    }
+
+    //Функция для передачи полученных значений в форму
+    function savecoordinats (){
+        var new_coords = [coords[0].toFixed(4), coords[1].toFixed(4)];
+        myPlacemark.getOverlay().getData().geometry.setCoordinates(new_coords);
+        document.getElementById("latlongmet").value = coords[1].toFixed(4)+','+coords[0].toFixed(4);
+        document.getElementById("mapzoom").value = myMap.getZoom();
+        var center = myMap.getCenter();
+        var new_center = [center[1].toFixed(4), center[0].toFixed(4)];
+        document.getElementById("latlongcenter").value = new_center;
+    }
+
+    </script>
+
+    <form action="" method="POST" style="margin:0">
+    <div class="page-header">
+            <h4>{{ "Редактирование описания организации"|i18n }}</h4>
+    </div>
+        <div style="padding:15px;">
+            <label for="title">{{ "Title"|i18n }}</label>
+            <input type="text" name="title" id="title" class="input-xxlarge" value="{{ content.title }}" style="width: 98%;" />
+            <label>{{ "Image"|i18n }}</label>
+            {{ uploader|raw }}
+            {% if content.image is defined and content.image  %}
+                <div style="margin-bottom: 10px">
+                    <img src="{{ Url.media(content.picture.file_path, TRUE) }}" alt="" id="photo" />
+                    <input type="hidden" id="image" name="image" value="{{ content.image }}">
+                </div>
+                <a class="btn btn-info" onclick="return confirm('Вы уверены, что хотите удалить изображение?')" href="{{ Url.site('manage/organization/clearimage/'~content.id) }}"><i class="icon-trash"></i> Удалить изображение?</a>
+            {% else %}
+                <img alt="" id="photo" style="display: none;"/>
+                <input type="hidden" id="image" name="image" value="0" />
+            {% endif %}
+            <label for="description">{{ "Описание"|i18n }}</label>
+<!--            <textarea name="description" id="description" rows="8" style="width: 98%;">{{ content.description }}</textarea>
+    -->        <textarea class="redactor" name="description" id="description" style="width: 98%;">{{ content.description }}</textarea>
+
+            <label for="address">{{ "Адрес"|i18n }}</label>
+            <input type="text" name="address" id="address" class="input-xxlarge" value="{{ content.address }}" style="width: 98%;" />
+            <div id="YMapsID" style="width:739px; height:350px; margin-bottom: 20px;" ></div>
+            <div id="coord_form">
+                <label for="latlongmet" style="display: inline;">Координаты метки: </label><input id="latlongmet" class="input-medium" name="coords_label" value="{{ content.coords_label }}"/>
+                <label for="mapzoom" style="display: inline;">Масштаб: </label><input id="mapzoom" class="input-medium" name="scale" style="width: 15%" value="{{ content.scale }}" />
+                <label for="latlongcenter" style="display: inline;">Центр карты: </label><input id="latlongcenter" class="input-medium" name="center_map" value="{{ content.center_map }}" />
+            </div>
+            <label for="phone">{{ "Телефоны" }}</label>
+            <div id="phone">
+                {% for item in content.phone|split('|') %}
+                    <input type="text" name="phone[]" class="input-xxlarge" value="{{ item }}" style="width: 95%;" id="phone_{{ loop.index }}"/>
+                    <span onclick="delete_phone('{{ loop.index }}')" style="cursor:pointer;" id="span_{{ loop.index }}"><i class="icon-remove"></i><br></span>
+                {% else %}
+                    <input type="text" name="phone[]" class="input-xxlarge" value="" style="width: 95%;" id="phone_1" />
+                    <span onclick="delete_phone(1)" style="cursor:pointer;" id="span_1"><i class="icon-remove"></i><br></span>
+                {% endfor %}
+            </div>
+            <a onclick="add_phone()" id="add_pole" style="cursor: pointer;">Добавить еще один телефон</a>
+            <label for="fax">{{ "Факс" }}</label>
+            <input type="text" name="fax" id="fax" class="input-xxlarge" value="{{ content.fax }}" style="width: 98%;" />
+            <label for="email">{{ "Электронная почта"|i18n }}</label>
+            <input type="text" name="email" id="email" class="input-xxlarge" value="{{ content.email }}" style="width: 98%;" />
+            <label for="site">{{ "Сайт"|i18n }}</label>
+            <input type="text" name="site" id="site" class="input-xxlarge" value="{{ content.site }}" style="width: 98%;" />
+            <label for="social_vk">{{ "Социальные сети: vkontakte"|i18n }}</label>
+            <input type="text" name="social_vk" id="social_vk" class="input-xxlarge" value="{{ content.social_vk }}" style="width: 98%;" />
+            <label for="social_fb">{{ "Социальные сети: facebook"|i18n }}</label>
+            <input type="text" name="social_fb" id="social_fb" class="input-xxlarge" value="{{ content.social_fb }}" style="width: 98%;" />
+            <label for="social_twitter">{{ "Социальные сети: twitter"|i18n }}</label>
+            <input type="text" name="social_twitter" id="social_twitter" class="input-xxlarge" value="{{ content.social_twitter }}" style="width: 98%;" />
+        </div>
+        <div class="modal-footer">
+            <a href="{{ r }}" class="btn btn-link">{{ "Cancel"|i18n }}</a>
+            <button class="btn btn-success"><i class="icon-ok"></i> {{ "Save"|i18n }}</button>
+        </div>
+    </form>
+    <script type="text/javascript">
+        var count_pole = 1000;
+        function delete_phone(id)
+        {
+            $('#phone_'+id).remove();
+            $('#span_'+id).remove();
+        }
+        function add_phone()
+        {
+            count_pole++;
+            $('#phone').append('<input type="text" name="phone[]" class="input-xxlarge" value="" style="width: 95%;" id="phone_'+count_pole+'" />'+
+                '<span onclick="delete_phone('+count_pole+')" style="cursor:pointer;" id="span_'+count_pole+'"><i class="icon-remove"></i><br></span>');
+        }
+    </script>
+{% endblock content %}
