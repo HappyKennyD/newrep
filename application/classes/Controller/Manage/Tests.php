@@ -128,12 +128,9 @@ class Controller_Manage_Tests extends Controller_Manage_Core {
         array_walk($params, 'intval');
         $ent_id = $params[0];
 //        die($ent_id);
-<<<<<<< HEAD
-=======
         $themes = ORM:: factory('Themes')->find_all();
         $this->set('themes',$themes);
 
->>>>>>> 3b228de6725e664597d96d986d02299d8e14cbd6
         if (isset($params[1]))
         {
             $quest_id = $params[1];
@@ -162,11 +159,8 @@ class Controller_Manage_Tests extends Controller_Manage_Core {
                 $number = $numbers->number + 1;
                 $quest->quest = Security::xss_clean(Arr::get($_POST, 'text', ''));
                 $quest->id_vk = $ent_id;
-<<<<<<< HEAD
-=======
                 $quest->id_subthemes = Security::xss_clean(Arr::get($_POST, 'subthemes', ''));
                 $quest->answer = Security::xss_clean(Arr::get($_POST, 'answer', ''));
->>>>>>> 3b228de6725e664597d96d986d02299d8e14cbd6
                 if (!isset($params[1])) $quest->number = $number;
                 $quest->published = 1;
                 $quest->save();
@@ -279,32 +273,6 @@ class Controller_Manage_Tests extends Controller_Manage_Core {
 
     public function action_addedit()
     {
-<<<<<<< HEAD
-        $id = $this->request->param('id', 0);
-        $params = explode('-', $id);
-        array_walk($params, 'intval');
-        $ent_id = $params[0];
-        if (isset($params[1]))
-        {
-            $quest_id = $params[1];
-            $quest = ORM::factory('Qv', $quest_id);
-        }
-        else
-        {
-            $quest = ORM::factory('Qv');
-        }
-        $kt = ORM::factory('kt', $ent_id);
-
-        $this->set('quest', $quest);
-
-        if ( !$kt->loaded() )
-        {
-            throw new HTTP_Exception_404;
-        }
-        $this->set('kt', $kt);
-        if($id){
-            $vk = ORM::factory('Vk', $id);
-=======
 //        $id = $this->request->param('id', 0);
 //        $params = explode('-', $id);
 //        array_walk($params, 'intval');
@@ -361,7 +329,6 @@ class Controller_Manage_Tests extends Controller_Manage_Core {
 
         if($id){
             $vk = ORM::factory('vk', $id);
->>>>>>> 3b228de6725e664597d96d986d02299d8e14cbd6
             $this->set('vk', $vk);
         }
         else{
@@ -372,13 +339,7 @@ class Controller_Manage_Tests extends Controller_Manage_Core {
             try
             {
                 $vk=ORM::factory('vk', $id);
-<<<<<<< HEAD
-                $vk->id_kt = $ent_id;
                 $vk->title = $title;
-                $vk->published = 1;
-=======
-                $vk->title = $title;
->>>>>>> 3b228de6725e664597d96d986d02299d8e14cbd6
                 $vk->date=date("Y-m-d H:i:s");
                 $vk->save();
 
@@ -386,11 +347,7 @@ class Controller_Manage_Tests extends Controller_Manage_Core {
                 $loger = new Loger($event,$vk->title);
                 $loger->log($vk);
 
-<<<<<<< HEAD
-                $this->redirect('manage/tests/addvar/'.$ent_id);
-=======
                 $this->redirect('manage/tests/addvar/'.$vk->id_kt);
->>>>>>> 3b228de6725e664597d96d986d02299d8e14cbd6
             }
             catch (ORM_Validation_Exception $e)
             {

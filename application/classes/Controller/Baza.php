@@ -4,10 +4,6 @@ class Controller_Baza extends Controller_Core {
 
     public function action_index()
     {
-<<<<<<< HEAD
-
-    }
-=======
         $qv = ORM::factory('qv')->order_by('id')->find_all();
         $this->set('qv', $qv);
 
@@ -39,5 +35,4 @@ class Controller_Baza extends Controller_Core {
         }
     }
 
->>>>>>> 3b228de6725e664597d96d986d02299d8e14cbd6
 }
