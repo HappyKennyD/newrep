@@ -5208,17 +5208,19 @@ tr:nth-child(1){
 /* стили модального окна */
 .popup {
     left: 52%;
-    z-index: 20;
+    z-index: -1;
     margin: 0;
     width: 473px;
     height: 682px;
     position: fixed;
     opacity: 0;
-    transition: opacity 1s ease-out;
+    transition: all 1s ease-out;
+    top:0%;
 }
 /* активируем модальный блок */
 .overlay:target~.popup {
     opacity: 1;
+    z-index:20;
 
 }
 .popup1{
@@ -5237,7 +5239,7 @@ tr:nth-child(1){
     width: 36px;
     height: 36px;
     margin-left: 928px;
-    margin-top: 341px;
+    top: 341px;
     position:absolute;
     z-index: 100;
     transition: z-index ease-in-out .5s;
